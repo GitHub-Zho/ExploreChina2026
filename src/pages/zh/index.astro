@@ -1,13 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/v1/HeroSection.astro';
-import DestinationCarousel from '../../components/v1/DestinationCarousel.astro';
 import DestinationGrid from '../../components/v1/DestinationGrid.astro';
 import Faq from '../../components/v1/Faq.astro';
 ---
 <Layout title="探索中国｜学生项目" lang="zh" alternateHref="/" alternateLabel="EN">
   <HeroSection isZh={true} />
-  <DestinationCarousel isZh={true} />
   <DestinationGrid isZh={true} />
 
   <section id="itinerary" class="py-20">
@@ -23,19 +21,6 @@ import Faq from '../../components/v1/Faq.astro';
           <h3 class="text-2xl font-semibold mb-2">第6-10天 · 北京</h3>
           <p class="text-stone-600 leading-7">以长城、故宫为核心锚点，安排学生交流活动与结营社交夜，最后统一离境支持。</p>
         </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="guide" class="py-20 bg-white">
-    <div class="container">
-      <p class="section-eyebrow">攻略</p>
-      <h2 class="section-title">出发中国前的准备</h2>
-      <div class="grid md:grid-cols-4 gap-4 mt-8">
-        <article class="p-5 border border-stone-200 hover:-translate-y-1 transition-transform"><h3 class="font-semibold mb-2">签证申请流程</h3><p class="text-stone-600 text-sm">准备材料与预约时间建议。</p></article>
-        <article class="p-5 border border-stone-200 hover:-translate-y-1 transition-transform"><h3 class="font-semibold mb-2">移动支付设置</h3><p class="text-stone-600 text-sm">微信支付与支付宝开通要点。</p></article>
-        <article class="p-5 border border-stone-200 hover:-translate-y-1 transition-transform"><h3 class="font-semibold mb-2">手机卡与网络</h3><p class="text-stone-600 text-sm">机场和市区可选的数据方案。</p></article>
-        <article class="p-5 border border-stone-200 hover:-translate-y-1 transition-transform"><h3 class="font-semibold mb-2">高铁购票指南</h3><p class="text-stone-600 text-sm">购票渠道与乘车流程。</p></article>
       </div>
     </div>
   </section>
