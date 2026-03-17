@@ -277,11 +277,10 @@ a { color: inherit; text-decoration: none; }
 .faq__q:hover { color: var(--color-red); }
 .faq__icon { flex-shrink: 0; transition: transform 0.3s ease; }
 .faq__q[aria-expanded='true'] .faq__icon { transform: rotate(180deg); }
-.faq__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
-.faq__q[aria-expanded='true'] + .faq__a { grid-template-rows: 1fr; }
+.faq__a { display: none; }
+.faq__q[aria-expanded='true'] + .faq__a { display: block; }
 .faq__a-inner {
-  overflow: hidden;
-  padding-bottom: 1.5rem;
+  padding: 0 0 1.5rem;
   color: var(--color-ink-muted);
   line-height: 1.7;
   font-size: .95rem;
