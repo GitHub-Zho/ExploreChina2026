@@ -10,6 +10,7 @@ const {
   alternateLabel,
   minimalNav = false,
   minimalShowApply = true,
+  darkNav = false,
 } = Astro.props as {
   title?: string;
   lang?: 'en' | 'zh';
@@ -17,6 +18,7 @@ const {
   alternateLabel: string;
   minimalNav?: boolean;
   minimalShowApply?: boolean;
+  darkNav?: boolean;
 };
 ---
 <!doctype html>
@@ -27,7 +29,7 @@ const {
     <meta name="description" content={lang === 'zh' ? '学生中国文化探索之旅' : 'Student-led China cultural travel program'} />
     <title>{title}</title>
   </head>
-  <body>
+  <body {...(darkNav ? { 'data-navbar-dark': '' } : {})}>
     <Navbar
       lang={lang}
       alternateHref={alternateHref}

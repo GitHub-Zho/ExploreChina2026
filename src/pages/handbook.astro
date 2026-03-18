@@ -1,24 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { handbookSections, itinerary, currentTrip, handbookPrep, site } from '../data/site';
+import { handbookSections, handbookPrep, site } from '../data/site';
 ---
-<Layout title="Explore China Handbook" lang="en" alternateHref="/zh/handbook" alternateLabel="中文" minimalNav={true}>
+<Layout title="Explore China Handbook" lang="en" alternateHref="/zh/handbook" alternateLabel="中文" minimalNav={true} darkNav={true}>
   <section id="guide" class="section card tone-sand" style="padding:34px;">
     <p class="pill">Participant Handbook</p>
     <h1 style="font-size:clamp(36px,5vw,64px); margin-top:10px;">Explore China Handbook</h1>
-    <p class="muted" style="max-width:860px; font-size:18px;">A participant-facing operations page for route expectations, support structure, and what to prepare before departure.</p>
-    <div class="grid cols-3" style="margin-top:12px;">
-      <div class="card" style="padding:12px; background:#fff;"><p class="label" style="margin:0">Route</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.subtitle}</p></div>
-      <div class="card" style="padding:12px; background:#fff;"><p class="label" style="margin:0">Duration</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.duration}</p></div>
-      <div class="card" style="padding:12px; background:#fff;"><p class="label" style="margin:0">Package</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.priceCad}</p></div>
-    </div>
+    <p class="muted" style="max-width:860px; font-size:18px;">A practical pre-departure guide covering accommodation, logistics, cultural preparation, and what to expect on the ground.</p>
   </section>
 
   <section id="overview" class="section card tone-blue">
     <h2 class="section-title">Program intent</h2>
     <p class="muted" style="max-width:920px; line-height:1.9;">{handbookSections.intro}</p>
     <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn btn-secondary" href="/trips/explore-china-2026-summer">View the trip page</a>
+      <a class="btn btn-secondary" href="/trips/explore-china-2026-summer">View the full itinerary on the trip page →</a>
       <a class="btn btn-primary" href="/trips/explore-china-2026-summer#register">Go to application</a>
     </div>
   </section>
@@ -40,19 +35,6 @@ import { handbookSections, itinerary, currentTrip, handbookPrep, site } from '..
       <h2>Safety and coordination</h2>
       <p class="muted" style="line-height:1.9;">{handbookSections.safety}</p>
     </article>
-  </section>
-
-  <section id="itinerary" class="section card tone-dark">
-    <h2>Full 10-day schedule</h2>
-    <div class="grid cols-2">
-      {itinerary.map((d) => (
-        <article class="card" style="padding:12px; background:#fff; color:#151515; border-color:#ece7dd;">
-          <p class="pill" style="margin-bottom:8px;">{d.day}</p>
-          <h3 style="margin-bottom:6px;">{d.city} · {d.title}</h3>
-          <p class="muted" style="margin:0; color:#545a60;">{d.plan}</p>
-        </article>
-      ))}
-    </div>
   </section>
 
   <section class="section card tone-sand" style="margin-bottom:36px;">

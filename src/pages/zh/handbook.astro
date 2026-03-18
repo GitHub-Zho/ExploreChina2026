@@ -1,24 +1,19 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { handbookSections, itinerary, currentTrip, handbookPrep, site } from '../../data/site';
+import { handbookSections, handbookPrep, site } from '../../data/site';
 ---
-<Layout title="探索中国手册" lang="zh" alternateHref="/handbook" alternateLabel="EN" minimalNav={true}>
+<Layout title="探索中国手册" lang="zh" alternateHref="/handbook" alternateLabel="EN" minimalNav={true} darkNav={true}>
   <section id="guide" class="section card tone-sand" style="padding:34px;">
     <p class="pill">参与者手册</p>
     <h1 style="font-size:clamp(36px,5vw,64px); margin-top:10px;">探索中国手册</h1>
-    <p class="muted" style="max-width:860px; font-size:18px;">这是一页面向参与者的操作参考页，帮助你在出发前建立对路线、支持方式和准备事项的清晰预期。</p>
-    <div class="grid cols-3" style="margin-top:12px;">
-      <div class="card" style="padding:12px; background:#fff;"><p class="label" style="margin:0">路线</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.subtitleZh}</p></div>
-      <div class="card" style="padding:12px; background:#fff;"><p class="label" style="margin:0">时长</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.durationZh}</p></div>
-      <div class="card" style="padding:12px; background:#fff;"><p class="label" style="margin:0">价格</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.priceCadZh}</p></div>
-    </div>
+    <p class="muted" style="max-width:860px; font-size:18px;">出发前实用指南：住宿安排、后勤准备、文化适应与现场预期说明。</p>
   </section>
 
   <section id="overview" class="section card tone-blue">
     <h2 class="section-title">项目定位</h2>
     <p class="muted" style="max-width:920px; line-height:1.9;">{handbookSections.introZh}</p>
     <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn btn-secondary" href="/zh/trips/explore-china-2026-summer">查看行程页</a>
+      <a class="btn btn-secondary" href="/zh/trips/explore-china-2026-summer">查看完整行程页 →</a>
       <a class="btn btn-primary" href="/zh/trips/explore-china-2026-summer#register">前往报名</a>
     </div>
   </section>
@@ -40,19 +35,6 @@ import { handbookSections, itinerary, currentTrip, handbookPrep, site } from '..
       <h2>安全与协调</h2>
       <p class="muted" style="line-height:1.9;">{handbookSections.safetyZh}</p>
     </article>
-  </section>
-
-  <section id="itinerary" class="section card tone-dark">
-    <h2>完整 10 天日程</h2>
-    <div class="grid cols-2">
-      {itinerary.map((d) => (
-        <article class="card" style="padding:12px; background:#fff; color:#151515; border-color:#ece7dd;">
-          <p class="pill" style="margin-bottom:8px;">{d.dayZh}</p>
-          <h3 style="margin-bottom:6px;">{d.cityZh} · {d.titleZh}</h3>
-          <p class="muted" style="margin:0; color:#545a60;">{d.planZh}</p>
-        </article>
-      ))}
-    </div>
   </section>
 
   <section class="section card tone-sand" style="margin-bottom:36px;">

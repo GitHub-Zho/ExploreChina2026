@@ -15,28 +15,26 @@ import Faq from '../components/v1/Faq.astro';
       <p class="section-eyebrow">Itinerary</p>
       <h2 class="section-title">10-Day Route Overview</h2>
       <div class="grid md:grid-cols-2 gap-8 mt-8">
-        <article class="bg-white p-6 border border-stone-200">
-          <h3 class="text-2xl font-semibold mb-2">Days 1-5 · Shanghai / Suzhou / Hangzhou</h3>
-          <p class="text-stone-600 leading-7">Arrival onboarding, Bund and old-town contrast, Suzhou canal heritage, and Hangzhou West Lake + tea culture rhythm.</p>
-        </article>
-        <article class="bg-white p-6 border border-stone-200">
-          <h3 class="text-2xl font-semibold mb-2">Days 6-10 · Beijing</h3>
-          <p class="text-stone-600 leading-7">Great Wall and Forbidden City anchors, student exchange activities, closing social night, and departure support.</p>
-        </article>
+        <a href="/trips/explore-china-2026-summer/" class="block bg-white p-6 border border-stone-200 hover:border-red-300 hover:shadow-md transition-all group">
+          <h3 class="text-2xl font-semibold mb-2 group-hover:text-red-700 transition-colors">Beijing 10-Day Trip</h3>
+          <p class="text-stone-600 leading-7">Great Wall, Forbidden City, student exchange activities, and a closing social night. A complete immersion in China's capital.</p>
+          <span class="inline-block mt-4 text-red-700 font-medium text-sm">View itinerary →</span>
+        </a>
+        <button type="button" id="yunnan-card" class="text-left bg-white p-6 border border-stone-200 hover:border-amber-300 hover:shadow-md transition-all cursor-pointer w-full">
+          <h3 class="text-2xl font-semibold mb-2">Yunnan 10-Day Trip</h3>
+          <p class="text-stone-600 leading-7">Ancient towns, minority cultures, rice terraces, and mountain landscapes. A route through one of China's most visually distinct provinces.</p>
+          <span class="inline-block mt-4 text-stone-400 font-medium text-sm">Coming soon →</span>
+        </button>
       </div>
     </div>
   </section>
 
-  <Faq />
+  <!-- Toast notification -->
+  <div id="yunnan-toast" role="alert" aria-live="polite" class="yunnan-toast">
+    This itinerary is currently being planned. Stay tuned!
+  </div>
 
-  <section id="about-program" class="py-20 bg-white">
-    <div class="container">
-      <p class="section-eyebrow">About this program</p>
-      <h2 class="section-title">About this program</h2>
-      <p class="text-stone-700 leading-8 max-w-3xl">Explore China is a student-run program organized by a small team based in Canada with deep ties to the cities on this route. We built this because we wanted a trip that felt honest — clear costs, real local access, and no tourist-bus energy.</p>
-      <a href="/about" class="inline-block mt-6 bg-red-700 text-white px-6 py-3 hover:bg-red-800 transition-colors">Meet the team →</a>
-    </div>
-  </section>
+  <Faq />
 
   <section id="apply" class="py-20">
     <div class="container">
@@ -53,3 +51,42 @@ import Faq from '../components/v1/Faq.astro';
     </div>
   </section>
 </Layout>
+
+<style>
+.yunnan-toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1c1917;
+  color: #fff;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: none;
+}
+.yunnan-toast.toast-show {
+  animation: toastFade 3.4s ease forwards;
+}
+@keyframes toastFade {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  12%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  75%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+}
+</style>
+
+<script is:inline>
+  document.getElementById('yunnan-card')?.addEventListener('click', function () {
+    const toast = document.getElementById('yunnan-toast');
+    if (!toast) return;
+    toast.classList.remove('toast-show');
+    void toast.offsetWidth; // reflow to restart animation
+    toast.classList.add('toast-show');
+    setTimeout(() => toast.classList.remove('toast-show'), 3500);
+  });
+</script>
