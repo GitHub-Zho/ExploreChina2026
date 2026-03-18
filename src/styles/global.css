@@ -72,11 +72,13 @@ a { color: inherit; text-decoration: none; }
 /* Navbar */
 [data-navbar-dark] .navbar__links a,
 [data-navbar-dark] .navbar__logo,
-[data-navbar-dark] .navbar__lang {
+[data-navbar-dark] .navbar__lang,
+[data-navbar-dark] .navbar__plain-link {
   color: var(--color-ink);
 }
 [data-navbar-dark] .navbar__links a:hover,
-[data-navbar-dark] .navbar__lang:hover {
+[data-navbar-dark] .navbar__lang:hover,
+[data-navbar-dark] .navbar__plain-link:hover {
   color: var(--color-red);
 }
 .navbar.scrolled {
@@ -307,6 +309,47 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .hero__scroll-line { animation: none; opacity: 0.6; }
   .hero__bg video { display: none; }
+}
+
+/* Trip page hero */
+.trip-hero {
+  position: relative;
+  height: clamp(340px, 48vw, 560px);
+  overflow: hidden;
+}
+.trip-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+}
+.trip-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.6) 100%);
+}
+.trip-hero__content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2.5rem;
+  color: #fff;
+  text-align: center;
+}
+.trip-hero__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.trip-hero__title {
+  margin-top: 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-feature-settings: 'lnum';
 }
 
 /* City detail immersive sections */
