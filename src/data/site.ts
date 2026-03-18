@@ -74,6 +74,14 @@ export const cityGuides = [
       "Shanghai dazzles with its fast pace and sharp contrasts, where historic lanes and classical gardens sit beside futuristic skylines. As China's most international city, it is the perfect starting point for our route: easy to enter, full of flavor, and always alive after dark.",
     introZh:
       '上海最迷人的地方在于它的反差：一边是老城厢与园林，一边是摩登天际线与夜色霓虹。作为整条路线的起点，它上手快、节奏明、吃喝玩乐都集中，是第一次到中国时最容易进入状态的一站。',
+    context:
+      "Shanghai matters because it shows how quickly China can shift tone within a single afternoon — treaty-port history, lane life, migrant energy, and futuristic ambition all stack on top of each other.",
+    contextZh:
+      '上海之所以重要，不只是因为它繁华，而是因为它把近代中国的开放、商业、移民流动与当代都市速度叠在了同一座城市里。你会很快读到一种“中国如何进入现代”的现场感。',
+    feeling:
+      "You feel the city through contrast: soup dumplings before neon skylines, quiet garden turns before a loud riverfront, and the sense that the trip has properly begun once everyone starts finding their rhythm together.",
+    feelingZh:
+      '你会通过反差去感受上海：刚吃完冒着热气的小笼包，转身就是霓虹天际线；刚走过安静园林，下一段又进入喧闹江边。对很多外国学生来说，这里会是“我真的来到中国了”的第一下落地感。',
     explore: [
       {
         title: 'Yu Garden & Old Town',
@@ -143,6 +151,14 @@ export const cityGuides = [
       "Suzhou is known for its elegant, slower-living beauty. Compared with Shanghai's speed, it feels calmer and more refined, which makes it the perfect one-day cultural reset within the route.",
     introZh:
       '相比上海的快节奏，苏州更安静、更精致，也更适合把旅行速度慢下来。它像是一段文化缓冲带，让整个行程的节奏更有层次。',
+    context:
+      "Suzhou gives students a different chapter of China: canal trade, scholar-garden aesthetics, and the Jiangnan idea of refinement that has shaped poetry, painting, and elite culture for centuries.",
+    contextZh:
+      '苏州会让人看到中国的另一面：不是超大城市的速度，而是运河贸易、园林审美与江南文人气质怎样一起塑造了一种很深的文化想象。很多“中式优雅”的源头，都能在这里找到影子。',
+    feeling:
+      "The pace softens here. You notice water sounds, shaded paths, slower conversation, and the relief of moving as a small group through a city that feels intimate instead of overwhelming.",
+    feelingZh:
+      '到了这里，身体会先松下来：会注意到水声、树影、桥边的停顿，也会发现大家聊天变慢了。它不是那种要你一直追着看的城市，而是会把人轻轻放进一种更安静的旅行状态里。',
     explore: [
       {
         title: 'National Museum Visit',
@@ -205,6 +221,14 @@ export const cityGuides = [
       'Hangzhou is a poetic lakeside city celebrated for soft scenery and a calmer pace. Centered around West Lake, it feels like a landscape painting you can walk through rather than just photograph from a distance.',
     introZh:
       '杭州是一座很“有画面感”的城市，西湖的路径、水面、树影和缓慢节奏，会让整段旅程突然多出一种轻柔的呼吸感。',
+    context:
+      'Hangzhou has long stood for beauty with substance — an old capital, a center of tea culture, and a place Chinese literature keeps returning to whenever it wants to describe cultivated calm.',
+    contextZh:
+      '杭州的重要性在于，它不是单纯“风景好看”的城市。它曾是都城，也和茶文化、文人书写、江南生活理想深度绑定；很多中国人提到“有文化的松弛感”，脑子里浮现的就是杭州。',
+    feeling:
+      'This is where the route starts breathing differently: lake air, long sightlines, temple bells, tea fragrance, and a mood that makes photos, friendships, and quiet moments all land a little deeper.',
+    feelingZh:
+      '这会是整段路线里最会“呼吸”的一天：湖面、远景、寺院钟声、茶香和更慢的步子，会让拍照、聊天和发呆都变得特别自然。很多人会在这里第一次真正放下赶路感。',
     explore: [
       {
         title: 'West Lake',
@@ -260,6 +284,14 @@ export const cityGuides = [
       'Beijing closes the route with scale, history, and symbolic weight. It is where the trip shifts from “we are traveling in China” to “we are standing inside places we have known by name for years.”',
     introZh:
       '北京是整段路线最有“收束感”的一站。到了这里，旅程会从“在中国旅行”变成“真的走进那些以前只在书里和照片里见过的地方”。',
+    context:
+      'Beijing matters because so much of modern and imperial China runs through it: dynastic planning, political power, university life, and the national symbols many international students already recognize before they arrive.',
+    contextZh:
+      '北京的重要性很直接：无论是帝国时期的空间秩序，还是当代中国的政治中心、大学氛围与国家象征，很多外部世界对中国的想象都在这里聚合。所以它会像整条路线的“总章回”。',
+    feeling:
+      'The city feels larger in every sense — wider avenues, heavier history, bigger landmarks, and then surprisingly human moments in hutongs or student exchanges that make the capital feel personal rather than distant.',
+    feelingZh:
+      '你会先感到它“大”——路更宽、历史更重、地标更有压迫感；但真正让人记住的，常常是胡同里的人味、校园交流里的真实对话，以及那种“首都也能被自己走近”的瞬间。',
     explore: [
       {
         title: 'The Great Wall',

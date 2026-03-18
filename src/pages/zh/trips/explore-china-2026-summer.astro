@@ -27,27 +27,27 @@ import {
   </div>
 
   <!-- Overview -->
-  <section id="overview" class="section card tone-sand" style="padding:34px;">
-    <div class="grid cols-4" style="margin-top:14px;">
-      <article class="card" style="padding:14px; background:#fff;"><p class="label" style="margin:0">路线</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.subtitleZh}</p></article>
-      <article class="card" style="padding:14px; background:#fff;"><p class="label" style="margin:0">出发时间</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.departureWindowZh}</p></article>
-      <article class="card" style="padding:14px; background:#fff;"><p class="label" style="margin:0">报名截止</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.applicationDeadlineZh}</p></article>
-      <article class="card" style="padding:14px; background:#fff;"><p class="label" style="margin:0">团队规模</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.groupSizeZh}</p></article>
+  <section id="overview" class="section card tone-sand trip-overview" style="padding:34px;">
+    <div class="grid cols-4 trip-overview__stats" style="margin-top:14px;">
+      <article class="card trip-overview__stat"><p class="label trip-overview__label">路线</p><p class="trip-overview__value">{currentTrip.subtitleZh}</p></article>
+      <article class="card trip-overview__stat"><p class="label trip-overview__label">出发时间</p><p class="trip-overview__value">{currentTrip.departureWindowZh}</p></article>
+      <article class="card trip-overview__stat"><p class="label trip-overview__label">报名截止</p><p class="trip-overview__value">{currentTrip.applicationDeadlineZh}</p></article>
+      <article class="card trip-overview__stat"><p class="label trip-overview__label">团队规模</p><p class="trip-overview__value">{currentTrip.groupSizeZh}</p></article>
     </div>
 
-    <div class="grid cols-2" style="margin-top:18px;">
-      <article class="card" style="background:#fff;">
-        <p class="label">价格</p>
-        <p style="font-size:clamp(1.5rem,3vw,2.25rem); font-weight:720; margin-top:6px;">{currentTrip.priceCadZh}</p>
-        <p class="muted" style="margin-top:8px;">它更像一条小规模、高支持度的学生旅行路线，而不是标准化的大团产品。</p>
+    <div class="grid cols-2 trip-overview__details" style="margin-top:18px;">
+      <article class="card trip-price-card">
+        <p class="label trip-price-card__eyebrow">价格</p>
+        <p class="trip-price-card__value">{currentTrip.priceCadZh}</p>
+        <p class="trip-price-card__note">它更像一条小规模、高支持度的学生旅行路线，而不是标准化的大团产品。</p>
       </article>
-      <article class="card" style="background:#fff;">
-        <p class="label">适合谁</p>
-        <p class="muted" style="margin-top:6px; line-height:1.8;">适合希望行程清晰、有代表性城市、又不想只有"打卡感"的学生与年轻旅行者。</p>
+      <article class="card trip-overview__fit-card">
+        <p class="label trip-overview__label">适合谁</p>
+        <p class="trip-overview__body">适合希望行程清晰、有代表性城市、又不想只有“打卡感”的学生与年轻旅行者。</p>
       </article>
     </div>
 
-    <p class="muted" style="text-align:center; margin-top:10px;">联系邮箱：{site.email}</p>
+    <p class="muted trip-overview__contact">联系邮箱：{site.email}</p>
     <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; justify-content:center;">
       <a class="btn btn-primary" href="#register">立即报名</a>
       <a class="btn btn-secondary" href="/zh/handbook">查看参与者手册</a>
@@ -57,56 +57,76 @@ import {
   <!-- Itinerary -->
   <section id="itinerary" class="section card tone-dark">
     <h2 class="section-title">10天路线一览</h2>
-    <div class="grid cols-2">
+    <div class="grid cols-2 trip-route-grid">
       {itinerary.map((d) => (
-        <article class="card" style="padding:12px; background:#fff; color:#151515; border-color:#ece7dd;">
-          <p class="pill" style="margin-bottom:8px;">{d.dayZh}</p>
-          <h3 style="margin-bottom:6px;">{d.cityZh} · {d.titleZh}</h3>
-          <p class="muted" style="margin:0; color:#545a60;">{d.planZh}</p>
+        <article class="card trip-route-card">
+          <p class="pill trip-route-card__day">{d.dayZh}</p>
+          <h3 class="trip-route-card__title">{d.cityZh} · {d.titleZh}</h3>
+          <p class="muted trip-route-card__plan">{d.planZh}</p>
         </article>
       ))}
     </div>
   </section>
 
   <!-- City Guides -->
-  {cityGuides.map((city, idx) => (
-    <section class={`section card ${idx % 2 === 0 ? 'tone-rose' : 'tone-blue'}`} id={city.city.toLowerCase()}>
-      <div class="grid cols-2" style="align-items:start; gap:20px;">
-        <article>
-          <p class="pill">{city.city}</p>
-          <h2 class="section-title" style="margin-bottom:12px;">{city.cityZh}</h2>
-          <p class="muted" style="font-size:1.05rem; line-height:1.9;">{city.introZh}</p>
-        </article>
-        <article class="card" style="padding:0; overflow:hidden; background:#fff;">
-          <img class="photo media-wide" src={city.heroImage} alt={city.heroAlt} />
-        </article>
-      </div>
+  <section class="section card tone-blue city-tabs-section" id="city-guides" data-city-tabs>
+    <div class="city-tabs-section__header">
+      <p class="section-eyebrow">城市导览 Tabs</p>
+      <h2 class="section-title">先在页面里认识这几座城市</h2>
+      <p class="section-sub">点击标签即可原地切换内容，用更有人味的故事、感受和几个关键亮点，提前建立对每一站的熟悉感。</p>
+    </div>
 
-      <div class="grid cols-3" style="margin-top:18px;">
-        {city.explore.map((spot) => (
-          <article class="card" style="background:#fff;">
-            <p class="label">我们会体验</p>
-            <h3 style="margin:8px 0 10px;">{spot.titleZh}</h3>
-            <p class="muted" style="margin:0; line-height:1.8;">{spot.descriptionZh}</p>
-          </article>
-        ))}
-      </div>
+    <div class="city-tabs__nav" role="tablist" aria-label="城市导览标签">
+      {cityGuides.map((city, idx) => (
+        <button
+          type="button"
+          class={`city-tabs__tab ${idx === 0 ? 'is-active' : ''}`}
+          id={`city-tab-${city.city.toLowerCase()}`}
+          role="tab"
+          aria-selected={idx === 0 ? 'true' : 'false'}
+          aria-controls={`city-panel-${city.city.toLowerCase()}`}
+          data-city-tab={city.city.toLowerCase()}
+          tabindex={idx === 0 ? '0' : '-1'}
+        >
+          <span>{city.cityZh}</span>
+          <span class="city-tabs__tab-sub">{city.city}</span>
+        </button>
+      ))}
+    </div>
 
-      <article class="card" style="margin-top:18px; background:#fff;">
-        <p class="label">食物高光</p>
-        <h3 style="margin:8px 0 10px;">{city.foodHighlight.titleZh}</h3>
-        <p class="muted" style="margin:0; line-height:1.8;">{city.foodHighlight.descriptionZh}</p>
-      </article>
-
-      <div class="grid cols-4" style="margin-top:18px;">
-        {city.gallery.map((image, imageIdx) => (
-          <figure class="card" style="margin:0; padding:0; overflow:hidden; background:#fff;">
-            <img class="photo media-card" src={image} alt={`${city.cityZh} 参考图片 ${imageIdx + 1}`} loading={idx === 0 && imageIdx < 2 ? 'eager' : 'lazy'} />
+    {cityGuides.map((city, idx) => (
+      <article
+        class={`city-tabs__panel ${idx === 0 ? 'is-active' : ''}`}
+        id={`city-panel-${city.city.toLowerCase()}`}
+        role="tabpanel"
+        aria-labelledby={`city-tab-${city.city.toLowerCase()}`}
+        hidden={idx !== 0}
+        data-city-panel={city.city.toLowerCase()}
+      >
+        <div class="city-tabs__panel-grid">
+          <figure class="card city-tabs__hero">
+            <img class="photo media-wide" src={city.heroImage} alt={city.heroAlt} loading={idx === 0 ? 'eager' : 'lazy'} />
           </figure>
-        ))}
-      </div>
-    </section>
-  ))}
+          <div class="city-tabs__story">
+            <p class="pill">{city.cityZh} · {city.city}</p>
+            <h3 class="city-tabs__title">为什么这座城市值得你在路上认真感受</h3>
+            <p class="city-tabs__lead">{city.contextZh}</p>
+            <p class="city-tabs__text">{city.feelingZh}</p>
+          </div>
+        </div>
+
+        <div class="city-tabs__highlights">
+          {city.explore.slice(0, 4).map((spot) => (
+            <article class="card city-tabs__highlight">
+              <p class="label">关键亮点</p>
+              <h4>{spot.titleZh}</h4>
+              <p class="muted">{spot.descriptionZh}</p>
+            </article>
+          ))}
+        </div>
+      </article>
+    ))}
+  </section>
 
   <!-- Included / Not Included -->
   <section class="section grid cols-2">
@@ -217,6 +237,40 @@ import {
       const expanded = btn.getAttribute('aria-expanded') === 'true';
       document.querySelectorAll('.faq__q').forEach((b) => b.setAttribute('aria-expanded', 'false'));
       if (!expanded) btn.setAttribute('aria-expanded', 'true');
+    });
+  });
+
+  document.querySelectorAll('[data-city-tabs]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll('[data-city-tab]'));
+    const panels = Array.from(root.querySelectorAll('[data-city-panel]'));
+
+    const activateTab = (key) => {
+      tabs.forEach((tab) => {
+        const active = tab.getAttribute('data-city-tab') === key;
+        tab.classList.toggle('is-active', active);
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        tab.setAttribute('tabindex', active ? '0' : '-1');
+      });
+
+      panels.forEach((panel) => {
+        const active = panel.getAttribute('data-city-panel') === key;
+        panel.classList.toggle('is-active', active);
+        panel.hidden = !active;
+      });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateTab(tab.getAttribute('data-city-tab')));
+      tab.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+        event.preventDefault();
+        const nextIndex = event.key === 'ArrowRight'
+          ? (index + 1) % tabs.length
+          : (index - 1 + tabs.length) % tabs.length;
+        const nextTab = tabs[nextIndex];
+        nextTab.focus();
+        activateTab(nextTab.getAttribute('data-city-tab'));
+      });
     });
   });
 </script>

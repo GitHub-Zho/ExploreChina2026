@@ -95,6 +95,32 @@ a { color: inherit; text-decoration: none; }
 .navbar.scrolled .navbar__lang:hover {
   color: var(--color-red);
 }
+.navbar--hero:not(.scrolled) {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.42) 52%, rgba(15, 23, 42, 0.12) 78%, transparent 100%);
+}
+.navbar--hero:not(.scrolled) .navbar__logo,
+.navbar--hero:not(.scrolled) .navbar__links a,
+.navbar--hero:not(.scrolled) .navbar__lang,
+.navbar--hero:not(.scrolled) .navbar__plain-link {
+  text-shadow: 0 1px 14px rgba(0,0,0,0.35);
+}
+.navbar--hero:not(.scrolled) .navbar__inner {
+  position: relative;
+}
+.navbar--hero:not(.scrolled) .navbar__inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
+  opacity: 0.9;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.12);
+  pointer-events: none;
+}
+.navbar--hero:not(.scrolled) .navbar__inner > * {
+  position: relative;
+  z-index: 1;
+}
 
 /* Hero */
 .hero {
@@ -304,6 +330,19 @@ a { color: inherit; text-decoration: none; }
   .hero__title { font-size: clamp(3rem, 11vw, 4.5rem); }
   .btn--hero-ghost { margin-left: 0; margin-top: .75rem; }
   .carousel { aspect-ratio: 4/3; }
+  .navbar--hero:not(.scrolled) .navbar__inner::after {
+    border-radius: 24px;
+  }
+  .trip-overview__stats,
+  .trip-overview__details,
+  .trip-route-grid,
+  .city-tabs__panel-grid,
+  .city-tabs__highlights {
+    grid-template-columns: 1fr;
+  }
+  .city-tabs__tab {
+    min-width: 138px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -350,6 +389,174 @@ a { color: inherit; text-decoration: none; }
   line-height: 1;
   letter-spacing: -0.02em;
   font-feature-settings: 'lnum';
+}
+
+/* Trip page detail cards */
+.trip-overview__stat,
+.trip-overview__fit-card,
+.trip-price-card,
+.trip-route-card,
+.city-tabs__highlight,
+.city-tabs__hero {
+  background: #fff;
+}
+.trip-overview__stat {
+  padding: 1rem;
+  border-color: #e9e1d3;
+}
+.trip-overview__label,
+.trip-price-card__eyebrow {
+  margin: 0;
+}
+.trip-overview__value {
+  margin-top: 0.45rem;
+  font-weight: 680;
+  line-height: 1.5;
+  color: #1d242d;
+}
+.trip-price-card {
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border-color: #e5dac5;
+  background: linear-gradient(180deg, #fffaf0 0%, #fff 100%);
+}
+.trip-price-card__value {
+  margin-top: 0.6rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: #7b1323;
+}
+.trip-price-card__note,
+.trip-overview__body,
+.trip-route-card__plan,
+.city-tabs__lead,
+.city-tabs__text,
+.city-tabs__highlight .muted {
+  line-height: 1.85;
+}
+.trip-price-card__note {
+  margin-top: 0.85rem;
+  color: #5d5447;
+}
+.trip-overview__fit-card {
+  padding: clamp(1.35rem, 2.8vw, 1.9rem);
+  border-color: #e9e1d3;
+}
+.trip-overview__body {
+  margin-top: 0.45rem;
+  color: #4e575f;
+}
+.trip-overview__contact {
+  text-align: center;
+  margin-top: 0.9rem;
+}
+.trip-route-grid {
+  gap: 1rem;
+}
+.trip-route-card {
+  padding: 1.15rem 1.2rem 1.3rem;
+  color: #151515;
+  border-color: #ece7dd;
+}
+.trip-route-card__day {
+  margin-bottom: 0.85rem;
+}
+.trip-route-card__title {
+  margin-bottom: 0.65rem;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  line-height: 1.35;
+  color: #18212a;
+}
+.trip-route-card__plan {
+  margin: 0;
+  color: #545a60;
+}
+.city-tabs-section__header {
+  max-width: 780px;
+}
+.city-tabs__nav {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+  padding-bottom: 0.35rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.city-tabs__tab {
+  flex: 0 0 auto;
+  min-width: 160px;
+  padding: 0.95rem 1.1rem;
+  border: 1px solid #d7dbe1;
+  background: rgba(255,255,255,0.78);
+  color: #22303d;
+  text-align: left;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.city-tabs__tab:hover,
+.city-tabs__tab:focus-visible {
+  border-color: #c8102e;
+  outline: none;
+}
+.city-tabs__tab.is-active {
+  background: #fff;
+  border-color: #c8102e;
+  box-shadow: 0 12px 28px rgba(19, 29, 43, 0.08);
+  transform: translateY(-1px);
+}
+.city-tabs__tab-sub {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+.city-tabs__panel {
+  margin-top: 1.4rem;
+}
+.city-tabs__panel-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.95fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+.city-tabs__hero {
+  padding: 0;
+  overflow: hidden;
+  min-height: 100%;
+}
+.city-tabs__story {
+  padding: clamp(1.35rem, 2.6vw, 2rem);
+  background: rgba(255,255,255,0.88);
+  border: 1px solid #dfe4ea;
+}
+.city-tabs__title {
+  margin: 0.9rem 0 0.8rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.15;
+}
+.city-tabs__lead {
+  color: #243241;
+}
+.city-tabs__text {
+  margin-top: 0.9rem;
+  color: #53606c;
+}
+.city-tabs__highlights {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+.city-tabs__highlight {
+  padding: 1rem;
+  border-color: #e2e6eb;
+}
+.city-tabs__highlight h4 {
+  margin: 0.45rem 0 0.55rem;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #18212a;
 }
 
 /* City detail immersive sections */

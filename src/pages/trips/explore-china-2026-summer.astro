@@ -27,27 +27,27 @@ import {
   </div>
 
   <!-- Overview -->
-  <section id="overview" class="section card tone-sand" style="padding:34px;">
-    <div class="grid cols-4" style="margin-top:14px;">
-      <article class="card" style="padding:14px; background:#fff;"><p class="label" style="margin:0">Route</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.subtitle}</p></article>
-      <article class="card" style="padding:14px; background:#fff;"><p class="label" style="margin:0">Departure</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.departureWindow}</p></article>
-      <article class="card" style="padding:14px; background:#fff;"><p class="label" style="margin:0">Application closes</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.applicationDeadline}</p></article>
-      <article class="card" style="padding:14px; background:#fff;"><p class="label" style="margin:0">Group size</p><p style="margin:6px 0 0; font-weight:680;">{currentTrip.groupSize}</p></article>
+  <section id="overview" class="section card tone-sand trip-overview" style="padding:34px;">
+    <div class="grid cols-4 trip-overview__stats" style="margin-top:14px;">
+      <article class="card trip-overview__stat"><p class="label trip-overview__label">Route</p><p class="trip-overview__value">{currentTrip.subtitle}</p></article>
+      <article class="card trip-overview__stat"><p class="label trip-overview__label">Departure</p><p class="trip-overview__value">{currentTrip.departureWindow}</p></article>
+      <article class="card trip-overview__stat"><p class="label trip-overview__label">Application closes</p><p class="trip-overview__value">{currentTrip.applicationDeadline}</p></article>
+      <article class="card trip-overview__stat"><p class="label trip-overview__label">Group size</p><p class="trip-overview__value">{currentTrip.groupSize}</p></article>
     </div>
 
-    <div class="grid cols-2" style="margin-top:18px;">
-      <article class="card" style="background:#fff;">
-        <p class="label">Price</p>
-        <p style="font-size:clamp(1.5rem,3vw,2.25rem); font-weight:720; margin-top:6px;">{currentTrip.priceCad}</p>
-        <p class="muted" style="margin-top:8px;">Designed as a high-support student route with a small-group feel, not a mass-tour product.</p>
+    <div class="grid cols-2 trip-overview__details" style="margin-top:18px;">
+      <article class="card trip-price-card">
+        <p class="label trip-price-card__eyebrow">Price</p>
+        <p class="trip-price-card__value">{currentTrip.priceCad}</p>
+        <p class="trip-price-card__note">Designed as a high-support student route with a small-group feel, not a mass-tour product.</p>
       </article>
-      <article class="card" style="background:#fff;">
-        <p class="label">Who it suits best</p>
-        <p class="muted" style="margin-top:6px; line-height:1.8;">Students and young travelers who want clear structure, iconic cities, and enough local/social context to make the route feel alive rather than transactional.</p>
+      <article class="card trip-overview__fit-card">
+        <p class="label trip-overview__label">Who it suits best</p>
+        <p class="trip-overview__body">Students and young travelers who want clear structure, iconic cities, and enough local/social context to make the route feel alive rather than transactional.</p>
       </article>
     </div>
 
-    <p class="muted" style="text-align:center; margin-top:10px;">Contact: {site.email}</p>
+    <p class="muted trip-overview__contact">Contact: {site.email}</p>
     <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; justify-content:center;">
       <a class="btn btn-primary" href="#register">Apply</a>
       <a class="btn btn-secondary" href="/handbook">Open participant handbook</a>
@@ -57,56 +57,76 @@ import {
   <!-- Itinerary -->
   <section id="itinerary" class="section card tone-dark">
     <h2 class="section-title">10-day route at a glance</h2>
-    <div class="grid cols-2">
+    <div class="grid cols-2 trip-route-grid">
       {itinerary.map((d) => (
-        <article class="card" style="padding:12px; background:#fff; color:#151515; border-color:#ece7dd;">
-          <p class="pill" style="margin-bottom:8px;">{d.day}</p>
-          <h3 style="margin-bottom:6px;">{d.city} · {d.title}</h3>
-          <p class="muted" style="margin:0; color:#545a60;">{d.plan}</p>
+        <article class="card trip-route-card">
+          <p class="pill trip-route-card__day">{d.day}</p>
+          <h3 class="trip-route-card__title">{d.city} · {d.title}</h3>
+          <p class="muted trip-route-card__plan">{d.plan}</p>
         </article>
       ))}
     </div>
   </section>
 
   <!-- City Guides -->
-  {cityGuides.map((city, idx) => (
-    <section class={`section card ${idx % 2 === 0 ? 'tone-rose' : 'tone-blue'}`} id={city.city.toLowerCase()}>
-      <div class="grid cols-2" style="align-items:start; gap:20px;">
-        <article>
-          <p class="pill">{city.cityZh}</p>
-          <h2 class="section-title" style="margin-bottom:12px;">{city.city}</h2>
-          <p class="muted" style="font-size:1.05rem; line-height:1.9;">{city.intro}</p>
-        </article>
-        <article class="card" style="padding:0; overflow:hidden; background:#fff;">
-          <img class="photo media-wide" src={city.heroImage} alt={city.heroAlt} />
-        </article>
-      </div>
+  <section class="section card tone-blue city-tabs-section" id="city-guides" data-city-tabs>
+    <div class="city-tabs-section__header">
+      <p class="section-eyebrow">City Guide Tabs</p>
+      <h2 class="section-title">Meet the cities before you arrive</h2>
+      <p class="section-sub">Switch tabs in place to get the cultural story, the on-the-ground feeling, and a few practical anchors for each stop on the route.</p>
+    </div>
 
-      <div class="grid cols-3" style="margin-top:18px;">
-        {city.explore.map((spot) => (
-          <article class="card" style="background:#fff;">
-            <p class="label">We will explore</p>
-            <h3 style="margin:8px 0 10px;">{spot.title}</h3>
-            <p class="muted" style="margin:0; line-height:1.8;">{spot.description}</p>
-          </article>
-        ))}
-      </div>
+    <div class="city-tabs__nav" role="tablist" aria-label="City guide tabs">
+      {cityGuides.map((city, idx) => (
+        <button
+          type="button"
+          class={`city-tabs__tab ${idx === 0 ? 'is-active' : ''}`}
+          id={`city-tab-${city.city.toLowerCase()}`}
+          role="tab"
+          aria-selected={idx === 0 ? 'true' : 'false'}
+          aria-controls={`city-panel-${city.city.toLowerCase()}`}
+          data-city-tab={city.city.toLowerCase()}
+          tabindex={idx === 0 ? '0' : '-1'}
+        >
+          <span>{city.city}</span>
+          <span class="city-tabs__tab-sub">{city.cityZh}</span>
+        </button>
+      ))}
+    </div>
 
-      <article class="card" style="margin-top:18px; background:#fff;">
-        <p class="label">Food highlight</p>
-        <h3 style="margin:8px 0 10px;">{city.foodHighlight.title}</h3>
-        <p class="muted" style="margin:0; line-height:1.8;">{city.foodHighlight.description}</p>
-      </article>
-
-      <div class="grid cols-4" style="margin-top:18px;">
-        {city.gallery.map((image, imageIdx) => (
-          <figure class="card" style="margin:0; padding:0; overflow:hidden; background:#fff;">
-            <img class="photo media-card" src={image} alt={`${city.city} travel reference ${imageIdx + 1}`} loading={idx === 0 && imageIdx < 2 ? 'eager' : 'lazy'} />
+    {cityGuides.map((city, idx) => (
+      <article
+        class={`city-tabs__panel ${idx === 0 ? 'is-active' : ''}`}
+        id={`city-panel-${city.city.toLowerCase()}`}
+        role="tabpanel"
+        aria-labelledby={`city-tab-${city.city.toLowerCase()}`}
+        hidden={idx !== 0}
+        data-city-panel={city.city.toLowerCase()}
+      >
+        <div class="city-tabs__panel-grid">
+          <figure class="card city-tabs__hero">
+            <img class="photo media-wide" src={city.heroImage} alt={city.heroAlt} loading={idx === 0 ? 'eager' : 'lazy'} />
           </figure>
-        ))}
-      </div>
-    </section>
-  ))}
+          <div class="city-tabs__story">
+            <p class="pill">{city.city} · {city.cityZh}</p>
+            <h3 class="city-tabs__title">Why this city matters on the route</h3>
+            <p class="city-tabs__lead">{city.context}</p>
+            <p class="city-tabs__text">{city.feeling}</p>
+          </div>
+        </div>
+
+        <div class="city-tabs__highlights">
+          {city.explore.slice(0, 4).map((spot) => (
+            <article class="card city-tabs__highlight">
+              <p class="label">Key highlight</p>
+              <h4>{spot.title}</h4>
+              <p class="muted">{spot.description}</p>
+            </article>
+          ))}
+        </div>
+      </article>
+    ))}
+  </section>
 
   <!-- Included / Not Included -->
   <section class="section grid cols-2">
@@ -217,6 +237,40 @@ import {
       const expanded = btn.getAttribute('aria-expanded') === 'true';
       document.querySelectorAll('.faq__q').forEach((b) => b.setAttribute('aria-expanded', 'false'));
       if (!expanded) btn.setAttribute('aria-expanded', 'true');
+    });
+  });
+
+  document.querySelectorAll('[data-city-tabs]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll('[data-city-tab]'));
+    const panels = Array.from(root.querySelectorAll('[data-city-panel]'));
+
+    const activateTab = (key) => {
+      tabs.forEach((tab) => {
+        const active = tab.getAttribute('data-city-tab') === key;
+        tab.classList.toggle('is-active', active);
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        tab.setAttribute('tabindex', active ? '0' : '-1');
+      });
+
+      panels.forEach((panel) => {
+        const active = panel.getAttribute('data-city-panel') === key;
+        panel.classList.toggle('is-active', active);
+        panel.hidden = !active;
+      });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateTab(tab.getAttribute('data-city-tab')));
+      tab.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+        event.preventDefault();
+        const nextIndex = event.key === 'ArrowRight'
+          ? (index + 1) % tabs.length
+          : (index - 1 + tabs.length) % tabs.length;
+        const nextTab = tabs[nextIndex];
+        nextTab.focus();
+        activateTab(nextTab.getAttribute('data-city-tab'));
+      });
     });
   });
 </script>

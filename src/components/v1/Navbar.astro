@@ -5,6 +5,7 @@ interface Props {
   alternateLabel: string;
   minimal?: boolean;
   minimalShowApply?: boolean;
+  hero?: boolean;
 }
 
 const {
@@ -13,10 +14,11 @@ const {
   alternateLabel,
   minimal = false,
   minimalShowApply = true,
+  hero = false,
 } = Astro.props as Props;
 const isZh = lang === 'zh';
 ---
-<header class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+<header class={`navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${hero ? 'navbar--hero' : ''}`} id="navbar">
   <div class="container navbar__inner flex items-center justify-between h-16 md:h-20">
     <a href={isZh ? '/zh/' : '/'} class="navbar__logo text-white font-semibold tracking-wide">{isZh ? '探索中国' : 'Explore China'}</a>
 
