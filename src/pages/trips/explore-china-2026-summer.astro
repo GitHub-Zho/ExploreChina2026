@@ -130,16 +130,25 @@ import {
   <!-- Videos -->
   <section class="section card tone-blue">
     <h2 class="section-title">Video references before you decide</h2>
-    <div class="grid cols-3">
-      {recommendedVideos.map((video) => (
-        <article class="card" style="background:#fff;">
-          <p class="label">Watch</p>
-          <h3 style="margin:8px 0 6px;">{video.title}</h3>
-          <p class="muted" style="margin:0 0 10px;">{video.creator}</p>
-          <p class="muted" style="margin:0 0 12px; line-height:1.8;">{video.note}</p>
-          <a class="text-link" href={video.url} target="_blank">Open video ↗</a>
-        </article>
-      ))}
+    <div class="grid cols-3 video-grid">
+      {recommendedVideos.map((video) => {
+        const ytId = video.url.match(/[?&]v=([^&]+)/)?.[1] || '';
+        return (
+          <a href={video.url} target="_blank" rel="noopener" class="video-card">
+            <div class="video-card__thumb">
+              <img src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`} alt={video.title} loading="lazy" />
+              <div class="video-card__play">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.6)"/><path d="M19 15l14 9-14 9V15z" fill="#fff"/></svg>
+              </div>
+            </div>
+            <div class="video-card__info">
+              <h3 class="video-card__title">{video.title}</h3>
+              <p class="video-card__creator">{video.creator}</p>
+              <p class="video-card__note">{video.note}</p>
+            </div>
+          </a>
+        );
+      })}
     </div>
   </section>
 
