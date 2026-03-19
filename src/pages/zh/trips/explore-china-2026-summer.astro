@@ -26,44 +26,37 @@ import {
     </div>
   </div>
 
-  <!-- Overview -->
-  <section id="overview" class="section card tone-sand trip-overview" style="padding:34px;">
-    <div class="grid cols-4 trip-overview__stats" style="margin-top:14px;">
-      <article class="card trip-overview__stat"><p class="label trip-overview__label">路线</p><p class="trip-overview__value">{currentTrip.subtitleZh}</p></article>
-      <article class="card trip-overview__stat"><p class="label trip-overview__label">出发时间</p><p class="trip-overview__value">{currentTrip.departureWindowZh}</p></article>
-      <article class="card trip-overview__stat"><p class="label trip-overview__label">报名截止</p><p class="trip-overview__value">{currentTrip.applicationDeadlineZh}</p></article>
-      <article class="card trip-overview__stat"><p class="label trip-overview__label">团队规模</p><p class="trip-overview__value">{currentTrip.groupSizeZh}</p></article>
-    </div>
-
-    <div class="grid cols-2 trip-overview__details" style="margin-top:18px;">
-      <article class="card trip-price-card">
-        <p class="label trip-price-card__eyebrow">价格</p>
-        <p class="trip-price-card__value">{currentTrip.priceCadZh}</p>
-        <p class="trip-price-card__note">它更像一条小规模、高支持度的学生旅行路线，而不是标准化的大团产品。</p>
-      </article>
-      <article class="card trip-overview__fit-card">
-        <p class="label trip-overview__label">适合谁</p>
-        <p class="trip-overview__body">适合希望行程清晰、有代表性城市、又不想只有“打卡感”的学生与年轻旅行者。</p>
-      </article>
-    </div>
-
-    <p class="muted trip-overview__contact">联系邮箱：{site.email}</p>
-    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; justify-content:center;">
-      <a class="btn btn-primary" href="#register">立即报名</a>
-      <a class="btn btn-secondary" href="/zh/handbook">查看参与者手册</a>
+  <!-- Overview — compact info strip -->
+  <section id="overview" class="trip-strip">
+    <div class="trip-strip__inner">
+      <div class="trip-strip__facts">
+        <div class="trip-strip__fact"><span class="trip-strip__label">路线</span><span class="trip-strip__val">{currentTrip.subtitleZh}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">出发</span><span class="trip-strip__val">{currentTrip.departureWindowZh}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">价格</span><span class="trip-strip__val trip-strip__val--price">{currentTrip.priceCadZh}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">人数</span><span class="trip-strip__val">{currentTrip.groupSizeZh}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">截止</span><span class="trip-strip__val">{currentTrip.applicationDeadlineZh}</span></div>
+      </div>
+      <div class="trip-strip__actions">
+        <a class="btn btn-primary" href="#register">立即报名</a>
+        <a class="btn btn-secondary" href="/zh/handbook">手册</a>
+      </div>
     </div>
   </section>
 
-  <!-- Itinerary -->
+  <!-- Itinerary — compact timeline -->
   <section id="itinerary" class="section card tone-dark">
     <h2 class="section-title">10天路线一览</h2>
-    <div class="grid cols-2 trip-route-grid">
+    <div class="trip-timeline">
       {itinerary.map((d) => (
-        <article class="card trip-route-card">
-          <p class="pill trip-route-card__day">{d.dayZh}</p>
-          <h3 class="trip-route-card__title">{d.cityZh} · {d.titleZh}</h3>
-          <p class="muted trip-route-card__plan">{d.planZh}</p>
-        </article>
+        <div class="trip-timeline__row">
+          <div class="trip-timeline__day">{d.dayZh}</div>
+          <div class="trip-timeline__dot"></div>
+          <div class="trip-timeline__content">
+            <strong class="trip-timeline__city">{d.cityZh}</strong>
+            <span class="trip-timeline__title">{d.titleZh}</span>
+            <p class="trip-timeline__plan">{d.planZh}</p>
+          </div>
+        </div>
       ))}
     </div>
   </section>

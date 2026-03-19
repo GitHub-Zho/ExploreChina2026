@@ -26,44 +26,37 @@ import {
     </div>
   </div>
 
-  <!-- Overview -->
-  <section id="overview" class="section card tone-sand trip-overview" style="padding:34px;">
-    <div class="grid cols-4 trip-overview__stats" style="margin-top:14px;">
-      <article class="card trip-overview__stat"><p class="label trip-overview__label">Route</p><p class="trip-overview__value">{currentTrip.subtitle}</p></article>
-      <article class="card trip-overview__stat"><p class="label trip-overview__label">Departure</p><p class="trip-overview__value">{currentTrip.departureWindow}</p></article>
-      <article class="card trip-overview__stat"><p class="label trip-overview__label">Application closes</p><p class="trip-overview__value">{currentTrip.applicationDeadline}</p></article>
-      <article class="card trip-overview__stat"><p class="label trip-overview__label">Group size</p><p class="trip-overview__value">{currentTrip.groupSize}</p></article>
-    </div>
-
-    <div class="grid cols-2 trip-overview__details" style="margin-top:18px;">
-      <article class="card trip-price-card">
-        <p class="label trip-price-card__eyebrow">Price</p>
-        <p class="trip-price-card__value">{currentTrip.priceCad}</p>
-        <p class="trip-price-card__note">Designed as a high-support student route with a small-group feel, not a mass-tour product.</p>
-      </article>
-      <article class="card trip-overview__fit-card">
-        <p class="label trip-overview__label">Who it suits best</p>
-        <p class="trip-overview__body">Students and young travelers who want clear structure, iconic cities, and enough local/social context to make the route feel alive rather than transactional.</p>
-      </article>
-    </div>
-
-    <p class="muted trip-overview__contact">Contact: {site.email}</p>
-    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; justify-content:center;">
-      <a class="btn btn-primary" href="#register">Apply</a>
-      <a class="btn btn-secondary" href="/handbook">Open participant handbook</a>
+  <!-- Overview — compact info strip -->
+  <section id="overview" class="trip-strip">
+    <div class="trip-strip__inner">
+      <div class="trip-strip__facts">
+        <div class="trip-strip__fact"><span class="trip-strip__label">Route</span><span class="trip-strip__val">{currentTrip.subtitle}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Departure</span><span class="trip-strip__val">{currentTrip.departureWindow}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Price</span><span class="trip-strip__val trip-strip__val--price">{currentTrip.priceCad}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Group</span><span class="trip-strip__val">{currentTrip.groupSize}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Deadline</span><span class="trip-strip__val">{currentTrip.applicationDeadline}</span></div>
+      </div>
+      <div class="trip-strip__actions">
+        <a class="btn btn-primary" href="#register">Apply Now</a>
+        <a class="btn btn-secondary" href="/handbook">Handbook</a>
+      </div>
     </div>
   </section>
 
-  <!-- Itinerary -->
+  <!-- Itinerary — compact timeline -->
   <section id="itinerary" class="section card tone-dark">
     <h2 class="section-title">10-day route at a glance</h2>
-    <div class="grid cols-2 trip-route-grid">
+    <div class="trip-timeline">
       {itinerary.map((d) => (
-        <article class="card trip-route-card">
-          <p class="pill trip-route-card__day">{d.day}</p>
-          <h3 class="trip-route-card__title">{d.city} · {d.title}</h3>
-          <p class="muted trip-route-card__plan">{d.plan}</p>
-        </article>
+        <div class="trip-timeline__row">
+          <div class="trip-timeline__day">{d.day}</div>
+          <div class="trip-timeline__dot"></div>
+          <div class="trip-timeline__content">
+            <strong class="trip-timeline__city">{d.city}</strong>
+            <span class="trip-timeline__title">{d.title}</span>
+            <p class="trip-timeline__plan">{d.plan}</p>
+          </div>
+        </div>
       ))}
     </div>
   </section>
