@@ -393,9 +393,10 @@ a { color: inherit; text-decoration: none; }
 
 /* Trip info strip — compact overview bar */
 .trip-strip {
-  background: #1c1917;
-  color: #fff;
-  padding: 1.25rem 0;
+  background: var(--color-surface, #fff);
+  color: var(--color-ink, #1a1a1a);
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #e5e0d8;
 }
 .trip-strip__inner {
   max-width: 1200px;
@@ -422,7 +423,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  opacity: 0.55;
+  color: var(--color-ink-muted, #5a5a5a);
 }
 .trip-strip__val {
   font-size: 0.95rem;
@@ -430,7 +431,7 @@ a { color: inherit; text-decoration: none; }
   white-space: nowrap;
 }
 .trip-strip__val--price {
-  color: #f0c674;
+  color: var(--color-red, #c8102e);
   font-family: var(--font-display);
   font-size: 1.15rem;
   font-weight: 700;
@@ -439,6 +440,16 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   gap: 0.6rem;
   flex-shrink: 0;
+}
+/* Section spacing for trip page */
+.trip-strip + .section,
+.trip-hero + .trip-strip {
+  margin-top: 0;
+}
+.section + .section,
+.section + .faq,
+.faq + .section {
+  margin-top: clamp(2rem, 5vw, 4rem);
 }
 @media (max-width: 768px) {
   .trip-strip__inner { flex-direction: column; text-align: center; }
@@ -459,7 +470,7 @@ a { color: inherit; text-decoration: none; }
   top: 0;
   bottom: 0;
   width: 2px;
-  background: rgba(255,255,255,0.15);
+  background: #d6cfc2;
 }
 .trip-timeline__row {
   display: flex;
@@ -469,7 +480,7 @@ a { color: inherit; text-decoration: none; }
   position: relative;
 }
 .trip-timeline__row + .trip-timeline__row {
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid #e5e0d8;
 }
 .trip-timeline__day {
   position: absolute;
@@ -479,7 +490,7 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: rgba(255,255,255,0.5);
+  color: var(--color-ink-muted, #5a5a5a);
   text-align: right;
   padding-top: 0.15rem;
 }
@@ -500,18 +511,18 @@ a { color: inherit; text-decoration: none; }
 .trip-timeline__city {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--color-ink, #1a1a1a);
 }
 .trip-timeline__title {
   font-size: 0.9rem;
-  color: rgba(255,255,255,0.65);
+  color: var(--color-ink-muted, #5a5a5a);
   margin-left: 0.4rem;
 }
 .trip-timeline__plan {
   margin: 0.3rem 0 0;
   font-size: 0.85rem;
   line-height: 1.6;
-  color: rgba(255,255,255,0.45);
+  color: #7a756d;
 }
 @media (max-width: 640px) {
   .trip-timeline { padding-left: 3rem; }
