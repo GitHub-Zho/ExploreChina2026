@@ -1169,4 +1169,45 @@ a { color: inherit; text-decoration: none; }
 
   /* Grid helpers */
   .grid.cols-2, .grid.cols-3, .grid.cols-4 { grid-template-columns: 1fr; }
+
+  /* ── Section horizontal & vertical padding ──────────────────────────
+     Sections lack a .container wrapper so content sits flush to edges. */
+  .section:not(.apply-section) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .section.card {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .section.incl-grid {
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+  }
+
+  /* ── Section header text centering ─────────────────────────────────── */
+  .section-eyebrow { text-align: center; }
+  .section-sub { text-align: center; margin-inline: auto; }
+
+  /* ── City tabs: nav negative margin so it bleeds to card edges ──────── */
+  .city-tabs__nav {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* ── Trip strip: ensure full-width CTA buttons ──────────────────────── */
+  .trip-strip__actions .btn {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* ── Spacing between major sections ─────────────────────────────────── */
+  .section + .section,
+  .section + .faq,
+  .faq + .section {
+    margin-top: 2rem;
+  }
 }
