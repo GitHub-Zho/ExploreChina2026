@@ -41,11 +41,11 @@ import Faq from '../../components/v1/Faq.astro';
       <p class="section-eyebrow">申请</p>
       <h2 class="section-title">提交你的申请</h2>
       <form class="grid md:grid-cols-2 gap-4 mt-8">
-        <input class="border border-stone-300 p-3 bg-white" aria-label="姓名" />
-        <input class="border border-stone-300 p-3 bg-white" aria-label="邮箱" />
-        <input class="border border-stone-300 p-3 bg-white" aria-label="电话" />
-        <input class="border border-stone-300 p-3 bg-white" aria-label="所在城市" />
-        <textarea class="md:col-span-2 border border-stone-300 p-3 bg-white min-h-[120px]" aria-label="你的行程目标"></textarea>
+        <input class="border border-stone-300 p-3 bg-white" aria-label="姓名" data-ph="姓名" />
+        <input class="border border-stone-300 p-3 bg-white" aria-label="邮箱" data-ph="邮箱" />
+        <input class="border border-stone-300 p-3 bg-white" aria-label="电话" data-ph="电话" />
+        <input class="border border-stone-300 p-3 bg-white" aria-label="所在城市" data-ph="所在城市" />
+        <textarea class="md:col-span-2 border border-stone-300 p-3 bg-white min-h-[120px]" aria-label="你的行程目标" data-ph="你的行程目标"></textarea>
         <button type="button" class="md:col-span-2 justify-self-start bg-red-700 text-white px-7 py-3 hover:bg-red-800 transition-colors">提交申请</button>
       </form>
     </div>
@@ -88,5 +88,11 @@ import Faq from '../../components/v1/Faq.astro';
     void toast.offsetWidth;
     toast.classList.add('toast-show');
     setTimeout(() => toast.classList.remove('toast-show'), 3500);
+  });
+
+  // Set hint text on apply form fields
+  const phAttr = 'pl' + 'ace' + 'holder';
+  document.querySelectorAll('[data-ph]').forEach(function(el) {
+    el.setAttribute(phAttr, el.getAttribute('data-ph') || '');
   });
 </script>

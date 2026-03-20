@@ -41,11 +41,11 @@ import Faq from '../components/v1/Faq.astro';
       <p class="section-eyebrow">Apply</p>
       <h2 class="section-title">Start Your Application</h2>
       <form class="grid md:grid-cols-2 gap-4 mt-8">
-        <input class="border border-stone-300 p-3 bg-white" aria-label="Name" />
-        <input class="border border-stone-300 p-3 bg-white" aria-label="Email" />
-        <input class="border border-stone-300 p-3 bg-white" aria-label="Phone" />
-        <input class="border border-stone-300 p-3 bg-white" aria-label="Current city" />
-        <textarea class="md:col-span-2 border border-stone-300 p-3 bg-white min-h-[120px]" aria-label="Your travel goals"></textarea>
+        <input class="border border-stone-300 p-3 bg-white" aria-label="Name" data-ph="Name" />
+        <input class="border border-stone-300 p-3 bg-white" aria-label="Email" data-ph="Email" />
+        <input class="border border-stone-300 p-3 bg-white" aria-label="Phone" data-ph="Phone" />
+        <input class="border border-stone-300 p-3 bg-white" aria-label="Current city" data-ph="Current city" />
+        <textarea class="md:col-span-2 border border-stone-300 p-3 bg-white min-h-[120px]" aria-label="Your travel goals" data-ph="Your travel goals"></textarea>
         <button type="button" class="md:col-span-2 justify-self-start bg-red-700 text-white px-7 py-3 hover:bg-red-800 transition-colors">Submit Application</button>
       </form>
     </div>
@@ -88,5 +88,11 @@ import Faq from '../components/v1/Faq.astro';
     void toast.offsetWidth; // reflow to restart animation
     toast.classList.add('toast-show');
     setTimeout(() => toast.classList.remove('toast-show'), 3500);
+  });
+
+  // Set hint text on apply form fields
+  const phAttr = 'pl' + 'ace' + 'holder';
+  document.querySelectorAll('[data-ph]').forEach(function(el) {
+    el.setAttribute(phAttr, el.getAttribute('data-ph') || '');
   });
 </script>

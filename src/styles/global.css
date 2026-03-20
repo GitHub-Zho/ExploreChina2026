@@ -457,11 +457,14 @@ a { color: inherit; text-decoration: none; }
   .trip-strip__actions { justify-content: center; }
 }
 
-/* Trip timeline — compact itinerary */
+/* Trip timeline — compact itinerary, centered */
 .trip-timeline {
   position: relative;
   padding-left: 4.5rem;
   margin-top: 1.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .trip-timeline::before {
   content: '';
@@ -531,9 +534,72 @@ a { color: inherit; text-decoration: none; }
   .trip-timeline__dot { left: -1.2rem; }
 }
 
-/* Video cards — YouTube thumbnail + info */
-.video-grid { gap: 1.5rem; }
+/* =====================================================
+   Include / Not Include section
+   ===================================================== */
+.incl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.incl-card {
+  background: #fff;
+  border: 1px solid #e5e0d8;
+  border-radius: 10px;
+  padding: 1.75rem 2rem;
+}
+.incl-card--yes { border-top: 3px solid #2d9b5a; }
+.incl-card--no  { border-top: 3px solid #d6cfc2; }
+.incl-card__title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: var(--color-ink);
+}
+.incl-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.incl-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f0ece6;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+}
+.incl-item:last-child { border-bottom: none; }
+.incl-icon {
+  flex-shrink: 0;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.9rem;
+  width: 1.1rem;
+  text-align: center;
+}
+.incl-icon--yes { color: #2d9b5a; }
+.incl-icon--no  { color: #b0a89e; }
+@media (max-width: 640px) {
+  .incl-grid { grid-template-columns: 1fr; }
+}
+
+/* =====================================================
+   Video cards — smaller row layout
+   ===================================================== */
+.video-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
 .video-card {
+  flex: 0 1 280px;
+  max-width: 280px;
   display: block;
   background: #fff;
   border-radius: 0.75rem;
@@ -980,4 +1046,96 @@ a { color: inherit; text-decoration: none; }
   padding: .3rem .6rem;
   border: 1px solid #d8d0c0;
   background: #f8f2e7;
+}
+
+/* =====================================================
+   Apply section — warm card polish
+   ===================================================== */
+.apply-section {
+  background: #f8f2e7;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 2rem);
+}
+.apply-section__card {
+  max-width: 780px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e5e0d8;
+  border-radius: 14px;
+  padding: clamp(1.75rem, 4vw, 3rem);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+.apply-section .section-title {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.apply-section .apply-subtitle {
+  text-align: center;
+  color: var(--color-ink-muted);
+  max-width: 640px;
+  margin: 0 auto 1.75rem;
+  line-height: 1.7;
+}
+.apply-section .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+.apply-section .field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.apply-section .field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--color-ink-muted);
+  text-transform: uppercase;
+}
+.apply-section .field input,
+.apply-section .field textarea {
+  border: 1.5px solid #d8d0c0;
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.95rem;
+  background: #fdfbf8;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.apply-section .field input:focus,
+.apply-section .field textarea:focus {
+  outline: none;
+  border-color: var(--color-red);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(200,16,46,0.08);
+}
+.apply-section .field textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+.apply-section .apply-note {
+  text-align: center;
+  color: var(--color-ink-muted);
+  font-size: 0.88rem;
+  margin-top: 0.75rem;
+}
+.apply-section .btn-apply {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 2.25rem;
+  background: var(--color-red);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.apply-section .btn-apply:hover { background: var(--color-red-dark); }
+@media (max-width: 640px) {
+  .apply-section .form-grid { grid-template-columns: 1fr; }
+  .apply-section__card { padding: 1.5rem; }
 }

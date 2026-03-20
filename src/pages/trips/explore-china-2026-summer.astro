@@ -122,39 +122,23 @@ import {
   </section>
 
   <!-- Included / Not Included -->
-  <section class="section">
-    <div class="inclusions-grid">
-      <!-- Included -->
-      <div class="inclusions-panel inclusions-panel--yes">
-        <div class="inclusions-panel__head">
-          <span class="inclusions-panel__icon">✅</span>
-          <h2 class="inclusions-panel__title">Included</h2>
-        </div>
-        <ul class="inclusions-list">
-          {included.map((item) => (
-            <li class="inclusions-list__item">
-              <span class="inclusions-list__bullet">✓</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <!-- Not included -->
-      <div class="inclusions-panel inclusions-panel--no">
-        <div class="inclusions-panel__head">
-          <span class="inclusions-panel__icon">📋</span>
-          <h2 class="inclusions-panel__title">Not included</h2>
-        </div>
-        <ul class="inclusions-list">
-          {notIncluded.map((item) => (
-            <li class="inclusions-list__item">
-              <span class="inclusions-list__bullet">—</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+  <section class="section incl-grid">
+    <article class="incl-card incl-card--yes">
+      <h2 class="incl-card__title">Included</h2>
+      <ul class="incl-list">
+        {included.map((item) => (
+          <li class="incl-item"><i class="incl-icon incl-icon--yes">✓</i><span>{item}</span></li>
+        ))}
+      </ul>
+    </article>
+    <article class="incl-card incl-card--no">
+      <h2 class="incl-card__title">Not included</h2>
+      <ul class="incl-list">
+        {notIncluded.map((item) => (
+          <li class="incl-item"><i class="incl-icon incl-icon--no">✗</i><span>{item}</span></li>
+        ))}
+      </ul>
+    </article>
   </section>
 
   <!-- Videos -->
@@ -206,21 +190,23 @@ import {
   </section>
 
   <!-- Apply -->
-  <section id="register" class="section card tone-dark" style="margin-bottom:36px;">
-    <h2 class="section-title">Apply for this program</h2>
-    <p class="muted" style="text-align:center; max-width:760px; margin:0 auto 20px;">Tell us who you are, why this route fits, and how to reach you. We review applications personally rather than treating this as an instant checkout flow.</p>
-    <form class="form-grid" action="https://formsubmit.co/jo_oyoy@outlook.com" method="POST">
-      <input type="hidden" name="_subject" value="New Explore China application lead" />
-      <input type="hidden" name="_next" value="https://explore-china-site.vercel.app/success" />
-      <input type="hidden" name="_captcha" value="false" />
-      <div class="field"><label for="name">Full name</label><input id="name" name="name" required /></div>
-      <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required /></div>
-      <div class="field"><label for="phone">WhatsApp / Phone (optional)</label><input id="phone" name="phone" /></div>
-      <div class="field"><label for="city">Current city</label><input id="city" name="city" /></div>
-      <div class="field" style="grid-column:1 / -1;"><label for="goal">Why do you want this trip?</label><textarea id="goal" name="goal" required></textarea></div>
-      <div style="grid-column:1 / -1; display:flex; gap:10px; justify-content:center;"><button class="btn btn-primary" type="submit">Submit Application</button></div>
-    </form>
-    <p class="muted" style="text-align:center; margin-top:10px;">Questions? Email {site.email}</p>
+  <section id="register" class="section apply-section" style="margin-bottom:36px;">
+    <div class="apply-section__card">
+      <h2 class="section-title">Apply for this program</h2>
+      <p class="apply-subtitle">Tell us who you are, why this route fits, and how to reach you. We review applications personally rather than treating this as an instant checkout flow.</p>
+      <form class="form-grid" action="https://formsubmit.co/jo_oyoy@outlook.com" method="POST">
+        <input type="hidden" name="_subject" value="New Explore China application lead" />
+        <input type="hidden" name="_next" value="https://explore-china-site.vercel.app/success" />
+        <input type="hidden" name="_captcha" value="false" />
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" required /></div>
+        <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required /></div>
+        <div class="field"><label for="phone">WhatsApp / Phone (optional)</label><input id="phone" name="phone" /></div>
+        <div class="field"><label for="city">Current city</label><input id="city" name="city" /></div>
+        <div class="field" style="grid-column:1 / -1;"><label for="goal">Why do you want this trip?</label><textarea id="goal" name="goal" required></textarea></div>
+        <div style="grid-column:1 / -1; display:flex; gap:10px; justify-content:center;"><button class="btn-apply" type="submit">Submit Application</button></div>
+      </form>
+      <p class="apply-note">Questions? Email {site.email}</p>
+    </div>
   </section>
 </Layout>
 
