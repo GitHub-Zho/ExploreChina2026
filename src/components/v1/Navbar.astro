@@ -33,7 +33,7 @@ const isZh = lang === 'zh';
           )}
         </div>
         <!-- Mobile hamburger (minimal) -->
-        <button class="navbar__hamburger md:hidden text-white" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <button class="navbar__hamburger md:hidden text-gray-900" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg id="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <line x1="3" y1="6" x2="21" y2="6"/>
             <line x1="3" y1="12" x2="21" y2="12"/>
@@ -56,7 +56,7 @@ const isZh = lang === 'zh';
           <a href={isZh ? '/zh/' : '/'} class="btn btn--primary bg-red-700 text-white px-5 py-2 text-sm font-semibold hover:bg-red-800 transition-colors">{isZh ? '立即报名' : 'Apply'}</a>
         </div>
         <!-- Mobile hamburger (standard) -->
-        <button class="navbar__hamburger md:hidden text-white" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <button class="navbar__hamburger md:hidden text-gray-900" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg id="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <line x1="3" y1="6" x2="21" y2="6"/>
             <line x1="3" y1="12" x2="21" y2="12"/>
@@ -80,8 +80,8 @@ const isZh = lang === 'zh';
     <nav class="mobile-menu__nav" aria-label="Mobile navigation">
       <a href={isZh ? '/zh/trips/explore-china-2026-summer' : '/trips/explore-china-2026-summer'} class="mobile-menu__link">{isZh ? '行程' : 'Trip'}</a>
       <a href={isZh ? '/zh/handbook' : '/handbook'} class="mobile-menu__link">{isZh ? '手册' : 'Handbook'}</a>
-      <a href={alternateHref} class="mobile-menu__link mobile-menu__lang">{alternateLabel}</a>
-      <a href={isZh ? '/zh/' : '/'} class="mobile-menu__apply">{isZh ? '立即报名' : 'Apply'}</a>
+      <a href={isZh ? '/zh/about' : '/about'} class="mobile-menu__link">{isZh ? '关于' : 'About'}</a>
+      <a href={isZh ? '/zh/' : '/'} class="mobile-menu__link">{isZh ? '立即报名' : 'Apply'}</a>
     </nav>
   </div>
   <!-- Backdrop -->
@@ -147,27 +147,6 @@ const isZh = lang === 'zh';
   color: #c8102e;
 }
 
-.mobile-menu__lang {
-  color: #5a5a5a;
-  font-size: 0.95rem;
-}
-
-.mobile-menu__apply {
-  display: block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background: #b91c1c;
-  color: #fff;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-align: center;
-  border-radius: 2px;
-  transition: background 0.15s;
-}
-
-.mobile-menu__apply:hover {
-  background: #991b1b;
-}
 
 .mobile-backdrop {
   display: none;
