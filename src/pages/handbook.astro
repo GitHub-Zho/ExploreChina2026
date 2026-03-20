@@ -1,78 +1,236 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { handbookSections, handbookPrep, site } from '../data/site';
 ---
-<Layout title="Explore China Handbook" lang="en" alternateHref="/zh/handbook" alternateLabel="中文" darkNav={true}>
-  <section id="guide" class="section card tone-sand" style="padding:34px;">
-    <p class="pill">Participant Handbook</p>
-    <h1 style="font-size:clamp(36px,5vw,64px); margin-top:10px;">Explore China Handbook</h1>
-    <p class="muted" style="max-width:860px; font-size:18px;">A participant-facing operations page for route expectations, support structure, and what to prepare before departure.</p>
-  </section>
+<Layout title="Participant Handbook — Explore China" lang="en" alternateHref="/zh/handbook" alternateLabel="中文" darkNav={true}>
 
-  <section id="overview" class="section card tone-blue">
-    <h2 class="section-title">Program intent</h2>
-    <p class="muted" style="max-width:920px; line-height:1.9;">{handbookSections.intro}</p>
-    <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn btn-secondary" href="/trips/explore-china-2026-summer">View the trip page</a>
-      <a class="btn btn-primary" href="/trips/explore-china-2026-summer#register">Go to application</a>
-    </div>
-  </section>
+  <div class="handbook-page">
 
-  <section class="section grid cols-2">
-    <article class="card tone-rose">
-      <h2>Accommodation</h2>
-      <p class="muted" style="line-height:1.9;">{handbookSections.accommodation}</p>
-    </article>
-    <article class="card tone-rose">
-      <h2>Dietary requirements</h2>
-      <p class="muted" style="line-height:1.9;">{handbookSections.dietary}</p>
-    </article>
-    <article class="card tone-blue">
-      <h2>Language support</h2>
-      <p class="muted" style="line-height:1.9;">{handbookSections.language}</p>
-    </article>
-    <article class="card tone-blue">
-      <h2>Safety and coordination</h2>
-      <p class="muted" style="line-height:1.9;">{handbookSections.safety}</p>
-    </article>
-  </section>
+    <!-- 1. Page Header -->
+    <header class="handbook-header">
+      <p class="handbook-header__eyebrow">Explore China 2026</p>
+      <h1 class="handbook-header__title">Participant Handbook</h1>
+      <p class="handbook-header__sub">This handbook is for confirmed participants. Everything you need to know before departure — visa, apps, payments, SIM cards, and more.</p>
+    </header>
 
-  <section id="itinerary" class="section card tone-dark">
-    <h2 class="section-title">Full itinerary</h2>
-    <p class="muted" style="line-height:1.9;">The complete 10-day schedule is on the trip page, where you can also see city guides, what's included, and apply.</p>
-    <div style="margin-top:16px;">
-      <a class="btn btn-secondary" href="/trips/explore-china-2026-summer#itinerary">View full itinerary on the trip page →</a>
-    </div>
-  </section>
+    <!-- Section Nav -->
+    <nav class="handbook-nav" aria-label="Handbook sections">
+      <p class="handbook-nav__label">Jump to section</p>
+      <ul class="handbook-nav__list">
+        <li><a href="#checklist">Quick Checklist</a></li>
+        <li><a href="#visa">Visa &amp; Entry</a></li>
+        <li><a href="#vpn">VPN Setup</a></li>
+        <li><a href="#apps">Apps to Download</a></li>
+        <li><a href="#payment">Payment Setup</a></li>
+        <li><a href="#sim">SIM / Internet</a></li>
+        <li><a href="#packing" class="stub-link">Packing &amp; Gear</a></li>
+        <li><a href="#arrival" class="stub-link">Flight &amp; Arrival</a></li>
+        <li><a href="#transport" class="stub-link">In-China Transport</a></li>
+        <li><a href="#health" class="stub-link">Health &amp; Insurance</a></li>
+        <li><a href="#emergency" class="stub-link">Emergency Contacts</a></li>
+        <li><a href="#schedule" class="stub-link">Program Schedule</a></li>
+      </ul>
+    </nav>
 
-  <section class="section card tone-sand" style="margin-bottom:36px;">
-    <h2 class="section-title">Pre-departure checklist</h2>
-    <div class="grid cols-2">
-      <article class="card" style="background:#fff;">
-        <h3>{handbookPrep.beforeYouLeave.title}</h3>
-        <p class="muted">{handbookPrep.beforeYouLeave.text}</p>
-      </article>
-      <article class="card" style="background:#fff;">
-        <h3>{handbookPrep.visa.title}</h3>
-        <p class="muted">{handbookPrep.visa.text}</p>
-      </article>
-      <article class="card" style="background:#fff;">
-        <h3>{handbookPrep.payment.title}</h3>
-        <p class="muted">{handbookPrep.payment.text}</p>
-      </article>
-      <article class="card" style="background:#fff;">
-        <h3>{handbookPrep.sim.title}</h3>
-        <p class="muted">{handbookPrep.sim.text}</p>
-      </article>
-      <article class="card" style="background:#fff; grid-column:1 / -1;">
-        <h3>{handbookPrep.packList.title}</h3>
-        <ul class="muted" style="line-height:1.8; padding-left:18px; margin:8px 0 0;">
-          {handbookPrep.packList.items.map((item) => <li>{item}</li>)}
-        </ul>
-        <p style="margin-top:10px;"><a class="text-link" href="https://www.travelchina.org.cn/en" target="_blank">Travel China official resources ↗</a></p>
-        <p><a class="text-link" href="https://www.china-briefing.com/news/china-visa-free-policies-complete-guide/" target="_blank">China visa policy explainer ↗</a></p>
-      </article>
-    </div>
-    <p class="muted" style="margin-top:16px;">Questions before departure? Email {site.email} and we will point you to the right prep step.</p>
-  </section>
+    <!-- 2. Quick Checklist -->
+    <section id="checklist" class="handbook-section">
+      <p class="section-sub-label">Before you leave</p>
+      <h2>Quick Pre-Departure Checklist</h2>
+      <ul class="handbook-checklist">
+        <li>
+          <span class="check-box" aria-hidden="true"></span>
+          <span>Check visa eligibility for your passport</span>
+        </li>
+        <li>
+          <span class="check-box" aria-hidden="true"></span>
+          <span>Install and test VPN before entering China</span>
+        </li>
+        <li>
+          <span class="check-box" aria-hidden="true"></span>
+          <span>Download WeChat and Alipay — link your Visa/Mastercard</span>
+        </li>
+        <li>
+          <span class="check-box" aria-hidden="true"></span>
+          <span>Decide on SIM card option</span>
+        </li>
+        <li>
+          <span class="check-box" aria-hidden="true"></span>
+          <span>Download DiDi (transport app)</span>
+        </li>
+        <li class="check-warning">
+          <span class="check-box" aria-hidden="true"></span>
+          <span>⚠ Do NOT set up payment apps while VPN is on</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 3. Visa & Entry -->
+    <section id="visa" class="handbook-section">
+      <p class="section-sub-label">Entry requirements</p>
+      <h2>Canadian passports — no visa needed (for now)</h2>
+      <p>Canadian passport holders can enter China visa-free for up to <strong>30 days</strong>. This policy is valid until the end of 2026. Many other passport holders qualify for a <strong>10-day (240-hour) visa-free transit</strong> — check your specific passport carefully.</p>
+      <p style="margin-top:0.75rem;">Always verify your eligibility before booking flights, as policies can change without notice.</p>
+
+      <div class="handbook-warning">
+        <p>⚠ Visa policies can change. Verify eligibility at official sources below before your trip.</p>
+      </div>
+
+      <div class="handbook-links">
+        <a class="handbook-link" href="https://ca.china-embassy.gov.cn" target="_blank" rel="noopener">Chinese Embassy in Canada → ca.china-embassy.gov.cn</a>
+        <a class="handbook-link" href="https://toronto.china-consulate.gov.cn" target="_blank" rel="noopener">Chinese Consulate in Toronto → toronto.china-consulate.gov.cn</a>
+      </div>
+    </section>
+
+    <!-- 4. VPN Setup -->
+    <section id="vpn" class="handbook-section">
+      <p class="section-sub-label">Internet access</p>
+      <h2>Install your VPN before you land — it cannot be downloaded inside China</h2>
+      <p>Google, Instagram, WhatsApp, and YouTube are blocked in China. You must install and test your VPN <strong>before boarding your flight</strong>. Once inside China, the App Store and VPN websites are inaccessible.</p>
+
+      <p style="margin-top:0.75rem;"><strong>Recommended VPN providers:</strong></p>
+      <div class="handbook-vpn-list">
+        <span class="handbook-vpn-badge">ExpressVPN</span>
+        <span class="handbook-vpn-badge">NordVPN</span>
+        <span class="handbook-vpn-badge">Astrill</span>
+      </div>
+
+      <div class="handbook-warning" style="margin-top:1.25rem;">
+        <p>⚠ Install and test your VPN before entering China.</p>
+        <p>⚠ Do NOT use VPN when setting up Alipay or WeChat Pay — verification will fail.</p>
+      </div>
+    </section>
+
+    <!-- 5. Apps to Download -->
+    <section id="apps" class="handbook-section">
+      <p class="section-sub-label">Essential apps</p>
+      <h2>Download these before arrival</h2>
+      <p>These three apps are essential for daily life in China. Download and set them up before you land.</p>
+
+      <div class="handbook-app-cards">
+        <div class="handbook-app-card">
+          <div class="handbook-app-card__icon">💬</div>
+          <div class="handbook-app-card__name">WeChat</div>
+          <div class="handbook-app-card__desc">Chat + payment in one. Primary channel for group communication during the program.</div>
+        </div>
+        <div class="handbook-app-card">
+          <div class="handbook-app-card__icon">💳</div>
+          <div class="handbook-app-card__name">Alipay</div>
+          <div class="handbook-app-card__desc">Main payment method accepted at most shops and restaurants across China.</div>
+        </div>
+        <div class="handbook-app-card">
+          <div class="handbook-app-card__icon">🚗</div>
+          <div class="handbook-app-card__name">DiDi</div>
+          <div class="handbook-app-card__desc">Ride-hailing app (like Uber). Works best with a local SIM card for SMS verification.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Payment Setup -->
+    <section id="payment" class="handbook-section">
+      <p class="section-sub-label">Mobile payments</p>
+      <h2>Set up Alipay and WeChat Pay before you arrive — VERY IMPORTANT</h2>
+      <p>Cash is rarely accepted at shops, restaurants, and transit in China. Setting up mobile payments before you land will save you significant hassle.</p>
+
+      <ol class="handbook-steps">
+        <li>Register your account using your phone number</li>
+        <li>Verify your identity with your passport</li>
+        <li>Link your Visa or Mastercard to fund the account</li>
+      </ol>
+
+      <div class="handbook-warning">
+        <p>⚠ Set this up before arriving. Do not use your VPN during setup — verification will fail.</p>
+      </div>
+
+      <p class="handbook-note">These apps work for most shops, restaurants, and transit. P2P transfers between users may be restricted for foreign cards. Bring some cash (RMB) as a backup for emergencies.</p>
+
+      <div class="handbook-links" style="margin-top:1rem;">
+        <a class="handbook-link" href="https://www.alipay.com" target="_blank" rel="noopener">Alipay → alipay.com</a>
+        <a class="handbook-link" href="https://global.alipay.com/docs/ac/setup" target="_blank" rel="noopener">Alipay setup guide for international users →</a>
+        <a class="handbook-link" href="https://www.wechat.com" target="_blank" rel="noopener">WeChat → wechat.com</a>
+        <a class="handbook-link" href="https://pay.weixin.qq.com/index.php/public/wechatpay_en" target="_blank" rel="noopener">WeChat Pay (international) →</a>
+      </div>
+    </section>
+
+    <!-- 7. SIM / Internet -->
+    <section id="sim" class="handbook-section">
+      <p class="section-sub-label">Connectivity</p>
+      <h2>You need mobile data for payments, maps, and communication</h2>
+      <p>A reliable data connection is essential — apps like WeChat Pay and DiDi require it to function. Consider your options before departure.</p>
+
+      <div class="handbook-sim-cards">
+        <div class="handbook-sim-card">
+          <span class="badge-recommended">Recommended</span>
+          <div class="handbook-sim-card__name">International Traveller SIM</div>
+          <div class="handbook-sim-card__desc">Available for pickup at the airport. Ask your provider specifically about Google and WhatsApp access.</div>
+        </div>
+        <div class="handbook-sim-card">
+          <div class="handbook-sim-card__name">eSIM</div>
+          <div class="handbook-sim-card__desc">Set up before you depart. Convenient, but you won't have a Chinese phone number for SMS verification.</div>
+        </div>
+        <div class="handbook-sim-card">
+          <div class="handbook-sim-card__name">Local Chinese SIM</div>
+          <div class="handbook-sim-card__desc">Most stable for app verification and ride-hailing. Requires VPN for accessing Google and Western apps.</div>
+        </div>
+      </div>
+
+      <div class="handbook-aside">
+        <p><strong>Community tip:</strong> Local SIM is usually more reliable for ride-hailing and app verification — but you'll need your VPN set up (and off) at the right times.</p>
+      </div>
+    </section>
+
+    <!-- 8. Packing & Gear (stub) -->
+    <section id="packing" class="handbook-section handbook-section--stub">
+      <h2>Packing &amp; Gear</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>This section is being prepared. Check back closer to departure.</p>
+      </div>
+    </section>
+
+    <!-- 9. Flight & Arrival (stub) -->
+    <section id="arrival" class="handbook-section handbook-section--stub">
+      <h2>Flight &amp; Arrival</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>This section is being prepared. Check back closer to departure.</p>
+      </div>
+    </section>
+
+    <!-- 10. In-China Transport (stub) -->
+    <section id="transport" class="handbook-section handbook-section--stub">
+      <h2>In-China Transport</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>This section is being prepared. Check back closer to departure.</p>
+      </div>
+    </section>
+
+    <!-- 11. Health & Insurance (stub) -->
+    <section id="health" class="handbook-section handbook-section--stub">
+      <h2>Health &amp; Insurance</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>This section is being prepared. Check back closer to departure.</p>
+      </div>
+    </section>
+
+    <!-- 12. Emergency Contacts (stub) -->
+    <section id="emergency" class="handbook-section handbook-section--stub">
+      <h2>Emergency Contacts</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>This section is being prepared. Check back closer to departure.</p>
+      </div>
+    </section>
+
+    <!-- 13. Program Schedule (stub) -->
+    <section id="schedule" class="handbook-section handbook-section--stub">
+      <h2>Program Schedule</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>This section is being prepared. Check back closer to departure.</p>
+      </div>
+    </section>
+
+  </div>
+
 </Layout>

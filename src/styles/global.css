@@ -1212,3 +1212,370 @@ a { color: inherit; text-decoration: none; }
     margin-top: 2rem;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HANDBOOK — Participant pre-departure guide
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Page wrapper */
+.handbook-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2rem);
+}
+
+/* Page header */
+.handbook-header {
+  border-bottom: 2px solid #e5e0d8;
+  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
+}
+.handbook-header__eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  margin-bottom: 0.75rem;
+}
+.handbook-header__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+.handbook-header__sub {
+  font-size: 1.05rem;
+  color: var(--color-ink-muted);
+  line-height: 1.7;
+}
+
+/* Section nav */
+.handbook-nav {
+  background: #fff;
+  border: 1px solid #e5e0d8;
+  border-radius: 2px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.handbook-nav__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+.handbook-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+}
+.handbook-nav__list li {
+  font-size: 0.88rem;
+}
+.handbook-nav__list a {
+  color: var(--color-red);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.handbook-nav__list a:hover {
+  border-bottom-color: var(--color-red);
+}
+.handbook-nav__list .stub-link {
+  color: var(--color-ink-muted);
+}
+.handbook-nav__list .stub-link:hover {
+  border-bottom-color: var(--color-ink-muted);
+}
+
+/* Individual handbook sections */
+.handbook-section {
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #e5e0d8;
+}
+.handbook-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.handbook-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+.handbook-section h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+.handbook-section p {
+  line-height: 1.75;
+  color: var(--color-ink);
+}
+.handbook-section .section-sub-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  margin-bottom: 0.5rem;
+}
+
+/* Warning / callout */
+.handbook-warning {
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  padding: 1rem 1.25rem;
+  border-radius: 0 2px 2px 0;
+  margin: 1.25rem 0;
+}
+.handbook-warning p {
+  margin: 0;
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: #92400e;
+  line-height: 1.6;
+}
+.handbook-warning p + p {
+  margin-top: 0.4rem;
+}
+
+/* Checklist */
+.handbook-checklist {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+.handbook-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #f0ece6;
+  font-size: 0.97rem;
+  line-height: 1.5;
+}
+.handbook-checklist li:last-child {
+  border-bottom: none;
+}
+.handbook-checklist .check-box {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d6cfc2;
+  border-radius: 3px;
+  background: #fff;
+  margin-top: 1px;
+}
+.handbook-checklist li.check-warning .check-box {
+  border-color: #f59e0b;
+}
+.handbook-checklist li.check-warning {
+  color: #92400e;
+  font-weight: 600;
+}
+
+/* App cards */
+.handbook-app-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+.handbook-app-card {
+  background: #fff;
+  border: 1px solid #e5e0d8;
+  border-radius: 2px;
+  padding: 1.25rem;
+}
+.handbook-app-card__icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.handbook-app-card__name {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+.handbook-app-card__desc {
+  font-size: 0.875rem;
+  color: var(--color-ink-muted);
+  line-height: 1.55;
+}
+
+/* SIM / Option cards */
+.handbook-sim-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+.handbook-sim-card {
+  background: #fff;
+  border: 1px solid #e5e0d8;
+  border-radius: 2px;
+  padding: 1.25rem;
+  position: relative;
+}
+.handbook-sim-card .badge-recommended {
+  display: inline-block;
+  background: var(--color-red);
+  color: #fff;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 2px;
+  margin-bottom: 0.6rem;
+}
+.handbook-sim-card__name {
+  font-weight: 700;
+  font-size: 0.97rem;
+  margin-bottom: 0.35rem;
+}
+.handbook-sim-card__desc {
+  font-size: 0.875rem;
+  color: var(--color-ink-muted);
+  line-height: 1.55;
+}
+
+/* Community tip aside */
+.handbook-aside {
+  background: #f9f6f0;
+  border-left: 3px solid var(--color-gold);
+  padding: 0.85rem 1.1rem;
+  margin-top: 1.25rem;
+  border-radius: 0 2px 2px 0;
+}
+.handbook-aside p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+}
+.handbook-aside strong {
+  color: var(--color-ink);
+}
+
+/* Numbered steps */
+.handbook-steps {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  counter-reset: hb-step;
+}
+.handbook-steps li {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f0ece6;
+  align-items: flex-start;
+  counter-increment: hb-step;
+  font-size: 0.97rem;
+  line-height: 1.5;
+}
+.handbook-steps li:last-child {
+  border-bottom: none;
+}
+.handbook-steps li::before {
+  content: counter(hb-step);
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  background: var(--color-ink);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 1px;
+}
+
+/* Links inside handbook */
+.handbook-link {
+  color: var(--color-red);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200,16,46,0.3);
+  transition: border-color 0.15s;
+  word-break: break-all;
+}
+.handbook-link:hover {
+  border-color: var(--color-red);
+}
+
+/* Note text (smaller, muted) */
+.handbook-note {
+  font-size: 0.875rem;
+  color: var(--color-ink-muted);
+  line-height: 1.65;
+  margin-top: 0.75rem;
+}
+
+/* Stub placeholder */
+.handbook-section--stub h2 {
+  color: var(--color-ink-muted);
+}
+.stub-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f3f0ea;
+  border: 1px dashed #d6cfc2;
+  padding: 1.25rem 1.5rem;
+  border-radius: 2px;
+  margin-top: 1rem;
+}
+.stub-icon {
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+.stub-box p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-ink-muted);
+}
+
+/* VPN provider list */
+.handbook-vpn-list {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+.handbook-vpn-badge {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #d6cfc2;
+  border-radius: 2px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* Link group */
+.handbook-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .handbook-app-cards,
+  .handbook-sim-cards {
+    grid-template-columns: 1fr;
+  }
+}

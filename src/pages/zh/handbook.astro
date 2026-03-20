@@ -1,78 +1,236 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { handbookSections, handbookPrep, site } from '../../data/site';
 ---
-<Layout title="探索中国手册" lang="zh" alternateHref="/handbook" alternateLabel="EN" darkNav={true}>
-  <section id="guide" class="section card tone-sand" style="padding:34px;">
-    <p class="pill">参与者手册</p>
-    <h1 style="font-size:clamp(36px,5vw,64px); margin-top:10px;">探索中国手册</h1>
-    <p class="muted" style="max-width:860px; font-size:18px;">这是一页面向参与者的操作参考页，帮助你在出发前建立对路线、支持方式和准备事项的清晰预期。</p>
-  </section>
+<Layout title="参与者手册 — 探索中国" lang="zh" alternateHref="/handbook" alternateLabel="EN" darkNav={true}>
 
-  <section id="overview" class="section card tone-blue">
-    <h2 class="section-title">项目定位</h2>
-    <p class="muted" style="max-width:920px; line-height:1.9;">{handbookSections.introZh}</p>
-    <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a class="btn btn-secondary" href="/zh/trips/explore-china-2026-summer">查看行程页</a>
-      <a class="btn btn-primary" href="/zh/trips/explore-china-2026-summer#register">前往报名</a>
-    </div>
-  </section>
+  <div class="handbook-page">
 
-  <section class="section grid cols-2">
-    <article class="card tone-rose">
-      <h2>住宿安排</h2>
-      <p class="muted" style="line-height:1.9;">{handbookSections.accommodationZh}</p>
-    </article>
-    <article class="card tone-rose">
-      <h2>饮食需求</h2>
-      <p class="muted" style="line-height:1.9;">{handbookSections.dietaryZh}</p>
-    </article>
-    <article class="card tone-blue">
-      <h2>语言支持</h2>
-      <p class="muted" style="line-height:1.9;">{handbookSections.languageZh}</p>
-    </article>
-    <article class="card tone-blue">
-      <h2>安全与协调</h2>
-      <p class="muted" style="line-height:1.9;">{handbookSections.safetyZh}</p>
-    </article>
-  </section>
+    <!-- 1. 页面标题 -->
+    <header class="handbook-header">
+      <p class="handbook-header__eyebrow">探索中国 2026</p>
+      <h1 class="handbook-header__title">参与者手册</h1>
+      <p class="handbook-header__sub">本手册仅面向已确认参与的成员。出发前你需要了解的一切——签证、应用、支付、SIM 卡等实用信息都在这里。</p>
+    </header>
 
-  <section id="itinerary" class="section card tone-dark">
-    <h2 class="section-title">完整行程</h2>
-    <p class="muted" style="line-height:1.9;">完整的 10 天日程安排在行程页上，那里也有城市指南、包含内容说明以及报名入口。</p>
-    <div style="margin-top:16px;">
-      <a class="btn btn-secondary" href="/zh/trips/explore-china-2026-summer#itinerary">在行程页查看完整行程 →</a>
-    </div>
-  </section>
+    <!-- 目录导航 -->
+    <nav class="handbook-nav" aria-label="手册章节">
+      <p class="handbook-nav__label">跳转到章节</p>
+      <ul class="handbook-nav__list">
+        <li><a href="#checklist">出发前清单</a></li>
+        <li><a href="#visa">签证与入境</a></li>
+        <li><a href="#vpn">VPN 设置</a></li>
+        <li><a href="#apps">必备 App</a></li>
+        <li><a href="#payment">支付设置</a></li>
+        <li><a href="#sim">SIM / 网络</a></li>
+        <li><a href="#packing" class="stub-link">行李与装备</a></li>
+        <li><a href="#arrival" class="stub-link">航班与抵达</a></li>
+        <li><a href="#transport" class="stub-link">在华交通</a></li>
+        <li><a href="#health" class="stub-link">健康与保险</a></li>
+        <li><a href="#emergency" class="stub-link">紧急联系人</a></li>
+        <li><a href="#schedule" class="stub-link">项目日程</a></li>
+      </ul>
+    </nav>
 
-  <section class="section card tone-sand" style="margin-bottom:36px;">
-    <h2 class="section-title">出发前 checklist</h2>
-    <div class="grid cols-2">
-      <article class="card" style="background:#fff;">
-        <h3>{handbookPrep.beforeYouLeave.titleZh}</h3>
-        <p class="muted">{handbookPrep.beforeYouLeave.textZh}</p>
-      </article>
-      <article class="card" style="background:#fff;">
-        <h3>{handbookPrep.visa.titleZh}</h3>
-        <p class="muted">{handbookPrep.visa.textZh}</p>
-      </article>
-      <article class="card" style="background:#fff;">
-        <h3>{handbookPrep.payment.titleZh}</h3>
-        <p class="muted">{handbookPrep.payment.textZh}</p>
-      </article>
-      <article class="card" style="background:#fff;">
-        <h3>{handbookPrep.sim.titleZh}</h3>
-        <p class="muted">{handbookPrep.sim.textZh}</p>
-      </article>
-      <article class="card" style="background:#fff; grid-column:1 / -1;">
-        <h3>{handbookPrep.packList.titleZh}</h3>
-        <ul class="muted" style="line-height:1.8; padding-left:18px; margin:8px 0 0;">
-          {handbookPrep.packList.itemsZh.map((item) => <li>{item}</li>)}
-        </ul>
-        <p style="margin-top:10px;"><a class="text-link" href="https://www.travelchina.org.cn/en" target="_blank">中国旅行官方资源 ↗</a></p>
-        <p><a class="text-link" href="https://www.china-briefing.com/news/china-visa-free-policies-complete-guide/" target="_blank">中国免签政策说明 ↗</a></p>
-      </article>
-    </div>
-    <p class="muted" style="margin-top:16px;">如果出发前还有问题，请发邮件至 {site.email}，我们会把你导向对应的准备步骤。</p>
-  </section>
+    <!-- 2. 出发前清单 -->
+    <section id="checklist" class="handbook-section">
+      <p class="section-sub-label">出发前必做</p>
+      <h2>出发前快速清单</h2>
+      <ul class="handbook-checklist">
+        <li>
+          <span class="check-box" aria-hidden="true"></span>
+          <span>确认你的护照是否符合免签资格</span>
+        </li>
+        <li>
+          <span class="check-box" aria-hidden="true"></span>
+          <span>在入境中国前安装并测试 VPN</span>
+        </li>
+        <li>
+          <span class="check-box" aria-hidden="true"></span>
+          <span>下载微信和支付宝，绑定 Visa / Mastercard</span>
+        </li>
+        <li>
+          <span class="check-box" aria-hidden="true"></span>
+          <span>确定 SIM 卡方案</span>
+        </li>
+        <li>
+          <span class="check-box" aria-hidden="true"></span>
+          <span>下载滴滴（出行 App）</span>
+        </li>
+        <li class="check-warning">
+          <span class="check-box" aria-hidden="true"></span>
+          <span>⚠ 设置支付 App 时请勿开启 VPN</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 3. 签证与入境 -->
+    <section id="visa" class="handbook-section">
+      <p class="section-sub-label">入境要求</p>
+      <h2>加拿大护照 — 目前免签入境</h2>
+      <p>持加拿大护照可免签入境中国，最长停留 <strong>30 天</strong>，该政策有效期至 2026 年底。其他多个国家护照持有人可享受 <strong>10 天（240 小时）过境免签</strong>——请根据自己的护照仔细核实。</p>
+      <p style="margin-top:0.75rem;">签证政策可能随时变动，建议在确认机票前先核实自身资格。</p>
+
+      <div class="handbook-warning">
+        <p>⚠ 签证政策可能随时调整。出发前请通过以下官方渠道确认最新资格要求。</p>
+      </div>
+
+      <div class="handbook-links">
+        <a class="handbook-link" href="https://ca.china-embassy.gov.cn" target="_blank" rel="noopener">中国驻加拿大大使馆 → ca.china-embassy.gov.cn</a>
+        <a class="handbook-link" href="https://toronto.china-consulate.gov.cn" target="_blank" rel="noopener">中国驻多伦多总领事馆 → toronto.china-consulate.gov.cn</a>
+      </div>
+    </section>
+
+    <!-- 4. VPN 设置 -->
+    <section id="vpn" class="handbook-section">
+      <p class="section-sub-label">网络访问</p>
+      <h2>登机前安装好 VPN — 进入中国后无法下载</h2>
+      <p>谷歌、Instagram、WhatsApp、YouTube 在中国均无法直接访问。你必须在<strong>登机前</strong>完成 VPN 的安装与测试。进入中国境内后，App Store 和 VPN 官网都将无法打开。</p>
+
+      <p style="margin-top:0.75rem;"><strong>推荐的 VPN 服务商：</strong></p>
+      <div class="handbook-vpn-list">
+        <span class="handbook-vpn-badge">ExpressVPN</span>
+        <span class="handbook-vpn-badge">NordVPN</span>
+        <span class="handbook-vpn-badge">Astrill</span>
+      </div>
+
+      <div class="handbook-warning" style="margin-top:1.25rem;">
+        <p>⚠ 进入中国前务必安装并测试好 VPN。</p>
+        <p>⚠ 设置支付宝或微信支付时请关闭 VPN，否则身份验证将失败。</p>
+      </div>
+    </section>
+
+    <!-- 5. 必备 App -->
+    <section id="apps" class="handbook-section">
+      <p class="section-sub-label">必备应用</p>
+      <h2>抵达前先把这些 App 下载好</h2>
+      <p>以下三个 App 是在中国日常生活的必备工具。请在登机前完成下载和基础设置。</p>
+
+      <div class="handbook-app-cards">
+        <div class="handbook-app-card">
+          <div class="handbook-app-card__icon">💬</div>
+          <div class="handbook-app-card__name">微信（WeChat）</div>
+          <div class="handbook-app-card__desc">聊天 + 支付一体化。项目期间团队沟通的主要渠道。</div>
+        </div>
+        <div class="handbook-app-card">
+          <div class="handbook-app-card__icon">💳</div>
+          <div class="handbook-app-card__name">支付宝（Alipay）</div>
+          <div class="handbook-app-card__desc">国内主流支付方式，绝大多数商家和餐厅均支持。</div>
+        </div>
+        <div class="handbook-app-card">
+          <div class="handbook-app-card__icon">🚗</div>
+          <div class="handbook-app-card__name">滴滴（DiDi）</div>
+          <div class="handbook-app-card__desc">国内网约车平台（类似 Uber）。使用本地 SIM 卡效果最佳。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 支付设置 -->
+    <section id="payment" class="handbook-section">
+      <p class="section-sub-label">移动支付</p>
+      <h2>出发前设置好支付宝和微信支付 — 非常重要</h2>
+      <p>在中国，现金在大多数场景下已不通用。提前设置好移动支付，可以省去很多麻烦。</p>
+
+      <ol class="handbook-steps">
+        <li>使用手机号注册账户</li>
+        <li>用护照完成身份验证</li>
+        <li>绑定 Visa 或 Mastercard 充值</li>
+      </ol>
+
+      <div class="handbook-warning">
+        <p>⚠ 请在抵达前完成设置。设置过程中不要开 VPN，否则验证会失败。</p>
+      </div>
+
+      <p class="handbook-note">这两个 App 支持绝大多数线下消费场景。外卡用户的个人转账功能可能受限。建议随身携带少量人民币现金以备不时之需。</p>
+
+      <div class="handbook-links" style="margin-top:1rem;">
+        <a class="handbook-link" href="https://www.alipay.com" target="_blank" rel="noopener">支付宝官网 → alipay.com</a>
+        <a class="handbook-link" href="https://global.alipay.com/docs/ac/setup" target="_blank" rel="noopener">支付宝境外用户设置指南 →</a>
+        <a class="handbook-link" href="https://www.wechat.com" target="_blank" rel="noopener">微信官网 → wechat.com</a>
+        <a class="handbook-link" href="https://pay.weixin.qq.com/index.php/public/wechatpay_en" target="_blank" rel="noopener">微信支付（境外用户）→</a>
+      </div>
+    </section>
+
+    <!-- 7. SIM / 网络 -->
+    <section id="sim" class="handbook-section">
+      <p class="section-sub-label">网络连接</p>
+      <h2>移动数据是支付、导航和通讯的基础</h2>
+      <p>没有稳定的网络，微信支付和滴滴都无法正常使用。请在出发前确定好网络方案。</p>
+
+      <div class="handbook-sim-cards">
+        <div class="handbook-sim-card">
+          <span class="badge-recommended">推荐</span>
+          <div class="handbook-sim-card__name">境外旅行 SIM 卡</div>
+          <div class="handbook-sim-card__desc">可在机场领取。购买前询问清楚是否支持 Google 和 WhatsApp 访问。</div>
+        </div>
+        <div class="handbook-sim-card">
+          <div class="handbook-sim-card__name">eSIM</div>
+          <div class="handbook-sim-card__desc">出发前在线开通，无需实体卡。但没有中国手机号，可能影响部分短信验证。</div>
+        </div>
+        <div class="handbook-sim-card">
+          <div class="handbook-sim-card__name">国内本地 SIM 卡</div>
+          <div class="handbook-sim-card__desc">对 App 验证和网约车最稳定，但访问 Google 等境外服务需要开 VPN。</div>
+        </div>
+      </div>
+
+      <div class="handbook-aside">
+        <p><strong>团队经验：</strong>国内本地 SIM 通常对网约车和 App 实名验证更友好，但要注意在对的时机开关 VPN。</p>
+      </div>
+    </section>
+
+    <!-- 8. 行李与装备（待填充）-->
+    <section id="packing" class="handbook-section handbook-section--stub">
+      <h2>行李与装备</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>此部分正在准备中，出发前会更新完整内容。</p>
+      </div>
+    </section>
+
+    <!-- 9. 航班与抵达（待填充）-->
+    <section id="arrival" class="handbook-section handbook-section--stub">
+      <h2>航班与抵达</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>此部分正在准备中，出发前会更新完整内容。</p>
+      </div>
+    </section>
+
+    <!-- 10. 在华交通（待填充）-->
+    <section id="transport" class="handbook-section handbook-section--stub">
+      <h2>在华交通</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>此部分正在准备中，出发前会更新完整内容。</p>
+      </div>
+    </section>
+
+    <!-- 11. 健康与保险（待填充）-->
+    <section id="health" class="handbook-section handbook-section--stub">
+      <h2>健康与保险</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>此部分正在准备中，出发前会更新完整内容。</p>
+      </div>
+    </section>
+
+    <!-- 12. 紧急联系人（待填充）-->
+    <section id="emergency" class="handbook-section handbook-section--stub">
+      <h2>紧急联系人</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>此部分正在准备中，出发前会更新完整内容。</p>
+      </div>
+    </section>
+
+    <!-- 13. 项目日程（待填充）-->
+    <section id="schedule" class="handbook-section handbook-section--stub">
+      <h2>项目日程</h2>
+      <div class="stub-box">
+        <span class="stub-icon">🔜</span>
+        <p>此部分正在准备中，出发前会更新完整内容。</p>
+      </div>
+    </section>
+
+  </div>
+
 </Layout>
