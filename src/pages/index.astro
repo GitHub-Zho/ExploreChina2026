@@ -8,40 +8,83 @@ import Faq from '../components/v1/Faq.astro';
 <Layout title="Explore China | Student Program" lang="en" alternateHref="/zh/" alternateLabel="中文" heroNav={true}>
   <HeroSection />
 
-  <!-- Our Story -->
-  <section class="min-h-screen flex flex-col justify-center">
-    <div class="max-w-2xl mx-auto px-6">
-      <p class="section-eyebrow story-sentence" style="transition-delay:0s">Our Story</p>
+  <!-- ═══════════════════════════════════════════════════════════
+       PROTOTYPE A — Sticky Scroll Reveal
+  ════════════════════════════════════════════════════════════ -->
+  <div class="story-proto-label">✦ Version A — Sticky Scroll Reveal</div>
 
-      <p class="story-sentence text-xl md:text-2xl font-light py-4" style="opacity:0.7;transition-delay:0s">
+  <div id="story-a-wrapper" class="story-a-wrapper">
+    <div class="story-a-sticky">
+      <span class="story-a-eyebrow">Our Story</span>
+
+      <p class="story-a-sentence text-xl md:text-2xl" data-index="0">
         We're international students who moved to the UK and discovered something we didn't expect.
       </p>
-
-      <p class="story-sentence text-xl md:text-2xl font-light py-4" style="opacity:0.7;transition-delay:0.05s">
+      <p class="story-a-sentence text-xl md:text-2xl" data-index="1">
         The real version of a place only shows up when you slow down and actually live in it.
       </p>
-
-      <p class="story-sentence story-expansion text-lg md:text-xl font-light italic py-3 pl-6" style="opacity:0.6;transition-delay:0.1s">
+      <p class="story-a-sentence text-xl md:text-2xl" data-index="2">
         Then we realised — there's a whole other world out there. Different ways of living. Different rhythms. Things you'd never question until somewhere does it completely differently.
       </p>
-
-      <p class="story-sentence story-sentence--centrepiece text-4xl md:text-5xl lg:text-6xl font-semibold text-center py-16 md:py-20" style="transition-delay:0s">
+      <p class="story-a-sentence story-a-centrepiece text-3xl md:text-5xl" data-index="3">
         That feeling of your mind just&hellip; opening.
       </p>
-
-      <p class="story-sentence text-xl md:text-2xl font-light py-4" style="opacity:0.7;transition-delay:0.05s">
+      <p class="story-a-sentence text-xl md:text-2xl" data-index="4">
         We've been chasing ways to share it ever since.
       </p>
-
-      <p class="story-sentence text-xl md:text-2xl font-light py-4" style="opacity:0.7;transition-delay:0.1s">
+      <p class="story-a-sentence text-xl md:text-2xl" data-index="5">
         Three years ago we started taking students from the UK to China. 80+ people came.
       </p>
-
-      <p class="story-sentence text-xl md:text-2xl font-light py-4" style="opacity:0.7;transition-delay:0.15s">
+      <p class="story-a-sentence text-xl md:text-2xl" data-index="6">
         Now we're here in Canada, and we'd love to bring you along.
       </p>
     </div>
+  </div>
+
+  <div style="text-align:center; padding:2rem; background:#f0ece4; font-size:0.85rem; color:#888; letter-spacing:0.1em; text-transform:uppercase;">
+    — end of version A —
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PROTOTYPE B — Typewriter Auto-Play
+  ════════════════════════════════════════════════════════════ -->
+  <div class="story-proto-label">✦ Version B — Typewriter</div>
+
+  <section id="story-b-section" class="story-b-section">
+    <div class="story-b-inner">
+      <span class="story-b-eyebrow">Our Story</span>
+      <div class="story-b-text-wrap">
+        <span id="story-b-text"></span><span class="story-b-cursor" id="story-b-cursor">|</span>
+      </div>
+    </div>
   </section>
+
+  <div style="text-align:center; padding:2rem; background:#f0ece4; font-size:0.85rem; color:#888; letter-spacing:0.1em; text-transform:uppercase;">
+    — end of version B —
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PROTOTYPE C — Minimal 3-Line
+  ════════════════════════════════════════════════════════════ -->
+  <div class="story-proto-label">✦ Version C — Minimal</div>
+
+  <section class="story-c-section">
+    <div class="story-c-inner">
+      <p class="story-c-item story-c-context text-base md:text-lg font-light">
+        We're international students. Three years, 80+ participants, UK to China.
+      </p>
+      <p class="story-c-item story-c-hero text-3xl md:text-5xl lg:text-6xl font-semibold">
+        That feeling of your mind just&hellip; opening.
+      </p>
+      <p class="story-c-item story-c-closer text-base md:text-lg font-light">
+        Now we're in Canada, and we'd love to bring you along.
+      </p>
+    </div>
+  </section>
+
+  <div style="text-align:center; padding:2rem; background:#f0ece4; font-size:0.85rem; color:#888; letter-spacing:0.1em; text-transform:uppercase;">
+    — end of version C —
+  </div>
 
   <DestinationCarousel />
   <DestinationGrid />
@@ -89,30 +132,153 @@ import Faq from '../components/v1/Faq.astro';
 </Layout>
 
 <style>
-/* ── Our Story section ─────────────────────────────────── */
-.story-sentence--centrepiece {
-  color: var(--color-red);
+/* ── Prototype Labels ────────────────────────────────────── */
+.story-proto-label {
+  text-align: center;
+  padding: 1.5rem 1rem 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a8a09a;
+  background: #faf8f5;
+  border-top: 1px solid #e8e2da;
 }
 
-/* IntersectionObserver-driven animations */
-.story-sentence.js-ready {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+/* ══ PROTOTYPE A — Sticky Scroll Reveal ════════════════════ */
+.story-a-wrapper {
+  height: 700vh;
+  position: relative;
 }
-.story-sentence.js-ready.is-visible {
-  opacity: 1 !important;
+
+.story-a-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-a-eyebrow {
+  position: absolute;
+  top: 2.5rem;
+  left: 2.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a8a09a;
+}
+
+.story-a-sentence {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  max-width: 38rem;
+  padding: 0 2rem;
+  text-align: center;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #1c1917;
+}
+
+.story-a-centrepiece {
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* ══ PROTOTYPE B — Typewriter ══════════════════════════════ */
+.story-b-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fdfcfb;
+}
+
+.story-b-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 38rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.story-b-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a8a09a;
+}
+
+.story-b-text-wrap {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.65;
+  color: #1c1917;
+  min-height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  transition: opacity 0.4s ease;
+}
+
+.story-b-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: story-b-blink 0.9s step-start infinite;
+  color: #78716c;
+}
+
+@keyframes story-b-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ══ PROTOTYPE C — Minimal ═════════════════════════════════ */
+.story-c-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fdfcfb;
+}
+
+.story-c-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 44rem;
+  padding: 2rem;
+}
+
+.story-c-item {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.story-c-item.is-visible {
+  opacity: 1;
   transform: translateY(0);
 }
 
-.story-sentence--centrepiece.js-ready {
-  opacity: 0;
-  transform: translateY(32px) scale(0.97);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+.story-c-context {
+  color: #78716c;
+  margin-bottom: 3rem;
 }
-.story-sentence--centrepiece.js-ready.is-visible {
-  opacity: 1 !important;
-  transform: translateY(0) scale(1);
+
+.story-c-hero {
+  color: #1c1917;
+  line-height: 1.2;
+  margin-bottom: 3rem;
+}
+
+.story-c-closer {
+  color: #78716c;
 }
 
 /* ── Yunnan Toast ───────────────────────────────────────── */
@@ -159,20 +325,142 @@ import Faq from '../components/v1/Faq.astro';
     el.setAttribute(phAttr, el.getAttribute('data-ph') || '');
   });
 
-  // Our Story — IntersectionObserver animations (reset on leave)
+  // ══ PROTOTYPE A — Sticky Scroll Reveal ══════════════════
   (function () {
-    var sentences = document.querySelectorAll('.story-sentence');
+    var wrapper = document.getElementById('story-a-wrapper');
+    if (!wrapper) return;
+    var sentences = wrapper.querySelectorAll('.story-a-sentence');
     if (!sentences.length) return;
-    sentences.forEach(function (s) { s.classList.add('js-ready'); });
+
+    function updateStoryA() {
+      var rect = wrapper.getBoundingClientRect();
+      var scrollable = wrapper.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      var progress = -rect.top / scrollable;
+      var clamped = Math.max(0, Math.min(1, progress));
+      var index = Math.min(Math.floor(clamped * sentences.length), sentences.length - 1);
+      sentences.forEach(function (s, i) {
+        s.style.opacity = i === index ? '1' : '0';
+      });
+    }
+
+    window.addEventListener('scroll', updateStoryA, { passive: true });
+    updateStoryA();
+  }());
+
+  // ══ PROTOTYPE B — Typewriter ════════════════════════════
+  (function () {
+    var section = document.getElementById('story-b-section');
+    var textEl = document.getElementById('story-b-text');
+    var wrap = textEl ? textEl.parentElement : null;
+    if (!section || !textEl || !wrap) return;
+
+    var sentences = [
+      { text: "We're international students who moved to the UK and discovered something we didn't expect.", delay: 40 },
+      { text: "The real version of a place only shows up when you slow down and actually live in it.", delay: 40 },
+      { text: "Then we realised — there's a whole other world out there. Different ways of living. Different rhythms. Things you'd never question until somewhere does it completely differently.", delay: 40 },
+      { text: "That feeling of your mind just... opening.", delay: 60 },
+      { text: "We've been chasing ways to share it ever since.", delay: 40 },
+      { text: "Three years ago we started taking students from the UK to China. 80+ people came.", delay: 40 },
+      { text: "Now we're here in Canada, and we'd love to bring you along.", delay: 40 }
+    ];
+
+    var currentIndex = 0;
+    var animating = false;
+    var active = false;
+    var timeouts = [];
+
+    function clearAllTimeouts() {
+      timeouts.forEach(function(id) { clearTimeout(id); });
+      timeouts = [];
+    }
+
+    function later(fn, ms) {
+      var id = setTimeout(fn, ms);
+      timeouts.push(id);
+      return id;
+    }
+
+    function typeOut(sentence, charDelay, onDone) {
+      var chars = sentence.split('');
+      var i = 0;
+      textEl.textContent = '';
+
+      function nextChar() {
+        if (!active) return;
+        if (i < chars.length) {
+          textEl.textContent += chars[i++];
+          later(nextChar, charDelay);
+        } else {
+          onDone();
+        }
+      }
+      nextChar();
+    }
+
+    function runSentence(idx) {
+      if (!active) return;
+      var s = sentences[idx % sentences.length];
+      wrap.style.opacity = '1';
+
+      typeOut(s.text, s.delay, function () {
+        if (!active) return;
+        // Pause 1.5s then fade out
+        later(function () {
+          if (!active) return;
+          wrap.style.transition = 'opacity 0.4s ease';
+          wrap.style.opacity = '0';
+          later(function () {
+            if (!active) return;
+            textEl.textContent = '';
+            wrap.style.transition = '';
+            later(function () {
+              runSentence(idx + 1);
+            }, 200);
+          }, 450);
+        }, 1500);
+      });
+    }
+
+    function start() {
+      if (animating) return;
+      animating = true;
+      active = true;
+      runSentence(currentIndex);
+    }
+
+    function stop() {
+      active = false;
+      animating = false;
+      clearAllTimeouts();
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          start();
+        } else {
+          stop();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(section);
+  }());
+
+  // ══ PROTOTYPE C — Minimal fade-in ══════════════════════
+  (function () {
+    var items = document.querySelectorAll('.story-c-item');
+    if (!items.length) return;
+
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-        } else {
-          entry.target.classList.remove('is-visible');
         }
       });
-    }, { threshold: 0.3 });
-    sentences.forEach(function (sentence) { observer.observe(sentence); });
+    }, { threshold: 0.25 });
+
+    items.forEach(function (el) { observer.observe(el); });
   }());
 </script>
