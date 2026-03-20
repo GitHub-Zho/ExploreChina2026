@@ -32,8 +32,9 @@ const isZh = lang === 'zh';
             <a href={isZh ? '/zh/' : '/'} class="btn btn--primary bg-red-700 text-white px-5 py-2 text-sm font-semibold hover:bg-red-800 transition-colors">{isZh ? '立即报名' : 'Apply'}</a>
           )}
         </div>
-        <!-- Language switch always visible on mobile -->
-        <a href={alternateHref} class="navbar__lang navbar__lang--mobile md:hidden text-sm" style="color:#1a1a1a; margin-right:0.5rem;">{alternateLabel}</a>
+        <!-- Mobile: lang + hamburger grouped right -->
+        <div class="navbar__mobile-right md:hidden flex items-center gap-2">
+          <a href={alternateHref} class="navbar__lang navbar__lang--mobile text-sm" style="color:#1a1a1a;">{alternateLabel}</a>
         <!-- Mobile hamburger (minimal) -->
         <button class="navbar__hamburger md:hidden text-gray-900" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg id="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -46,6 +47,7 @@ const isZh = lang === 'zh';
             <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
+        </div>
       </>
     ) : (
       <>
@@ -57,8 +59,9 @@ const isZh = lang === 'zh';
           <a href={alternateHref} class="navbar__lang text-white text-sm">{alternateLabel}</a>
           <a href={isZh ? '/zh/' : '/'} class="btn btn--primary bg-red-700 text-white px-5 py-2 text-sm font-semibold hover:bg-red-800 transition-colors">{isZh ? '立即报名' : 'Apply'}</a>
         </div>
-        <!-- Language switch always visible on mobile -->
-        <a href={alternateHref} class="navbar__lang navbar__lang--mobile md:hidden text-sm" style="color:#1a1a1a; margin-right:0.5rem;">{alternateLabel}</a>
+        <!-- Mobile: lang + hamburger grouped right -->
+        <div class="navbar__mobile-right md:hidden flex items-center gap-2">
+          <a href={alternateHref} class="navbar__lang navbar__lang--mobile text-sm" style="color:#1a1a1a;">{alternateLabel}</a>
         <!-- Mobile hamburger (standard) -->
         <button class="navbar__hamburger md:hidden text-gray-900" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg id="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -71,6 +74,7 @@ const isZh = lang === 'zh';
             <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
+        </div>
       </>
     )}
   </div>
