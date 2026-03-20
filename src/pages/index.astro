@@ -7,43 +7,44 @@ import Faq from '../components/v1/Faq.astro';
 ---
 <Layout title="Explore China | Student Program" lang="en" alternateHref="/zh/" alternateLabel="中文" heroNav={true}>
   <HeroSection />
-  <DestinationCarousel />
-  <DestinationGrid />
 
-  <!-- Why We Built This -->
-  <section class="why-section py-20">
-    <div class="max-w-3xl mx-auto px-6">
-      <p class="section-eyebrow why-fade" style="transition-delay:0s">Our Story</p>
+  <!-- Our Story -->
+  <section class="min-h-screen flex flex-col justify-center">
+    <div class="max-w-2xl mx-auto px-6">
+      <p class="section-eyebrow story-sentence" style="transition-delay:0s">Our Story</p>
 
-      <p class="why-sentence why-fade" style="transition-delay:0.05s">
+      <p class="story-sentence text-xl md:text-2xl font-light py-4" style="opacity:0.7;transition-delay:0s">
         We're international students who moved to the UK and discovered something we didn't expect.
       </p>
 
-      <p class="why-sentence why-fade" style="transition-delay:0.1s">
+      <p class="story-sentence text-xl md:text-2xl font-light py-4" style="opacity:0.7;transition-delay:0.05s">
         The real version of a place only shows up when you slow down and actually live in it.
       </p>
 
-      <p class="why-sentence why-expand why-fade" style="transition-delay:0.15s">
+      <p class="story-sentence story-expansion text-lg md:text-xl font-light italic py-3 pl-6" style="opacity:0.6;transition-delay:0.1s">
         Then we realised — there's a whole other world out there. Different ways of living. Different rhythms. Things you'd never question until somewhere does it completely differently.
       </p>
 
-      <p class="why-sentence why-hero why-fade" style="transition-delay:0.2s">
+      <p class="story-sentence story-sentence--centrepiece text-4xl md:text-5xl lg:text-6xl font-semibold text-center py-16 md:py-20" style="transition-delay:0s">
         That feeling of your mind just&hellip; opening.
       </p>
 
-      <p class="why-sentence why-fade" style="transition-delay:0.25s">
+      <p class="story-sentence text-xl md:text-2xl font-light py-4" style="opacity:0.7;transition-delay:0.05s">
         We've been chasing ways to share it ever since.
       </p>
 
-      <p class="why-sentence why-fade" style="transition-delay:0.3s">
+      <p class="story-sentence text-xl md:text-2xl font-light py-4" style="opacity:0.7;transition-delay:0.1s">
         Three years ago we started taking students from the UK to China. 80+ people came.
       </p>
 
-      <p class="why-sentence why-fade" style="transition-delay:0.35s">
+      <p class="story-sentence text-xl md:text-2xl font-light py-4" style="opacity:0.7;transition-delay:0.15s">
         Now we're here in Canada, and we'd love to bring you along.
       </p>
     </div>
   </section>
+
+  <DestinationCarousel />
+  <DestinationGrid />
 
   <section id="itinerary" class="py-20">
     <div class="container">
@@ -88,72 +89,30 @@ import Faq from '../components/v1/Faq.astro';
 </Layout>
 
 <style>
-/* ── Why We Built This ─────────────────────────────────── */
-.why-section {
-  padding-block: 5rem;
-}
-
-.why-sentence {
-  font-family: var(--font-body);
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--color-ink);
-  font-size: clamp(1.25rem, 3vw, 1.5rem);
-  text-align: left;
-  padding-block: 1.75rem;
-}
-
-@media (min-width: 768px) {
-  .why-sentence { font-size: clamp(1.5rem, 3vw, 1.875rem); }
-}
-@media (min-width: 1024px) {
-  .why-sentence { font-size: 2.25rem; }
-}
-
-.why-expand {
-  font-size: clamp(1.1rem, 2.5vw, 1.25rem) !important;
-  font-style: italic;
-  font-weight: 200;
-  color: var(--color-ink-muted);
-}
-@media (min-width: 768px) {
-  .why-expand { font-size: 1.5rem !important; }
-}
-
-.why-hero {
-  font-size: clamp(1.875rem, 5vw, 3rem) !important;
-  font-weight: 600;
-  text-align: center;
-  margin-block: 3rem;
-  padding-block: 2.5rem;
+/* ── Our Story section ─────────────────────────────────── */
+.story-sentence--centrepiece {
   color: var(--color-red);
-  line-height: 1.3;
-}
-@media (min-width: 768px) {
-  .why-hero { font-size: clamp(3rem, 5vw, 3.75rem) !important; }
-}
-@media (min-width: 1024px) {
-  .why-hero { font-size: 3.75rem !important; }
 }
 
-/* Scroll fade-in */
-.why-fade {
+/* IntersectionObserver-driven animations */
+.story-sentence.js-ready {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.why-fade.visible {
-  opacity: 1;
+.story-sentence.js-ready.is-visible {
+  opacity: 1 !important;
   transform: translateY(0);
 }
 
-/* Reduced motion: show everything immediately */
-@media (prefers-reduced-motion: reduce) {
-  .why-fade {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+.story-sentence--centrepiece.js-ready {
+  opacity: 0;
+  transform: translateY(32px) scale(0.97);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.story-sentence--centrepiece.js-ready.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1);
 }
 
 /* ── Yunnan Toast ───────────────────────────────────────── */
@@ -200,18 +159,20 @@ import Faq from '../components/v1/Faq.astro';
     el.setAttribute(phAttr, el.getAttribute('data-ph') || '');
   });
 
-  // "Why We Built This" — scroll fade-in
+  // Our Story — IntersectionObserver animations (reset on leave)
   (function () {
-    var els = document.querySelectorAll('.why-fade');
-    if (!els.length) return;
+    var sentences = document.querySelectorAll('.story-sentence');
+    if (!sentences.length) return;
+    sentences.forEach(function (s) { s.classList.add('js-ready'); });
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          entry.target.classList.add('is-visible');
+        } else {
+          entry.target.classList.remove('is-visible');
         }
       });
-    }, { threshold: 0.15 });
-    els.forEach(function (el) { observer.observe(el); });
+    }, { threshold: 0.3 });
+    sentences.forEach(function (sentence) { observer.observe(sentence); });
   }());
 </script>
