@@ -8,7 +8,6 @@ import {
   cityGuides,
   itinerary,
   recommendedVideos,
-  site,
 } from '../../data/site';
 ---
 <Layout title={currentTrip.title} lang="en" alternateHref="/zh/trips/explore-china-2026-summer" alternateLabel="中文" darkNav={true}>
@@ -37,7 +36,6 @@ import {
         <div class="trip-strip__fact"><span class="trip-strip__label">Deadline</span><span class="trip-strip__val">{currentTrip.applicationDeadline}</span></div>
       </div>
       <div class="trip-strip__actions">
-        <a class="btn btn-primary" href="#register">Apply Now</a>
         <a class="btn btn-secondary" href="/handbook">Handbook</a>
       </div>
     </div>
@@ -189,25 +187,7 @@ import {
     </div>
   </section>
 
-  <!-- Apply -->
-  <section id="register" class="section apply-section" style="margin-bottom:36px;">
-    <div class="apply-section__card">
-      <h2 class="section-title">Apply for this trip</h2>
-      <p class="apply-subtitle">Tell us who you are, why this route fits, and how to reach you. We review applications personally rather than treating this as an instant checkout flow.</p>
-      <form class="form-grid" action="https://formsubmit.co/jo_oyoy@outlook.com" method="POST">
-        <input type="hidden" name="_subject" value="New Explore China application lead" />
-        <input type="hidden" name="_next" value="https://explore-china-site.vercel.app/success" />
-        <input type="hidden" name="_captcha" value="false" />
-        <div class="field"><label for="name">Full name</label><input id="name" name="name" required /></div>
-        <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required /></div>
-        <div class="field"><label for="phone">WhatsApp / Phone (optional)</label><input id="phone" name="phone" /></div>
-        <div class="field"><label for="city">Current city</label><input id="city" name="city" /></div>
-        <div class="field" style="grid-column:1 / -1;"><label for="goal">Why do you want this trip?</label><textarea id="goal" name="goal" required></textarea></div>
-        <div style="grid-column:1 / -1; display:flex; gap:10px; justify-content:center;"><button class="btn-apply" type="submit">Submit Application</button></div>
-      </form>
-      <p class="apply-note">Questions? Email {site.email}</p>
-    </div>
-  </section>
+
 </Layout>
 
 <style>

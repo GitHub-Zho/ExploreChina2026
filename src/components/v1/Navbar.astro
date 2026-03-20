@@ -23,32 +23,212 @@ const isZh = lang === 'zh';
     <a href={isZh ? '/zh/' : '/'} class="navbar__logo text-white font-semibold tracking-wide">{isZh ? '探索中国' : 'Explore China'}</a>
 
     {minimal ? (
-      <div class="navbar__minimal flex items-center gap-3">
-        <a href={isZh ? '/zh/trips/explore-china-2026-summer' : '/trips/explore-china-2026-summer'} class="navbar__plain-link text-white text-sm">{isZh ? '行程' : 'Trip'}</a>
-        <a href={isZh ? '/zh/handbook' : '/handbook'} class="navbar__plain-link text-white text-sm">{isZh ? '手册' : 'Handbook'}</a>
-        <a href={alternateHref} class="navbar__lang text-white text-sm">{alternateLabel}</a>
-        {minimalShowApply && (
-          <a href={isZh ? '/zh/trips/explore-china-2026-summer#register' : '/trips/explore-china-2026-summer#register'} class="btn btn--primary bg-red-700 text-white px-5 py-2 text-sm font-semibold hover:bg-red-800 transition-colors">{isZh ? '立即报名' : 'Apply'}</a>
-        )}
-      </div>
+      <>
+        <div class="navbar__minimal hidden md:flex items-center gap-3">
+          <a href={isZh ? '/zh/trips/explore-china-2026-summer' : '/trips/explore-china-2026-summer'} class="navbar__plain-link text-white text-sm">{isZh ? '行程' : 'Trip'}</a>
+          <a href={isZh ? '/zh/handbook' : '/handbook'} class="navbar__plain-link text-white text-sm">{isZh ? '手册' : 'Handbook'}</a>
+          <a href={alternateHref} class="navbar__lang text-white text-sm">{alternateLabel}</a>
+          {minimalShowApply && (
+            <a href={isZh ? '/zh/' : '/'} class="btn btn--primary bg-red-700 text-white px-5 py-2 text-sm font-semibold hover:bg-red-800 transition-colors">{isZh ? '立即报名' : 'Apply'}</a>
+          )}
+        </div>
+        <!-- Mobile hamburger (minimal) -->
+        <button class="navbar__hamburger md:hidden text-white" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg id="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          <svg id="close-icon" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </>
     ) : (
       <>
         <nav class="navbar__links hidden md:flex gap-8 text-sm font-medium tracking-wide text-white" aria-label="Main navigation">
           <a href={isZh ? '/zh/trips/explore-china-2026-summer' : '/trips/explore-china-2026-summer'}>{isZh ? '行程' : 'Trip'}</a>
           <a href={isZh ? '/zh/handbook' : '/handbook'}>{isZh ? '手册' : 'Handbook'}</a>
         </nav>
-        <div class="navbar__actions flex items-center gap-3">
+        <div class="navbar__actions hidden md:flex items-center gap-3">
           <a href={alternateHref} class="navbar__lang text-white text-sm">{alternateLabel}</a>
-          <a href={isZh ? '/zh/trips/explore-china-2026-summer#register' : '/trips/explore-china-2026-summer#register'} class="btn btn--primary bg-red-700 text-white px-5 py-2 text-sm font-semibold hover:bg-red-800 transition-colors">{isZh ? '立即报名' : 'Apply'}</a>
+          <a href={isZh ? '/zh/' : '/'} class="btn btn--primary bg-red-700 text-white px-5 py-2 text-sm font-semibold hover:bg-red-800 transition-colors">{isZh ? '立即报名' : 'Apply'}</a>
         </div>
+        <!-- Mobile hamburger (standard) -->
+        <button class="navbar__hamburger md:hidden text-white" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg id="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          <svg id="close-icon" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
       </>
     )}
   </div>
+
+  <!-- Mobile menu overlay -->
+  <div
+    id="mobile-menu"
+    class="mobile-menu"
+    aria-hidden="true"
+  >
+    <nav class="mobile-menu__nav" aria-label="Mobile navigation">
+      <a href={isZh ? '/zh/trips/explore-china-2026-summer' : '/trips/explore-china-2026-summer'} class="mobile-menu__link">{isZh ? '行程' : 'Trip'}</a>
+      <a href={isZh ? '/zh/handbook' : '/handbook'} class="mobile-menu__link">{isZh ? '手册' : 'Handbook'}</a>
+      <a href={alternateHref} class="mobile-menu__link mobile-menu__lang">{alternateLabel}</a>
+      <a href={isZh ? '/zh/' : '/'} class="mobile-menu__apply">{isZh ? '立即报名' : 'Apply'}</a>
+    </nav>
+  </div>
+  <!-- Backdrop -->
+  <div id="mobile-backdrop" class="mobile-backdrop" aria-hidden="true"></div>
 </header>
+
+<style>
+.navbar__hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 4rem; /* h-16 */
+  left: 0;
+  right: 0;
+  background: #fff;
+  z-index: 49;
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.mobile-menu.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem 1.5rem;
+  gap: 0;
+}
+
+.mobile-menu__link {
+  display: block;
+  padding: 0.85rem 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  letter-spacing: 0.01em;
+  transition: color 0.15s;
+}
+
+.mobile-menu__link:last-of-type {
+  border-bottom: none;
+}
+
+.mobile-menu__link:hover {
+  color: #c8102e;
+}
+
+.mobile-menu__lang {
+  color: #5a5a5a;
+  font-size: 0.95rem;
+}
+
+.mobile-menu__apply {
+  display: block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #b91c1c;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+
+.mobile-menu__apply:hover {
+  background: #991b1b;
+}
+
+.mobile-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 48;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.mobile-backdrop.is-open {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .mobile-menu,
+  .mobile-backdrop {
+    display: none !important;
+  }
+}
+</style>
 
 <script is:inline>
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     nav?.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Hamburger menu
+  const btn = document.getElementById('hamburger-btn');
+  const menu = document.getElementById('mobile-menu');
+  const backdrop = document.getElementById('mobile-backdrop');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  function openMenu() {
+    menu.classList.add('is-open');
+    backdrop.classList.add('is-open');
+    menu.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    hamburgerIcon.classList.add('hidden');
+    closeIcon.classList.remove('hidden');
+  }
+
+  function closeMenu() {
+    menu.classList.remove('is-open');
+    backdrop.classList.remove('is-open');
+    menu.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    hamburgerIcon.classList.remove('hidden');
+    closeIcon.classList.add('hidden');
+  }
+
+  btn?.addEventListener('click', () => {
+    const isOpen = menu.classList.contains('is-open');
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  backdrop?.addEventListener('click', closeMenu);
+
+  // Close on nav link click
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
   });
 </script>
