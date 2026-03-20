@@ -122,9 +122,39 @@ import {
   </section>
 
   <!-- Included / Not Included -->
-  <section class="section grid cols-2">
-    <article class="card"><h2 style="font-size:30px;">包含内容</h2><ul class="muted" style="line-height:1.8; padding-left:18px; margin:0;">{includedZh.map((item) => <li>{item}</li>)}</ul></article>
-    <article class="card"><h2 style="font-size:30px;">不包含内容</h2><ul class="muted" style="line-height:1.8; padding-left:18px; margin:0;">{notIncludedZh.map((item) => <li>{item}</li>)}</ul></article>
+  <section class="section">
+    <div class="inclusions-grid">
+      <!-- 包含内容 -->
+      <div class="inclusions-panel inclusions-panel--yes">
+        <div class="inclusions-panel__head">
+          <span class="inclusions-panel__icon">✅</span>
+          <h2 class="inclusions-panel__title">包含内容</h2>
+        </div>
+        <ul class="inclusions-list">
+          {includedZh.map((item) => (
+            <li class="inclusions-list__item">
+              <span class="inclusions-list__bullet">✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <!-- 不包含内容 -->
+      <div class="inclusions-panel inclusions-panel--no">
+        <div class="inclusions-panel__head">
+          <span class="inclusions-panel__icon">📋</span>
+          <h2 class="inclusions-panel__title">不包含内容</h2>
+        </div>
+        <ul class="inclusions-list">
+          {notIncludedZh.map((item) => (
+            <li class="inclusions-list__item">
+              <span class="inclusions-list__bullet">—</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   </section>
 
   <!-- Videos -->

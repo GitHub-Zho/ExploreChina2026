@@ -122,9 +122,39 @@ import {
   </section>
 
   <!-- Included / Not Included -->
-  <section class="section grid cols-2">
-    <article class="card"><h2 style="font-size:30px;">Included</h2><ul class="muted" style="line-height:1.8; padding-left:18px; margin:0;">{included.map((item) => <li>{item}</li>)}</ul></article>
-    <article class="card"><h2 style="font-size:30px;">Not included</h2><ul class="muted" style="line-height:1.8; padding-left:18px; margin:0;">{notIncluded.map((item) => <li>{item}</li>)}</ul></article>
+  <section class="section">
+    <div class="inclusions-grid">
+      <!-- Included -->
+      <div class="inclusions-panel inclusions-panel--yes">
+        <div class="inclusions-panel__head">
+          <span class="inclusions-panel__icon">✅</span>
+          <h2 class="inclusions-panel__title">Included</h2>
+        </div>
+        <ul class="inclusions-list">
+          {included.map((item) => (
+            <li class="inclusions-list__item">
+              <span class="inclusions-list__bullet">✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <!-- Not included -->
+      <div class="inclusions-panel inclusions-panel--no">
+        <div class="inclusions-panel__head">
+          <span class="inclusions-panel__icon">📋</span>
+          <h2 class="inclusions-panel__title">Not included</h2>
+        </div>
+        <ul class="inclusions-list">
+          {notIncluded.map((item) => (
+            <li class="inclusions-list__item">
+              <span class="inclusions-list__bullet">—</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   </section>
 
   <!-- Videos -->
