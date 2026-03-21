@@ -9,46 +9,48 @@ import Faq from '../components/v1/Faq.astro';
   <HeroSection />
 
   <!-- ═══════════════════════════════════════════════════════════
-       TYPEWRITER CURTAIN — Our Story
+       STORY SECTION — Version C look + Curtain + Version B Typewriter
   ════════════════════════════════════════════════════════════ -->
-  <section id="tw-section" class="tw-section">
-    <!-- Idle overlay (hidden once curtain completes) -->
-    <div class="tw-idle" id="tw-idle">
-      <!-- Desktop prompt -->
-      <p class="tw-prompt tw-prompt-desktop" aria-hidden="true">
-        <span class="tw-arrow tw-arrow-left">←</span>
-        Drag to reveal our story
-        <span class="tw-arrow tw-arrow-right">→</span>
+  <section id="story-section" class="story-c-section" aria-label="Our Story">
+
+    <!-- STATE 1: Idle — Version C visual style -->
+    <div class="story-c-inner" id="story-idle">
+      <p class="story-c-item story-c-context" data-story-c-item>
+        We're international students. Three years, 80+ participants, UK to China.
       </p>
-      <!-- Mobile prompt -->
-      <button class="tw-prompt tw-prompt-mobile" id="tw-tap-btn" type="button">
-        Reveal our story
-      </button>
+      <p class="story-c-item story-c-hero" data-story-c-item>
+        That feeling of your mind just&hellip; opening.
+      </p>
+      <p class="story-c-item story-c-closer" data-story-c-item>
+        Now we're in Canada, and we'd love to bring you along.
+      </p>
+      <p class="story-drag-prompt story-c-item" id="story-drag-prompt" aria-hidden="true" data-story-c-item>
+        Drag to read our full story →
+      </p>
     </div>
 
-    <!-- Curtain panel -->
-    <div class="tw-curtain" id="tw-curtain" aria-hidden="true"></div>
+    <!-- STATE 2: Curtain overlay -->
+    <div class="story-curtain" id="story-curtain" aria-hidden="true"></div>
 
-    <!-- Typewriter content (hidden until curtain completes) -->
-    <div class="tw-content" id="tw-content" aria-live="polite">
-      <!-- cursor is appended here via JS; paragraphs inserted before it -->
+    <!-- STATE 3: Typewriter — Version B style -->
+    <div class="story-b-section" id="story-typewriter" aria-live="polite">
+      <div class="story-b-inner">
+        <p class="story-b-eyebrow">Our Story</p>
+        <div class="story-b-text-wrap" id="story-b-text">
+          <span class="story-b-cursor" id="story-b-cursor" aria-hidden="true">|</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Noscript fallback -->
-    <noscript><style>.tw-idle{display:none}.tw-noscript{display:block!important}</style></noscript>
-    <div class="tw-noscript" aria-label="Our story">
-      <p>We're international students who moved to the UK and discovered something we didn't expect.</p>
-      <p>The real version of a place only shows up when you slow down and actually live in it.</p>
-      <p>Then we realised —</p>
-      <p>there's a whole other world out there.</p>
-      <p>Different ways of living.</p>
-      <p>Different rhythms.</p>
-      <p>Things you'd never question until somewhere does it completely differently.</p>
-      <p class="tw-noscript-centrepiece">That feeling of your mind just... opening.</p>
-      <p>We've been chasing ways to share it ever since.</p>
-      <p>Three years ago we started taking students from the UK to China. 80+ people came.</p>
-      <p>Now we're here in Canada, and we'd love to bring you along.</p>
-    </div>
+    <!-- Noscript fallback: show Version C's 3 lines statically -->
+    <noscript>
+      <style>.story-c-inner { display: none !important; }</style>
+      <div class="story-noscript">
+        <p class="story-c-context">We're international students. Three years, 80+ participants, UK to China.</p>
+        <p class="story-c-hero">That feeling of your mind just… opening.</p>
+        <p class="story-c-closer">Now we're in Canada, and we'd love to bring you along.</p>
+      </div>
+    </noscript>
   </section>
 
   <DestinationCarousel />
@@ -97,150 +99,154 @@ import Faq from '../components/v1/Faq.astro';
 </Layout>
 
 <style>
-/* ══ Typewriter Curtain Section ═══════════════════════════════ */
-.tw-section {
+/* ══ Story Section: Version C + Curtain + Version B Typewriter ══════════════ */
+
+/* ── Container ─────────────────────────────────────────────── */
+.story-c-section {
   position: relative;
   min-height: 100vh;
-  background: #111;
+  background: #fdfcfb;
   overflow: hidden;
   user-select: none;
+  touch-action: pan-y; /* allow vertical scroll; horizontal captured by JS */
 }
 
-/* ── Idle overlay ──────────────────────────────────────────── */
-.tw-idle {
+/* ── STATE 1: Version C idle ────────────────────────────────── */
+.story-c-inner {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 2;
-}
-
-.tw-prompt {
-  color: #666;
-  font-size: 0.875rem; /* text-sm */
-  opacity: 0.85;
-  letter-spacing: 0.05em;
-}
-
-.tw-prompt-desktop {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
+  gap: 1.25rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  z-index: 1;
   cursor: grab;
 }
+.story-c-inner:active { cursor: grabbing; }
 
-.tw-prompt-mobile {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
+.story-c-item {
+  margin: 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.story-c-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.story-c-context {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #78716c;
+  line-height: 1.6;
+}
+@media (min-width: 768px) {
+  .story-c-context { font-size: 1.125rem; }
+}
+
+.story-c-hero {
+  font-size: clamp(1.875rem, 5vw, 3.75rem);
+  font-weight: 600;
+  color: #1c1917;
+  line-height: 1.2;
+}
+
+.story-c-closer {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #78716c;
+  line-height: 1.6;
+}
+@media (min-width: 768px) {
+  .story-c-closer { font-size: 1.125rem; }
+}
+
+/* ── Drag prompt — same text on all viewports ───────────────── */
+.story-drag-prompt {
   font-size: 0.875rem;
-  color: #666;
-  font-family: inherit;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  opacity: 0.85;
+  color: #a8a09a;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  margin: 0.5rem 0 0;
 }
 
-@media (max-width: 767px) {
-  .tw-prompt-desktop { display: none; }
-  .tw-prompt-mobile  { display: block; }
-}
-
-/* Arrow pulse animation */
-.tw-arrow {
-  display: inline-block;
-  animation: tw-pulse-arrow 2s ease-in-out infinite;
-}
-.tw-arrow-left  { animation-delay: 0s; }
-.tw-arrow-right { animation-delay: 0.3s; }
-
-@keyframes tw-pulse-arrow {
-  0%, 100% { opacity: 0.4; transform: translateX(0); }
-  50%       { opacity: 1;   transform: translateX(3px); }
-}
-.tw-arrow-left {
-  animation-name: tw-pulse-arrow-left;
-}
-@keyframes tw-pulse-arrow-left {
-  0%, 100% { opacity: 0.4; transform: translateX(0); }
-  50%       { opacity: 1;   transform: translateX(-3px); }
-}
-
-/* ── Curtain panel ─────────────────────────────────────────── */
-.tw-curtain {
+/* ── STATE 2: Curtain ───────────────────────────────────────── */
+.story-curtain {
   position: absolute;
   inset: 0;
-  background: #0a0a0a;
+  background: #fdfcfb;
   transform: scaleX(0);
   transform-origin: left center;
   z-index: 3;
   will-change: transform;
+  /* subtle shadow on the right edge so the "turn" is visible */
+  box-shadow: 6px 0 20px rgba(28, 25, 23, 0.09);
 }
 
-/* ── Typewriter content ────────────────────────────────────── */
-.tw-content {
+/* ── STATE 3: Typewriter — Version B ────────────────────────── */
+.story-b-section {
   position: absolute;
   inset: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  background: #fdfcfb;
+  display: none; /* set to flex by JS when active */
+  align-items: center;
+  justify-content: center;
   z-index: 4;
-  display: none; /* shown by JS once curtain completes */
-  scrollbar-width: none;
-}
-.tw-content::-webkit-scrollbar { display: none; }
-
-.tw-content-inner {
-  max-width: 36rem;
-  margin: 0 auto;
-  padding: 0 2rem;
 }
 
-@media (min-width: 768px) {
-  .tw-content { padding-top: 6rem; }
+.story-b-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 2rem;
+  width: 100%;
 }
 
-/* Default paragraph style applied via JS inline, but cursor lives here */
-.tw-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background: currentColor;
-  margin-left: 2px;
-  color: rgba(255,255,255,0.8);
-  animation: tw-blink 1s step-end infinite;
-  vertical-align: middle;
+.story-b-eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a8a09a;
+  font-weight: 400;
 }
 
-@keyframes tw-blink {
+.story-b-text-wrap {
+  max-width: 38rem;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 300;
+  color: #1c1917;
+  line-height: 1.7;
+  min-height: 3.5rem;
+}
+
+.story-b-cursor {
+  display: inline;
+  color: #78716c;
+  font-weight: 300;
+  animation: story-b-blink 1s step-end infinite;
+}
+
+@keyframes story-b-blink {
   50% { opacity: 0; }
 }
 
-/* ── Noscript fallback ─────────────────────────────────────── */
-.tw-noscript {
+/* ── Noscript fallback ──────────────────────────────────────── */
+.story-noscript {
   display: none;
-  max-width: 36rem;
+  max-width: 38rem;
   margin: 0 auto;
-  padding: 4rem 2rem;
-  color: rgba(255,255,255,0.8);
-  font-size: 1.125rem;
-  font-weight: 300;
-  line-height: 1.8;
+  padding: 8rem 2rem;
+  text-align: center;
 }
-
-.tw-noscript p {
-  margin: 0 0 1.25rem 0;
-}
-
-.tw-noscript-centrepiece {
-  font-size: 1.5rem !important;
-  font-weight: 600 !important;
-  color: #fff !important;
-}
+.story-noscript p { margin: 0 0 1.25rem 0; }
 
 /* ── Yunnan Toast ───────────────────────────────────────────── */
 .yunnan-toast {
@@ -272,152 +278,238 @@ import Faq from '../components/v1/Faq.astro';
 
 <script is:inline>
 (function () {
+  'use strict';
+
   /* ── Utils ──────────────────────────────────────────────── */
-  function sleep(ms) { return new Promise(function(r) { setTimeout(r, ms); }); }
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
   /* ── Elements ───────────────────────────────────────────── */
-  var section  = document.getElementById('tw-section');
-  var idle     = document.getElementById('tw-idle');
-  var curtain  = document.getElementById('tw-curtain');
-  var content  = document.getElementById('tw-content');
-  var tapBtn   = document.getElementById('tw-tap-btn');
+  var section    = document.getElementById('story-section');
+  var idle       = document.getElementById('story-idle');
+  var curtain    = document.getElementById('story-curtain');
+  var typewriter = document.getElementById('story-typewriter');
+  var textEl     = document.getElementById('story-b-text');
+  var cursorEl   = document.getElementById('story-b-cursor');
 
-  if (!section || !idle || !curtain || !content) return;
+  if (!section || !idle || !curtain || !typewriter || !textEl || !cursorEl) return;
+
+  /* ── Fade-in idle items via IntersectionObserver ────────── */
+  var storyItems = idle.querySelectorAll('[data-story-c-item]');
+  var itemObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        itemObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  storyItems.forEach(function (el, i) {
+    el.style.transitionDelay = (i * 0.12) + 's';
+    itemObs.observe(el);
+  });
 
   /* ── Sentences ──────────────────────────────────────────── */
   var sentences = [
-    { text: "We're international students who moved to the UK and discovered something we didn't expect.", pause: 1200 },
-    { text: "The real version of a place only shows up when you slow down and actually live in it.", pause: 1200 },
-    { text: "Then we realised —", pause: 600 },
-    { text: "there's a whole other world out there.", pause: 800 },
-    { text: "Different ways of living.", pause: 500 },
-    { text: "Different rhythms.", pause: 500 },
-    { text: "Things you'd never question until somewhere does it completely differently.", pause: 1200 },
-    { text: "That feeling of your mind just... opening.", pause: 2000, cls: "centrepiece" },
-    { text: "We've been chasing ways to share it ever since.", pause: 1200 },
-    { text: "Three years ago we started taking students from the UK to China. 80+ people came.", pause: 1200 },
-    { text: "Now we're here in Canada, and we'd love to bring you along.", pause: 0 }
+    { text: "We're international students who moved to the UK and discovered something we didn't expect.", ms: 40 },
+    { text: "The real version of a place only shows up when you slow down and actually live in it.", ms: 40 },
+    { text: "Then we realised — there's a whole other world out there. Different ways of living. Different rhythms. Things you'd never question until somewhere does it completely differently.", ms: 40 },
+    { text: "That feeling of your mind just... opening.", ms: 60, big: true },
+    { text: "We've been chasing ways to share it ever since.", ms: 40 },
+    { text: "Three years ago we started taking students from the UK to China. 80+ people came.", ms: 40 },
+    { text: "Now we're here in Canada, and we'd love to bring you along.", ms: 40 }
   ];
 
-  /* ── Build content container ────────────────────────────── */
-  var inner = document.createElement('div');
-  inner.className = 'tw-content-inner';
-  content.appendChild(inner);
+  /* ── Typewriter state ───────────────────────────────────── */
+  var twRunning = false;
+  var twPaused  = false;
+  var twStarted = false;
 
-  var cursor = document.createElement('span');
-  cursor.className = 'tw-cursor';
-  cursor.setAttribute('aria-hidden', 'true');
-  inner.appendChild(cursor);
+  async function typewriterLoop() {
+    while (twRunning) {
+      for (var i = 0; i < sentences.length; i++) {
+        if (!twRunning) return;
+        var s = sentences[i];
 
-  /* ── Typewriter engine ──────────────────────────────────── */
-  async function typeSequence() {
-    for (var i = 0; i < sentences.length; i++) {
-      var s = sentences[i];
-      var p = document.createElement('p');
-
-      if (s.cls === 'centrepiece') {
-        p.style.fontSize = 'clamp(1.5rem, 3vw, 1.875rem)';
-        p.style.fontWeight = '600';
-        p.style.color = '#fff';
-      } else {
-        p.style.fontSize = 'clamp(1.125rem, 2vw, 1.25rem)';
-        p.style.fontWeight = '300';
-        p.style.color = 'rgba(255,255,255,0.8)';
-      }
-      p.style.margin = '0 0 1.25rem 0';
-      p.style.lineHeight = '1.8';
-
-      inner.insertBefore(p, cursor);
-
-      for (var j = 0; j < s.text.length; j++) {
-        p.textContent += s.text[j];
-        if (inner.scrollHeight > content.clientHeight * 0.6) {
-          content.scrollTo({ top: content.scrollHeight, behavior: 'smooth' });
+        var span = document.createElement('span');
+        if (s.big) {
+          span.style.fontSize   = 'clamp(1.4rem, 3vw, 1.875rem)';
+          span.style.fontWeight = '400';
         }
-        await sleep(40);
-      }
+        textEl.insertBefore(span, cursorEl);
 
-      if (s.pause > 0) await sleep(s.pause);
+        /* type characters */
+        for (var j = 0; j < s.text.length; j++) {
+          if (!twRunning) { span.remove(); return; }
+          while (twPaused) {
+            await sleep(100);
+            if (!twRunning) { span.remove(); return; }
+          }
+          span.textContent += s.text[j];
+          await sleep(s.ms);
+        }
+
+        /* pause 1.5 s after fully typed */
+        await sleep(1500);
+        if (!twRunning) { span.remove(); return; }
+
+        /* fade out over 0.4 s */
+        span.style.transition = 'opacity 0.4s ease';
+        span.style.opacity    = '0';
+        await sleep(420);
+        if (!twRunning) { span.remove(); return; }
+
+        /* clear + brief pause before next sentence */
+        span.remove();
+        await sleep(200);
+      }
     }
-    /* cursor keeps blinking — done */
   }
 
   /* ── Curtain completion ─────────────────────────────────── */
-  var typewriterStarted = false;
+  var curtainDone = false;
 
   function completeCurtain() {
-    curtain.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
-    curtain.style.transform = 'scaleX(1)';
+    if (curtainDone) return;
+    curtainDone = true;
 
-    // Hide idle layer, show content
-    idle.style.display = 'none';
-    content.style.display = 'block';
+    curtain.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    curtain.style.transform  = 'scaleX(1)';
 
-    if (!typewriterStarted) {
-      typewriterStarted = true;
-      setTimeout(typeSequence, 600);
+    setTimeout(function () {
+      idle.style.display       = 'none';
+      curtain.style.display    = 'none';
+      typewriter.style.display = 'flex';
+
+      if (!twStarted) {
+        twStarted = true;
+        /* 600 ms delay after curtain completes before typing begins */
+        setTimeout(function () {
+          twRunning = true;
+          typewriterLoop();
+        }, 600);
+      }
+    }, 520);
+  }
+
+  function snapBack() {
+    curtain.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    curtain.style.transform  = 'scaleX(0)';
+  }
+
+  /* ── Shared drag logic ──────────────────────────────────── */
+  /* threshold: dragging past 40% of section width auto-completes */
+  var THRESHOLD = 0.4;
+
+  function onDragStart(clientX) {
+    if (curtainDone) return false;
+    curtain.style.transition = 'none';
+    return clientX;
+  }
+
+  function onDragMove(startX, clientX) {
+    var dx       = Math.max(clientX - startX, 0); /* right-direction only */
+    var progress = Math.min(dx / section.offsetWidth, 1);
+    curtain.style.transform = 'scaleX(' + progress + ')';
+    return progress;
+  }
+
+  function onDragEnd(progress) {
+    if (curtainDone) return;
+    if (progress >= THRESHOLD) {
+      completeCurtain();
+    } else {
+      snapBack();
     }
   }
 
-  /* ── Desktop drag ───────────────────────────────────────── */
-  var dragStart = null;
-  var curtainProgress = 0;
-  var dragging = false;
+  /* ── Desktop mouse drag ─────────────────────────────────── */
+  var mouseStartX = null;
+  var mouseDown   = false;
+  var mouseProgress = 0;
 
   idle.addEventListener('mousedown', function (e) {
-    if (typewriterStarted) return;
-    dragStart = e.clientX;
-    dragging = true;
+    if (curtainDone) return;
+    mouseStartX   = e.clientX;
+    mouseDown     = true;
+    mouseProgress = 0;
     curtain.style.transition = 'none';
   });
 
   document.addEventListener('mousemove', function (e) {
-    if (!dragging || dragStart === null) return;
-    var dx = Math.abs(e.clientX - dragStart);
-    curtainProgress = Math.min(dx / (section.offsetWidth * 0.4), 1);
-    curtain.style.transform = 'scaleX(' + curtainProgress + ')';
-
-    if (curtainProgress >= 1) {
-      dragging = false;
-      dragStart = null;
+    if (!mouseDown || mouseStartX === null) return;
+    mouseProgress = onDragMove(mouseStartX, e.clientX);
+    if (mouseProgress >= 1) {
+      mouseDown = false;
+      mouseStartX = null;
       completeCurtain();
     }
   });
 
-  document.addEventListener('mouseup', function () {
-    if (!dragging) return;
-    dragging = false;
-    if (curtainProgress >= 1) {
-      completeCurtain();
-    } else {
-      curtain.style.transition = 'transform 0.3s ease';
-      curtain.style.transform = 'scaleX(0)';
-    }
-    dragStart = null;
-    curtainProgress = 0;
+  document.addEventListener('mouseup', function (e) {
+    if (!mouseDown) return;
+    mouseDown = false;
+    var prog = mouseStartX !== null
+      ? Math.min(Math.max(e.clientX - mouseStartX, 0) / section.offsetWidth, 1)
+      : mouseProgress;
+    mouseStartX   = null;
+    mouseProgress = 0;
+    onDragEnd(prog);
   });
 
-  /* ── Mobile tap ─────────────────────────────────────────── */
-  if (tapBtn) {
-    tapBtn.addEventListener('click', function () {
-      if (typewriterStarted) return;
+  /* ── Mobile touch drag ──────────────────────────────────── */
+  var touchStartX   = null;
+  var touching      = false;
+  var touchProgress = 0;
+
+  idle.addEventListener('touchstart', function (e) {
+    if (curtainDone) return;
+    touchStartX   = e.touches[0].clientX;
+    touching      = true;
+    touchProgress = 0;
+    curtain.style.transition = 'none';
+  }, { passive: true });
+
+  idle.addEventListener('touchmove', function (e) {
+    if (!touching || touchStartX === null) return;
+    touchProgress = onDragMove(touchStartX, e.touches[0].clientX);
+    if (touchProgress >= 1) {
+      touching    = false;
+      touchStartX = null;
       completeCurtain();
+    }
+  }, { passive: true });
+
+  idle.addEventListener('touchend', function () {
+    if (!touching) return;
+    touching = false;
+    var prog = touchProgress;
+    touchStartX   = null;
+    touchProgress = 0;
+    onDragEnd(prog);
+  });
+
+  /* ── IntersectionObserver: pause/resume typewriter ──────── */
+  var sectionObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      twPaused = !entry.isIntersecting;
     });
-  }
+  }, { threshold: 0.1 });
+  sectionObs.observe(section);
 
-  /* ── Misc: apply form placeholders / yunnan toast ───────── */
+  /* ── Misc: form placeholders ────────────────────────────── */
   var phAttr = 'pl' + 'ace' + 'holder';
-  document.querySelectorAll('[data-ph]').forEach(function(el) {
+  document.querySelectorAll('[data-ph]').forEach(function (el) {
     el.setAttribute(phAttr, el.getAttribute('data-ph') || '');
   });
 
+  /* ── Yunnan toast ───────────────────────────────────────── */
   document.getElementById('yunnan-card')?.addEventListener('click', function () {
     var toast = document.getElementById('yunnan-toast');
     if (!toast) return;
     toast.classList.remove('toast-show');
     void toast.offsetWidth;
     toast.classList.add('toast-show');
-    setTimeout(function() { toast.classList.remove('toast-show'); }, 3500);
+    setTimeout(function () { toast.classList.remove('toast-show'); }, 3500);
   });
 }());
 </script>
