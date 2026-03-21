@@ -9,82 +9,47 @@ import Faq from '../components/v1/Faq.astro';
   <HeroSection />
 
   <!-- ═══════════════════════════════════════════════════════════
-       PROTOTYPE A — Sticky Scroll Reveal
+       TYPEWRITER CURTAIN — Our Story
   ════════════════════════════════════════════════════════════ -->
-  <div class="story-proto-label">✦ Version A — Sticky Scroll Reveal</div>
-
-  <div id="story-a-wrapper" class="story-a-wrapper">
-    <div class="story-a-sticky">
-      <span class="story-a-eyebrow">Our Story</span>
-
-      <p class="story-a-sentence text-xl md:text-2xl" data-index="0">
-        We're international students who moved to the UK and discovered something we didn't expect.
+  <section id="tw-section" class="tw-section">
+    <!-- Idle overlay (hidden once curtain completes) -->
+    <div class="tw-idle" id="tw-idle">
+      <!-- Desktop prompt -->
+      <p class="tw-prompt tw-prompt-desktop" aria-hidden="true">
+        <span class="tw-arrow tw-arrow-left">←</span>
+        Drag to reveal our story
+        <span class="tw-arrow tw-arrow-right">→</span>
       </p>
-      <p class="story-a-sentence text-xl md:text-2xl" data-index="1">
-        The real version of a place only shows up when you slow down and actually live in it.
-      </p>
-      <p class="story-a-sentence text-xl md:text-2xl" data-index="2">
-        Then we realised — there's a whole other world out there. Different ways of living. Different rhythms. Things you'd never question until somewhere does it completely differently.
-      </p>
-      <p class="story-a-sentence story-a-centrepiece text-3xl md:text-5xl" data-index="3">
-        That feeling of your mind just&hellip; opening.
-      </p>
-      <p class="story-a-sentence text-xl md:text-2xl" data-index="4">
-        We've been chasing ways to share it ever since.
-      </p>
-      <p class="story-a-sentence text-xl md:text-2xl" data-index="5">
-        Three years ago we started taking students from the UK to China. 80+ people came.
-      </p>
-      <p class="story-a-sentence text-xl md:text-2xl" data-index="6">
-        Now we're here in Canada, and we'd love to bring you along.
-      </p>
+      <!-- Mobile prompt -->
+      <button class="tw-prompt tw-prompt-mobile" id="tw-tap-btn" type="button">
+        Reveal our story
+      </button>
     </div>
-  </div>
 
-  <div style="text-align:center; padding:2rem; background:#f0ece4; font-size:0.85rem; color:#888; letter-spacing:0.1em; text-transform:uppercase;">
-    — end of version A —
-  </div>
+    <!-- Curtain panel -->
+    <div class="tw-curtain" id="tw-curtain" aria-hidden="true"></div>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       PROTOTYPE B — Typewriter Auto-Play
-  ════════════════════════════════════════════════════════════ -->
-  <div class="story-proto-label">✦ Version B — Typewriter</div>
+    <!-- Typewriter content (hidden until curtain completes) -->
+    <div class="tw-content" id="tw-content" aria-live="polite">
+      <!-- cursor is appended here via JS; paragraphs inserted before it -->
+    </div>
 
-  <section id="story-b-section" class="story-b-section">
-    <div class="story-b-inner">
-      <span class="story-b-eyebrow">Our Story</span>
-      <div class="story-b-text-wrap">
-        <span id="story-b-text"></span><span class="story-b-cursor" id="story-b-cursor">|</span>
-      </div>
+    <!-- Noscript fallback -->
+    <noscript><style>.tw-idle{display:none}.tw-noscript{display:block!important}</style></noscript>
+    <div class="tw-noscript" aria-label="Our story">
+      <p>We're international students who moved to the UK and discovered something we didn't expect.</p>
+      <p>The real version of a place only shows up when you slow down and actually live in it.</p>
+      <p>Then we realised —</p>
+      <p>there's a whole other world out there.</p>
+      <p>Different ways of living.</p>
+      <p>Different rhythms.</p>
+      <p>Things you'd never question until somewhere does it completely differently.</p>
+      <p class="tw-noscript-centrepiece">That feeling of your mind just... opening.</p>
+      <p>We've been chasing ways to share it ever since.</p>
+      <p>Three years ago we started taking students from the UK to China. 80+ people came.</p>
+      <p>Now we're here in Canada, and we'd love to bring you along.</p>
     </div>
   </section>
-
-  <div style="text-align:center; padding:2rem; background:#f0ece4; font-size:0.85rem; color:#888; letter-spacing:0.1em; text-transform:uppercase;">
-    — end of version B —
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       PROTOTYPE C — Minimal 3-Line
-  ════════════════════════════════════════════════════════════ -->
-  <div class="story-proto-label">✦ Version C — Minimal</div>
-
-  <section class="story-c-section">
-    <div class="story-c-inner">
-      <p class="story-c-item story-c-context text-base md:text-lg font-light">
-        We're international students. Three years, 80+ participants, UK to China.
-      </p>
-      <p class="story-c-item story-c-hero text-3xl md:text-5xl lg:text-6xl font-semibold">
-        That feeling of your mind just&hellip; opening.
-      </p>
-      <p class="story-c-item story-c-closer text-base md:text-lg font-light">
-        Now we're in Canada, and we'd love to bring you along.
-      </p>
-    </div>
-  </section>
-
-  <div style="text-align:center; padding:2rem; background:#f0ece4; font-size:0.85rem; color:#888; letter-spacing:0.1em; text-transform:uppercase;">
-    — end of version C —
-  </div>
 
   <DestinationCarousel />
   <DestinationGrid />
@@ -132,156 +97,152 @@ import Faq from '../components/v1/Faq.astro';
 </Layout>
 
 <style>
-/* ── Prototype Labels ────────────────────────────────────── */
-.story-proto-label {
-  text-align: center;
-  padding: 1.5rem 1rem 1rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #a8a09a;
-  background: #faf8f5;
-  border-top: 1px solid #e8e2da;
-}
-
-/* ══ PROTOTYPE A — Sticky Scroll Reveal ════════════════════ */
-.story-a-wrapper {
-  height: 700vh;
+/* ══ Typewriter Curtain Section ═══════════════════════════════ */
+.tw-section {
   position: relative;
-}
-
-.story-a-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.story-a-eyebrow {
-  position: absolute;
-  top: 2.5rem;
-  left: 2.5rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #a8a09a;
-}
-
-.story-a-sentence {
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  max-width: 38rem;
-  padding: 0 2rem;
-  text-align: center;
-  font-weight: 300;
-  line-height: 1.6;
-  color: #1c1917;
-}
-
-.story-a-centrepiece {
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-/* ══ PROTOTYPE B — Typewriter ══════════════════════════════ */
-.story-b-section {
   min-height: 100vh;
+  background: #111;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ── Idle overlay ──────────────────────────────────────────── */
+.tw-idle {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fdfcfb;
+  z-index: 2;
 }
 
-.story-b-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  max-width: 38rem;
-  padding: 2rem;
-  text-align: center;
+.tw-prompt {
+  color: #666;
+  font-size: 0.875rem; /* text-sm */
+  opacity: 0.85;
+  letter-spacing: 0.05em;
 }
 
-.story-b-eyebrow {
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #a8a09a;
-}
-
-.story-b-text-wrap {
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  font-weight: 300;
-  line-height: 1.65;
-  color: #1c1917;
-  min-height: 6rem;
+.tw-prompt-desktop {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  transition: opacity 0.4s ease;
+  gap: 0.6rem;
+  cursor: grab;
 }
 
-.story-b-cursor {
+.tw-prompt-mobile {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.875rem;
+  color: #666;
+  font-family: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .tw-prompt-desktop { display: none; }
+  .tw-prompt-mobile  { display: block; }
+}
+
+/* Arrow pulse animation */
+.tw-arrow {
   display: inline-block;
+  animation: tw-pulse-arrow 2s ease-in-out infinite;
+}
+.tw-arrow-left  { animation-delay: 0s; }
+.tw-arrow-right { animation-delay: 0.3s; }
+
+@keyframes tw-pulse-arrow {
+  0%, 100% { opacity: 0.4; transform: translateX(0); }
+  50%       { opacity: 1;   transform: translateX(3px); }
+}
+.tw-arrow-left {
+  animation-name: tw-pulse-arrow-left;
+}
+@keyframes tw-pulse-arrow-left {
+  0%, 100% { opacity: 0.4; transform: translateX(0); }
+  50%       { opacity: 1;   transform: translateX(-3px); }
+}
+
+/* ── Curtain panel ─────────────────────────────────────────── */
+.tw-curtain {
+  position: absolute;
+  inset: 0;
+  background: #0a0a0a;
+  transform: scaleX(0);
+  transform-origin: left center;
+  z-index: 3;
+  will-change: transform;
+}
+
+/* ── Typewriter content ────────────────────────────────────── */
+.tw-content {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  z-index: 4;
+  display: none; /* shown by JS once curtain completes */
+  scrollbar-width: none;
+}
+.tw-content::-webkit-scrollbar { display: none; }
+
+.tw-content-inner {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (min-width: 768px) {
+  .tw-content { padding-top: 6rem; }
+}
+
+/* Default paragraph style applied via JS inline, but cursor lives here */
+.tw-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: currentColor;
   margin-left: 2px;
-  animation: story-b-blink 0.9s step-start infinite;
-  color: #78716c;
+  color: rgba(255,255,255,0.8);
+  animation: tw-blink 1s step-end infinite;
+  vertical-align: middle;
 }
 
-@keyframes story-b-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+@keyframes tw-blink {
+  50% { opacity: 0; }
 }
 
-/* ══ PROTOTYPE C — Minimal ═════════════════════════════════ */
-.story-c-section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fdfcfb;
+/* ── Noscript fallback ─────────────────────────────────────── */
+.tw-noscript {
+  display: none;
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  color: rgba(255,255,255,0.8);
+  font-size: 1.125rem;
+  font-weight: 300;
+  line-height: 1.8;
 }
 
-.story-c-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: 44rem;
-  padding: 2rem;
+.tw-noscript p {
+  margin: 0 0 1.25rem 0;
 }
 
-.story-c-item {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+.tw-noscript-centrepiece {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: #fff !important;
 }
 
-.story-c-item.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.story-c-context {
-  color: #78716c;
-  margin-bottom: 3rem;
-}
-
-.story-c-hero {
-  color: #1c1917;
-  line-height: 1.2;
-  margin-bottom: 3rem;
-}
-
-.story-c-closer {
-  color: #78716c;
-}
-
-/* ── Yunnan Toast ───────────────────────────────────────── */
+/* ── Yunnan Toast ───────────────────────────────────────────── */
 .yunnan-toast {
   position: fixed;
   bottom: 2rem;
@@ -310,157 +271,153 @@ import Faq from '../components/v1/Faq.astro';
 </style>
 
 <script is:inline>
-  document.getElementById('yunnan-card')?.addEventListener('click', function () {
-    const toast = document.getElementById('yunnan-toast');
-    if (!toast) return;
-    toast.classList.remove('toast-show');
-    void toast.offsetWidth; // reflow to restart animation
-    toast.classList.add('toast-show');
-    setTimeout(() => toast.classList.remove('toast-show'), 3500);
+(function () {
+  /* ── Utils ──────────────────────────────────────────────── */
+  function sleep(ms) { return new Promise(function(r) { setTimeout(r, ms); }); }
+
+  /* ── Elements ───────────────────────────────────────────── */
+  var section  = document.getElementById('tw-section');
+  var idle     = document.getElementById('tw-idle');
+  var curtain  = document.getElementById('tw-curtain');
+  var content  = document.getElementById('tw-content');
+  var tapBtn   = document.getElementById('tw-tap-btn');
+
+  if (!section || !idle || !curtain || !content) return;
+
+  /* ── Sentences ──────────────────────────────────────────── */
+  var sentences = [
+    { text: "We're international students who moved to the UK and discovered something we didn't expect.", pause: 1200 },
+    { text: "The real version of a place only shows up when you slow down and actually live in it.", pause: 1200 },
+    { text: "Then we realised —", pause: 600 },
+    { text: "there's a whole other world out there.", pause: 800 },
+    { text: "Different ways of living.", pause: 500 },
+    { text: "Different rhythms.", pause: 500 },
+    { text: "Things you'd never question until somewhere does it completely differently.", pause: 1200 },
+    { text: "That feeling of your mind just... opening.", pause: 2000, cls: "centrepiece" },
+    { text: "We've been chasing ways to share it ever since.", pause: 1200 },
+    { text: "Three years ago we started taking students from the UK to China. 80+ people came.", pause: 1200 },
+    { text: "Now we're here in Canada, and we'd love to bring you along.", pause: 0 }
+  ];
+
+  /* ── Build content container ────────────────────────────── */
+  var inner = document.createElement('div');
+  inner.className = 'tw-content-inner';
+  content.appendChild(inner);
+
+  var cursor = document.createElement('span');
+  cursor.className = 'tw-cursor';
+  cursor.setAttribute('aria-hidden', 'true');
+  inner.appendChild(cursor);
+
+  /* ── Typewriter engine ──────────────────────────────────── */
+  async function typeSequence() {
+    for (var i = 0; i < sentences.length; i++) {
+      var s = sentences[i];
+      var p = document.createElement('p');
+
+      if (s.cls === 'centrepiece') {
+        p.style.fontSize = 'clamp(1.5rem, 3vw, 1.875rem)';
+        p.style.fontWeight = '600';
+        p.style.color = '#fff';
+      } else {
+        p.style.fontSize = 'clamp(1.125rem, 2vw, 1.25rem)';
+        p.style.fontWeight = '300';
+        p.style.color = 'rgba(255,255,255,0.8)';
+      }
+      p.style.margin = '0 0 1.25rem 0';
+      p.style.lineHeight = '1.8';
+
+      inner.insertBefore(p, cursor);
+
+      for (var j = 0; j < s.text.length; j++) {
+        p.textContent += s.text[j];
+        if (inner.scrollHeight > content.clientHeight * 0.6) {
+          content.scrollTo({ top: content.scrollHeight, behavior: 'smooth' });
+        }
+        await sleep(40);
+      }
+
+      if (s.pause > 0) await sleep(s.pause);
+    }
+    /* cursor keeps blinking — done */
+  }
+
+  /* ── Curtain completion ─────────────────────────────────── */
+  var typewriterStarted = false;
+
+  function completeCurtain() {
+    curtain.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+    curtain.style.transform = 'scaleX(1)';
+
+    // Hide idle layer, show content
+    idle.style.display = 'none';
+    content.style.display = 'block';
+
+    if (!typewriterStarted) {
+      typewriterStarted = true;
+      setTimeout(typeSequence, 600);
+    }
+  }
+
+  /* ── Desktop drag ───────────────────────────────────────── */
+  var dragStart = null;
+  var curtainProgress = 0;
+  var dragging = false;
+
+  idle.addEventListener('mousedown', function (e) {
+    if (typewriterStarted) return;
+    dragStart = e.clientX;
+    dragging = true;
+    curtain.style.transition = 'none';
   });
 
-  // Set hint text on apply form fields
-  const phAttr = 'pl' + 'ace' + 'holder';
+  document.addEventListener('mousemove', function (e) {
+    if (!dragging || dragStart === null) return;
+    var dx = Math.abs(e.clientX - dragStart);
+    curtainProgress = Math.min(dx / (section.offsetWidth * 0.4), 1);
+    curtain.style.transform = 'scaleX(' + curtainProgress + ')';
+
+    if (curtainProgress >= 1) {
+      dragging = false;
+      dragStart = null;
+      completeCurtain();
+    }
+  });
+
+  document.addEventListener('mouseup', function () {
+    if (!dragging) return;
+    dragging = false;
+    if (curtainProgress >= 1) {
+      completeCurtain();
+    } else {
+      curtain.style.transition = 'transform 0.3s ease';
+      curtain.style.transform = 'scaleX(0)';
+    }
+    dragStart = null;
+    curtainProgress = 0;
+  });
+
+  /* ── Mobile tap ─────────────────────────────────────────── */
+  if (tapBtn) {
+    tapBtn.addEventListener('click', function () {
+      if (typewriterStarted) return;
+      completeCurtain();
+    });
+  }
+
+  /* ── Misc: apply form placeholders / yunnan toast ───────── */
+  var phAttr = 'pl' + 'ace' + 'holder';
   document.querySelectorAll('[data-ph]').forEach(function(el) {
     el.setAttribute(phAttr, el.getAttribute('data-ph') || '');
   });
 
-  // ══ PROTOTYPE A — Sticky Scroll Reveal ══════════════════
-  (function () {
-    var wrapper = document.getElementById('story-a-wrapper');
-    if (!wrapper) return;
-    var sentences = wrapper.querySelectorAll('.story-a-sentence');
-    if (!sentences.length) return;
-
-    function updateStoryA() {
-      var rect = wrapper.getBoundingClientRect();
-      var scrollable = wrapper.offsetHeight - window.innerHeight;
-      if (scrollable <= 0) return;
-      var progress = -rect.top / scrollable;
-      var clamped = Math.max(0, Math.min(1, progress));
-      var index = Math.min(Math.floor(clamped * sentences.length), sentences.length - 1);
-      sentences.forEach(function (s, i) {
-        s.style.opacity = i === index ? '1' : '0';
-      });
-    }
-
-    window.addEventListener('scroll', updateStoryA, { passive: true });
-    updateStoryA();
-  }());
-
-  // ══ PROTOTYPE B — Typewriter ════════════════════════════
-  (function () {
-    var section = document.getElementById('story-b-section');
-    var textEl = document.getElementById('story-b-text');
-    var wrap = textEl ? textEl.parentElement : null;
-    if (!section || !textEl || !wrap) return;
-
-    var sentences = [
-      { text: "We're international students who moved to the UK and discovered something we didn't expect.", delay: 40 },
-      { text: "The real version of a place only shows up when you slow down and actually live in it.", delay: 40 },
-      { text: "Then we realised — there's a whole other world out there. Different ways of living. Different rhythms. Things you'd never question until somewhere does it completely differently.", delay: 40 },
-      { text: "That feeling of your mind just... opening.", delay: 60 },
-      { text: "We've been chasing ways to share it ever since.", delay: 40 },
-      { text: "Three years ago we started taking students from the UK to China. 80+ people came.", delay: 40 },
-      { text: "Now we're here in Canada, and we'd love to bring you along.", delay: 40 }
-    ];
-
-    var currentIndex = 0;
-    var animating = false;
-    var active = false;
-    var timeouts = [];
-
-    function clearAllTimeouts() {
-      timeouts.forEach(function(id) { clearTimeout(id); });
-      timeouts = [];
-    }
-
-    function later(fn, ms) {
-      var id = setTimeout(fn, ms);
-      timeouts.push(id);
-      return id;
-    }
-
-    function typeOut(sentence, charDelay, onDone) {
-      var chars = sentence.split('');
-      var i = 0;
-      textEl.textContent = '';
-
-      function nextChar() {
-        if (!active) return;
-        if (i < chars.length) {
-          textEl.textContent += chars[i++];
-          later(nextChar, charDelay);
-        } else {
-          onDone();
-        }
-      }
-      nextChar();
-    }
-
-    function runSentence(idx) {
-      if (!active) return;
-      var s = sentences[idx % sentences.length];
-      wrap.style.opacity = '1';
-
-      typeOut(s.text, s.delay, function () {
-        if (!active) return;
-        // Pause 1.5s then fade out
-        later(function () {
-          if (!active) return;
-          wrap.style.transition = 'opacity 0.4s ease';
-          wrap.style.opacity = '0';
-          later(function () {
-            if (!active) return;
-            textEl.textContent = '';
-            wrap.style.transition = '';
-            later(function () {
-              runSentence(idx + 1);
-            }, 200);
-          }, 450);
-        }, 1500);
-      });
-    }
-
-    function start() {
-      if (animating) return;
-      animating = true;
-      active = true;
-      runSentence(currentIndex);
-    }
-
-    function stop() {
-      active = false;
-      animating = false;
-      clearAllTimeouts();
-    }
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          start();
-        } else {
-          stop();
-        }
-      });
-    }, { threshold: 0.3 });
-
-    observer.observe(section);
-  }());
-
-  // ══ PROTOTYPE C — Minimal fade-in ══════════════════════
-  (function () {
-    var items = document.querySelectorAll('.story-c-item');
-    if (!items.length) return;
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        }
-      });
-    }, { threshold: 0.25 });
-
-    items.forEach(function (el) { observer.observe(el); });
-  }());
+  document.getElementById('yunnan-card')?.addEventListener('click', function () {
+    var toast = document.getElementById('yunnan-toast');
+    if (!toast) return;
+    toast.classList.remove('toast-show');
+    void toast.offsetWidth;
+    toast.classList.add('toast-show');
+    setTimeout(function() { toast.classList.remove('toast-show'); }, 3500);
+  });
+}());
 </script>
