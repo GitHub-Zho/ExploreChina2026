@@ -24,9 +24,14 @@ import Faq from '../components/v1/Faq.astro';
       <p class="story-c-item story-c-closer" data-story-c-item>
         Now we're in Canada, and we'd love to bring you along.
       </p>
-      <p class="story-drag-prompt story-c-item" id="story-drag-prompt" aria-hidden="true" data-story-c-item>
-        Drag to read our full story →
-      </p>
+      <div class="story-drag-prompt story-c-item" id="story-drag-prompt" aria-hidden="true" data-story-c-item>
+        <p class="story-drag-prompt__text">Drag to read our full story</p>
+        <div class="story-drag-indicator">
+          <div class="story-drag-track">
+            <div class="story-drag-thumb">→</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- STATE 2: Curtain overlay -->
@@ -127,7 +132,7 @@ import Faq from '../components/v1/Faq.astro';
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
+  gap: 2.5rem;
   padding: 4rem 2rem;
   text-align: center;
   z-index: 1;
@@ -173,26 +178,67 @@ import Faq from '../components/v1/Faq.astro';
   .story-c-closer { font-size: 1.125rem; }
 }
 
-/* ── Drag prompt — same text on all viewports ───────────────── */
+/* ── Drag prompt + slider indicator ──────────────────────────── */
 .story-drag-prompt {
-  font-size: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0 0;
+}
+.story-drag-prompt__text {
+  font-size: 0.85rem;
   color: #a8a09a;
   font-weight: 300;
-  letter-spacing: 0.02em;
-  margin: 0.5rem 0 0;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+.story-drag-indicator {
+  width: 180px;
+  height: 36px;
+  position: relative;
+}
+.story-drag-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  border: 1px solid #d6d3d1;
+  background: rgba(168, 160, 154, 0.06);
+  overflow: hidden;
+}
+.story-drag-thumb {
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1c1917;
+  color: #fff;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: dragHint 2.5s ease-in-out infinite;
+}
+@keyframes dragHint {
+  0%, 100% { left: 4px; }
+  50% { left: 40px; }
 }
 
 /* ── STATE 2: Curtain ───────────────────────────────────────── */
 .story-curtain {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: #fdfcfb;
-  transform: scaleX(0);
-  transform-origin: left center;
+  transform: translateX(-100%);
   z-index: 3;
   will-change: transform;
-  /* subtle shadow on the right edge so the "turn" is visible */
-  box-shadow: 6px 0 20px rgba(28, 25, 23, 0.09);
+  box-shadow: 6px 0 24px rgba(28, 25, 23, 0.12);
 }
 
 /* ── STATE 3: Typewriter — Version B ────────────────────────── */
@@ -346,18 +392,19 @@ import Faq from '../components/v1/Faq.astro';
 
   if (!section || !idle || !curtain || !typewriter || !textEl || !cursorEl) return;
 
-  /* ── Fade-in idle items via IntersectionObserver ────────── */
+  /* ── Fade-in idle items via IntersectionObserver (re-triggers) */
   var storyItems = idle.querySelectorAll('[data-story-c-item]');
   var itemObs = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
-        itemObs.unobserve(entry.target);
+      } else {
+        entry.target.classList.remove('is-visible');
       }
     });
   }, { threshold: 0.15 });
   storyItems.forEach(function (el, i) {
-    el.style.transitionDelay = (i * 0.12) + 's';
+    el.style.transitionDelay = (i * 0.15) + 's';
     itemObs.observe(el);
   });
 
@@ -475,7 +522,7 @@ import Faq from '../components/v1/Faq.astro';
     curtainDone = true;
 
     curtain.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    curtain.style.transform  = 'scaleX(1)';
+    curtain.style.transform  = 'translateX(0)';
 
     setTimeout(function () {
       idle.style.display       = 'none';
@@ -484,7 +531,6 @@ import Faq from '../components/v1/Faq.astro';
 
       if (!twStarted) {
         twStarted = true;
-        /* 600 ms delay after curtain completes before typing begins */
         setTimeout(function () {
           startTypewriter();
         }, 600);
@@ -494,23 +540,19 @@ import Faq from '../components/v1/Faq.astro';
 
   function snapBack() {
     curtain.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    curtain.style.transform  = 'scaleX(0)';
+    curtain.style.transform  = 'translateX(-100%)';
   }
 
   /* ── Shared drag logic ──────────────────────────────────── */
-  /* threshold: dragging past 40% of section width auto-completes */
-  var THRESHOLD = 0.4;
-
-  function onDragStart(clientX) {
-    if (curtainDone) return false;
-    curtain.style.transition = 'none';
-    return clientX;
-  }
+  var THRESHOLD = 0.3; /* 30% = easier to trigger */
 
   function onDragMove(startX, clientX) {
-    var dx       = Math.max(clientX - startX, 0); /* right-direction only */
-    var progress = Math.min(dx / section.offsetWidth, 1);
-    curtain.style.transform = 'scaleX(' + progress + ')';
+    var dx       = Math.abs(clientX - startX);
+    var sectionW = section.offsetWidth;
+    var progress = Math.min(dx / sectionW, 1);
+    /* translateX from -100% to 0 */
+    var translate = -100 + (progress * 100);
+    curtain.style.transform = 'translateX(' + translate + '%)';
     return progress;
   }
 
