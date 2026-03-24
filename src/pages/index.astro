@@ -123,7 +123,8 @@ import Faq from '../components/v1/Faq.astro';
 /* ── Container ─────────────────────────────────────────────── */
 .story-c-section {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh; /* dynamic viewport — accounts for mobile address bar */
   background: #fdfcfb;
   overflow: hidden;
   user-select: none;
@@ -307,6 +308,23 @@ import Faq from '../components/v1/Faq.astro';
   margin-left: 3px;
   vertical-align: text-bottom;
   animation: story-b-blink 0.9s step-end infinite;
+}
+
+/* Wave-reveal: each character fades in with a subtle rise */
+:global(.story-char) {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+:global(.story-char.is-visible) {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Spaces need to preserve width */
+:global(.story-char-space) {
+  display: inline;
+  width: 0.3em;
 }
 
 @keyframes story-b-blink {
@@ -520,14 +538,32 @@ import Faq from '../components/v1/Faq.astro';
       /* Scroll so this new sentence is roughly centred */
       scrollToCentre(p);
 
-      /* Type each character (insert before cursor) */
+      /* Pre-create all character spans (invisible) */
+      var chars = [];
       for (var j = 0; j < s.text.length; j++) {
+        if (s.text[j] === ' ') {
+          var sp = document.createElement('span');
+          sp.className = 'story-char-space';
+          sp.textContent = '\u00A0';
+          p.insertBefore(sp, cursorSpan);
+          chars.push(sp);
+        } else {
+          var ch = document.createElement('span');
+          ch.className = 'story-char';
+          ch.textContent = s.text[j];
+          p.insertBefore(ch, cursorSpan);
+          chars.push(ch);
+        }
+      }
+
+      /* Wave reveal: fade in characters one by one */
+      for (var j = 0; j < chars.length; j++) {
         if (!twRunning) return;
         while (twPaused) {
           await sleep(100);
           if (!twRunning) return;
         }
-        p.insertBefore(document.createTextNode(s.text[j]), cursorSpan);
+        chars[j].classList.add('is-visible');
         /* Re-centre periodically */
         if (j % 20 === 0) scrollToCentre(p);
         await sleep(s.ms);
