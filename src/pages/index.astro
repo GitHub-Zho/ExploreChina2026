@@ -19,7 +19,7 @@ import Faq from '../components/v1/Faq.astro';
         We're international students. Three years, 80+ participants, UK to China.
       </p>
       <p class="story-c-item story-c-hero" data-story-c-item>
-        That feeling of your mind just&hellip; opening.
+        And just like that &mdash; everything shifted.
       </p>
       <p class="story-c-item story-c-closer" data-story-c-item>
         Now we're in Canada, and we'd love to bring you along.
@@ -42,18 +42,21 @@ import Faq from '../components/v1/Faq.astro';
     <!-- STATE 2: Curtain overlay -->
     <div class="story-curtain" id="story-curtain" aria-hidden="true"></div>
 
-    <!-- STATE 3: Typewriter — Version B style -->
+    <!-- STATE 3: Typewriter — credits roll style -->
     <div class="story-b-section" id="story-typewriter" aria-live="polite">
       <div class="story-b-inner">
         <p class="story-b-eyebrow">Our Story</p>
-        <div class="story-b-text-wrap" id="story-b-text">
-          <span class="story-b-cursor" id="story-b-cursor" aria-hidden="true">|</span>
+        <div class="story-b-scroll" id="story-b-scroll">
+          <div class="story-b-content" id="story-b-content">
+            <!-- sentences appended here by JS -->
+          </div>
         </div>
-        <!-- Replay button — hidden until typewriter finishes -->
+        <span class="story-b-cursor" id="story-b-cursor" aria-hidden="true">|</span>
+        <!-- Replay button — shown after typewriter finishes, below text -->
         <div class="story-replay" id="story-replay" role="button" tabindex="0" aria-label="Read again">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M38 24c0 7.7-6.3 14-14 14S10 31.7 10 24 16.3 10 24 10c4.2 0 7.9 1.8 10.5 4.7"/>
-            <polyline points="35,8 35,16 27,16"/>
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 20c0 6.6-5.4 12-12 12S8 26.6 8 20 13.4 8 20 8c3.6 0 6.8 1.6 9 4"/>
+            <polyline points="30,6 30,14 22,14"/>
           </svg>
           <p class="story-replay__text">Read again</p>
         </div>
@@ -65,7 +68,7 @@ import Faq from '../components/v1/Faq.astro';
       <style>.story-c-inner { display: none !important; }</style>
       <div class="story-noscript">
         <p class="story-c-context">We're international students. Three years, 80+ participants, UK to China.</p>
-        <p class="story-c-hero">That feeling of your mind just… opening.</p>
+        <p class="story-c-hero">And just like that — everything shifted.</p>
         <p class="story-c-closer">Now we're in Canada, and we'd love to bring you along.</p>
       </div>
     </noscript>
@@ -262,36 +265,74 @@ import Faq from '../components/v1/Faq.astro';
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  padding: 3rem 2rem;
+  padding: 0;
   width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .story-b-eyebrow {
   margin: 0;
+  padding-top: 3rem;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #a8a09a;
   font-weight: 400;
+  flex-shrink: 0;
 }
 
-.story-b-text-wrap {
-  max-width: 38rem;
+/* Credits-roll scroll container */
+.story-b-scroll {
+  flex: 1;
   width: 100%;
+  max-width: 36rem;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+  overflow-y: hidden;
+  position: relative;
+  /* Fade mask at top edge — text disappears as it scrolls up */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
+}
+
+.story-b-content {
   text-align: center;
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+}
+
+.story-b-content p {
+  margin: 0 0 1.5rem 0;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
   font-weight: 300;
+  color: #44403c;
+  line-height: 1.75;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.story-b-content p.is-typed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.story-b-content p.is-centre {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 500;
   color: #1c1917;
-  line-height: 1.7;
-  min-height: 3.5rem;
+  margin: 1rem 0 2rem;
+  line-height: 1.4;
 }
 
 .story-b-cursor {
-  display: inline;
+  display: block;
+  text-align: center;
   color: #78716c;
   font-weight: 300;
+  font-size: 1.2rem;
   animation: story-b-blink 1s step-end infinite;
+  flex-shrink: 0;
+  margin-bottom: 2rem;
 }
 
 @keyframes story-b-blink {
@@ -300,7 +341,7 @@ import Faq from '../components/v1/Faq.astro';
 
 /* ── Replay button ──────────────────────────────────────────── */
 .story-replay {
-  display: none; /* shown by JS after typewriter ends */
+  display: none;
   flex-direction: column;
   align-items: center;
   gap: 0;
@@ -308,7 +349,8 @@ import Faq from '../components/v1/Faq.astro';
   opacity: 0;
   color: #a8a09a;
   transition: opacity 0.6s ease;
-  padding: 1rem;
+  padding: 0.5rem 1rem 2rem;
+  flex-shrink: 0;
 }
 .story-replay svg {
   transition: transform 0.6s ease;
@@ -320,8 +362,8 @@ import Faq from '../components/v1/Faq.astro';
   transform: rotate(360deg);
 }
 .story-replay__text {
-  margin: 0.75rem 0 0;
-  font-size: 0.85rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
   color: #a8a09a;
   letter-spacing: 0.1em;
   font-weight: 300;
@@ -396,10 +438,9 @@ import Faq from '../components/v1/Faq.astro';
   var idle       = document.getElementById('story-idle');
   var curtain    = document.getElementById('story-curtain');
   var typewriter = document.getElementById('story-typewriter');
-  var textEl     = document.getElementById('story-b-text');
   var cursorEl   = document.getElementById('story-b-cursor');
 
-  if (!section || !idle || !curtain || !typewriter || !textEl || !cursorEl) return;
+  if (!section || !idle || !curtain || !typewriter || !cursorEl) return;
 
   /* ── Fade-in idle items via IntersectionObserver (re-triggers) */
   var storyItems = idle.querySelectorAll('[data-story-c-item]');
@@ -417,70 +458,73 @@ import Faq from '../components/v1/Faq.astro';
     itemObs.observe(el);
   });
 
-  /* ── Sentences ──────────────────────────────────────────── */
+  /* ── Sentences — one per line, short and breathable ──────── */
   var sentences = [
-    { text: "We're international students who moved to the UK and discovered something we didn't expect.", ms: 40 },
-    { text: "The real version of a place only shows up when you slow down and actually live in it.", ms: 40 },
-    { text: "Then we realised — there's a whole other world out there. Different ways of living. Different rhythms. Things you'd never question until somewhere does it completely differently.", ms: 40 },
-    { text: "That feeling of your mind just... opening.", ms: 60, big: true },
-    { text: "We've been chasing ways to share it ever since.", ms: 40 },
-    { text: "Three years ago we started taking students from the UK to China. 80+ people came.", ms: 40 },
-    { text: "Now we're here in Canada, and we'd love to bring you along.", ms: 40 }
+    { text: "We're international students who moved to the UK.", ms: 35, pause: 800 },
+    { text: "We discovered something we didn't expect.", ms: 35, pause: 1200 },
+    { text: "The real version of a place only shows up when you slow down.", ms: 35, pause: 600 },
+    { text: "When you actually live in it.", ms: 35, pause: 1400 },
+    { text: "Then we realised —", ms: 40, pause: 700 },
+    { text: "there's a whole other world out there.", ms: 35, pause: 600 },
+    { text: "Different ways of living.", ms: 35, pause: 500 },
+    { text: "Different rhythms.", ms: 35, pause: 500 },
+    { text: "Things you'd never question until somewhere does it completely differently.", ms: 35, pause: 1800 },
+    { text: "And just like that — everything shifted.", ms: 50, pause: 2200, centre: true },
+    { text: "We've been chasing ways to share it ever since.", ms: 35, pause: 1200 },
+    { text: "Three years ago we started taking students to China.", ms: 35, pause: 600 },
+    { text: "80+ people came.", ms: 35, pause: 1400 },
+    { text: "Now we're in Canada, and we'd love to bring you along.", ms: 35, pause: 0 }
   ];
 
   /* ── Typewriter state ───────────────────────────────────── */
-  var twRunning = false;
-  var twPaused  = false;
-  var twStarted = false;
-  var replayEl  = document.getElementById('story-replay');
-  var textWrap  = document.querySelector('.story-b-text-wrap');
+  var twRunning  = false;
+  var twPaused   = false;
+  var twStarted  = false;
+  var replayEl   = document.getElementById('story-replay');
+  var scrollEl   = document.getElementById('story-b-scroll');
+  var contentEl  = document.getElementById('story-b-content');
+
+  function scrollToBottom() {
+    if (!scrollEl) return;
+    scrollEl.scrollTo({ top: scrollEl.scrollHeight, behavior: 'smooth' });
+  }
 
   async function typewriterPlay() {
     for (var i = 0; i < sentences.length; i++) {
       if (!twRunning) return;
       var s = sentences[i];
 
-      var span = document.createElement('span');
-      if (s.big) {
-        span.style.fontSize   = 'clamp(1.4rem, 3vw, 1.875rem)';
-        span.style.fontWeight = '400';
-      }
-      textEl.insertBefore(span, cursorEl);
+      /* Create a <p> for this sentence */
+      var p = document.createElement('p');
+      if (s.centre) p.classList.add('is-centre');
+      contentEl.appendChild(p);
 
-      /* type characters */
+      /* Type each character */
       for (var j = 0; j < s.text.length; j++) {
-        if (!twRunning) { span.remove(); return; }
+        if (!twRunning) return;
         while (twPaused) {
           await sleep(100);
-          if (!twRunning) { span.remove(); return; }
+          if (!twRunning) return;
         }
-        span.textContent += s.text[j];
+        p.textContent += s.text[j];
+        /* Scroll down every few chars */
+        if (j % 8 === 0) scrollToBottom();
         await sleep(s.ms);
       }
 
-      /* pause 1.5 s after fully typed */
-      await sleep(1500);
-      if (!twRunning) { span.remove(); return; }
+      /* Reveal the line */
+      p.classList.add('is-typed');
+      scrollToBottom();
 
-      /* fade out over 0.4 s */
-      span.style.transition = 'opacity 0.4s ease';
-      span.style.opacity    = '0';
-      await sleep(420);
-      if (!twRunning) { span.remove(); return; }
-
-      /* clear + brief pause before next sentence */
-      span.remove();
-      await sleep(200);
+      /* Pause between sentences */
+      if (s.pause > 0) await sleep(s.pause);
     }
 
-    /* ── Finished all sentences — show replay ─────────────── */
+    /* ── Finished — show replay (keep text visible) ────────── */
     twRunning = false;
     cursorEl.style.display = 'none';
-    if (textWrap) {
-      textWrap.style.transition = 'opacity 0.8s ease';
-      textWrap.style.opacity = '0';
-    }
-    await sleep(900);
+    await sleep(600);
+    scrollToBottom();
     if (replayEl) {
       replayEl.style.display = 'flex';
       replayEl.style.opacity = '0';
@@ -492,14 +536,10 @@ import Faq from '../components/v1/Faq.astro';
   }
 
   function startTypewriter() {
-    /* clear any leftover text spans */
-    var old = textEl.querySelectorAll('span:not(.story-b-cursor)');
-    old.forEach(function (el) { el.remove(); });
+    /* Clear previous content */
+    contentEl.innerHTML = '';
     cursorEl.style.display = '';
-    if (textWrap) {
-      textWrap.style.transition = '';
-      textWrap.style.opacity = '1';
-    }
+    if (scrollEl) scrollEl.scrollTop = 0;
     twRunning = true;
     typewriterPlay();
   }
@@ -514,7 +554,6 @@ import Faq from '../components/v1/Faq.astro';
         startTypewriter();
       }, 350);
     });
-    /* keyboard accessibility */
     replayEl.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
