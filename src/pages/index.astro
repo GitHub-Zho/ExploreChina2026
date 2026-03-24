@@ -16,13 +16,13 @@ import Faq from '../components/v1/Faq.astro';
     <!-- STATE 1: Idle — Version C visual style -->
     <div class="story-c-inner" id="story-idle">
       <p class="story-c-item story-c-context" data-story-c-item>
-        We're international students. Three years, 80+ participants, UK to China.
+        We went overseas to study. We thought we'd seen the world.
       </p>
       <p class="story-c-item story-c-hero" data-story-c-item>
-        And just like that &mdash; everything shifted.
+        There's a version of the world you can only find by living in it.
       </p>
       <p class="story-c-item story-c-closer" data-story-c-item>
-        Now we're in Canada, and we'd love to bring you along.
+        Now we're in Canada. Your turn.
       </p>
       <div class="story-drag-prompt story-c-item" id="story-drag-prompt" aria-hidden="true" data-story-c-item>
         <div class="story-drag-indicator">
@@ -65,9 +65,9 @@ import Faq from '../components/v1/Faq.astro';
     <noscript>
       <style>.story-c-inner { display: none !important; }</style>
       <div class="story-noscript">
-        <p class="story-c-context">We're international students. Three years, 80+ participants, UK to China.</p>
-        <p class="story-c-hero">And just like that — everything shifted.</p>
-        <p class="story-c-closer">Now we're in Canada, and we'd love to bring you along.</p>
+        <p class="story-c-context">We went overseas to study. We thought we'd seen the world.</p>
+        <p class="story-c-hero">There's a version of the world you can only find by living in it.</p>
+        <p class="story-c-closer">Now we're in Canada. Your turn.</p>
       </div>
     </noscript>
   </section>
@@ -436,20 +436,19 @@ import Faq from '../components/v1/Faq.astro';
 
   /* ── Sentences — one per line, short and breathable ──────── */
   var sentences = [
-    { text: "We're international students who moved to the UK.", ms: 35, pause: 1000 },
-    { text: "We discovered something we didn't expect.", ms: 35, pause: 1400 },
-    { text: "The real version of a place only shows up when you slow down.", ms: 35, pause: 800 },
-    { text: "When you actually live in it.", ms: 35, pause: 1600 },
-    { text: "Then we realised —", ms: 45, pause: 900 },
-    { text: "there's a whole other world out there.", ms: 35, pause: 800 },
-    { text: "Different ways of living.", ms: 35, pause: 700 },
-    { text: "Different rhythms.", ms: 35, pause: 700 },
-    { text: "Things you'd never question until somewhere does it completely differently.", ms: 35, pause: 2000 },
-    { text: "And just like that — everything shifted.", ms: 50, pause: 2500, centre: true },
-    { text: "We've been chasing ways to share it ever since.", ms: 35, pause: 1400 },
-    { text: "Three years ago we started taking students to China.", ms: 35, pause: 800 },
-    { text: "80+ people came.", ms: 35, pause: 1600 },
-    { text: "Now we're in Canada, and we'd love to bring you along.", ms: 35, pause: 0 }
+    { text: "We went overseas to study.", ms: 35, pause: 1000 },
+    { text: "We thought we'd seen the world.", ms: 35, pause: 1400 },
+    { text: "But there's a difference between passing through a place —", ms: 35, pause: 800 },
+    { text: "and letting it pass through you.", ms: 35, pause: 1600 },
+    { text: "Eating where the locals eat.", ms: 35, pause: 900 },
+    { text: "Getting lost in streets that don't need you to understand them.", ms: 35, pause: 800 },
+    { text: "Falling into someone else's rhythm — and forgetting your own.", ms: 35, pause: 2000 },
+    { text: "There's a version of the world you can only find by living in it.", ms: 45, pause: 2500, centre: true },
+    { text: "We built this programme to share that feeling.", ms: 35, pause: 1400 },
+    { text: "Not a tour. A way in.", ms: 35, pause: 1600 },
+    { text: "Eighty UK students came to China with us.", ms: 35, pause: 800 },
+    { text: "Now we're in Canada.", ms: 35, pause: 1200 },
+    { text: "Your turn.", ms: 45, pause: 0 }
   ];
 
   /* ── Typewriter state ───────────────────────────────────── */
