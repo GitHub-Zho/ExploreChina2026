@@ -39,6 +39,14 @@ import Faq from '../components/v1/Faq.astro';
         <div class="story-b-text-wrap" id="story-b-text">
           <span class="story-b-cursor" id="story-b-cursor" aria-hidden="true">|</span>
         </div>
+        <!-- Replay button — hidden until typewriter finishes -->
+        <div class="story-replay" id="story-replay" role="button" tabindex="0" aria-label="Read again">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M38 24c0 7.7-6.3 14-14 14S10 31.7 10 24 16.3 10 24 10c4.2 0 7.9 1.8 10.5 4.7"/>
+            <polyline points="35,8 35,16 27,16"/>
+          </svg>
+          <p class="story-replay__text">Read again</p>
+        </div>
       </div>
     </div>
 
@@ -238,6 +246,51 @@ import Faq from '../components/v1/Faq.astro';
   50% { opacity: 0; }
 }
 
+/* ── Replay button ──────────────────────────────────────────── */
+.story-replay {
+  display: none; /* shown by JS after typewriter ends */
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+  opacity: 0;
+  color: #a8a09a;
+  transition: opacity 0.6s ease;
+  padding: 1rem;
+}
+.story-replay svg {
+  transition: transform 0.6s ease;
+}
+.story-replay:hover {
+  opacity: 0.85 !important;
+}
+.story-replay:hover svg {
+  transform: rotate(360deg);
+}
+.story-replay__text {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: #a8a09a;
+  letter-spacing: 0.1em;
+  font-weight: 300;
+}
+
+/* ── Mobile: skip Version C, go straight to typewriter ──────── */
+@media (max-width: 767px) {
+  .story-c-inner { display: none !important; }
+  .story-curtain { display: none !important; }
+  .story-b-section {
+    display: flex !important;
+    position: relative;
+  }
+  .story-b-text-wrap {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    line-height: 1.8;
+    padding: 0 0.5rem;
+    min-height: 4rem;
+  }
+}
+
 /* ── Noscript fallback ──────────────────────────────────────── */
 .story-noscript {
   display: none;
@@ -323,46 +376,95 @@ import Faq from '../components/v1/Faq.astro';
   var twRunning = false;
   var twPaused  = false;
   var twStarted = false;
+  var replayEl  = document.getElementById('story-replay');
+  var textWrap  = document.querySelector('.story-b-text-wrap');
 
-  async function typewriterLoop() {
-    while (twRunning) {
-      for (var i = 0; i < sentences.length; i++) {
-        if (!twRunning) return;
-        var s = sentences[i];
+  async function typewriterPlay() {
+    for (var i = 0; i < sentences.length; i++) {
+      if (!twRunning) return;
+      var s = sentences[i];
 
-        var span = document.createElement('span');
-        if (s.big) {
-          span.style.fontSize   = 'clamp(1.4rem, 3vw, 1.875rem)';
-          span.style.fontWeight = '400';
-        }
-        textEl.insertBefore(span, cursorEl);
-
-        /* type characters */
-        for (var j = 0; j < s.text.length; j++) {
-          if (!twRunning) { span.remove(); return; }
-          while (twPaused) {
-            await sleep(100);
-            if (!twRunning) { span.remove(); return; }
-          }
-          span.textContent += s.text[j];
-          await sleep(s.ms);
-        }
-
-        /* pause 1.5 s after fully typed */
-        await sleep(1500);
-        if (!twRunning) { span.remove(); return; }
-
-        /* fade out over 0.4 s */
-        span.style.transition = 'opacity 0.4s ease';
-        span.style.opacity    = '0';
-        await sleep(420);
-        if (!twRunning) { span.remove(); return; }
-
-        /* clear + brief pause before next sentence */
-        span.remove();
-        await sleep(200);
+      var span = document.createElement('span');
+      if (s.big) {
+        span.style.fontSize   = 'clamp(1.4rem, 3vw, 1.875rem)';
+        span.style.fontWeight = '400';
       }
+      textEl.insertBefore(span, cursorEl);
+
+      /* type characters */
+      for (var j = 0; j < s.text.length; j++) {
+        if (!twRunning) { span.remove(); return; }
+        while (twPaused) {
+          await sleep(100);
+          if (!twRunning) { span.remove(); return; }
+        }
+        span.textContent += s.text[j];
+        await sleep(s.ms);
+      }
+
+      /* pause 1.5 s after fully typed */
+      await sleep(1500);
+      if (!twRunning) { span.remove(); return; }
+
+      /* fade out over 0.4 s */
+      span.style.transition = 'opacity 0.4s ease';
+      span.style.opacity    = '0';
+      await sleep(420);
+      if (!twRunning) { span.remove(); return; }
+
+      /* clear + brief pause before next sentence */
+      span.remove();
+      await sleep(200);
     }
+
+    /* ── Finished all sentences — show replay ─────────────── */
+    twRunning = false;
+    cursorEl.style.display = 'none';
+    if (textWrap) {
+      textWrap.style.transition = 'opacity 0.8s ease';
+      textWrap.style.opacity = '0';
+    }
+    await sleep(900);
+    if (replayEl) {
+      replayEl.style.display = 'flex';
+      replayEl.style.opacity = '0';
+      requestAnimationFrame(function () {
+        replayEl.style.transition = 'opacity 0.6s ease';
+        replayEl.style.opacity = '0.6';
+      });
+    }
+  }
+
+  function startTypewriter() {
+    /* clear any leftover text spans */
+    var old = textEl.querySelectorAll('span:not(.story-b-cursor)');
+    old.forEach(function (el) { el.remove(); });
+    cursorEl.style.display = '';
+    if (textWrap) {
+      textWrap.style.transition = '';
+      textWrap.style.opacity = '1';
+    }
+    twRunning = true;
+    typewriterPlay();
+  }
+
+  /* ── Replay click handler ───────────────────────────────── */
+  if (replayEl) {
+    replayEl.addEventListener('click', function () {
+      replayEl.style.transition = 'opacity 0.3s ease';
+      replayEl.style.opacity = '0';
+      setTimeout(function () {
+        replayEl.style.display = 'none';
+        startTypewriter();
+      }, 350);
+    });
+    /* keyboard accessibility */
+    replayEl.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        replayEl.click();
+      }
+    });
   }
 
   /* ── Curtain completion ─────────────────────────────────── */
@@ -384,8 +486,7 @@ import Faq from '../components/v1/Faq.astro';
         twStarted = true;
         /* 600 ms delay after curtain completes before typing begins */
         setTimeout(function () {
-          twRunning = true;
-          typewriterLoop();
+          startTypewriter();
         }, 600);
       }
     }, 520);
@@ -489,11 +590,22 @@ import Faq from '../components/v1/Faq.astro';
   });
 
   /* ── IntersectionObserver: pause/resume typewriter ──────── */
+  var isMobile = window.matchMedia('(max-width: 767px)').matches;
+
   var sectionObs = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-      twPaused = !entry.isIntersecting;
+      if (entry.isIntersecting) {
+        twPaused = false;
+        /* Mobile: auto-start typewriter on first viewport entry */
+        if (isMobile && !twStarted) {
+          twStarted = true;
+          startTypewriter();
+        }
+      } else {
+        twPaused = true;
+      }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.2 });
   sectionObs.observe(section);
 
   /* ── Misc: form placeholders ────────────────────────────── */
