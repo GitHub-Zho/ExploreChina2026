@@ -25,12 +25,17 @@ import Faq from '../components/v1/Faq.astro';
         Now we're in Canada, and we'd love to bring you along.
       </p>
       <div class="story-drag-prompt story-c-item" id="story-drag-prompt" aria-hidden="true" data-story-c-item>
-        <p class="story-drag-prompt__text">Drag to read our full story</p>
         <div class="story-drag-indicator">
-          <div class="story-drag-track">
-            <div class="story-drag-thumb">→</div>
+          <div class="story-drag-line"></div>
+          <div class="story-drag-circle">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1c1917" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 10h12"/>
+              <path d="M12 6l4 4-4 4"/>
+            </svg>
           </div>
+          <div class="story-drag-line"></div>
         </div>
+        <p class="story-drag-prompt__text">Swipe to reveal</p>
       </div>
     </div>
 
@@ -121,7 +126,7 @@ import Faq from '../components/v1/Faq.astro';
   background: #fdfcfb;
   overflow: hidden;
   user-select: none;
-  touch-action: pan-y; /* allow vertical scroll; horizontal captured by JS */
+  touch-action: manipulation; /* let JS handle drag direction */
 }
 
 /* ── STATE 1: Version C idle ────────────────────────────────── */
@@ -178,53 +183,54 @@ import Faq from '../components/v1/Faq.astro';
   .story-c-closer { font-size: 1.125rem; }
 }
 
-/* ── Drag prompt + slider indicator ──────────────────────────── */
+/* ── Drag prompt + indicator ─────────────────────────────────── */
 .story-drag-prompt {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin: 1rem 0 0;
+  gap: 0.75rem;
+  margin: 1.5rem 0 0;
 }
 .story-drag-prompt__text {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #a8a09a;
   font-weight: 300;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   margin: 0;
 }
 .story-drag-indicator {
-  width: 180px;
-  height: 36px;
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
 }
-.story-drag-track {
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  border: 1px solid #d6d3d1;
-  background: rgba(168, 160, 154, 0.06);
-  overflow: hidden;
+.story-drag-line {
+  width: 48px;
+  height: 1px;
+  background: #d6d3d1;
 }
-.story-drag-thumb {
-  position: absolute;
-  left: 4px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 28px;
-  height: 28px;
+.story-drag-circle {
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: #1c1917;
-  color: #fff;
-  font-size: 0.75rem;
+  border: 1px solid #d6d3d1;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: dragHint 2.5s ease-in-out infinite;
+  background: #fff;
+  animation: dragPulse 2.5s ease-in-out infinite;
+  flex-shrink: 0;
 }
-@keyframes dragHint {
-  0%, 100% { left: 4px; }
-  50% { left: 40px; }
+.story-drag-circle svg {
+  animation: dragArrow 2.5s ease-in-out infinite;
+}
+@keyframes dragPulse {
+  0%, 100% { transform: scale(1); border-color: #d6d3d1; }
+  50% { transform: scale(1.08); border-color: #a8a09a; }
+}
+@keyframes dragArrow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
 }
 
 /* ── STATE 2: Curtain ───────────────────────────────────────── */
@@ -321,14 +327,17 @@ import Faq from '../components/v1/Faq.astro';
   font-weight: 300;
 }
 
-/* ── Mobile: skip Version C, go straight to typewriter ──────── */
+/* ── Mobile adjustments ─────────────────────────────────────── */
 @media (max-width: 767px) {
-  .story-c-inner { display: none !important; }
-  .story-curtain { display: none !important; }
-  .story-b-section {
-    display: flex !important;
-    position: relative;
+  .story-c-inner {
+    gap: 2rem;
+    padding: 3rem 1.5rem;
   }
+  .story-c-hero {
+    font-size: clamp(1.5rem, 6vw, 2.25rem);
+  }
+  .story-drag-line { width: 32px; }
+  .story-drag-circle { width: 40px; height: 40px; }
   .story-b-text-wrap {
     font-size: clamp(1rem, 4vw, 1.25rem);
     line-height: 1.8;
@@ -601,51 +610,64 @@ import Faq from '../components/v1/Faq.astro';
 
   /* ── Mobile touch drag ──────────────────────────────────── */
   var touchStartX   = null;
+  var touchStartY   = null;
   var touching      = false;
   var touchProgress = 0;
+  var touchLocked   = false; /* true = horizontal drag committed */
 
   idle.addEventListener('touchstart', function (e) {
     if (curtainDone) return;
     touchStartX   = e.touches[0].clientX;
+    touchStartY   = e.touches[0].clientY;
     touching      = true;
     touchProgress = 0;
+    touchLocked   = false;
     curtain.style.transition = 'none';
   }, { passive: true });
 
   idle.addEventListener('touchmove', function (e) {
     if (!touching || touchStartX === null) return;
-    touchProgress = onDragMove(touchStartX, e.touches[0].clientX);
-    if (touchProgress >= 1) {
-      touching    = false;
-      touchStartX = null;
-      completeCurtain();
+    var dx = Math.abs(e.touches[0].clientX - touchStartX);
+    var dy = Math.abs(e.touches[0].clientY - touchStartY);
+
+    /* Decide direction on first significant move */
+    if (!touchLocked && dx + dy > 10) {
+      if (dx > dy) {
+        touchLocked = true; /* horizontal — we own this gesture */
+      } else {
+        /* vertical scroll — abort drag */
+        touching = false;
+        touchStartX = null;
+        return;
+      }
     }
-  }, { passive: true });
+
+    if (touchLocked) {
+      e.preventDefault(); /* stop vertical scroll while dragging */
+      touchProgress = onDragMove(touchStartX, e.touches[0].clientX);
+      if (touchProgress >= 1) {
+        touching = false;
+        touchStartX = null;
+        completeCurtain();
+      }
+    }
+  }, { passive: false });
 
   idle.addEventListener('touchend', function () {
     if (!touching) return;
     touching = false;
     var prog = touchProgress;
     touchStartX   = null;
+    touchStartY   = null;
     touchProgress = 0;
+    touchLocked   = false;
     onDragEnd(prog);
   });
 
   /* ── IntersectionObserver: pause/resume typewriter ──────── */
-  var isMobile = window.matchMedia('(max-width: 767px)').matches;
-
   var sectionObs = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        twPaused = false;
-        /* Mobile: auto-start typewriter on first viewport entry */
-        if (isMobile && !twStarted) {
-          twStarted = true;
-          startTypewriter();
-        }
-      } else {
-        twPaused = true;
-      }
+      twPaused = !entry.isIntersecting;
     });
   }, { threshold: 0.2 });
   sectionObs.observe(section);
