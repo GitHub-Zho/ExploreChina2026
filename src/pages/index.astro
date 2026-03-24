@@ -118,6 +118,11 @@ import Faq from '../components/v1/Faq.astro';
 </Layout>
 
 <style>
+/* ── Page-level scroll snap ──────────────────────────────────── */
+:global(html) {
+  scroll-snap-type: y proximity;
+}
+
 /* ══ Story Section: Version C + Curtain + Version B Typewriter ══════════════ */
 
 /* ── Container ─────────────────────────────────────────────── */
@@ -127,7 +132,10 @@ import Faq from '../components/v1/Faq.astro';
   background: #fdfcfb;
   overflow: hidden;
   user-select: none;
-  touch-action: manipulation; /* let JS handle drag direction */
+  touch-action: manipulation;
+  /* Scroll snap — section sticks when scrolled into view */
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 /* ── STATE 1: Version C idle ────────────────────────────────── */
@@ -283,7 +291,7 @@ import Faq from '../components/v1/Faq.astro';
 }
 
 .story-b-content p {
-  margin: 0 0 3rem 0;
+  margin: 0 0 4rem 0;
   font-size: clamp(1.05rem, 2.2vw, 1.35rem);
   font-weight: 300;
   color: #57534e;
@@ -294,19 +302,19 @@ import Faq from '../components/v1/Faq.astro';
   font-size: clamp(1.35rem, 3vw, 1.875rem);
   font-weight: 500;
   color: #1c1917;
-  margin: 1.5rem 0 4rem;
+  margin: 2rem 0 5rem;
   line-height: 1.4;
 }
 
 /* Inline cursor that follows text */
 .story-b-cursor-inline {
   display: inline-block;
-  width: 2px;
-  height: 1.1em;
-  background: #78716c;
+  width: 3px;
+  height: 1.15em;
+  background: #1c1917;
   margin-left: 3px;
   vertical-align: text-bottom;
-  animation: story-b-blink 1s step-end infinite;
+  animation: story-b-blink 0.9s step-end infinite;
 }
 
 @keyframes story-b-blink {
@@ -436,19 +444,19 @@ import Faq from '../components/v1/Faq.astro';
 
   /* ── Sentences — one per line, short and breathable ──────── */
   var sentences = [
-    { text: "We're international students who moved to the UK.", ms: 35, pause: 800 },
-    { text: "We discovered something we didn't expect.", ms: 35, pause: 1200 },
-    { text: "The real version of a place only shows up when you slow down.", ms: 35, pause: 600 },
-    { text: "When you actually live in it.", ms: 35, pause: 1400 },
-    { text: "Then we realised —", ms: 40, pause: 700 },
-    { text: "there's a whole other world out there.", ms: 35, pause: 600 },
-    { text: "Different ways of living.", ms: 35, pause: 500 },
-    { text: "Different rhythms.", ms: 35, pause: 500 },
-    { text: "Things you'd never question until somewhere does it completely differently.", ms: 35, pause: 1800 },
-    { text: "And just like that — everything shifted.", ms: 50, pause: 2200, centre: true },
-    { text: "We've been chasing ways to share it ever since.", ms: 35, pause: 1200 },
-    { text: "Three years ago we started taking students to China.", ms: 35, pause: 600 },
-    { text: "80+ people came.", ms: 35, pause: 1400 },
+    { text: "We're international students who moved to the UK.", ms: 35, pause: 1000 },
+    { text: "We discovered something we didn't expect.", ms: 35, pause: 1400 },
+    { text: "The real version of a place only shows up when you slow down.", ms: 35, pause: 800 },
+    { text: "When you actually live in it.", ms: 35, pause: 1600 },
+    { text: "Then we realised —", ms: 45, pause: 900 },
+    { text: "there's a whole other world out there.", ms: 35, pause: 800 },
+    { text: "Different ways of living.", ms: 35, pause: 700 },
+    { text: "Different rhythms.", ms: 35, pause: 700 },
+    { text: "Things you'd never question until somewhere does it completely differently.", ms: 35, pause: 2000 },
+    { text: "And just like that — everything shifted.", ms: 50, pause: 2500, centre: true },
+    { text: "We've been chasing ways to share it ever since.", ms: 35, pause: 1400 },
+    { text: "Three years ago we started taking students to China.", ms: 35, pause: 800 },
+    { text: "80+ people came.", ms: 35, pause: 1600 },
     { text: "Now we're in Canada, and we'd love to bring you along.", ms: 35, pause: 0 }
   ];
 
@@ -468,12 +476,40 @@ import Faq from '../components/v1/Faq.astro';
     return cursorSpan;
   }
 
+  /* ── Smooth scroll with easing (replaces browser 'smooth') ── */
+  var scrollAnim = null;
+  function smoothScrollTo(target) {
+    if (!scrollEl) return;
+    var start = scrollEl.scrollTop;
+    var diff  = Math.max(0, target) - start;
+    if (Math.abs(diff) < 2) return;
+    var duration = Math.min(800, Math.max(300, Math.abs(diff) * 1.5));
+    var startTime = null;
+
+    if (scrollAnim) cancelAnimationFrame(scrollAnim);
+
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var elapsed = ts - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      /* ease-out cubic */
+      var ease = 1 - Math.pow(1 - progress, 3);
+      scrollEl.scrollTop = start + diff * ease;
+      if (progress < 1) {
+        scrollAnim = requestAnimationFrame(step);
+      } else {
+        scrollAnim = null;
+      }
+    }
+    scrollAnim = requestAnimationFrame(step);
+  }
+
   function scrollToCentre(el) {
     if (!scrollEl || !el) return;
     var scrollH = scrollEl.clientHeight;
-    var elTop   = el.offsetTop - scrollEl.offsetTop;
+    var elTop   = el.offsetTop;
     var target  = elTop - (scrollH / 2) + (el.offsetHeight / 2);
-    scrollEl.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+    smoothScrollTo(target);
   }
 
   async function typewriterPlay() {
@@ -581,6 +617,94 @@ import Faq from '../components/v1/Faq.astro';
     curtain.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     curtain.style.transform  = 'translateX(-100%)';
   }
+
+  /* ── Drag BACK from typewriter to idle ───────────────────── */
+  function returnToIdle() {
+    twRunning = false;
+    curtainDone = false;
+    twStarted = false;
+    if (cursorSpan) { cursorSpan.remove(); cursorSpan = null; }
+    if (replayEl) { replayEl.style.display = 'none'; replayEl.style.opacity = '0'; }
+    contentEl.innerHTML = '';
+    if (scrollEl) scrollEl.scrollTop = 0;
+
+    /* Show curtain covering section, then slide it away to reveal idle */
+    curtain.style.display = '';
+    curtain.style.transition = 'none';
+    curtain.style.transform = 'translateX(0)';
+    idle.style.display = '';
+
+    requestAnimationFrame(function () {
+      typewriter.style.display = 'none';
+      curtain.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      curtain.style.transform = 'translateX(100%)'; /* slide out to right */
+      setTimeout(function () {
+        curtain.style.transform = 'translateX(-100%)'; /* reset for next drag-in */
+        curtain.style.transition = 'none';
+      }, 520);
+    });
+  }
+
+  /* Drag-back on typewriter: mouse */
+  var backMouseStartX = null;
+  var backMouseDown = false;
+
+  typewriter.addEventListener('mousedown', function (e) {
+    backMouseStartX = e.clientX;
+    backMouseDown = true;
+  });
+  document.addEventListener('mousemove', function (e) {
+    if (!backMouseDown || backMouseStartX === null) return;
+    var dx = backMouseStartX - e.clientX; /* drag LEFT = positive */
+    if (dx > section.offsetWidth * 0.15) {
+      backMouseDown = false;
+      backMouseStartX = null;
+      returnToIdle();
+    }
+  });
+  document.addEventListener('mouseup', function () {
+    backMouseDown = false;
+    backMouseStartX = null;
+  });
+
+  /* Drag-back on typewriter: touch */
+  var backTouchStartX = null;
+  var backTouchStartY = null;
+  var backTouching = false;
+  var backTouchLocked = false;
+
+  typewriter.addEventListener('touchstart', function (e) {
+    backTouchStartX = e.touches[0].clientX;
+    backTouchStartY = e.touches[0].clientY;
+    backTouching = true;
+    backTouchLocked = false;
+  }, { passive: true });
+
+  typewriter.addEventListener('touchmove', function (e) {
+    if (!backTouching || backTouchStartX === null) return;
+    var dx = backTouchStartX - e.touches[0].clientX;
+    var dy = Math.abs(e.touches[0].clientY - backTouchStartY);
+    if (!backTouchLocked && Math.abs(dx) + dy > 10) {
+      if (Math.abs(dx) > dy && dx > 0) {
+        backTouchLocked = true;
+      } else {
+        backTouching = false;
+        return;
+      }
+    }
+    if (backTouchLocked && dx > section.offsetWidth * 0.15) {
+      backTouching = false;
+      backTouchStartX = null;
+      returnToIdle();
+    }
+  }, { passive: true });
+
+  typewriter.addEventListener('touchend', function () {
+    backTouching = false;
+    backTouchStartX = null;
+    backTouchStartY = null;
+    backTouchLocked = false;
+  });
 
   /* ── Shared drag logic ──────────────────────────────────── */
   var THRESHOLD = 0.3; /* 30% = easier to trigger */
