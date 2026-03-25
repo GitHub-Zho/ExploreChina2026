@@ -299,37 +299,16 @@ import Faq from '../components/v1/Faq.astro';
   line-height: 1.3;
 }
 
-/* Inline cursor that follows text — :global because JS-created */
-:global(.story-b-cursor-inline) {
-  display: inline-block;
-  width: 3px;
-  height: 1.15em;
-  background: #1c1917;
-  margin-left: 3px;
-  vertical-align: text-bottom;
-  animation: story-b-blink 0.9s step-end infinite;
-}
-
-/* Wave-reveal: each character fades in with a subtle rise */
+/* Character reveal — simple fade */
 :global(.story-char) {
-  display: inline-block;
   opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.35s ease;
 }
 :global(.story-char.is-visible) {
   opacity: 1;
-  transform: translateY(0);
-}
-/* Spaces need to preserve width */
-:global(.story-char-space) {
-  display: inline;
-  width: 0.3em;
 }
 
-@keyframes story-b-blink {
-  50% { opacity: 0; }
-}
+
 
 /* ── Replay button ──────────────────────────────────────────── */
 .story-replay {
@@ -476,15 +455,6 @@ import Faq from '../components/v1/Faq.astro';
   var replayEl   = document.getElementById('story-replay');
   var scrollEl   = document.getElementById('story-b-scroll');
   var contentEl  = document.getElementById('story-b-content');
-  var cursorSpan = null; /* inline cursor element */
-
-  function createCursor() {
-    cursorSpan = document.createElement('span');
-    cursorSpan.className = 'story-b-cursor-inline';
-    cursorSpan.setAttribute('aria-hidden', 'true');
-    return cursorSpan;
-  }
-
   /* ── Smooth scroll with easing (replaces browser 'smooth') ── */
   var scrollAnim = null;
   function smoothScrollTo(target) {
@@ -531,32 +501,20 @@ import Faq from '../components/v1/Faq.astro';
       if (s.centre) p.classList.add('is-centre');
       contentEl.appendChild(p);
 
-      /* Attach inline cursor to this <p> */
-      if (cursorSpan) cursorSpan.remove();
-      p.appendChild(createCursor());
-
       /* Scroll so this new sentence is roughly centred */
       scrollToCentre(p);
 
       /* Pre-create all character spans (invisible) */
       var chars = [];
       for (var j = 0; j < s.text.length; j++) {
-        if (s.text[j] === ' ') {
-          var sp = document.createElement('span');
-          sp.className = 'story-char-space';
-          sp.textContent = '\u00A0';
-          p.insertBefore(sp, cursorSpan);
-          chars.push(sp);
-        } else {
-          var ch = document.createElement('span');
-          ch.className = 'story-char';
-          ch.textContent = s.text[j];
-          p.insertBefore(ch, cursorSpan);
-          chars.push(ch);
-        }
+        var ch = document.createElement('span');
+        ch.className = 'story-char';
+        ch.textContent = s.text[j] === ' ' ? '\u00A0' : s.text[j];
+        p.appendChild(ch);
+        chars.push(ch);
       }
 
-      /* Wave reveal: fade in characters one by one */
+      /* Fade in characters one by one */
       for (var j = 0; j < chars.length; j++) {
         if (!twRunning) return;
         while (twPaused) {
@@ -564,7 +522,6 @@ import Faq from '../components/v1/Faq.astro';
           if (!twRunning) return;
         }
         chars[j].classList.add('is-visible');
-        /* Re-centre periodically */
         if (j % 20 === 0) scrollToCentre(p);
         await sleep(s.ms);
       }
@@ -578,8 +535,6 @@ import Faq from '../components/v1/Faq.astro';
     /* ── Finished — show replay (text stays) ───────────────── */
     twRunning = false;
     unlockScroll();
-    if (cursorSpan) cursorSpan.remove();
-    cursorSpan = null;
     await sleep(800);
     if (replayEl) {
       replayEl.style.display = 'flex';
@@ -594,7 +549,6 @@ import Faq from '../components/v1/Faq.astro';
   function startTypewriter() {
     contentEl.innerHTML = '';
     if (scrollEl) scrollEl.scrollTop = 0;
-    if (cursorSpan) { cursorSpan.remove(); cursorSpan = null; }
     twRunning = true;
     lockScroll();
     typewriterPlay();
@@ -653,7 +607,6 @@ import Faq from '../components/v1/Faq.astro';
     unlockScroll();
     curtainDone = false;
     twStarted = false;
-    if (cursorSpan) { cursorSpan.remove(); cursorSpan = null; }
     if (replayEl) { replayEl.style.display = 'none'; replayEl.style.opacity = '0'; }
     contentEl.innerHTML = '';
     if (scrollEl) scrollEl.scrollTop = 0;
