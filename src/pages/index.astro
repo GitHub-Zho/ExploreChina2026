@@ -290,39 +290,25 @@ import Faq from '../components/v1/Faq.astro';
 }
 
 :global(.story-b-content p) {
-  margin: 0 0 5.5rem 0;
+  margin: 0 0 6rem 0;
   font-size: clamp(1.05rem, 2.2vw, 1.35rem);
   font-weight: 300;
   color: #57534e;
-  line-height: 1.45; /* tight within same sentence wrapping */
+  line-height: 1.45;
 }
 
 :global(.story-b-content p.is-centre) {
   font-size: clamp(1.35rem, 3vw, 1.875rem);
   font-weight: 500;
   color: #1c1917;
-  margin: 2.5rem 0 6rem;
+  margin: 3rem 0 7rem;
   line-height: 1.3;
 }
 
-/* Cinematic sentence reveal — clip-path sweep + blur-to-sharp */
+/* Credits-roll: blur + opacity driven by JS based on position */
 :global(.story-line) {
-  clip-path: inset(0 100% 0 0);
-  filter: blur(6px);
-  opacity: 0;
-  transition: clip-path 1.8s cubic-bezier(0.25, 0.1, 0.25, 1),
-              filter 1.2s ease,
-              opacity 0.6s ease;
-}
-:global(.story-line.is-revealed) {
-  clip-path: inset(0 0 0 0);
-  filter: blur(0);
-  opacity: 1;
-}
-:global(.story-line.is-centre) {
-  transition: clip-path 2.2s cubic-bezier(0.25, 0.1, 0.25, 1),
-              filter 1.6s ease,
-              opacity 0.8s ease;
+  will-change: filter, opacity;
+  transition: none;
 }
 
 
@@ -448,108 +434,135 @@ import Faq from '../components/v1/Faq.astro';
     itemObs.observe(el);
   });
 
-  /* ── Sentences — one per line, short and breathable ──────── */
+  /* ── Sentences ──────────────────────────────────────────── */
   var sentences = [
-    { text: "We went overseas to study.", ms: 35, pause: 1000 },
-    { text: "We thought we'd seen the world.", ms: 35, pause: 1400 },
-    { text: "But there's a difference between passing through a place —", ms: 35, pause: 800 },
-    { text: "and letting it pass through you.", ms: 35, pause: 1600 },
-    { text: "Eating where the locals eat.", ms: 35, pause: 900 },
-    { text: "Getting lost in streets that don't need you to understand them.", ms: 35, pause: 800 },
-    { text: "Falling into someone else's rhythm — and forgetting your own.", ms: 35, pause: 2000 },
-    { text: "There's a version of the world you can only find by living in it.", ms: 45, pause: 2500, centre: true },
-    { text: "We built this programme to share that feeling.", ms: 35, pause: 1400 },
-    { text: "Not a tour. A way in.", ms: 35, pause: 1600 },
-    { text: "Eighty UK students came to China with us.", ms: 35, pause: 800 },
-    { text: "Now we're in Canada.", ms: 35, pause: 1200 },
-    { text: "Your turn.", ms: 45, pause: 0 }
+    { text: "We went overseas to study.", hold: 1800 },
+    { text: "We thought we'd seen the world.", hold: 2000 },
+    { text: "But there's a difference between passing through a place —", hold: 1600 },
+    { text: "and letting it pass through you.", hold: 2200 },
+    { text: "Eating where the locals eat.", hold: 1600 },
+    { text: "Getting lost in streets that don't need you to understand them.", hold: 1800 },
+    { text: "Falling into someone else's rhythm — and forgetting your own.", hold: 2400 },
+    { text: "There's a version of the world you can only find by living in it.", hold: 3200, centre: true },
+    { text: "We built this programme to share that feeling.", hold: 2000 },
+    { text: "Not a tour. A way in.", hold: 2200 },
+    { text: "Eighty UK students came to China with us.", hold: 1800 },
+    { text: "Now we're in Canada.", hold: 1800 },
+    { text: "Your turn.", hold: 0 }
   ];
 
-  /* ── Typewriter state ───────────────────────────────────── */
+  /* ── Credits roll state ─────────────────────────────────── */
   var twRunning  = false;
   var twPaused   = false;
   var twStarted  = false;
   var replayEl   = document.getElementById('story-replay');
   var scrollEl   = document.getElementById('story-b-scroll');
   var contentEl  = document.getElementById('story-b-content');
-  /* ── Smooth scroll with easing (replaces browser 'smooth') ── */
-  var scrollAnim = null;
-  function smoothScrollTo(target) {
+  var lineEls    = [];
+
+  /* ── Position-based blur + opacity ──────────────────────── */
+  function updateLineEffects() {
     if (!scrollEl) return;
-    var start = scrollEl.scrollTop;
-    var diff  = Math.max(0, target) - start;
-    if (Math.abs(diff) < 2) return;
-    var duration = Math.min(800, Math.max(300, Math.abs(diff) * 1.5));
-    var startTime = null;
-
-    if (scrollAnim) cancelAnimationFrame(scrollAnim);
-
-    function step(ts) {
-      if (!startTime) startTime = ts;
-      var elapsed = ts - startTime;
-      var progress = Math.min(elapsed / duration, 1);
-      /* ease-out cubic */
-      var ease = 1 - Math.pow(1 - progress, 3);
-      scrollEl.scrollTop = start + diff * ease;
-      if (progress < 1) {
-        scrollAnim = requestAnimationFrame(step);
-      } else {
-        scrollAnim = null;
-      }
-    }
-    scrollAnim = requestAnimationFrame(step);
-  }
-
-  function scrollToCentre(el) {
-    if (!scrollEl || !el) return;
     var scrollH = scrollEl.clientHeight;
-    var elTop   = el.offsetTop;
-    var target  = elTop - (scrollH / 2) + (el.offsetHeight / 2);
-    smoothScrollTo(target);
+    var centre  = scrollH * 0.5;
+    var fadeZone = scrollH * 0.38;
+
+    for (var i = 0; i < lineEls.length; i++) {
+      var el = lineEls[i];
+      var rect = el.getBoundingClientRect();
+      var scrollRect = scrollEl.getBoundingClientRect();
+      var elCentre = rect.top + rect.height / 2 - scrollRect.top;
+      var dist = Math.abs(elCentre - centre);
+      var ratio = Math.min(dist / fadeZone, 1);
+
+      var blur = ratio * 5;
+      var opacity = 1 - ratio * 0.75;
+
+      el.style.filter = 'blur(' + blur.toFixed(1) + 'px)';
+      el.style.opacity = opacity.toFixed(2);
+    }
   }
 
-  async function typewriterPlay() {
-    for (var i = 0; i < sentences.length; i++) {
-      if (!twRunning) return;
-      var s = sentences[i];
+  /* Promise-based smooth scroll with continuous blur updates */
+  function smoothScrollToAsync(target, duration) {
+    return new Promise(function (resolve) {
+      if (!scrollEl) { resolve(); return; }
+      var start = scrollEl.scrollTop;
+      var diff  = target - start;
+      if (Math.abs(diff) < 2) { updateLineEffects(); resolve(); return; }
+      var startTime = null;
 
-      /* Create a <p> for this sentence */
-      var p = document.createElement('p');
-      if (s.centre) p.classList.add('is-centre');
-      contentEl.appendChild(p);
+      function step(ts) {
+        if (!startTime) startTime = ts;
+        if (!twRunning) { resolve(); return; }
+        var elapsed = ts - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        /* ease-in-out sine */
+        var ease = 0.5 - 0.5 * Math.cos(Math.PI * progress);
+        scrollEl.scrollTop = start + diff * ease;
+        updateLineEffects();
 
-      /* Set text content (hidden by clip-path) */
-      p.textContent = s.text;
-      p.classList.add('story-line');
-      if (s.centre) p.classList.add('is-centre');
-
-      /* Scroll so this sentence is centred */
-      scrollToCentre(p);
-
-      /* Wait a beat, then reveal */
-      await sleep(100);
-      if (!twRunning) return;
-      while (twPaused) {
-        await sleep(100);
-        if (!twRunning) return;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          resolve();
+        }
       }
-      p.classList.add('is-revealed');
+      requestAnimationFrame(step);
+    });
+  }
 
-      /* Wait for the reveal animation to mostly complete */
-      var revealDuration = s.centre ? 2200 : 1800;
-      await sleep(revealDuration);
-      scrollToCentre(p);
+  /* ── Continuous credits roll ────────────────────────────── */
+  async function creditsRoll() {
+    if (!scrollEl || !contentEl) return;
 
-      scrollToCentre(p);
-
-      /* Pause between sentences */
-      if (s.pause > 0) await sleep(s.pause);
+    /* Pre-render all sentences */
+    lineEls = [];
+    contentEl.innerHTML = '';
+    for (var i = 0; i < sentences.length; i++) {
+      var p = document.createElement('p');
+      p.textContent = sentences[i].text;
+      p.classList.add('story-line');
+      if (sentences[i].centre) p.classList.add('is-centre');
+      contentEl.appendChild(p);
+      lineEls.push(p);
     }
 
-    /* ── Finished — show replay (text stays) ───────────────── */
+    updateLineEffects();
+    await sleep(600);
+
+    /* Scroll each sentence to centre */
+    for (var i = 0; i < lineEls.length; i++) {
+      if (!twRunning) return;
+
+      var el = lineEls[i];
+      var s  = sentences[i];
+      var scrollH = scrollEl.clientHeight;
+      var target = el.offsetTop - (scrollH / 2) + (el.offsetHeight / 2);
+
+      /* Scroll duration: first is slower (intro), rest scale with distance */
+      var scrollDur = i === 0 ? 1400 : 1800;
+      await smoothScrollToAsync(Math.max(0, target), scrollDur);
+      if (!twRunning) return;
+
+      /* Hold at centre for reading */
+      if (s.hold > 0) {
+        var holdStart = Date.now();
+        while (Date.now() - holdStart < s.hold) {
+          if (!twRunning) return;
+          while (twPaused) {
+            await sleep(100);
+            if (!twRunning) return;
+          }
+          await sleep(50);
+        }
+      }
+    }
+
+    /* ── Finished — show replay ────────────────────────────── */
     twRunning = false;
     unlockScroll();
-    await sleep(800);
+    await sleep(1000);
     if (replayEl) {
       replayEl.style.display = 'flex';
       replayEl.style.opacity = '0';
@@ -562,10 +575,11 @@ import Faq from '../components/v1/Faq.astro';
 
   function startTypewriter() {
     contentEl.innerHTML = '';
+    lineEls = [];
     if (scrollEl) scrollEl.scrollTop = 0;
     twRunning = true;
     lockScroll();
-    typewriterPlay();
+    creditsRoll();
   }
 
   /* ── Replay click handler ───────────────────────────────── */
