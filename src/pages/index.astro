@@ -578,6 +578,8 @@ import Faq from '../components/v1/Faq.astro';
   }
 
   function startTypewriter() {
+    /* Snap section to viewport immediately */
+    section.scrollIntoView({ behavior: 'auto', block: 'start' });
     contentEl.innerHTML = '';
     lineEls = [];
     if (scrollEl) scrollEl.scrollTop = 0;
@@ -591,6 +593,8 @@ import Faq from '../components/v1/Faq.astro';
     replayEl.addEventListener('click', function () {
       replayEl.style.transition = 'opacity 0.3s ease';
       replayEl.style.opacity = '0';
+      /* Lock and snap FIRST, then start */
+      lockScroll();
       setTimeout(function () {
         replayEl.style.display = 'none';
         startTypewriter();
@@ -636,11 +640,13 @@ import Faq from '../components/v1/Faq.astro';
   /* ── Drag BACK from typewriter to idle ───────────────────── */
   function returnToIdle() {
     twRunning = false;
-    unlockScroll();
+    /* Keep scroll locked during transition — snap to section first */
+    section.scrollIntoView({ behavior: 'auto', block: 'start' });
     curtainDone = false;
     twStarted = false;
     if (replayEl) { replayEl.style.display = 'none'; replayEl.style.opacity = '0'; }
     contentEl.innerHTML = '';
+    lineEls = [];
     if (scrollEl) scrollEl.scrollTop = 0;
 
     /* Show curtain covering section, then slide it away to reveal idle */
@@ -656,6 +662,7 @@ import Faq from '../components/v1/Faq.astro';
       setTimeout(function () {
         curtain.style.transform = 'translateX(-100%)'; /* reset for next drag-in */
         curtain.style.transition = 'none';
+        unlockScroll(); /* only unlock AFTER transition completes */
       }, 520);
     });
   }
