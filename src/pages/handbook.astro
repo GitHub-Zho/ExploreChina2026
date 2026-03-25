@@ -16,94 +16,97 @@ import Layout from '../layouts/Layout.astro';
     <nav class="handbook-nav" aria-label="Handbook sections">
       <p class="handbook-nav__label">Jump to section</p>
       <ul class="handbook-nav__list">
-        <li><a href="#checklist">Pre-Departure Checklist</a></li>
-        <li><a href="#entry">Entry Requirements</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+        <li><a href="#entry">Entry</a></li>
         <li><a href="#vpn">VPN</a></li>
-        <li><a href="#sim">SIM &amp; Internet</a></li>
+        <li><a href="#sim">SIM</a></li>
         <li><a href="#apps">Apps &amp; Payment</a></li>
-        <li><a href="#packing">Packing</a></li>
       </ul>
     </nav>
 
-    <!-- Critical Warning — one place only -->
+    <!-- Critical Warning -->
     <div class="handbook-callout">
-      <p><strong>⚠ Two critical rules:</strong></p>
+      <p><strong>⚠ Two rules you cannot skip:</strong></p>
       <ol>
         <li><strong>Install your VPN before you board.</strong> It cannot be downloaded inside China.</li>
         <li><strong>Turn VPN OFF when setting up Alipay / WeChat Pay.</strong> Verification will fail otherwise.</li>
       </ol>
     </div>
 
-    <!-- 2. Quick Checklist -->
+    <!-- 2. Quick Checklist (interactive) -->
     <section id="checklist" class="handbook-section">
       <h2>Pre-Departure Checklist</h2>
-      <ul class="handbook-checklist">
-        <li><span class="check-box" aria-hidden="true"></span><span>Passport valid for 6+ months beyond travel dates</span></li>
-        <li><span class="check-box" aria-hidden="true"></span><span>Hotel booking + return flight booked (required for entry)</span></li>
-        <li><span class="check-box" aria-hidden="true"></span><span>VPN installed and tested</span></li>
-        <li><span class="check-box" aria-hidden="true"></span><span>WeChat downloaded — account verified — Visa/Mastercard linked</span></li>
-        <li><span class="check-box" aria-hidden="true"></span><span>Alipay downloaded — passport verified — Visa/Mastercard linked</span></li>
-        <li><span class="check-box" aria-hidden="true"></span><span>DiDi downloaded</span></li>
-        <li><span class="check-box" aria-hidden="true"></span><span>SIM / eSIM sorted</span></li>
-        <li><span class="check-box" aria-hidden="true"></span><span>Some cash (RMB) — foreign cards occasionally declined at small vendors</span></li>
+      <ul class="handbook-checklist" id="interactive-checklist">
+        <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>Passport valid 6+ months beyond travel</span></li>
+        <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>Hotel booking + return flight confirmed</span></li>
+        <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>VPN installed &amp; tested</span></li>
+        <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>Airport tourist SIM researched</span></li>
+        <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>WeChat — downloaded, verified, card linked</span></li>
+        <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>Alipay — downloaded, verified, card linked</span></li>
+        <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>DiDi — downloaded</span></li>
+        <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>Some RMB cash as backup</span></li>
       </ul>
     </section>
 
     <!-- 3. Entry Requirements -->
     <section id="entry" class="handbook-section">
       <h2>Entry Requirements</h2>
-      <p><strong>Canadian &amp; UK passport holders:</strong> visa-free for up to 30 days (valid until Dec 31, 2026).</p>
-      <p><strong>Other passports:</strong> may qualify for 240-hour visa-free transit — verify before booking.</p>
 
-      <p class="handbook-label">You need at the border:</p>
-      <ul class="handbook-list">
-        <li>Passport (6+ months validity)</li>
-        <li>Confirmed hotel booking</li>
-        <li>Return/onward flight ticket</li>
-      </ul>
+      <div class="entry-card">
+        <h3>🇨🇦 Canadian &amp; 🇬🇧 UK Passport</h3>
+        <p>Visa-free entry for up to <strong>30 days</strong> (until Dec 31, 2026).</p>
+        <p class="entry-need">At the border you need: passport (6+ months validity) · hotel booking · return flight.</p>
+      </div>
+
+      <div class="entry-card">
+        <h3>Other Passports — 240-Hour Transit</h3>
+        <p>Many passports qualify for <strong>240-hour (10-day) visa-free transit</strong>.</p>
+        <div class="entry-detail">
+          <p><strong>Key requirement:</strong> your entry city and exit city must be different. For example, fly into Shanghai and out of Beijing.</p>
+          <p>Hong Kong and Macau count as separate destinations — so entering via Shanghai and exiting through Hong Kong is valid.</p>
+        </div>
+        <p class="entry-need">Verify your passport's eligibility before booking.</p>
+      </div>
 
       <div class="handbook-links">
-        <a class="handbook-link" href="https://ca.china-embassy.gov.cn/eng/zytz_0/202602/t20260216_11860601.htm" target="_blank" rel="noopener">Official visa-free policy notice (Chinese Embassy in Canada)</a>
-        <a class="handbook-link" href="https://www.fmprc.gov.cn/eng/xw/fyrbt/202602/t20260215_11860467.html" target="_blank" rel="noopener">MFA announcement — Canada &amp; UK visa-free entry</a>
+        <a class="handbook-link" href="https://ca.china-embassy.gov.cn/eng/zytz_0/202602/t20260216_11860601.htm" target="_blank" rel="noopener">Official visa-free policy (Chinese Embassy in Canada)</a>
       </div>
     </section>
 
     <!-- 4. VPN -->
     <section id="vpn" class="handbook-section">
       <h2>VPN</h2>
-      <p>Google, Instagram, WhatsApp, YouTube are all blocked in China. Your VPN must be installed and working <strong>before you board your flight</strong>.</p>
-
-      <div class="handbook-links">
-        <a class="handbook-link" href="https://www.expressvpn.com/order" target="_blank" rel="noopener">ExpressVPN — sign up &amp; download</a>
-        <a class="handbook-link" href="https://nordvpn.com/pricing/" target="_blank" rel="noopener">NordVPN — plans &amp; download</a>
-        <a class="handbook-link" href="https://www.astrill.com/pricing" target="_blank" rel="noopener">Astrill — sign up (popular among expats in China)</a>
-      </div>
-
-      <p class="handbook-note">Pro tip: eSIMs from providers like Holafly or Airalo route traffic through overseas servers — some users report Google/WhatsApp working without a VPN. But still install one as backup.</p>
+      <p>Google, Instagram, WhatsApp, and YouTube are blocked in China.</p>
+      <p>Install and test your VPN <strong>before you board your flight</strong> — VPN apps and their websites are inaccessible inside China.</p>
     </section>
 
-    <!-- 5. SIM & Internet -->
+    <!-- 5. SIM -->
     <section id="sim" class="handbook-section">
-      <h2>SIM &amp; Internet</h2>
-      <p>You need data for WeChat Pay, DiDi, maps, and everything else. Three options:</p>
+      <h2>SIM Card</h2>
 
-      <div class="handbook-sim-cards">
-        <div class="handbook-sim-card">
-          <span class="badge-recommended">Recommended</span>
-          <div class="handbook-sim-card__name">eSIM</div>
-          <div class="handbook-sim-card__desc">Set up before you fly. No physical SIM swap. Some eSIMs bypass the firewall (no VPN needed for Google/WhatsApp). Downside: no Chinese phone number.</div>
-          <div class="handbook-sim-card__links">
-            <a class="handbook-link" href="https://www.holafly.com/esim-china" target="_blank" rel="noopener">Holafly — China eSIM (unlimited data)</a>
-            <a class="handbook-link" href="https://www.airalo.com/china" target="_blank" rel="noopener">Airalo — China eSIM plans</a>
+      <div class="sim-recommend">
+        <span class="badge-recommended">Recommended</span>
+        <h3>Airport Tourist SIM</h3>
+        <p>Buy a tourist SIM card at the airport when you arrive (passport required). This is the best option because:</p>
+        <ul class="handbook-list">
+          <li><strong>International access</strong> — can access Google, YouTube, WhatsApp without VPN (confirm when purchasing)</li>
+          <li><strong>Chinese phone number</strong> — needed for ordering food, booking DiDi, and app verification</li>
+          <li><strong>Local data</strong> — stable connection for WeChat Pay and maps</li>
+        </ul>
+        <p class="sim-tip">💡 When buying, ask specifically: "Can this SIM access Google and WhatsApp?"</p>
+      </div>
+
+      <div class="sim-alt">
+        <h3>Other options</h3>
+        <div class="sim-alt-grid">
+          <div>
+            <strong>eSIM</strong>
+            <p>Convenient (set up before you fly), but no Chinese phone number — limits DiDi and food delivery.</p>
           </div>
-        </div>
-        <div class="handbook-sim-card">
-          <div class="handbook-sim-card__name">Local Chinese SIM</div>
-          <div class="handbook-sim-card__desc">Best for app verification and ride-hailing (Chinese phone number). Buy at the airport on arrival. Need VPN for Google/WhatsApp.</div>
-        </div>
-        <div class="handbook-sim-card">
-          <div class="handbook-sim-card__name">Roaming</div>
-          <div class="handbook-sim-card__desc">Easiest — just turn on roaming with your Canadian carrier. Usually bypasses the firewall. Expensive for heavy use.</div>
+          <div>
+            <strong>Carrier roaming</strong>
+            <p>Easiest, usually bypasses firewall. Expensive for heavy use, no Chinese number.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -111,73 +114,64 @@ import Layout from '../layouts/Layout.astro';
     <!-- 6. Apps & Payment -->
     <section id="apps" class="handbook-section">
       <h2>Apps &amp; Payment</h2>
-      <p>Three essential apps. Download and set up <strong>before you land</strong>. Turn VPN off during setup.</p>
+      <p>Download these before you land. <strong>Turn VPN off during setup.</strong></p>
 
-      <div class="handbook-app-cards">
-        <div class="handbook-app-card">
-          <div class="handbook-app-card__icon">💬</div>
-          <div class="handbook-app-card__name">WeChat</div>
-          <div class="handbook-app-card__desc">Chat + payment + group comms for the program.</div>
-          <div class="handbook-app-card__setup">
-            <p class="setup-label">Setup:</p>
-            <ol>
-              <li>Register with your phone number</li>
-              <li>Go to Me → Settings → verify identity with passport</li>
-              <li>Me → Services → Wallet → link Visa or Mastercard</li>
-            </ol>
-            <div class="handbook-sim-card__links">
-              <a class="handbook-link" href="https://help.wechat.com/cgi-bin/micromsg-bin/oshelpcenter?opcode=2&id=2307252mur7f2307257zfyfe&lang=en&plat=ios&Channel=helpcenter" target="_blank" rel="noopener">Official: Link international card to WeChat Pay</a>
-              <a class="handbook-link" href="https://www.trip.com/guide/phone/wechat-pay-for-foreigners.html" target="_blank" rel="noopener">Step-by-step guide with screenshots (Trip.com)</a>
+      <div class="app-grid">
+        <div class="app-item">
+          <div class="app-item__header">
+            <span class="app-item__icon">💬</span>
+            <div>
+              <div class="app-item__name">WeChat</div>
+              <div class="app-item__tag">Chat + Payment + Group Comms</div>
             </div>
           </div>
+          <ol class="app-item__steps">
+            <li>Register with phone number</li>
+            <li>Verify identity (passport)</li>
+            <li>Link Visa / Mastercard</li>
+          </ol>
         </div>
 
-        <div class="handbook-app-card">
-          <div class="handbook-app-card__icon">💳</div>
-          <div class="handbook-app-card__name">Alipay</div>
-          <div class="handbook-app-card__desc">Primary payment at shops, restaurants, and transit.</div>
-          <div class="handbook-app-card__setup">
-            <p class="setup-label">Setup:</p>
-            <ol>
-              <li>Register with your phone number</li>
-              <li>Complete identity verification with passport</li>
-              <li>Link Visa or Mastercard (credit card works — debit may not)</li>
-            </ol>
-            <div class="handbook-sim-card__links">
-              <a class="handbook-link" href="https://us.trip.com/blog/how-to-use-alipay-with-a-foreign-credit-card/" target="_blank" rel="noopener">Step-by-step: Alipay with foreign card (Trip.com)</a>
-              <a class="handbook-link" href="https://www.travelofchina.com/alipay-setup-guide/" target="_blank" rel="noopener">Alipay setup guide for foreigners 2026</a>
+        <div class="app-item">
+          <div class="app-item__header">
+            <span class="app-item__icon">💳</span>
+            <div>
+              <div class="app-item__name">Alipay</div>
+              <div class="app-item__tag">Payment at shops, restaurants, transit</div>
             </div>
           </div>
+          <ol class="app-item__steps">
+            <li>Register with phone number</li>
+            <li>Verify identity (passport)</li>
+            <li>Link Visa / Mastercard</li>
+          </ol>
         </div>
 
-        <div class="handbook-app-card">
-          <div class="handbook-app-card__icon">🚗</div>
-          <div class="handbook-app-card__name">DiDi</div>
-          <div class="handbook-app-card__desc">Ride-hailing (China's Uber). Pay through Alipay or linked card.</div>
-          <div class="handbook-app-card__setup">
-            <p class="setup-label">Setup:</p>
-            <ol>
-              <li>Download DiDi from your app store</li>
-              <li>Register with phone number</li>
-              <li>Settings → Language → English</li>
-              <li>Link Alipay as payment method (or add card directly)</li>
-            </ol>
-            <div class="handbook-sim-card__links">
-              <a class="handbook-link" href="https://www.trip.com/guide/transport/how-to-use-didi-in-china.html" target="_blank" rel="noopener">How to use DiDi in China (Trip.com guide)</a>
+        <div class="app-item">
+          <div class="app-item__header">
+            <span class="app-item__icon">🚗</span>
+            <div>
+              <div class="app-item__name">DiDi</div>
+              <div class="app-item__tag">Ride-hailing (China's Uber)</div>
             </div>
           </div>
+          <ol class="app-item__steps">
+            <li>Download &amp; register</li>
+            <li>Set language to English</li>
+            <li>Link Alipay or add card</li>
+          </ol>
         </div>
       </div>
 
-      <p class="handbook-note">P2P transfers (sending money to friends) are usually restricted for foreign cards. Bring some RMB cash as backup for small vendors.</p>
+      <p class="handbook-note">P2P transfers are restricted for foreign cards. Bring RMB cash for small vendors.</p>
     </section>
 
-    <!-- 7. Packing -->
-    <section id="packing" class="handbook-section handbook-section--stub">
+    <!-- 7. Coming soon -->
+    <section class="handbook-section handbook-section--stub">
       <h2>Packing, Transport, Health &amp; Emergency</h2>
       <div class="stub-box">
         <span class="stub-icon">🔜</span>
-        <p>These sections are being prepared. Details will be added closer to departure.</p>
+        <p>Details will be added closer to departure.</p>
       </div>
     </section>
 
@@ -186,6 +180,7 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
+  /* ── Callout ────────────────────────────────────────────── */
   .handbook-callout {
     max-width: 52rem;
     margin: 0 auto 2rem;
@@ -203,14 +198,208 @@ import Layout from '../layouts/Layout.astro';
   .handbook-callout li {
     margin-bottom: 0.25rem;
   }
-  .handbook-label {
-    font-weight: 600;
+
+  /* ── Interactive Checklist ──────────────────────────────── */
+  .handbook-checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .check-toggle {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 1.6rem;
+  }
+  .check-toggle .check-box {
+    pointer-events: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .check-toggle.is-checked .check-box {
+    background: #16a34a;
+    border-color: #16a34a;
+  }
+  .check-toggle.is-checked .check-box::after {
+    content: '✓';
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .check-toggle.is-checked + span {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
+  /* ── Entry cards ────────────────────────────────────────── */
+  .entry-card {
+    background: #fafaf9;
+    border: 1px solid #e7e5e4;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .entry-card h3 {
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem;
+    color: #1c1917;
+  }
+  .entry-card p {
+    font-size: 0.95rem;
+    color: #44403c;
+    margin: 0.3rem 0;
+    line-height: 1.5;
+  }
+  .entry-need {
+    font-size: 0.88rem !important;
+    color: #78716c !important;
+    margin-top: 0.5rem !important;
+  }
+  .entry-detail {
+    margin: 0.75rem 0;
+    padding: 0.75rem 1rem;
+    background: #f5f5f4;
+    border-radius: 0.5rem;
     font-size: 0.9rem;
+    color: #57534e;
+  }
+  .entry-detail p {
+    font-size: 0.9rem;
+    margin: 0.25rem 0;
+  }
+
+  /* ── SIM section ────────────────────────────────────────── */
+  .sim-recommend {
+    background: #fafaf9;
+    border: 1px solid #e7e5e4;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .sim-recommend h3 {
+    font-size: 1.05rem;
+    margin: 0.5rem 0 0.5rem;
+    color: #1c1917;
+  }
+  .sim-recommend p {
+    font-size: 0.95rem;
+    color: #44403c;
+    margin: 0.3rem 0;
+  }
+  .sim-recommend .handbook-list {
+    margin: 0.5rem 0;
+    padding-left: 1.25rem;
+  }
+  .sim-recommend .handbook-list li {
+    font-size: 0.93rem;
+    color: #44403c;
+    margin-bottom: 0.35rem;
+    line-height: 1.45;
+  }
+  .sim-tip {
+    margin-top: 0.75rem !important;
+    padding: 0.6rem 0.75rem;
+    background: #ecfdf5;
+    border-radius: 0.4rem;
+    font-size: 0.88rem !important;
+    color: #065f46 !important;
+  }
+  .sim-alt h3 {
+    font-size: 0.95rem;
     color: #78716c;
-    margin: 1rem 0 0.5rem;
+    margin: 0 0 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
+  .sim-alt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .sim-alt-grid > div {
+    background: #fafaf9;
+    border: 1px solid #e7e5e4;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+  .sim-alt-grid strong {
+    font-size: 0.95rem;
+    color: #1c1917;
+  }
+  .sim-alt-grid p {
+    font-size: 0.88rem;
+    color: #78716c;
+    margin: 0.25rem 0 0;
+    line-height: 1.4;
+  }
+  @media (max-width: 600px) {
+    .sim-alt-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ── App grid (compact) ─────────────────────────────────── */
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  @media (max-width: 700px) {
+    .app-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .app-item {
+    background: #fafaf9;
+    border: 1px solid #e7e5e4;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+  }
+  .app-item__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .app-item__icon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+  }
+  .app-item__name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1c1917;
+  }
+  .app-item__tag {
+    font-size: 0.8rem;
+    color: #a8a29e;
+    margin-top: 0.1rem;
+  }
+  .app-item__steps {
+    margin: 0;
+    padding-left: 1.25rem;
+    font-size: 0.88rem;
+    color: #57534e;
+    line-height: 1.5;
+  }
+  .app-item__steps li {
+    margin-bottom: 0.2rem;
+  }
+
+  /* ── Misc ───────────────────────────────────────────────── */
   .handbook-list {
     margin: 0;
     padding-left: 1.25rem;
@@ -220,35 +409,13 @@ import Layout from '../layouts/Layout.astro';
   .handbook-list li {
     margin-bottom: 0.3rem;
   }
-  .handbook-sim-card__links {
-    margin-top: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  .handbook-app-card__setup {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e7e5e4;
-  }
-  .handbook-app-card__setup .setup-label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #78716c;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin: 0 0 0.5rem;
-  }
-  .handbook-app-card__setup ol {
-    margin: 0 0 0.75rem;
-    padding-left: 1.25rem;
-    font-size: 0.95rem;
-    color: #57534e;
-  }
-  .handbook-app-card__setup ol li {
-    margin-bottom: 0.25rem;
-  }
-  .handbook-app-card__setup .handbook-link {
-    font-size: 0.9rem;
-  }
 </style>
+
+<script>
+  /* Interactive checklist — toggle check on click */
+  document.querySelectorAll('.check-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.classList.toggle('is-checked');
+    });
+  });
+</script>
