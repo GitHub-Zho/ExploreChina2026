@@ -39,7 +39,7 @@ import Layout from '../layouts/Layout.astro';
       <ul class="handbook-checklist" id="interactive-checklist">
         <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>Passport valid 6+ months beyond travel</span></li>
         <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>Hotel booking + return flight confirmed</span></li>
-        <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>VPN installed &amp; tested</span></li>
+        <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>VPN installed and tested</span></li>
         <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>Airport tourist SIM researched</span></li>
         <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>WeChat — downloaded, verified, card linked</span></li>
         <li><button class="check-toggle" aria-label="Toggle checked" type="button"><span class="check-box" aria-hidden="true"></span></button><span>Alipay — downloaded, verified, card linked</span></li>
@@ -51,25 +51,39 @@ import Layout from '../layouts/Layout.astro';
     <!-- 3. Entry Requirements -->
     <section id="entry" class="handbook-section">
       <h2>Entry Requirements</h2>
+      <p class="entry-intro">Three ways to enter China — check which applies to your passport.</p>
 
-      <div class="entry-card">
-        <h3>🇨🇦 Canadian &amp; 🇬🇧 UK Passport</h3>
-        <p>Visa-free entry for up to <strong>30 days</strong> (until Dec 31, 2026).</p>
-        <p class="entry-need">At the border you need: passport (6+ months validity) · hotel booking · return flight.</p>
-      </div>
-
-      <div class="entry-card">
-        <h3>Other Passports — 240-Hour Transit</h3>
-        <p>Many passports qualify for <strong>240-hour (10-day) visa-free transit</strong>.</p>
-        <div class="entry-detail">
-          <p><strong>Key requirement:</strong> your entry city and exit city must be different. For example, fly into Shanghai and out of Beijing.</p>
-          <p>Hong Kong and Macau count as separate destinations — so entering via Shanghai and exiting through Hong Kong is valid.</p>
+      <div class="entry-cards">
+        <!-- Visa-free: CA & UK -->
+        <div class="entry-card">
+          <a class="entry-card__link" href="https://ca.china-embassy.gov.cn/eng/zytz_0/202602/t20260216_11860601.htm" target="_blank" rel="noopener" aria-label="Official visa-free policy">↗</a>
+          <div class="entry-card__badge">Visa-free</div>
+          <h3>🇨🇦 Canada &amp; 🇬🇧 UK</h3>
+          <p>Up to <strong>30 days</strong>, valid until Dec 31, 2026.</p>
+          <p class="entry-need">Bring: passport (6+ months validity) · hotel booking · return flight ticket.</p>
         </div>
-        <p class="entry-need">Verify your passport's eligibility before booking.</p>
-      </div>
 
-      <div class="handbook-links">
-        <a class="handbook-link" href="https://ca.china-embassy.gov.cn/eng/zytz_0/202602/t20260216_11860601.htm" target="_blank" rel="noopener">Official visa-free policy (Chinese Embassy in Canada)</a>
+        <!-- Transit visa-free -->
+        <div class="entry-card">
+          <a class="entry-card__link" href="https://en.nia.gov.cn/n147418/n147463/c183412/content.html" target="_blank" rel="noopener" aria-label="Transit visa-free policy">↗</a>
+          <div class="entry-card__badge">Visa-free transit</div>
+          <h3>240-Hour Transit</h3>
+          <p>Up to <strong>10 days</strong> for 54 eligible nationalities transiting through China.</p>
+          <div class="entry-detail">
+            <p><strong>Key rule:</strong> China must be a transit stop — you enter from country&nbsp;A and exit to country&nbsp;B. They cannot be the same country.</p>
+            <p>Hong Kong and Macau count as separate destinations. Example: fly in from Canada → visit China → exit to Hong Kong ✓</p>
+          </div>
+          <p class="entry-need">Need: passport · confirmed onward ticket to a third country/region within 240 hours.</p>
+        </div>
+
+        <!-- Regular visa -->
+        <div class="entry-card">
+          <a class="entry-card__link" href="https://www.visaforchina.cn/YTO3_EN/" target="_blank" rel="noopener" aria-label="Apply for visa">↗</a>
+          <div class="entry-card__badge entry-card__badge--neutral">Visa required</div>
+          <h3>Tourist Visa (L Visa)</h3>
+          <p>For passports not eligible for visa-free entry. Apply through the Chinese Visa Application Service Centre (CVASC).</p>
+          <p class="entry-need">Typical processing: 4–7 business days. Apply well in advance.</p>
+        </div>
       </div>
     </section>
 
@@ -87,13 +101,13 @@ import Layout from '../layouts/Layout.astro';
       <div class="sim-recommend">
         <span class="badge-recommended">Recommended</span>
         <h3>Airport Tourist SIM</h3>
-        <p>Buy a tourist SIM card at the airport when you arrive (passport required). This is the best option because:</p>
+        <p>Buy a tourist SIM card at the airport when you arrive (passport required).</p>
         <ul class="handbook-list">
-          <li><strong>International access</strong> — can access Google, YouTube, WhatsApp without VPN (confirm when purchasing)</li>
-          <li><strong>Chinese phone number</strong> — needed for ordering food, booking DiDi, and app verification</li>
+          <li><strong>International access</strong> — Google, YouTube, WhatsApp without VPN (confirm when purchasing)</li>
+          <li><strong>Chinese phone number</strong> — needed for DiDi, food delivery, app verification</li>
           <li><strong>Local data</strong> — stable connection for WeChat Pay and maps</li>
         </ul>
-        <p class="sim-tip">💡 When buying, ask specifically: "Can this SIM access Google and WhatsApp?"</p>
+        <p class="sim-tip">💡 When buying, ask: "Can this SIM access Google and WhatsApp?"</p>
       </div>
 
       <div class="sim-alt">
@@ -101,11 +115,11 @@ import Layout from '../layouts/Layout.astro';
         <div class="sim-alt-grid">
           <div>
             <strong>eSIM</strong>
-            <p>Convenient (set up before you fly), but no Chinese phone number — limits DiDi and food delivery.</p>
+            <p>Set up before you fly. No Chinese phone number — limits DiDi and food delivery.</p>
           </div>
           <div>
             <strong>Carrier roaming</strong>
-            <p>Easiest, usually bypasses firewall. Expensive for heavy use, no Chinese number.</p>
+            <p>Easiest. Usually bypasses firewall. Expensive for heavy use, no Chinese number.</p>
           </div>
         </div>
       </div>
@@ -117,7 +131,8 @@ import Layout from '../layouts/Layout.astro';
       <p>Download these before you land. <strong>Turn VPN off during setup.</strong></p>
 
       <div class="app-grid">
-        <div class="app-item">
+        <a class="app-item" href="https://help.wechat.com/cgi-bin/micromsg-bin/oshelpcenter?opcode=2&id=2307252mur7f2307257zfyfe&lang=en&plat=ios&Channel=helpcenter" target="_blank" rel="noopener">
+          <span class="app-item__ext" aria-label="Setup guide">↗</span>
           <div class="app-item__header">
             <span class="app-item__icon">💬</span>
             <div>
@@ -130,9 +145,10 @@ import Layout from '../layouts/Layout.astro';
             <li>Verify identity (passport)</li>
             <li>Link Visa / Mastercard</li>
           </ol>
-        </div>
+        </a>
 
-        <div class="app-item">
+        <a class="app-item" href="https://us.trip.com/blog/how-to-use-alipay-with-a-foreign-credit-card/" target="_blank" rel="noopener">
+          <span class="app-item__ext" aria-label="Setup guide">↗</span>
           <div class="app-item__header">
             <span class="app-item__icon">💳</span>
             <div>
@@ -145,9 +161,10 @@ import Layout from '../layouts/Layout.astro';
             <li>Verify identity (passport)</li>
             <li>Link Visa / Mastercard</li>
           </ol>
-        </div>
+        </a>
 
-        <div class="app-item">
+        <a class="app-item" href="https://www.trip.com/guide/transport/how-to-use-didi-in-china.html" target="_blank" rel="noopener">
+          <span class="app-item__ext" aria-label="Setup guide">↗</span>
           <div class="app-item__header">
             <span class="app-item__icon">🚗</span>
             <div>
@@ -160,7 +177,7 @@ import Layout from '../layouts/Layout.astro';
             <li>Set language to English</li>
             <li>Link Alipay or add card</li>
           </ol>
-        </div>
+        </a>
       </div>
 
       <p class="handbook-note">P2P transfers are restricted for foreign cards. Bring RMB cash for small vendors.</p>
@@ -242,41 +259,86 @@ import Layout from '../layouts/Layout.astro';
     opacity: 0.5;
   }
 
-  /* ── Entry cards ────────────────────────────────────────── */
+  /* ── Entry section ──────────────────────────────────────── */
+  .entry-intro {
+    font-size: 0.95rem;
+    color: #78716c;
+    margin-bottom: 1.25rem;
+  }
+  .entry-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
   .entry-card {
+    position: relative;
     background: #fafaf9;
     border: 1px solid #e7e5e4;
     border-radius: 0.75rem;
     padding: 1.25rem 1.5rem;
-    margin-bottom: 1rem;
   }
   .entry-card h3 {
     font-size: 1.05rem;
-    margin: 0 0 0.5rem;
+    margin: 0.25rem 0 0.4rem;
     color: #1c1917;
   }
   .entry-card p {
-    font-size: 0.95rem;
+    font-size: 0.93rem;
     color: #44403c;
-    margin: 0.3rem 0;
+    margin: 0.25rem 0;
     line-height: 1.5;
   }
+  .entry-card__badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #166534;
+  }
+  .entry-card__badge--neutral {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+  .entry-card__link {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f5f5f4;
+    color: #a8a29e;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .entry-card__link:hover {
+    background: #1c1917;
+    color: #fff;
+  }
   .entry-need {
-    font-size: 0.88rem !important;
+    font-size: 0.85rem !important;
     color: #78716c !important;
     margin-top: 0.5rem !important;
   }
   .entry-detail {
-    margin: 0.75rem 0;
-    padding: 0.75rem 1rem;
+    margin: 0.6rem 0;
+    padding: 0.65rem 0.9rem;
     background: #f5f5f4;
     border-radius: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: #57534e;
   }
   .entry-detail p {
-    font-size: 0.9rem;
-    margin: 0.25rem 0;
+    font-size: 0.88rem;
+    margin: 0.2rem 0;
   }
 
   /* ── SIM section ────────────────────────────────────────── */
@@ -290,58 +352,58 @@ import Layout from '../layouts/Layout.astro';
   }
   .sim-recommend h3 {
     font-size: 1.05rem;
-    margin: 0.5rem 0 0.5rem;
+    margin: 0.5rem 0 0.4rem;
     color: #1c1917;
   }
   .sim-recommend p {
-    font-size: 0.95rem;
+    font-size: 0.93rem;
     color: #44403c;
-    margin: 0.3rem 0;
+    margin: 0.25rem 0;
   }
   .sim-recommend .handbook-list {
     margin: 0.5rem 0;
     padding-left: 1.25rem;
   }
   .sim-recommend .handbook-list li {
-    font-size: 0.93rem;
+    font-size: 0.9rem;
     color: #44403c;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.3rem;
     line-height: 1.45;
   }
   .sim-tip {
     margin-top: 0.75rem !important;
-    padding: 0.6rem 0.75rem;
+    padding: 0.5rem 0.7rem;
     background: #ecfdf5;
     border-radius: 0.4rem;
-    font-size: 0.88rem !important;
+    font-size: 0.85rem !important;
     color: #065f46 !important;
   }
   .sim-alt h3 {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     color: #78716c;
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
   .sim-alt-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 0.75rem;
   }
   .sim-alt-grid > div {
     background: #fafaf9;
     border: 1px solid #e7e5e4;
     border-radius: 0.5rem;
-    padding: 1rem;
+    padding: 0.9rem;
   }
   .sim-alt-grid strong {
-    font-size: 0.95rem;
+    font-size: 0.93rem;
     color: #1c1917;
   }
   .sim-alt-grid p {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: #78716c;
-    margin: 0.25rem 0 0;
+    margin: 0.2rem 0 0;
     line-height: 1.4;
   }
   @media (max-width: 600px) {
@@ -350,7 +412,7 @@ import Layout from '../layouts/Layout.astro';
     }
   }
 
-  /* ── App grid (compact) ─────────────────────────────────── */
+  /* ── App grid (cards as links) ──────────────────────────── */
   .app-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -363,10 +425,39 @@ import Layout from '../layouts/Layout.astro';
     }
   }
   .app-item {
+    position: relative;
+    display: block;
     background: #fafaf9;
     border: 1px solid #e7e5e4;
     border-radius: 0.75rem;
     padding: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .app-item:hover {
+    border-color: #d6d3d1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .app-item:hover .app-item__ext {
+    background: #1c1917;
+    color: #fff;
+  }
+  .app-item__ext {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f5f5f4;
+    color: #a8a29e;
+    font-size: 0.78rem;
+    transition: background 0.2s, color 0.2s;
   }
   .app-item__header {
     display: flex;
@@ -384,19 +475,19 @@ import Layout from '../layouts/Layout.astro';
     color: #1c1917;
   }
   .app-item__tag {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: #a8a29e;
     margin-top: 0.1rem;
   }
   .app-item__steps {
     margin: 0;
     padding-left: 1.25rem;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: #57534e;
-    line-height: 1.5;
+    line-height: 1.55;
   }
   .app-item__steps li {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.15rem;
   }
 
   /* ── Misc ───────────────────────────────────────────────── */
@@ -412,7 +503,6 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
-  /* Interactive checklist — toggle check on click */
   document.querySelectorAll('.check-toggle').forEach(function (btn) {
     btn.addEventListener('click', function () {
       btn.classList.toggle('is-checked');
