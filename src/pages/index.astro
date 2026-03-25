@@ -792,6 +792,68 @@ import Faq from '../components/v1/Faq.astro';
     onDragEnd(prog);
   });
 
+  /* ── Mac trackpad / wheel drag (two-finger swipe) ────────── */
+  var wheelAccum = 0;
+  var wheelTimer = null;
+  var wheelActive = false;
+
+  idle.addEventListener('wheel', function (e) {
+    if (curtainDone) return;
+    /* Only respond to horizontal scroll (Mac two-finger) */
+    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+    e.preventDefault();
+
+    if (!wheelActive) {
+      wheelActive = true;
+      curtain.style.transition = 'none';
+    }
+
+    wheelAccum += e.deltaX;
+    var progress = Math.min(Math.max(wheelAccum / (section.offsetWidth * 0.3), 0), 1);
+    var translate = -100 + (progress * 100);
+    curtain.style.transform = 'translateX(' + translate + '%)';
+
+    /* Auto-complete if past threshold */
+    if (progress >= 1) {
+      wheelAccum = 0;
+      wheelActive = false;
+      if (wheelTimer) clearTimeout(wheelTimer);
+      completeCurtain();
+      return;
+    }
+
+    /* Reset accumulator after inactivity */
+    if (wheelTimer) clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(function () {
+      if (curtainDone) return;
+      var finalProgress = Math.min(Math.max(wheelAccum / (section.offsetWidth * 0.3), 0), 1);
+      wheelAccum = 0;
+      wheelActive = false;
+      onDragEnd(finalProgress);
+    }, 200);
+  }, { passive: false });
+
+  /* ── Mac trackpad drag-back from typewriter ─────────────── */
+  var backWheelAccum = 0;
+  var backWheelTimer = null;
+
+  typewriter.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+    /* Only respond to leftward swipe (negative deltaX) */
+    if (e.deltaX >= 0) { backWheelAccum = 0; return; }
+
+    backWheelAccum += Math.abs(e.deltaX);
+    if (backWheelAccum > section.offsetWidth * 0.15) {
+      backWheelAccum = 0;
+      if (backWheelTimer) clearTimeout(backWheelTimer);
+      returnToIdle();
+      return;
+    }
+
+    if (backWheelTimer) clearTimeout(backWheelTimer);
+    backWheelTimer = setTimeout(function () { backWheelAccum = 0; }, 300);
+  }, { passive: true });
+
   /* ── Mobile touch drag ──────────────────────────────────── */
   var touchStartX   = null;
   var touchStartY   = null;
