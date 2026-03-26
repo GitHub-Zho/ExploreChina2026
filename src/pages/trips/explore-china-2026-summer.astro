@@ -118,10 +118,13 @@ import {
 
         <div class="city-tabs__highlights">
           {city.explore.slice(0, 4).map((spot) => (
-            <article class="card city-tabs__highlight">
-              <p class="label">Key highlight</p>
-              <h4>{spot.title}</h4>
-              <p class="muted">{spot.description}</p>
+            <article class="card city-tabs__highlight" style={spot.image ? `--highlight-bg: url(${spot.image})` : ''}>
+              {spot.image && <div class="highlight-img" aria-hidden="true"></div>}
+              <div class="highlight-content">
+                <p class="label">Key highlight</p>
+                <h4>{spot.title}</h4>
+                <p class="muted">{spot.description}</p>
+              </div>
             </article>
           ))}
         </div>

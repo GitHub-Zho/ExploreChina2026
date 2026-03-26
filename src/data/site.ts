@@ -85,6 +85,7 @@ export const cityGuides = [
     explore: [
       {
         title: 'Yu Garden & Old Town',
+        image: 'https://images.unsplash.com/photo-1548919973-5cef591cdbc9?auto=format&fit=crop&w=800&q=80',
         titleZh: '豫园与老城厢',
         description:
           'Stone lanes, tea houses, and historic courtyards make this one of the easiest places to feel old Shanghai beneath the modern skyline.',
@@ -92,6 +93,7 @@ export const cityGuides = [
       },
       {
         title: 'The Bund',
+        image: 'https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?auto=format&fit=crop&w=800&q=80',
         titleZh: '外滩',
         description:
           'The riverfront gives you the postcard contrast of colonial facades on one side and Pudong towers on the other.',
@@ -99,6 +101,7 @@ export const cityGuides = [
       },
       {
         title: 'City God Temple Area',
+        image: 'https://images.unsplash.com/photo-1547981609-4b6bf67db7a0?auto=format&fit=crop&w=800&q=80',
         titleZh: '城隍庙商圈',
         description:
           'A dense area for snacks, temple culture, and high-energy people-watching close to the old-town core.',
@@ -106,6 +109,7 @@ export const cityGuides = [
       },
       {
         title: 'Tianzifang',
+        image: 'https://images.unsplash.com/photo-1567449303078-57ad995bd329?auto=format&fit=crop&w=800&q=80',
         titleZh: '田子坊',
         description:
           'A maze of small lanes, design shops, cafes, and photo moments that feels slower and more intimate than the main shopping streets.',
@@ -113,6 +117,7 @@ export const cityGuides = [
       },
       {
         title: 'Nanjing Road',
+        image: 'https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80',
         titleZh: '南京路',
         description:
           'A classic high-energy commercial street for first impressions, shopping, and urban night atmosphere.',
@@ -120,6 +125,7 @@ export const cityGuides = [
       },
       {
         title: 'Arrival reset & social options',
+        image: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?auto=format&fit=crop&w=800&q=80',
         titleZh: '抵达恢复与社交选项',
         description:
           'Depending on arrival energy, the first Shanghai block can include a recovery-style spa moment and an optional local nightlife social add-on.',
@@ -162,6 +168,7 @@ export const cityGuides = [
     explore: [
       {
         title: 'National Museum Visit',
+        image: 'https://images.unsplash.com/photo-1598887142487-3c854d51eabb?auto=format&fit=crop&w=800&q=80',
         titleZh: '博物馆参观',
         description:
           'A curated museum stop helps make the Jiangnan aesthetic and regional history feel legible instead of decorative.',
@@ -169,6 +176,7 @@ export const cityGuides = [
       },
       {
         title: 'Dress-up Experience',
+        image: 'https://images.unsplash.com/photo-1583416750470-965b2707b355?auto=format&fit=crop&w=800&q=80',
         titleZh: '汉服体验',
         description:
           'A playful cultural block where participants can step into historical styling and connect with traditional Chinese visual culture.',
@@ -176,6 +184,7 @@ export const cityGuides = [
       },
       {
         title: 'City Night View',
+        image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=800&q=80',
         titleZh: '苏州夜景',
         description:
           'Night lighting and canal-side streets reveal Suzhou’s softer, more poetic side once the daytime crowds thin out.',
@@ -183,6 +192,7 @@ export const cityGuides = [
       },
       {
         title: 'Canal atmosphere',
+        image: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80',
         titleZh: '运河氛围',
         description:
           'Walking the canal areas gives the day an easy rhythm and creates a strong contrast with the vertical energy of Shanghai.',
@@ -232,6 +242,7 @@ export const cityGuides = [
     explore: [
       {
         title: 'West Lake',
+        image: 'https://images.unsplash.com/photo-1599571234909-29ed5d1321d6?auto=format&fit=crop&w=800&q=80',
         titleZh: '西湖',
         description:
           'The lake gives the route its most classic “slow-beauty” day: easy walking, views that change gradually, and strong photo value without needing a rushed schedule.',
@@ -239,6 +250,7 @@ export const cityGuides = [
       },
       {
         title: 'Lingyin Temple',
+        image: 'https://images.unsplash.com/photo-1587381420270-9b539a028e67?auto=format&fit=crop&w=800&q=80',
         titleZh: '灵隐寺',
         description:
           'This adds a more spiritual and historical tone to the Hangzhou day, balancing scenery with cultural depth.',
@@ -246,6 +258,7 @@ export const cityGuides = [
       },
       {
         title: 'Longjing tea atmosphere',
+        image: 'https://images.unsplash.com/photo-1558160074-4d93e8e073a1?auto=format&fit=crop&w=800&q=80',
         titleZh: '龙井茶文化氛围',
         description:
           'Tea culture is one of Hangzhou’s strongest identity markers, and it helps this stop feel specifically local rather than generically scenic.',
@@ -253,6 +266,7 @@ export const cityGuides = [
       },
       {
         title: 'Lakeside walking & photo blocks',
+        image: 'https://images.unsplash.com/photo-1609619913399-e91c2e483537?auto=format&fit=crop&w=800&q=80',
         titleZh: '湖边步行与拍照段落',
         description:
           'The route is naturally good for photos, lighter conversation, and lower-stress pacing after bigger urban days.',
@@ -295,6 +309,7 @@ export const cityGuides = [
     explore: [
       {
         title: 'The Great Wall',
+        image: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=800&q=80',
         titleZh: '长城',
         description:
           'The full-day Great Wall block is the biggest landmark moment of the route and one of the clearest memory anchors for participants.',
@@ -302,6 +317,7 @@ export const cityGuides = [
       },
       {
         title: 'The Forbidden City',
+        image: 'https://images.unsplash.com/photo-1584648487882-01011bf65538?auto=format&fit=crop&w=800&q=80',
         titleZh: '故宫',
         description:
           'A dense historical site that gives the Beijing section its imperial scale and visual drama.',
@@ -309,6 +325,7 @@ export const cityGuides = [
       },
       {
         title: 'Beijing Hutongs',
+        image: 'https://images.unsplash.com/photo-1591033594798-33227a05780d?auto=format&fit=crop&w=800&q=80',
         titleZh: '北京胡同',
         description:
           'The hutong blocks let the city feel human again after the grand monument scale, giving participants a more intimate urban texture.',
@@ -316,6 +333,7 @@ export const cityGuides = [
       },
       {
         title: 'Tsinghua & Peking University exchange day',
+        image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80',
         titleZh: '清华 / 北大学生交流日',
         description:
           'The student exchange block gives the trip a real people-to-people dimension rather than leaving it as pure sightseeing.',

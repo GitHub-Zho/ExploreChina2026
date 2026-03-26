@@ -848,14 +848,59 @@ a { color: inherit; text-decoration: none; }
   margin-top: 1rem;
 }
 .city-tabs__highlight {
+  position: relative;
   padding: 1rem;
   border-color: #e2e6eb;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: default;
+}
+.city-tabs__highlight:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  z-index: 2;
+}
+/* Background image — hidden by default, revealed on hover */
+.highlight-img {
+  position: absolute;
+  inset: 0;
+  background-image: var(--highlight-bg);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.city-tabs__highlight:hover .highlight-img {
+  opacity: 1;
+}
+/* Dark overlay for text readability */
+.highlight-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 100%);
+}
+/* Content sits above the image */
+.highlight-content {
+  position: relative;
+  z-index: 1;
+  transition: color 0.35s ease;
+}
+.city-tabs__highlight:hover .highlight-content .label {
+  color: rgba(255,255,255,0.7);
+}
+.city-tabs__highlight:hover .highlight-content h4 {
+  color: #fff;
+}
+.city-tabs__highlight:hover .highlight-content .muted {
+  color: rgba(255,255,255,0.85);
 }
 .city-tabs__highlight h4 {
   margin: 0.45rem 0 0.55rem;
   font-size: 1rem;
   line-height: 1.45;
   color: #18212a;
+  transition: color 0.35s ease;
 }
 
 /* City detail immersive sections */
