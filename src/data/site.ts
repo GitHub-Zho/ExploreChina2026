@@ -370,7 +370,7 @@ export const itinerary = [
     cityZh: '上海',
     title: 'Arrival, reset, and first setup',
     titleZh: '抵达、调整与基础设置',
-    plan: 'Arrival support, hotel check-in, SIM/payment/transit setup, and a gentle first-night reset after long-haul travel.',
+    plan: 'Arrival support, hotel check-in, SIM/payment/transit setup, followed by an all-in-one urban relaxation experience \u2014 hot springs and fresh seasonal fruits to reset after long-haul travel.',
     planZh: '完成抵达、入住、SIM/支付/交通设置，并给长途飞行后的身体和节奏一点恢复空间。',
   },
   {
