@@ -50,14 +50,11 @@ const homeStructuredData = {
 
     <!-- STATE 1: Idle — Version C visual style -->
     <div class="story-c-inner" id="story-idle">
-      <p class="story-c-item story-c-context" data-story-c-item>
+      <p class="story-c-item story-c-context" data-story-c-item style="opacity:0.5; font-size:clamp(14px,2vw,18px);">
         We went overseas to study. We thought we'd seen the world.
       </p>
       <p class="story-c-item story-c-hero" data-story-c-item>
         There's a version of the world you can only find by living in it.
-      </p>
-      <p class="story-c-item story-c-closer" data-story-c-item>
-        Now we're in Canada. Your turn.
       </p>
       <div class="story-drag-prompt story-c-item" id="story-drag-prompt" aria-hidden="true" data-story-c-item>
         <div class="story-drag-indicator">
@@ -481,18 +478,17 @@ const homeStructuredData = {
 
   /* ── Sentences ──────────────────────────────────────────── */
   var sentences = [
-    { text: "We went overseas to study.", hold: 1800 },
-    { text: "We thought we'd seen the world.", hold: 2000 },
-    { text: "But there's a difference between passing through a place —", hold: 1600 },
-    { text: "and letting it pass through you.", hold: 2200 },
-    { text: "Eating where the locals eat.", hold: 1600 },
-    { text: "Getting lost in streets that don't need you to understand them.", hold: 1800 },
-    { text: "Falling into someone else's rhythm — and forgetting your own.", hold: 2400 },
-    { text: "There's a version of the world you can only find by living in it.", hold: 3200, centre: true },
-    { text: "We built this programme to share that feeling.", hold: 2000 },
-    { text: "Not a tour. A way in.", hold: 2200 },
-    { text: "Eighty UK students came to China with us.", hold: 1800 },
-    { text: "Now we're in Canada.", hold: 1800 },
+    { text: "We went overseas to study.", hold: 1400 },
+    { text: "We thought we'd seen the world.", hold: 1200 },
+    { text: "But there's a difference between passing through a place —", hold: 1200 },
+    { text: "and letting it pass through you.", hold: 1800 },
+    { text: "Eating where the locals eat.", hold: 1200 },
+    { text: "Getting lost in streets that don't need you to understand them.", hold: 1400 },
+    { text: "Falling into someone else's rhythm — and forgetting your own.", hold: 1800 },
+    { text: "There's a version of the world you can only find by living in it.", hold: 2600, centre: true },
+    { text: "We built this programme to share that feeling.", hold: 1200 },
+    { text: "Not a tour. A way in.", hold: 1800 },
+    { text: "Eighty UK students came to China with us.", hold: 1400 },
     { text: "Your turn.", hold: 0 }
   ];
 
@@ -836,7 +832,7 @@ const homeStructuredData = {
   idle.addEventListener('wheel', function (e) {
     if (curtainDone) return;
     /* Only respond to horizontal scroll (Mac two-finger) */
-    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+    if (Math.abs(e.deltaX) < Math.abs(e.deltaY) * 0.5) return;
     e.preventDefault();
 
     if (!wheelActive) {
@@ -845,7 +841,7 @@ const homeStructuredData = {
     }
 
     wheelAccum += e.deltaX;
-    var progress = Math.min(Math.max(wheelAccum / (section.offsetWidth * 0.3), 0), 1);
+    var progress = Math.min(Math.max(wheelAccum / (section.offsetWidth * 0.15), 0), 1);
     var translate = -100 + (progress * 100);
     curtain.style.transform = 'translateX(' + translate + '%)';
 
@@ -862,7 +858,7 @@ const homeStructuredData = {
     if (wheelTimer) clearTimeout(wheelTimer);
     wheelTimer = setTimeout(function () {
       if (curtainDone) return;
-      var finalProgress = Math.min(Math.max(wheelAccum / (section.offsetWidth * 0.3), 0), 1);
+      var finalProgress = Math.min(Math.max(wheelAccum / (section.offsetWidth * 0.15), 0), 1);
       wheelAccum = 0;
       wheelActive = false;
       onDragEnd(finalProgress);
@@ -874,7 +870,7 @@ const homeStructuredData = {
   var backWheelTimer = null;
 
   typewriter.addEventListener('wheel', function (e) {
-    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+    if (Math.abs(e.deltaX) < Math.abs(e.deltaY) * 0.5) return;
     /* Only respond to leftward swipe (negative deltaX) */
     if (e.deltaX >= 0) { backWheelAccum = 0; return; }
 

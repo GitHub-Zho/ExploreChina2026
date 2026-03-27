@@ -51,7 +51,7 @@ export const cityVisuals = [
     city: 'Hangzhou',
     cityZh: '杭州',
     image:
-      'https://images.unsplash.com/photo-1536337005238-94b997371b40?auto=format&fit=crop&w=1400&q=80',
+      '/images/highlights/hangzhou-hero.jpg',
     alt: 'West Lake scenery in Hangzhou',
   },
   {
@@ -184,7 +184,7 @@ export const cityGuides = [
       },
       {
         title: 'Classical Gardens',
-        image: '/images/highlights/suzhou-garden.jpg',
+        image: '/images/highlights/suzhou-garden-new.jpg',
         titleZh: '苏州园林',
         description:
           'UNESCO-listed gardens where every rock, pond, and corridor is a masterclass in classical Chinese landscape design.',
@@ -225,7 +225,7 @@ export const cityGuides = [
     city: 'Hangzhou',
     cityZh: '杭州',
     heroImage:
-      'https://images.unsplash.com/photo-1536337005238-94b997371b40?auto=format&fit=crop&w=1600&q=80',
+      '/images/highlights/hangzhou-hero.jpg',
     heroAlt: 'West Lake in Hangzhou with traditional pavilion scenery',
     intro:
       'Hangzhou is a poetic lakeside city celebrated for soft scenery and a calmer pace. Centered around West Lake, it feels like a landscape painting you can walk through rather than just photograph from a distance.',
@@ -281,7 +281,7 @@ export const cityGuides = [
       descriptionZh: '东坡肉是杭州非常有代表性的经典味道：浓郁、软糯、带一点甜咸交织的酱香。',
     },
     gallery: [
-      'https://images.unsplash.com/photo-1536337005238-94b997371b40?auto=format&fit=crop&w=1400&q=80',
+      '/images/highlights/hangzhou-hero.jpg',
       'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1400&q=80',
