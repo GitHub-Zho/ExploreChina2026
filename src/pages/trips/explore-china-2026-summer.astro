@@ -284,4 +284,19 @@ import {
       });
     });
   });
+
+  /* ── Mobile: IntersectionObserver reveals highlight images on scroll ── */
+  if (window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window) {
+    const highlightCards = document.querySelectorAll('.city-tabs__highlight');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+        } else {
+          e.target.classList.remove('in-view');
+        }
+      });
+    }, { threshold: 0.5 });
+    highlightCards.forEach((card) => io.observe(card));
+  }
 </script>

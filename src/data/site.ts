@@ -85,7 +85,7 @@ export const cityGuides = [
     explore: [
       {
         title: 'Yu Garden & Old Town',
-        image: 'https://images.unsplash.com/photo-1548919973-5cef591cdbc9?auto=format&fit=crop&w=800&q=80',
+        image: '/images/highlights/yu-garden.jpg',
         titleZh: '豫园与老城厢',
         description:
           'Stone lanes, tea houses, and historic courtyards make this one of the easiest places to feel old Shanghai beneath the modern skyline.',
@@ -101,23 +101,23 @@ export const cityGuides = [
       },
       {
         title: 'City God Temple Area',
-        image: 'https://images.unsplash.com/photo-1547981609-4b6bf67db7a0?auto=format&fit=crop&w=800&q=80',
+        image: '/images/highlights/city-god-temple.jpg',
         titleZh: '城隍庙商圈',
         description:
           'A dense area for snacks, temple culture, and high-energy people-watching close to the old-town core.',
         descriptionZh: '适合边走边吃、看人流、感受传统商业氛围，是很典型的上海热闹区。',
       },
       {
-        title: 'Tianzifang',
-        image: 'https://images.unsplash.com/photo-1567449303078-57ad995bd329?auto=format&fit=crop&w=800&q=80',
-        titleZh: '田子坊',
+        title: "Jing'an Temple",
+        image: '/images/highlights/jingan-temple.jpg',
+        titleZh: '静安寺',
         description:
-          'A maze of small lanes, design shops, cafes, and photo moments that feels slower and more intimate than the main shopping streets.',
-        descriptionZh: '小巷、咖啡馆、文创小店和适合拍照的角落很多，整体比主商业区更松弛。',
+          'One of Shanghai\'s oldest and most famous Buddhist temples, with striking golden architecture set against the modern cityscape.',
+        descriptionZh: '上海最古老、最著名的佛教寺院之一，金色建筑与现代都市形成强烈反差。',
       },
       {
         title: 'Nanjing Road',
-        image: 'https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1567991964677-38d6cb81637a?auto=format&fit=crop&w=800&q=80',
         titleZh: '南京路',
         description:
           'A classic high-energy commercial street for first impressions, shopping, and urban night atmosphere.',
@@ -125,7 +125,7 @@ export const cityGuides = [
       },
       {
         title: 'Arrival reset & social options',
-        image: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80',
         titleZh: '抵达恢复与社交选项',
         description:
           'Depending on arrival energy, the first Shanghai block can include a recovery-style spa moment and an optional local nightlife social add-on.',
@@ -142,8 +142,8 @@ export const cityGuides = [
     gallery: [
       'https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1400&q=80',
-      'https://images.unsplash.com/photo-1547981609-4b6bf67db7a0?auto=format&fit=crop&w=1400&q=80',
-      'https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1527937738552-7eb8023fa9a1?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1567991964677-38d6cb81637a?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1400&q=80',
     ],
   },
@@ -168,7 +168,7 @@ export const cityGuides = [
     explore: [
       {
         title: 'National Museum Visit',
-        image: 'https://images.unsplash.com/photo-1598887142487-3c854d51eabb?auto=format&fit=crop&w=800&q=80',
+        image: '/images/highlights/suzhou-museum.jpg',
         titleZh: '博物馆参观',
         description:
           'A curated museum stop helps make the Jiangnan aesthetic and regional history feel legible instead of decorative.',
@@ -176,23 +176,23 @@ export const cityGuides = [
       },
       {
         title: 'Dress-up Experience',
-        image: 'https://images.unsplash.com/photo-1583416750470-965b2707b355?auto=format&fit=crop&w=800&q=80',
+        image: '/images/highlights/hanfu.jpg',
         titleZh: '汉服体验',
         description:
           'A playful cultural block where participants can step into historical styling and connect with traditional Chinese visual culture.',
         descriptionZh: '用更轻松的方式接近传统文化，既适合体验，也很适合留下有记忆点的照片。',
       },
       {
-        title: 'City Night View',
-        image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=800&q=80',
-        titleZh: '苏州夜景',
+        title: 'Classical Gardens',
+        image: '/images/highlights/suzhou-garden.jpg',
+        titleZh: '苏州园林',
         description:
-          'Night lighting and canal-side streets reveal Suzhou’s softer, more poetic side once the daytime crowds thin out.',
-        descriptionZh: '到了晚上，人流稍微退去，苏州会呈现出更安静、更有诗意的一面。',
+          'UNESCO-listed gardens where every rock, pond, and corridor is a masterclass in classical Chinese landscape design.',
+        descriptionZh: '列入联合国教科文组织世界遗产的园林，每一处山石、池水和回廊都是中国古典园林设计的极致。',
       },
       {
         title: 'Canal atmosphere',
-        image: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80',
+        image: '/images/highlights/suzhou-canal.jpg',
         titleZh: '运河氛围',
         description:
           'Walking the canal areas gives the day an easy rhythm and creates a strong contrast with the vertical energy of Shanghai.',
@@ -242,7 +242,7 @@ export const cityGuides = [
     explore: [
       {
         title: 'West Lake',
-        image: 'https://images.unsplash.com/photo-1599571234909-29ed5d1321d6?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1584540476839-9f620ebfa398?auto=format&fit=crop&w=800&q=80',
         titleZh: '西湖',
         description:
           'The lake gives the route its most classic “slow-beauty” day: easy walking, views that change gradually, and strong photo value without needing a rushed schedule.',
@@ -250,7 +250,7 @@ export const cityGuides = [
       },
       {
         title: 'Lingyin Temple',
-        image: 'https://images.unsplash.com/photo-1587381420270-9b539a028e67?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1423449045122-a2b5e70894d5?auto=format&fit=crop&w=800&q=80',
         titleZh: '灵隐寺',
         description:
           'This adds a more spiritual and historical tone to the Hangzhou day, balancing scenery with cultural depth.',
@@ -258,7 +258,7 @@ export const cityGuides = [
       },
       {
         title: 'Longjing tea atmosphere',
-        image: 'https://images.unsplash.com/photo-1558160074-4d93e8e073a1?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1743401420759-d7768dae4e5a?auto=format&fit=crop&w=800&q=80',
         titleZh: '龙井茶文化氛围',
         description:
           'Tea culture is one of Hangzhou’s strongest identity markers, and it helps this stop feel specifically local rather than generically scenic.',
@@ -266,7 +266,7 @@ export const cityGuides = [
       },
       {
         title: 'Lakeside walking & photo blocks',
-        image: 'https://images.unsplash.com/photo-1609619913399-e91c2e483537?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1567975789927-dfaf473ca06e?auto=format&fit=crop&w=800&q=80',
         titleZh: '湖边步行与拍照段落',
         description:
           'The route is naturally good for photos, lighter conversation, and lower-stress pacing after bigger urban days.',
@@ -317,7 +317,7 @@ export const cityGuides = [
       },
       {
         title: 'The Forbidden City',
-        image: 'https://images.unsplash.com/photo-1584648487882-01011bf65538?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1748180689500-3066301a942f?auto=format&fit=crop&w=800&q=80',
         titleZh: '故宫',
         description:
           'A dense historical site that gives the Beijing section its imperial scale and visual drama.',
@@ -325,7 +325,7 @@ export const cityGuides = [
       },
       {
         title: 'Beijing Hutongs',
-        image: 'https://images.unsplash.com/photo-1591033594798-33227a05780d?auto=format&fit=crop&w=800&q=80',
+        image: 'https://images.unsplash.com/photo-1724593824060-2d984aa77f77?auto=format&fit=crop&w=800&q=80',
         titleZh: '北京胡同',
         description:
           'The hutong blocks let the city feel human again after the grand monument scale, giving participants a more intimate urban texture.',
@@ -356,7 +356,7 @@ export const cityGuides = [
     },
     gallery: [
       'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1400&q=80',
-      'https://images.unsplash.com/photo-1547981609-4b6bf67db7a0?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1527937738552-7eb8023fa9a1?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1510337550647-e84f83e341ca?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1400&q=80',
