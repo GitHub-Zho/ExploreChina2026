@@ -51,7 +51,7 @@ export const cityVisuals = [
     city: 'Hangzhou',
     cityZh: '杭州',
     image:
-      '/images/highlights/hangzhou-hero.jpg',
+      '/images/highlights/hero-homepage.jpg',
     alt: 'West Lake scenery in Hangzhou',
   },
   {
@@ -225,7 +225,7 @@ export const cityGuides = [
     city: 'Hangzhou',
     cityZh: '杭州',
     heroImage:
-      '/images/highlights/hangzhou-hero.jpg',
+      '/images/highlights/hero-homepage.jpg',
     heroAlt: 'West Lake in Hangzhou with traditional pavilion scenery',
     intro:
       'Hangzhou is a poetic lakeside city celebrated for soft scenery and a calmer pace. Centered around West Lake, it feels like a landscape painting you can walk through rather than just photograph from a distance.',
@@ -242,7 +242,7 @@ export const cityGuides = [
     explore: [
       {
         title: 'West Lake',
-        image: 'https://images.unsplash.com/photo-1584540476839-9f620ebfa398?auto=format&fit=crop&w=800&q=80',
+        image: '/images/highlights/hero-homepage.jpg',
         titleZh: '西湖',
         description:
           'The lake gives the route its most classic “slow-beauty” day: easy walking, views that change gradually, and strong photo value without needing a rushed schedule.',
@@ -281,7 +281,7 @@ export const cityGuides = [
       descriptionZh: '东坡肉是杭州非常有代表性的经典味道：浓郁、软糯、带一点甜咸交织的酱香。',
     },
     gallery: [
-      '/images/highlights/hangzhou-hero.jpg',
+      '/images/highlights/hero-homepage.jpg',
       'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1400&q=80',
