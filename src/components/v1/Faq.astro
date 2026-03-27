@@ -2,15 +2,32 @@
 const { isZh = false } = Astro.props;
 const faqs = isZh
   ? [
-      { question: '谁适合申请？', answer: '以学生群体为主，提交资料后进行席位匹配。' },
+      { question: '谁适合申请？', answer: '以学生群体为主，提交资料后会进行席位匹配。' },
       { question: '费用包含什么？', answer: '包含核心住宿、城市间交通与重点活动；不含国际机票。' },
-      { question: '多久回复？', answer: '多数有效申请在24小时内给出席位反馈。' },
+      { question: '多久回复？', answer: '多数有效申请会在 24 小时内给出席位反馈。' },
     ]
   : [
       { question: 'Who can apply?', answer: 'Student-focused intake with profile review and fit matching.' },
       { question: 'What is included?', answer: 'Core accommodation, intercity transfers, and key activities; international flights excluded.' },
       { question: 'How fast is the reply?', answer: 'Most qualified leads receive a seat update within 24 hours.' },
     ];
+
+const faqStructuredData = JSON.stringify(
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  },
+  null,
+  2
+);
 ---
 <section class="faq" id="faq">
   <div class="container">
@@ -33,6 +50,8 @@ const faqs = isZh
     </div>
   </div>
 </section>
+
+<script type="application/ld+json" set:html={faqStructuredData}></script>
 
 <script is:inline>
   document.querySelectorAll('.faq__q').forEach((btn) => {

@@ -9,10 +9,38 @@ import {
   itinerary,
   recommendedVideos,
 } from '../../data/site';
----
-<Layout title={currentTrip.title} lang="en" alternateHref="/zh/trips/explore-china-2026-summer" alternateLabel="中文" darkNav={true}>
 
-  <!-- Hero Banner -->
+const tripStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'TouristTrip',
+    name: currentTrip.title,
+    description:
+      'A 10-day student-led China summer trip from Canada covering Shanghai, Suzhou, Hangzhou, and Beijing.',
+    itinerary: itinerary.map((day) => `${day.day}: ${day.city} - ${day.title}`),
+    touristType: 'Students and young travelers from Canada',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.explorechina.ca/' },
+      { '@type': 'ListItem', position: 2, name: 'Trip', item: 'https://www.explorechina.ca/trips/explore-china-2026-summer' },
+    ],
+  },
+];
+---
+<Layout
+  title={currentTrip.title}
+  description="Explore the 2026 student-led China summer trip from Canada, with a 10-day route through Shanghai, Suzhou, Hangzhou, and Beijing."
+  lang="en"
+  alternateHref="/zh/trips/explore-china-2026-summer"
+  alternateLabel="中文"
+  canonical="/trips/explore-china-2026-summer"
+  structuredData={tripStructuredData}
+  darkNav={true}
+>
+
   <div class="trip-hero">
     <img
       src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1600&q=80"
@@ -25,7 +53,6 @@ import {
     </div>
   </div>
 
-  <!-- Overview — compact info strip -->
   <section id="overview" class="trip-strip">
     <div class="trip-strip__inner">
       <div class="trip-strip__facts">
@@ -41,17 +68,19 @@ import {
     </div>
   </section>
 
-  <!-- Who is this for -->
-  <section id="who-is-this-for" class="section" style="padding: 4rem 2rem;">
-    <div class="max-w-3xl mx-auto" style="max-width:48rem; margin-left:auto; margin-right:auto;">
-      <h2 style="font-size:clamp(20px,3vw,30px); font-weight:700; font-family:var(--font-display); line-height:1.2; margin-bottom:1.25rem;">You don't need to know anything about China to come.</h2>
-      <p class="muted" style="font-size:17px; line-height:1.85; margin-bottom:1rem;">No Mandarin. No experience. And all the stuff that sounds complicated — VPNs, payments, getting around — we've already figured out so you don't have to.</p>
-      <p class="muted" style="font-size:17px; line-height:1.85; margin-bottom:1rem;">We were all first-timers once. All we ask is that you come with an open mind and a bit of curiosity.</p>
-      <p class="muted" style="font-size:17px; line-height:1.85; padding-bottom:1.5rem;">That's genuinely enough.</p>
+  <section class="section" style="padding: 0 2rem 0;">
+    <div class="max-w-4xl mx-auto" style="max-width:54rem; margin-left:auto; margin-right:auto;">
+      <details class="card tone-sand" id="who-is-this-for" style="padding:1.25rem 1.5rem;">
+        <summary style="cursor:pointer; list-style:none; font-weight:700; font-family:var(--font-display); font-size:1.05rem;">You don't need to know anything about China to come.</summary>
+        <div style="margin-top:1rem;">
+          <p class="muted" style="font-size:16px; line-height:1.85; margin-bottom:0.85rem;">No Mandarin. No experience. And all the stuff that sounds complicated - VPNs, payments, getting around - we've already figured out so you don't have to.</p>
+          <p class="muted" style="font-size:16px; line-height:1.85; margin-bottom:0.85rem;">We were all first-timers once. All we ask is that you come with an open mind and a bit of curiosity.</p>
+          <p class="muted" style="font-size:16px; line-height:1.85;">That's genuinely enough.</p>
+        </div>
+      </details>
     </div>
   </section>
 
-  <!-- Itinerary — compact timeline -->
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">10-day route at a glance</h2>
     <div class="trip-timeline">
@@ -69,7 +98,6 @@ import {
     </div>
   </section>
 
-  <!-- City Guides -->
   <section class="section card tone-blue city-tabs-section" id="city-guides" data-city-tabs>
     <div class="city-tabs-section__header">
       <p class="section-eyebrow">City Guide Tabs</p>
@@ -132,7 +160,6 @@ import {
     ))}
   </section>
 
-  <!-- Included / Not Included -->
   <section class="section incl-grid">
     <article class="incl-card incl-card--yes">
       <h2 class="incl-card__title">Included</h2>
@@ -146,13 +173,12 @@ import {
       <h2 class="incl-card__title">Not included</h2>
       <ul class="incl-list">
         {notIncluded.map((item) => (
-          <li class="incl-item"><i class="incl-icon incl-icon--no">✗</i><span>{item}</span></li>
+          <li class="incl-item"><i class="incl-icon incl-icon--no">×</i><span>{item}</span></li>
         ))}
       </ul>
     </article>
   </section>
 
-  <!-- Videos -->
   <section class="section card tone-blue">
     <h2 class="section-title">Video references before you decide</h2>
     <div class="grid cols-3 video-grid">
@@ -177,7 +203,12 @@ import {
     </div>
   </section>
 
-  <!-- FAQ (accordion, consistent with homepage) -->
+  <section class="section" style="padding: 0 2rem 0;">
+    <div class="max-w-4xl mx-auto" style="max-width:54rem; margin-left:auto; margin-right:auto;">
+      <p class="muted" style="font-size:15px; line-height:1.85; text-align:center;">Planning a China trip from Toronto or elsewhere in Canada? Start with the <a href="/handbook" class="text-red-700">handbook</a>, then check the <a href="/about" class="text-red-700">team background</a> and <a href="/privacy" class="text-red-700">privacy policy</a>.</p>
+    </div>
+  </section>
+
   <section id="faq" class="faq">
     <div class="container">
       <div class="section-header">
@@ -199,8 +230,6 @@ import {
       </div>
     </div>
   </section>
-
-
 </Layout>
 
 <style>

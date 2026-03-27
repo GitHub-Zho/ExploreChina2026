@@ -5,30 +5,95 @@ import Footer from '../components/v1/Footer.astro';
 
 const {
   title = 'Explore China',
+  description,
   lang = 'en',
+  canonical,
+  ogImage,
   alternateHref,
   alternateLabel,
   minimalNav = false,
   minimalShowApply = true,
   darkNav = false,
   heroNav = false,
+  noindex = false,
+  structuredData = [],
 } = Astro.props as {
   title?: string;
+  description?: string;
   lang?: 'en' | 'zh';
+  canonical?: string;
+  ogImage?: string;
   alternateHref: string;
   alternateLabel: string;
   minimalNav?: boolean;
   minimalShowApply?: boolean;
   darkNav?: boolean;
   heroNav?: boolean;
+  noindex?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 };
+
+const pageDescription =
+  description ??
+  (lang === 'zh'
+    ? '面向加拿大学生与年轻旅行者的中国文化旅行项目，涵盖上海、苏州、杭州与北京。'
+    : 'Student-led China cultural travel program for Canada-based students and young travelers, covering Shanghai, Suzhou, Hangzhou, and Beijing.');
+
+const canonicalUrl = canonical ? new URL(canonical, Astro.site).toString() : Astro.url.href;
+const alternateUrl = new URL(alternateHref, Astro.site).toString();
+const socialImageUrl = new URL(
+  ogImage ??
+    'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1600&q=85',
+  Astro.site
+).toString();
+
+const baseStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Explore China',
+    url: 'https://www.explorechina.ca/',
+    email: 'hello@explorationclub.ca',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description: pageDescription,
+    url: canonicalUrl,
+    inLanguage: lang === 'zh' ? 'zh-CN' : 'en-CA',
+  },
+];
+
+const pageStructuredData = Array.isArray(structuredData) ? structuredData : [structuredData];
+const jsonLd = JSON.stringify(
+  [...baseStructuredData, ...pageStructuredData.filter(Boolean)],
+  null,
+  2
+);
 ---
 <!doctype html>
 <html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={lang === 'zh' ? '学生中国文化探索之旅' : 'Student-led China cultural travel program'} />
+    <meta name="description" content={pageDescription} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang={lang === 'zh' ? 'en' : 'zh-CN'} href={alternateUrl} />
+    <link rel="alternate" hreflang={lang === 'zh' ? 'zh-CN' : 'en'} href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href="https://www.explorechina.ca/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Explore China" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <script type="application/ld+json" set:html={jsonLd}></script>
     <title>{title}</title>
   </head>
   <body {...(darkNav ? { 'data-navbar-dark': '' } : {})}>

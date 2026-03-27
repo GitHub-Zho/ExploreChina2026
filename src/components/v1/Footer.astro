@@ -1,4 +1,6 @@
 ---
+import { site } from '../../data/site';
+
 const { lang = 'en' } = Astro.props as { lang?: 'en' | 'zh' };
 const isZh = lang === 'zh';
 ---
@@ -6,7 +8,9 @@ const isZh = lang === 'zh';
   <div class="container grid md:grid-cols-3 gap-6 py-8">
     <div>
       <p class="font-semibold">© 2026 Explore China · Student Program</p>
-      <p class="text-sm text-stone-600 mt-1">{isZh ? '学生文化探索项目' : 'Student cultural exploration program'}</p>
+      <p class="text-sm text-stone-600 mt-1">
+        {isZh ? '学生文化探索项目' : 'Student cultural exploration program'}
+      </p>
     </div>
     <div>
       <p class="font-semibold mb-1">{isZh ? '快速链接' : 'Quick links'}</p>
@@ -16,27 +20,29 @@ const isZh = lang === 'zh';
             <a href="/zh/trips/explore-china-2026-summer">行程</a>
             <a href="/zh/handbook">手册</a>
             <a href="/zh/about">关于</a>
-            <a href="/zh/trips/explore-china-2026-summer#register">立即报名</a>
+            <a href="/zh/#apply">立即报名</a>
           </>
         ) : (
           <>
             <a href="/trips/explore-china-2026-summer">Trip</a>
             <a href="/handbook">Handbook</a>
             <a href="/about">About</a>
-            <a href="/trips/explore-china-2026-summer#register">Apply</a>
+            <a href="/#apply">Apply</a>
           </>
         )}
       </div>
     </div>
     <div class="text-sm">
       <p class="font-semibold mb-1">Contact</p>
-      <a class="text-stone-700" href="mailto:hello@explorationclub.ca">hello@explorationclub.ca</a>
+      <a class="text-stone-700" href={`mailto:${site.email}`}>{site.email}</a>
+      <p class="mt-1 text-stone-600">{site.instagram}</p>
+      <p class="text-stone-600">{site.wechat}</p>
     </div>
   </div>
   <div class="border-t border-stone-200">
     <div class="container flex items-center justify-between py-3 text-xs text-stone-600">
       <span>© 2026 Explore China · Student Program</span>
-      <a href="#">{isZh ? '隐私政策' : 'Privacy Policy'}</a>
+      <a href={isZh ? '/zh/privacy' : '/privacy'}>{isZh ? '隐私政策' : 'Privacy Policy'}</a>
     </div>
   </div>
 </footer>
