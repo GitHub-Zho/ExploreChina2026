@@ -8,6 +8,7 @@ const {
   description,
   lang = 'en',
   canonical,
+  ogImage,
   alternateHref,
   alternateLabel,
   minimalNav = false,
@@ -15,11 +16,13 @@ const {
   darkNav = false,
   heroNav = false,
   noindex = false,
+  structuredData = [],
 } = Astro.props as {
   title?: string;
   description?: string;
   lang?: 'en' | 'zh';
   canonical?: string;
+  ogImage?: string;
   alternateHref: string;
   alternateLabel: string;
   minimalNav?: boolean;
@@ -27,6 +30,7 @@ const {
   darkNav?: boolean;
   heroNav?: boolean;
   noindex?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 };
 
 const pageDescription =
@@ -37,6 +41,36 @@ const pageDescription =
 
 const canonicalUrl = canonical ? new URL(canonical, Astro.site).toString() : Astro.url.href;
 const alternateUrl = new URL(alternateHref, Astro.site).toString();
+const socialImageUrl = new URL(
+  ogImage ??
+    'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1600&q=85',
+  Astro.site
+).toString();
+
+const baseStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Explore China',
+    url: 'https://www.explorechina.ca/',
+    email: 'hello@explorationclub.ca',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description: pageDescription,
+    url: canonicalUrl,
+    inLanguage: lang === 'zh' ? 'zh-CN' : 'en-CA',
+  },
+];
+
+const pageStructuredData = Array.isArray(structuredData) ? structuredData : [structuredData];
+const jsonLd = JSON.stringify(
+  [...baseStructuredData, ...pageStructuredData.filter(Boolean)],
+  null,
+  2
+);
 ---
 <!doctype html>
 <html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
@@ -54,9 +88,12 @@ const alternateUrl = new URL(alternateHref, Astro.site).toString();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <script type="application/ld+json" set:html={jsonLd}></script>
     <title>{title}</title>
   </head>
   <body {...(darkNav ? { 'data-navbar-dark': '' } : {})}>

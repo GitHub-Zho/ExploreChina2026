@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { aboutContent, site } from '../data/site';
 ---
-<!-- Uncomment navbar link when team bios are finalized -->
 <Layout
   title="About Explore China"
   description="Learn about the student-led Explore China program for Canada-based travelers and the team behind the route."
@@ -18,28 +18,32 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <section class="section" style="padding: 3rem 2rem 4rem;">
-    <h2 style="font-size:clamp(22px,3.5vw,36px); font-weight:700; font-family:var(--font-display); line-height:1.2; margin-bottom:1rem;">Honestly, we just wanted to share something that changed us.</h2>
-    <p class="muted" style="max-width:680px; font-size:18px; line-height:1.75;">We're international students who discovered that living somewhere — really living there — opens up a version of the world you didn't know existed. That feeling is what started this. Three years, 80+ students from the UK to China, and it's still the whole point.</p>
+    <h2 style="font-size:clamp(22px,3.5vw,36px); font-weight:700; font-family:var(--font-display); line-height:1.2; margin-bottom:1rem;">{aboutContent.heroText}</h2>
+    <p class="muted" style="max-width:680px; font-size:18px; line-height:1.75;">{aboutContent.story}</p>
   </section>
 
   <section class="section card tone-blue">
     <h2 class="section-title">The team</h2>
     <div class="grid cols-3">
-      <article class="card" style="background:#fff;"><p class="label">Member</p><h3>Name 01</h3><p class="muted">One-line profile will be confirmed.</p></article>
-      <article class="card" style="background:#fff;"><p class="label">Member</p><h3>Name 02</h3><p class="muted">One-line profile will be confirmed.</p></article>
-      <article class="card" style="background:#fff;"><p class="label">Member</p><h3>Name 03</h3><p class="muted">One-line profile will be confirmed.</p></article>
+      {aboutContent.team.map((member) => (
+        <article class="card" style="background:#fff;">
+          <p class="label">{member.role}</p>
+          <h3>{member.name}</h3>
+          <p class="muted">{member.bio}</p>
+        </article>
+      ))}
     </div>
   </section>
 
   <section class="section card tone-rose">
     <h2 class="section-title">Why we built this</h2>
-    <p class="muted">A short narrative of the project motivation will be finalized in the next content round.</p>
+    <p class="muted">{aboutContent.whoWeAre}</p>
   </section>
 
   <section class="section card" style="margin-bottom:36px;">
     <h2 class="section-title">Contact</h2>
-    <p class="muted">Email: contact details to be announced</p>
-    <p class="muted">Instagram: account details to be announced</p>
-    <p class="muted">WeChat: account details to be announced</p>
+    <p class="muted">Email: {site.email}</p>
+    <p class="muted">Instagram: {site.instagram}</p>
+    <p class="muted">WeChat: {site.wechat}</p>
   </section>
 </Layout>

@@ -4,10 +4,12 @@ const routes = [
   '',
   '/about',
   '/handbook',
+  '/privacy',
   '/trips/explore-china-2026-summer',
   '/zh',
   '/zh/about',
   '/zh/handbook',
+  '/zh/privacy',
   '/zh/trips/explore-china-2026-summer',
 ];
 
