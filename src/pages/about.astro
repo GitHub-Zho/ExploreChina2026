@@ -2,7 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <!-- Uncomment navbar link when team bios are finalized -->
-<Layout title="About Explore China" lang="en" alternateHref="/zh/about" alternateLabel="中文" minimalNav={true} darkNav={true}>
+<Layout
+  title="About Explore China"
+  description="Learn about the student-led Explore China program for Canada-based travelers and the team behind the route."
+  lang="en"
+  alternateHref="/zh/about"
+  alternateLabel="中文"
+  canonical="/about"
+  minimalNav={true}
+  darkNav={true}
+>
   <section class="section card tone-sand" style="padding:34px;">
     <p class="pill">About</p>
     <h1 style="font-size:clamp(36px,5vw,64px); margin-top:10px;">About Explore China</h1>
