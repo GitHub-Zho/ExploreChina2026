@@ -4,7 +4,7 @@ export const site = {
   tagline: 'Student-led China travel program for Canada-based participants',
   description:
     'A student-led route through Shanghai, Suzhou, Hangzhou, and Beijing, designed for people who want culture, structure, and shared travel energy instead of generic sightseeing.',
-  email: 'hello@explorationclub.ca',
+  email: 'hello@explorechina.ca',
   instagram: '@explorechina.travel',
   wechat: 'ExploreChinaTrip',
 };
