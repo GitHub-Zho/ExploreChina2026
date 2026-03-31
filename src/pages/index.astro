@@ -320,11 +320,11 @@ const homeStructuredData = {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #c4b5a4;
+  background: #a8998a;
   opacity: 0;
-  margin: 1.5rem 0;
-  align-self: center;
-  animation: breathPulse 1.6s ease-in-out infinite;
+  margin: 1.2rem 0 0 0.2rem;
+  align-self: flex-start;
+  animation: breathPulse 1.2s ease-in-out infinite;
 }
 @keyframes breathPulse {
   0%, 100% { opacity: 0.2; transform: scale(0.8); }
@@ -599,22 +599,6 @@ const homeStructuredData = {
         tw.style.backgroundColor = bgColors[pi];
       }
 
-      /* Show breathing dot before pages 1+ */
-      var breathDot = null;
-      if (pi > 0) {
-        breathDot = document.createElement('div');
-        breathDot.classList.add('poem-breath');
-        poemEl.appendChild(breathDot);
-        void breathDot.offsetHeight;
-        breathDot.style.opacity = '1';
-        await sleep(800);
-        /* Fade out dot */
-        breathDot.style.transition = 'opacity 0.4s ease';
-        breathDot.style.opacity = '0';
-        await sleep(400);
-        if (breathDot.parentNode) breathDot.parentNode.removeChild(breathDot);
-      }
-
       for (var li = 0; li < page.length; li++) {
         if (!twRunning) return;
         var idx = page[li];
@@ -659,6 +643,20 @@ const homeStructuredData = {
 
       /* Staggered fade out page (keep last page visible) */
       if (pi < pages.length - 1) {
+        /* Breathing dot below text — "loading next page" feeling */
+        var breathDot = document.createElement('div');
+        breathDot.classList.add('poem-breath');
+        poemEl.appendChild(breathDot);
+        void breathDot.offsetHeight;
+        breathDot.style.opacity = '1';
+        await sleep(1200);
+        /* Fade out dot */
+        breathDot.style.transition = 'opacity 0.5s ease';
+        breathDot.style.opacity = '0';
+        await sleep(500);
+        if (breathDot.parentNode) breathDot.parentNode.removeChild(breathDot);
+
+        /* NOW fade out the text */
         await fadeOutPage(pageEls);
         await sleep(200);
       }
