@@ -300,15 +300,15 @@ const homeStructuredData = {
 
 /* Poem container — like an open book page */
 .story-poem {
-  max-width: 30rem;
+  max-width: 38rem;
   margin: 0 auto;
-  padding: 0 2.5rem;
+  padding: 15vh 2.5rem 4vh;
   text-align: left;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  min-height: 60vh;
+  justify-content: flex-start;
+  min-height: 100%;
   position: relative;
 }
 
@@ -329,14 +329,15 @@ const homeStructuredData = {
 }
 
 :global(.poem-line) {
-  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  font-size: clamp(1.25rem, 2.8vw + 0.4rem, 1.65rem);
   font-weight: 300;
   color: #78716c;
-  line-height: 1.7;
-  margin: 0 0 0.85rem 0;
+  line-height: 1.75;
+  margin: 0 0 1rem 0;
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 1s ease, transform 1s ease;
+  width: 100%;
 }
 
 :global(.poem-line.is-visible) {
@@ -357,11 +358,11 @@ const homeStructuredData = {
 :global(.poem-line.tone-4) { color: #44403c; }
 
 :global(.poem-line.is-hero) {
-  font-size: clamp(1.3rem, 2.8vw, 1.75rem);
+  font-size: clamp(1.5rem, 3.5vw + 0.3rem, 2.1rem);
   font-weight: 500;
   color: #1c1917;
-  line-height: 1.45;
-  margin: 0.4rem 0 1rem;
+  line-height: 1.5;
+  margin: 0.5rem 0 1.2rem;
   text-align: center;
   align-self: center;
   filter: blur(8px);
@@ -375,7 +376,7 @@ const homeStructuredData = {
 }
 
 :global(.poem-line.is-final) {
-  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-size: clamp(1.6rem, 3.8vw + 0.3rem, 2.3rem);
   font-weight: 600;
   color: #1c1917;
   letter-spacing: 0.02em;
