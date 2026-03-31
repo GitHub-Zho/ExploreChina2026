@@ -298,15 +298,15 @@ const homeStructuredData = {
   transition: background-color 1.5s ease;
 }
 
-/* Poem container — centered on page like an open book */
+/* Poem container — like an open book page */
 .story-poem {
-  max-width: 34rem;
+  max-width: 30rem;
   margin: 0 auto;
-  padding: 0 2rem;
-  text-align: center;
+  padding: 0 2.5rem;
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 60vh;
   position: relative;
@@ -320,6 +320,7 @@ const homeStructuredData = {
   background: #c4b5a4;
   opacity: 0;
   margin: 1.5rem 0;
+  align-self: center;
   animation: breathPulse 1.6s ease-in-out infinite;
 }
 @keyframes breathPulse {
@@ -361,6 +362,8 @@ const homeStructuredData = {
   color: #1c1917;
   line-height: 1.45;
   margin: 0.4rem 0 1rem;
+  text-align: center;
+  align-self: center;
   filter: blur(8px);
   transform: scale(0.96);
   transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease;
@@ -376,6 +379,8 @@ const homeStructuredData = {
   font-weight: 600;
   color: #1c1917;
   letter-spacing: 0.02em;
+  text-align: center;
+  align-self: center;
   filter: blur(6px);
   transform: scale(0.94);
   transition: opacity 1.4s ease, transform 1.4s ease, filter 1.4s ease;
