@@ -295,6 +295,7 @@ const homeStructuredData = {
   align-items: center;
   justify-content: center;
   z-index: 4;
+  transition: background-color 1.5s ease;
 }
 
 /* Poem container — centered on page like an open book */
@@ -311,15 +312,30 @@ const homeStructuredData = {
   position: relative;
 }
 
+/* Breathing dot between pages */
+:global(.poem-breath) {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c4b5a4;
+  opacity: 0;
+  margin: 1.5rem 0;
+  animation: breathPulse 1.6s ease-in-out infinite;
+}
+@keyframes breathPulse {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 0.5; transform: scale(1); }
+}
+
 :global(.poem-line) {
   font-size: clamp(1.05rem, 2.2vw, 1.3rem);
   font-weight: 300;
-  color: #57534e;
+  color: #78716c;
   line-height: 1.7;
   margin: 0 0 0.85rem 0;
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+  transform: translateY(12px);
+  transition: opacity 1s ease, transform 1s ease;
 }
 
 :global(.poem-line.is-visible) {
@@ -329,9 +345,15 @@ const homeStructuredData = {
 
 :global(.poem-line.is-fading) {
   opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(-10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
+
+/* Progressive color deepening — later lines get darker */
+:global(.poem-line.tone-1) { color: #78716c; }
+:global(.poem-line.tone-2) { color: #6b6560; }
+:global(.poem-line.tone-3) { color: #57534e; }
+:global(.poem-line.tone-4) { color: #44403c; }
 
 :global(.poem-line.is-hero) {
   font-size: clamp(1.3rem, 2.8vw, 1.75rem);
@@ -339,6 +361,14 @@ const homeStructuredData = {
   color: #1c1917;
   line-height: 1.45;
   margin: 0.4rem 0 1rem;
+  filter: blur(8px);
+  transform: scale(0.96);
+  transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease;
+}
+
+:global(.poem-line.is-hero.is-visible) {
+  filter: blur(0);
+  transform: scale(1);
 }
 
 :global(.poem-line.is-final) {
@@ -346,6 +376,14 @@ const homeStructuredData = {
   font-weight: 600;
   color: #1c1917;
   letter-spacing: 0.02em;
+  filter: blur(6px);
+  transform: scale(0.94);
+  transition: opacity 1.4s ease, transform 1.4s ease, filter 1.4s ease;
+}
+
+:global(.poem-line.is-final.is-visible) {
+  filter: blur(0);
+  transform: scale(1);
 }
 
 
@@ -471,22 +509,22 @@ const homeStructuredData = {
     itemObs.observe(el);
   });
 
-  /* ── Sentences ──────────────────────────────────────────── */
+  /* ── Sentences — gap = pause BEFORE this line appears ──── */
   var sentences = [
-    { text: "We went overseas to study.", hold: 1400 },
-    { text: "We thought we'd seen the world.", hold: 1200 },
-    { text: "But there's a difference between passing through a place —", hold: 1200 },
-    { text: "and letting it pass through you.", hold: 1800 },
-    { text: "Eating where the locals eat.", hold: 1200 },
-    { text: "Getting lost in streets that don't need you to understand them.", hold: 1400 },
-    { text: "Falling into someone else's rhythm — and forgetting your own.", hold: 1800 },
-    { text: "There's a version of the world you can only find by living in it.", hold: 2600, centre: true },
-    { text: "Friends kept asking — what's China actually like?", hold: 1400 },
-    { text: "We never had a good answer.", hold: 1200 },
-    { text: "We wanted to say: come see for yourself.", hold: 1400 },
-    { text: "So we built a way for them to.", hold: 1800 },
-    { text: "Not a tour. A way in.", hold: 1800 },
-    { text: "Your turn.", hold: 0 }
+    { text: "We went overseas to study.", hold: 1400, gap: 0 },
+    { text: "We thought we'd seen the world.", hold: 1200, gap: 500 },
+    { text: "But there's a difference between passing through a place —", hold: 1000, gap: 0 },
+    { text: "and letting it pass through you.", hold: 2000, gap: 250 },
+    { text: "Eating where the locals eat.", hold: 1000, gap: 0 },
+    { text: "Getting lost in streets that don't need you to understand them.", hold: 1200, gap: 400 },
+    { text: "Falling into someone else's rhythm — and forgetting your own.", hold: 1800, gap: 500 },
+    { text: "There's a version of the world you can only find by living in it.", hold: 3200, centre: true, gap: 800 },
+    { text: "Friends kept asking — what's China actually like?", hold: 1400, gap: 0 },
+    { text: "We never had a good answer.", hold: 1400, gap: 300 },
+    { text: "We wanted to say: come see for yourself.", hold: 1200, gap: 0 },
+    { text: "So we built a way for them to.", hold: 2000, gap: 350 },
+    { text: "Not a tour. A way in.", hold: 2200, gap: 0 },
+    { text: "Your turn.", hold: 0, gap: 900 }
   ];
 
   /* ── Credits roll state ─────────────────────────────────── */
@@ -507,12 +545,23 @@ const homeStructuredData = {
     [12, 13],      /* Not a tour… / Your turn. */
   ];
 
+  /* Background warmth progression per page */
+  var bgColors = ['#fdfcfb', '#fdfbf9', '#faf8f5', '#f8f5f0', '#f7f4ee', '#f6f3ec', '#f5f1e9'];
+
+  /* Tone class per page (progressive darkening) */
+  var tonePerPage = ['tone-1', 'tone-1', 'tone-2', '', 'tone-2', 'tone-3', 'tone-4'];
+
+  /* Staggered fade-out: top line fades first, each subsequent 120ms later */
   async function fadeOutPage(els) {
     for (var i = 0; i < els.length; i++) {
-      els[i].classList.remove('is-visible');
-      els[i].classList.add('is-fading');
+      (function(el, delay) {
+        setTimeout(function () {
+          el.classList.remove('is-visible');
+          el.classList.add('is-fading');
+        }, delay);
+      })(els[i], i * 120);
     }
-    await sleep(700);
+    await sleep(500 + els.length * 120);
     for (var i = 0; i < els.length; i++) {
       if (els[i].parentNode) els[i].parentNode.removeChild(els[i]);
     }
@@ -521,38 +570,70 @@ const homeStructuredData = {
   async function creditsRoll() {
     if (!poemEl) return;
     poemEl.innerHTML = '';
-    await sleep(500);
+    var tw = document.getElementById('story-typewriter');
+    if (tw) tw.style.backgroundColor = bgColors[0];
+    await sleep(600);
 
     for (var pi = 0; pi < pages.length; pi++) {
       if (!twRunning) return;
       var page = pages[pi];
       var pageEls = [];
 
+      /* Warm the background */
+      if (tw && bgColors[pi]) {
+        tw.style.backgroundColor = bgColors[pi];
+      }
+
+      /* Show breathing dot before pages 1+ */
+      var breathDot = null;
+      if (pi > 0) {
+        breathDot = document.createElement('div');
+        breathDot.classList.add('poem-breath');
+        poemEl.appendChild(breathDot);
+        void breathDot.offsetHeight;
+        breathDot.style.opacity = '1';
+        await sleep(800);
+        /* Fade out dot */
+        breathDot.style.transition = 'opacity 0.4s ease';
+        breathDot.style.opacity = '0';
+        await sleep(400);
+        if (breathDot.parentNode) breathDot.parentNode.removeChild(breathDot);
+      }
+
       for (var li = 0; li < page.length; li++) {
         if (!twRunning) return;
-        var s = sentences[page[li]];
+        var idx = page[li];
+        var s = sentences[idx];
+
+        /* Variable gap before this line */
+        if (s.gap > 0) await sleep(s.gap);
+
         var p = document.createElement('p');
         p.textContent = s.text;
         p.classList.add('poem-line');
         if (s.centre) p.classList.add('is-hero');
-        if (page[li] === sentences.length - 1) p.classList.add('is-final');
+        if (idx === sentences.length - 1) p.classList.add('is-final');
+        /* Progressive tone */
+        if (tonePerPage[pi] && !s.centre && idx !== sentences.length - 1) {
+          p.classList.add(tonePerPage[pi]);
+        }
         poemEl.appendChild(p);
         pageEls.push(p);
 
         /* Trigger reflow then reveal */
         void p.offsetHeight;
-        await sleep(80);
+        await sleep(60);
         p.classList.add('is-visible');
 
-        /* Pause between lines within a page */
-        await sleep(600);
+        /* Base pause between lines (shorter for tight pairs) */
+        var basePause = 500;
+        await sleep(basePause);
         while (twPaused) { await sleep(100); if (!twRunning) return; }
       }
 
       /* Hold the complete page for reading */
       var lastS = sentences[page[page.length - 1]];
       var holdTime = lastS.hold > 0 ? lastS.hold : 2000;
-      if (lastS.centre) holdTime = 3000;
 
       var holdStart = Date.now();
       while (Date.now() - holdStart < holdTime) {
@@ -561,10 +642,10 @@ const homeStructuredData = {
         await sleep(50);
       }
 
-      /* Fade out page (keep last page visible) */
+      /* Staggered fade out page (keep last page visible) */
       if (pi < pages.length - 1) {
         await fadeOutPage(pageEls);
-        await sleep(300);
+        await sleep(200);
       }
     }
 
