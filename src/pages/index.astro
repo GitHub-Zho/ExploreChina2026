@@ -76,12 +76,8 @@ const homeStructuredData = {
 
     <!-- STATE 3: Typewriter — centred credits roll -->
     <div class="story-b-section" id="story-typewriter" aria-live="polite">
-      <div class="story-b-scroll" id="story-b-scroll">
-        <div class="story-b-spacer"></div>
-        <div class="story-b-content" id="story-b-content">
-          <!-- sentences appended here by JS, cursor moves inline -->
-        </div>
-        <div class="story-b-spacer"></div>
+      <div class="story-poem" id="story-poem">
+        <!-- poem lines appear here via JS -->
       </div>
       <!-- Replay — appears inside scroll after text -->
       <div class="story-replay" id="story-replay" role="button" tabindex="0" aria-label="Read again">
@@ -301,56 +297,55 @@ const homeStructuredData = {
   z-index: 4;
 }
 
-/* Credits-roll scroll container — fills entire section */
-.story-b-scroll {
-  position: absolute;
-  inset: 0;
-  overflow-y: hidden;
-  /* Fade mask: text fades at top AND bottom edges */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
-}
-
-/* Top spacer pushes first sentence to vertical centre */
-.story-b-spacer {
-  height: 50vh;
-  flex-shrink: 0;
-}
-.story-b-spacer:first-child {
-  /* Offset by half a line height so text sits at true centre */
-  height: calc(50vh - 1.5rem);
-}
-
-.story-b-content {
+/* Poem container — centered on page like an open book */
+.story-poem {
   max-width: 34rem;
   margin: 0 auto;
   padding: 0 2rem;
   text-align: center;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  position: relative;
 }
 
-:global(.story-b-content p) {
-  margin: 0 0 6rem 0;
-  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+:global(.poem-line) {
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
   font-weight: 300;
   color: #57534e;
-  line-height: 1.45;
+  line-height: 1.7;
+  margin: 0 0 0.85rem 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
-:global(.story-b-content p.is-centre) {
-  font-size: clamp(1.35rem, 3vw, 1.875rem);
+:global(.poem-line.is-visible) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+:global(.poem-line.is-fading) {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+:global(.poem-line.is-hero) {
+  font-size: clamp(1.3rem, 2.8vw, 1.75rem);
   font-weight: 500;
   color: #1c1917;
-  margin: 3rem 0 7rem;
-  line-height: 1.3;
+  line-height: 1.45;
+  margin: 0.4rem 0 1rem;
 }
 
-/* Credits-roll: starts hidden, JS drives blur + opacity by position */
-:global(.story-line) {
-  will-change: filter, opacity;
-  filter: blur(8px);
-  opacity: 0;
+:global(.poem-line.is-final) {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 600;
+  color: #1c1917;
+  letter-spacing: 0.02em;
 }
 
 
@@ -496,117 +491,84 @@ const homeStructuredData = {
   var twRunning  = false;
   var twPaused   = false;
   var twStarted  = false;
-  var replayEl   = document.getElementById('story-replay');
-  var scrollEl   = document.getElementById('story-b-scroll');
-  var contentEl  = document.getElementById('story-b-content');
-  var lineEls    = [];
+  var replayEl = document.getElementById('story-replay');
+  var poemEl   = document.getElementById('story-poem');
 
-  /* ── Position-based blur + opacity + clip-path ───────────── */
-  function updateLineEffects() {
-    if (!scrollEl) return;
-    var scrollH = scrollEl.clientHeight;
-    var centre  = scrollH * 0.5;
-    var fadeZone = scrollH * 0.4;
+  /* ── Poem pages — sentences grouped into "pages" ─────────── */
+  var pages = [
+    [0, 1],        /* We went overseas… / We thought… */
+    [2, 3],        /* But there's a difference… / and letting it… */
+    [4, 5, 6],     /* Eating… / Getting lost… / Falling into… */
+    [7],           /* There's a version… (hero, solo) */
+    [8, 9],        /* We built this… / Not a tour… */
+    [10, 11],      /* Eighty UK students… / Your turn. */
+  ];
 
-    for (var i = 0; i < lineEls.length; i++) {
-      var el = lineEls[i];
-      var rect = el.getBoundingClientRect();
-      var scrollRect = scrollEl.getBoundingClientRect();
-      var elCentre = rect.top + rect.height / 2 - scrollRect.top;
-      var dist = elCentre - centre; /* positive = below centre, negative = above */
-      var absDist = Math.abs(dist);
-      var ratio = Math.min(absDist / fadeZone, 1); /* 0=centre, 1=far */
-
-      /* Below centre: approaching from bottom (entering) */
-      /* Above centre: leaving upward (exiting) */
-      var blur = ratio * 7;
-      var opacity = Math.max(0, 1 - ratio * 1.1);
-
-      el.style.filter = 'blur(' + blur.toFixed(1) + 'px)';
-      el.style.opacity = opacity.toFixed(3);
+  async function fadeOutPage(els) {
+    for (var i = 0; i < els.length; i++) {
+      els[i].classList.remove('is-visible');
+      els[i].classList.add('is-fading');
+    }
+    await sleep(700);
+    for (var i = 0; i < els.length; i++) {
+      if (els[i].parentNode) els[i].parentNode.removeChild(els[i]);
     }
   }
 
-  /* Promise-based smooth scroll with continuous blur updates */
-  function smoothScrollToAsync(target, duration) {
-    return new Promise(function (resolve) {
-      if (!scrollEl) { resolve(); return; }
-      var start = scrollEl.scrollTop;
-      var diff  = target - start;
-      if (Math.abs(diff) < 2) { updateLineEffects(); resolve(); return; }
-      var startTime = null;
-
-      function step(ts) {
-        if (!startTime) startTime = ts;
-        if (!twRunning) { resolve(); return; }
-        var elapsed = ts - startTime;
-        var progress = Math.min(elapsed / duration, 1);
-        /* ease-in-out sine */
-        var ease = 0.5 - 0.5 * Math.cos(Math.PI * progress);
-        scrollEl.scrollTop = start + diff * ease;
-        updateLineEffects();
-
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          resolve();
-        }
-      }
-      requestAnimationFrame(step);
-    });
-  }
-
-  /* ── Continuous credits roll ────────────────────────────── */
   async function creditsRoll() {
-    if (!scrollEl || !contentEl) return;
+    if (!poemEl) return;
+    poemEl.innerHTML = '';
+    await sleep(500);
 
-    /* Pre-render all sentences */
-    lineEls = [];
-    contentEl.innerHTML = '';
-    for (var i = 0; i < sentences.length; i++) {
-      var p = document.createElement('p');
-      p.textContent = sentences[i].text;
-      p.classList.add('story-line');
-      if (sentences[i].centre) p.classList.add('is-centre');
-      contentEl.appendChild(p);
-      lineEls.push(p);
-    }
-
-    updateLineEffects();
-    await sleep(600);
-
-    /* Scroll each sentence to centre */
-    for (var i = 0; i < lineEls.length; i++) {
+    for (var pi = 0; pi < pages.length; pi++) {
       if (!twRunning) return;
+      var page = pages[pi];
+      var pageEls = [];
 
-      var el = lineEls[i];
-      var s  = sentences[i];
-      var scrollH = scrollEl.clientHeight;
-      var target = el.offsetTop - (scrollH / 2) + (el.offsetHeight / 2);
+      for (var li = 0; li < page.length; li++) {
+        if (!twRunning) return;
+        var s = sentences[page[li]];
+        var p = document.createElement('p');
+        p.textContent = s.text;
+        p.classList.add('poem-line');
+        if (s.centre) p.classList.add('is-hero');
+        if (page[li] === sentences.length - 1) p.classList.add('is-final');
+        poemEl.appendChild(p);
+        pageEls.push(p);
 
-      /* Scroll duration: first is slower (intro), rest scale with distance */
-      var scrollDur = i === 0 ? 1400 : 1800;
-      await smoothScrollToAsync(Math.max(0, target), scrollDur);
-      if (!twRunning) return;
+        /* Trigger reflow then reveal */
+        void p.offsetHeight;
+        await sleep(80);
+        p.classList.add('is-visible');
 
-      /* Hold at centre for reading */
-      if (s.hold > 0) {
-        var holdStart = Date.now();
-        while (Date.now() - holdStart < s.hold) {
-          if (!twRunning) return;
-          while (twPaused) {
-            await sleep(100);
-            if (!twRunning) return;
-          }
-          await sleep(50);
-        }
+        /* Pause between lines within a page */
+        await sleep(600);
+        while (twPaused) { await sleep(100); if (!twRunning) return; }
+      }
+
+      /* Hold the complete page for reading */
+      var lastS = sentences[page[page.length - 1]];
+      var holdTime = lastS.hold > 0 ? lastS.hold : 2000;
+      if (lastS.centre) holdTime = 3000;
+
+      var holdStart = Date.now();
+      while (Date.now() - holdStart < holdTime) {
+        if (!twRunning) return;
+        while (twPaused) { await sleep(100); if (!twRunning) return; }
+        await sleep(50);
+      }
+
+      /* Fade out page (keep last page visible) */
+      if (pi < pages.length - 1) {
+        await fadeOutPage(pageEls);
+        await sleep(300);
       }
     }
 
     /* ── Finished — show replay ────────────────────────────── */
     twRunning = false;
     unlockScroll();
-    await sleep(1000);
+    await sleep(1200);
     if (replayEl) {
       replayEl.style.display = 'flex';
       replayEl.style.opacity = '0';
@@ -620,9 +582,7 @@ const homeStructuredData = {
   function startTypewriter() {
     /* Snap section to viewport immediately */
     section.scrollIntoView({ behavior: 'auto', block: 'start' });
-    contentEl.innerHTML = '';
-    lineEls = [];
-    if (scrollEl) scrollEl.scrollTop = 0;
+    if (poemEl) poemEl.innerHTML = '';
     twRunning = true;
     lockScroll();
     creditsRoll();
@@ -685,9 +645,7 @@ const homeStructuredData = {
     curtainDone = false;
     twStarted = false;
     if (replayEl) { replayEl.style.display = 'none'; replayEl.style.opacity = '0'; }
-    contentEl.innerHTML = '';
-    lineEls = [];
-    if (scrollEl) scrollEl.scrollTop = 0;
+    if (poemEl) poemEl.innerHTML = '';
 
     /* Show curtain covering section, then slide it away to reveal idle */
     curtain.style.display = '';
