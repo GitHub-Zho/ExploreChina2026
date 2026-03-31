@@ -354,8 +354,8 @@ const homeStructuredData = {
 
 :global(.poem-line.is-fading) {
   opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(-6px);
+  transition: opacity 1.4s ease-out, transform 1.4s ease-out;
 }
 
 /* Progressive color deepening — later lines get darker */
@@ -526,19 +526,19 @@ const homeStructuredData = {
 
   /* ── Sentences — gap = pause BEFORE this line appears ──── */
   var sentences = [
-    { text: "We went overseas to study.", hold: 1400, gap: 0 },
-    { text: "We thought we'd seen the world.", hold: 1200, gap: 500 },
-    { text: "But there's a difference between passing through a place —", hold: 1000, gap: 0 },
-    { text: "and letting it pass through you.", hold: 2000, gap: 250 },
-    { text: "Eating where the locals eat.", hold: 1000, gap: 0 },
-    { text: "Getting lost in streets that don't need you to understand them.", hold: 1200, gap: 400 },
-    { text: "Falling into someone else's rhythm — and forgetting your own.", hold: 1800, gap: 500 },
-    { text: "There's a version of the world you can only find by living in it.", hold: 3200, centre: true, gap: 800 },
-    { text: "Friends kept asking — what's China actually like?", hold: 1400, gap: 0 },
-    { text: "We never had a good answer.", hold: 1400, gap: 300 },
-    { text: "We wanted to say: come see for yourself.", hold: 1200, gap: 0 },
-    { text: "So we built a way for them to.", hold: 2000, gap: 350 },
-    { text: "Not a tour. A way in.", hold: 2200, gap: 0 },
+    { text: "We went overseas to study.", hold: 2200, gap: 0 },
+    { text: "We thought we'd seen the world.", hold: 2000, gap: 500 },
+    { text: "But there's a difference between passing through a place —", hold: 1800, gap: 0 },
+    { text: "and letting it pass through you.", hold: 2800, gap: 250 },
+    { text: "Eating where the locals eat.", hold: 1800, gap: 0 },
+    { text: "Getting lost in streets that don't need you to understand them.", hold: 2200, gap: 400 },
+    { text: "Falling into someone else's rhythm — and forgetting your own.", hold: 2800, gap: 500 },
+    { text: "There's a version of the world you can only find by living in it.", hold: 4000, centre: true, gap: 800 },
+    { text: "Friends kept asking — what's China actually like?", hold: 2200, gap: 0 },
+    { text: "We never had a good answer.", hold: 2200, gap: 300 },
+    { text: "We wanted to say: come see for yourself.", hold: 2000, gap: 0 },
+    { text: "So we built a way for them to.", hold: 2800, gap: 350 },
+    { text: "Not a tour. A way in.", hold: 3000, gap: 0 },
     { text: "Your turn.", hold: 0, gap: 900 }
   ];
 
@@ -574,9 +574,9 @@ const homeStructuredData = {
           el.classList.remove('is-visible');
           el.classList.add('is-fading');
         }, delay);
-      })(els[i], i * 120);
+      })(els[i], i * 200);
     }
-    await sleep(500 + els.length * 120);
+    await sleep(1400 + els.length * 200);
     for (var i = 0; i < els.length; i++) {
       if (els[i].parentNode) els[i].parentNode.removeChild(els[i]);
     }
