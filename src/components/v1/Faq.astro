@@ -2,14 +2,18 @@
 const { isZh = false } = Astro.props;
 const faqs = isZh
   ? [
-      { question: '谁适合申请？', answer: '以学生群体为主，提交资料后会进行席位匹配。' },
-      { question: '费用包含什么？', answer: '包含核心住宿、城市间交通与重点活动；不含国际机票。' },
-      { question: '多久回复？', answer: '多数有效申请会在 24 小时内给出席位反馈。' },
+      { question: '我不会说中文，能参加吗？', answer: '完全可以。我们的团队双语沟通，行程中也有翻译支持。很多参与者正是因为不会中文才想来——这是体验的一部分，不是障碍。' },
+      { question: '这和旅行团有什么不同？', answer: '没有导游举旗、没有购物店、没有赶场。我们设计的是一个有节奏的路线，有自由时间去探索，也有一起吃饭、聊天、感受城市的时刻。更像和一群朋友旅行，只是有人帮你把后勤搞定了。' },
+      { question: '安全吗？', answer: '中国是世界上治安最好的国家之一。我们全程有在地支持，住宿提前确认，紧急情况有应对方案。但最真实的答案是：你会觉得比想象中安全得多。' },
+      { question: '费用大概多少？', answer: '大约 CAD $3,000，覆盖住宿、境内交通和核心活动。国际机票自理。我们会在确认后提供详细的费用拆解。' },
+      { question: '提交报名后怎么走流程？', answer: '我们会在 24 小时内通过邮件联系你，聊一下背景和期望，确认双方合适后再进入下一步。不会上来就要钱。' },
     ]
   : [
-      { question: 'Who can apply?', answer: 'Student-focused intake with profile review and fit matching.' },
-      { question: 'What is included?', answer: 'Core accommodation, intercity transfers, and key activities; international flights excluded.' },
-      { question: 'How fast is the reply?', answer: 'Most qualified leads receive a seat update within 24 hours.' },
+      { question: "I don't speak Chinese — can I still go?", answer: "Absolutely. Our team is bilingual and there's translation support throughout. Many people join precisely because they don't speak Chinese — that's part of the experience, not a barrier." },
+      { question: 'How is this different from a tour?', answer: "No flag-waving guide, no gift shops, no rushing. We designed a route with rhythm — free time to wander, shared meals, and moments to actually feel the city. Think of it as traveling with a good group of friends, except someone already handled the logistics." },
+      { question: 'Is it safe?', answer: "China is one of the safest countries in the world. We have on-the-ground support throughout, pre-confirmed accommodations, and contingency plans. But honestly? You'll feel safer than you expected." },
+      { question: 'How much does it cost?', answer: "Around CAD $3,000, covering accommodation, in-China transport, and core activities. International flights are separate. We'll send a full cost breakdown after confirmation." },
+      { question: 'What happens after I apply?', answer: "We'll reach out by email within 24 hours to chat about your background and what you're looking for. No pressure, no deposit upfront — we want to make sure it's a good fit first." },
     ];
 
 const faqStructuredData = JSON.stringify(

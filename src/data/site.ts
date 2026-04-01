@@ -582,47 +582,55 @@ export const handbookPrep = {
 
 export const faq = [
   {
-    q: 'Who is this trip for?',
-    a: 'It is built first for Canada-based students and young travelers who want a structured group route with more culture and less generic tour-bus energy.',
+    q: 'Do I need to speak Chinese?',
+    a: 'Not at all. Our team is bilingual and we provide support throughout. Many past participants spoke zero Chinese — and that was part of what made the trip eye-opening.',
   },
   {
-    q: 'What does CAD $3,000 include?',
-    a: 'It is designed to cover accommodation, in-China transport, selected group activities, and organizer support. International flights and personal extras are excluded.',
+    q: 'What makes this different from a regular tour?',
+    a: "There's no tour bus, no gift shop stops, no rigid schedule. The route has structure, but it's built around real experiences — eating where locals eat, wandering neighborhoods at your own pace, and having time to just sit and watch a city move.",
   },
   {
     q: 'How intense is the schedule?',
-    a: 'The route is active but not chaotic. Landmark days are balanced with lighter blocks, flexible time, and recovery pacing after transfers.',
+    a: "Active but not exhausting. Big landmark days are followed by lighter ones. There's always free time built in — some of the best moments happen when you wander off on your own.",
   },
   {
-    q: 'Can dietary needs be accommodated?',
-    a: 'Yes, with early notice and best-effort planning. Some cities and venues naturally offer more flexibility than others.',
+    q: 'What does the cost cover?',
+    a: 'Around CAD $3,000 covers accommodation, all in-China transport, key group activities, and organizer support. International flights and personal spending are separate. Full breakdown provided after confirmation.',
   },
   {
-    q: 'What happens after I apply?',
-    a: 'We review your form, reach out by email, and walk you through fit, next steps, and the booking process before asking for a deposit.',
+    q: 'Can you accommodate dietary needs?',
+    a: "Yes — let us know early and we'll plan around it. Chinese food culture is incredibly diverse, so there's almost always something that works. We'll also share a food guide before departure.",
+  },
+  {
+    q: 'What if I want to go but I\'m nervous?',
+    a: "That's normal — and honestly, that's exactly the kind of person this trip is for. The whole point is to make it feel manageable. You'll have a group, a team, and a structure. The nervousness usually disappears by day two.",
   },
 ];
 
 export const faqZh = [
   {
-    q: '这次行程适合谁？',
-    a: '它首先面向在加拿大的学生与年轻旅行者，适合希望有组织、有氛围、又不想参加传统旅游团的人。',
+    q: '不会说中文能参加吗？',
+    a: '完全可以。团队双语沟通，全程有翻译支持。很多参与者正是因为不会中文才来的——这是体验的一部分，不是门槛。',
   },
   {
-    q: 'CAD $3,000 包含什么？',
-    a: '主要覆盖住宿、境内交通、指定团体活动与组织支持；国际机票和个人额外消费不包含。',
+    q: '和普通旅行团有什么不同？',
+    a: '没有导游举旗、没有购物店、没有赶场。路线有节奏，但核心是真实体验——在本地人吃饭的地方吃饭，在街区里自己走走，有时间坐下来感受一座城市的运转。',
   },
   {
     q: '行程会不会太赶？',
-    a: '整体会比较充实，但不是失控式赶路。重点地标日和轻松段会交错安排，转场后也会留出调整空间。',
+    a: '充实但不累。重要景点日后面跟的是轻松日，永远有留白。有些最好的瞬间反而发生在你自己溜达的时候。',
   },
   {
-    q: '饮食限制可以照顾吗？',
-    a: '可以尽量协调，但请尽早说明。不同城市和餐厅对特殊需求的弹性会有差异。',
+    q: '费用包含什么？',
+    a: '大约 CAD $3,000，覆盖住宿、境内所有交通、核心团体活动和组织支持。国际机票和个人消费另算。确认后会发详细费用拆解。',
   },
   {
-    q: '提交报名后会发生什么？',
-    a: '我们会先通过邮件联系你，确认匹配度、后续步骤与报名流程，再进入订金阶段。',
+    q: '有饮食限制怎么办？',
+    a: '提前告诉我们就好。中国饮食文化非常丰富，几乎总能找到合适的选择。出发前我们也会发一份饮食指南。',
+  },
+  {
+    q: '想去但是有点紧张怎么办？',
+    a: '这很正常——说实话，这个行程就是为这样的人设计的。你会有同行的伙伴、团队支持和清晰的安排。紧张感通常在第二天就消失了。',
   },
 ];
 
