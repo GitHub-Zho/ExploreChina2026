@@ -627,7 +627,17 @@ const homeStructuredData = {
         while (twPaused) { await sleep(100); if (!twRunning) return; }
       }
 
-      /* Hold the complete page for reading */
+      /* Show breathing dot alongside last line (not after waiting) */
+      var breathDot = null;
+      if (pi < pages.length - 1) {
+        breathDot = document.createElement('div');
+        breathDot.classList.add('poem-breath');
+        poemEl.appendChild(breathDot);
+        void breathDot.offsetHeight;
+        breathDot.style.opacity = '1';
+      }
+
+      /* Hold the complete page for reading (dot is already pulsing) */
       var lastS = sentences[page[page.length - 1]];
       var holdTime = lastS.hold > 0 ? lastS.hold : 2000;
 
@@ -638,22 +648,15 @@ const homeStructuredData = {
         await sleep(50);
       }
 
-      /* Staggered fade out page (keep last page visible) */
       if (pi < pages.length - 1) {
-        /* Breathing dot below text — "loading next page" feeling */
-        var breathDot = document.createElement('div');
-        breathDot.classList.add('poem-breath');
-        poemEl.appendChild(breathDot);
-        void breathDot.offsetHeight;
-        breathDot.style.opacity = '1';
-        await sleep(1200);
         /* Fade out dot */
-        breathDot.style.transition = 'opacity 0.5s ease';
-        breathDot.style.opacity = '0';
-        await sleep(500);
-        if (breathDot.parentNode) breathDot.parentNode.removeChild(breathDot);
-
-        /* NOW fade out the text */
+        if (breathDot) {
+          breathDot.style.transition = 'opacity 0.5s ease';
+          breathDot.style.opacity = '0';
+          await sleep(500);
+          if (breathDot.parentNode) breathDot.parentNode.removeChild(breathDot);
+        }
+        /* Then fade out text */
         await fadeOutPage(pageEls);
       }
     }
