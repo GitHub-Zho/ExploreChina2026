@@ -568,15 +568,12 @@ const homeStructuredData = {
 
   /* Staggered fade-out: top line fades first, each subsequent 120ms later */
   async function fadeOutPage(els) {
+    /* All lines fade out together */
     for (var i = 0; i < els.length; i++) {
-      (function(el, delay) {
-        setTimeout(function () {
-          el.classList.remove('is-visible');
-          el.classList.add('is-fading');
-        }, delay);
-      })(els[i], i * 200);
+      els[i].classList.remove('is-visible');
+      els[i].classList.add('is-fading');
     }
-    await sleep(1400 + els.length * 200);
+    await sleep(1400);
     for (var i = 0; i < els.length; i++) {
       if (els[i].parentNode) els[i].parentNode.removeChild(els[i]);
     }
@@ -658,7 +655,6 @@ const homeStructuredData = {
 
         /* NOW fade out the text */
         await fadeOutPage(pageEls);
-        await sleep(200);
       }
     }
 
