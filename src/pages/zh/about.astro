@@ -1,45 +1,152 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { aboutContent, site } from '../../data/site';
 ---
-<!-- Uncomment navbar link when team bios are finalized -->
 <Layout
-  title="关于探索中国"
-  description="了解 Explore China 加拿大学生中国旅行项目以及背后的组织团队。"
+  title="关于 Explore China"
+  description="了解由学生发起的 Explore China 旅行项目，以及路线背后的团队。"
   lang="zh"
   alternateHref="/about"
   alternateLabel="EN"
   canonical="/zh/about"
-  minimalNav={true}
-  darkNav={true}
+  heroNav={true}
 >
-  <section class="section card tone-sand" style="padding:34px;">
-    <p class="pill">关于</p>
-    <h1 style="font-size:clamp(36px,5vw,64px); margin-top:10px;">关于 Explore China</h1>
-  </section>
 
-  <section class="section" style="padding: 3rem 2rem 4rem;">
-    <h2 style="font-size:clamp(22px,3.5vw,36px); font-weight:700; font-family:var(--font-display); line-height:1.2; margin-bottom:1rem;">说实话，我们只是想分享一些改变了我们的东西。</h2>
-    <p class="muted" style="max-width:680px; font-size:18px; line-height:1.75;">我们是留学生，后来发现真正住在一个地方——而不只是路过——会让你看到一个完全不同的世界。这种感觉就是一切的起点。三年，80多个学生，从英国到中国，这件事的意义从来没变过。</p>
-  </section>
-
-  <section class="section card tone-blue">
-    <h2 class="section-title">团队成员</h2>
-    <div class="grid cols-3">
-      <article class="card" style="background:#fff;"><p class="label">成员</p><h3>姓名 01</h3><p class="muted">一句话介绍将在后续确认。</p></article>
-      <article class="card" style="background:#fff;"><p class="label">成员</p><h3>姓名 02</h3><p class="muted">一句话介绍将在后续确认。</p></article>
-      <article class="card" style="background:#fff;"><p class="label">成员</p><h3>姓名 03</h3><p class="muted">一句话介绍将在后续确认。</p></article>
+  <section class="about-hero">
+    <img
+      src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1920&q=85"
+      alt="一起旅行的朋友"
+      class="about-hero__img"
+      fetchpriority="high"
+    />
+    <div class="about-hero__overlay"></div>
+    <div class="about-hero__content">
+      <p class="about-hero__eyebrow">关于我们</p>
+      <h1 class="about-hero__title">学生发起。<br/>为学生而建。</h1>
+      <p class="about-hero__sub">{aboutContent.heroTextZh}</p>
     </div>
   </section>
 
-  <section class="section card tone-rose">
-    <h2 class="section-title">我们为什么做这个项目</h2>
-    <p class="muted">项目动机说明将在下一轮内容完善中补充为正式版本。</p>
+  <section class="about-story">
+    <div class="about-story__inner">
+      <h2 class="about-story__heading">怎么开始的</h2>
+      <div class="about-story__body">
+        <p class="about-story__lead">{aboutContent.heroTextZh}</p>
+        <p class="about-story__text">{aboutContent.storyZh}</p>
+      </div>
+    </div>
   </section>
 
-  <section class="section card" style="margin-bottom:36px;">
-    <h2 class="section-title">联系方式</h2>
-    <p class="muted">Email: 联系方式待公布</p>
-    <p class="muted">Instagram: 账号待公布</p>
-    <p class="muted">WeChat: 账号待公布</p>
+  <section class="about-values">
+    <div class="about-values__inner">
+      <h2 class="about-section-title">我们相信</h2>
+      <div class="about-values__grid">
+        <div class="about-value-card">
+          <span class="about-value-card__icon">🌏</span>
+          <h3 class="about-value-card__title">旅行是私人的</h3>
+          <p class="about-value-card__text">最好的旅行会改变你看世界的方式。我们为那些会留在记忆里的瞬间而设计，而不仅仅是朋友圈的素材。</p>
+        </div>
+        <div class="about-value-card">
+          <span class="about-value-card__icon">🤝</span>
+          <h3 class="about-value-card__title">人比路线更重要</h3>
+          <p class="about-value-card__text">同行的人和路线一样重要。我们聚集好奇、开放的人，一起分享体验，而不是各自打卡。</p>
+        </div>
+        <div class="about-value-card">
+          <span class="about-value-card__icon">🔑</span>
+          <h3 class="about-value-card__title">有框架但不受限</h3>
+          <p class="about-value-card__text">足够的规划让你安心，足够的自由让它依然像探索。这个平衡就是一切。</p>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <section class="about-team">
+    <div class="about-team__inner">
+      <h2 class="about-section-title">团队</h2>
+      <p class="about-team__intro">一群在中国生活和旅行过的学生——想帮更多人做到同样的事。</p>
+      <div class="about-team__grid">
+        {aboutContent.team.map((member) => (
+          <article class="about-team-card">
+            <div class="about-team-card__avatar">
+              <span class="about-team-card__initial">{member.name.charAt(0)}</span>
+            </div>
+            <p class="about-team-card__role">{member.roleZh}</p>
+            <h3 class="about-team-card__name">{member.name}</h3>
+            <p class="about-team-card__bio">{member.bioZh}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="about-why">
+    <div class="about-why__inner">
+      <h2 class="about-why__heading">为什么做这件事</h2>
+      <p class="about-why__text">{aboutContent.whoWeAreZh}</p>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <div class="about-cta__inner">
+      <h2 class="about-cta__heading">准备好了吗？</h2>
+      <p class="about-cta__text">看看行程、翻翻手册，或者直接跟我们打个招呼。</p>
+      <div class="about-cta__buttons">
+        <a href="/zh/trips/explore-china-2026-summer" class="btn btn--primary">查看行程</a>
+        <a href="/zh/#apply" class="btn btn--ghost">立即报名</a>
+      </div>
+    </div>
+  </section>
+
 </Layout>
+
+<style>
+.about-hero { position:relative; height:clamp(420px,60vh,600px); overflow:hidden; display:flex; align-items:flex-end; padding:3rem 2rem; }
+.about-hero__img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%; }
+.about-hero__overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,.7) 0%,rgba(0,0,0,.2) 50%,rgba(0,0,0,.1) 100%); }
+.about-hero__content { position:relative; z-index:1; max-width:680px; }
+.about-hero__eyebrow { font-size:.85rem; text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.7); margin-bottom:.5rem; font-weight:500; }
+.about-hero__title { font-size:clamp(2rem,5vw,3.2rem); font-weight:700; color:#fff; line-height:1.15; margin:0 0 1rem; font-family:var(--font-display,system-ui); }
+.about-hero__sub { font-size:clamp(1rem,2vw,1.15rem); color:rgba(255,255,255,.85); line-height:1.6; max-width:560px; }
+.about-story { padding:5rem 2rem; background:#fdfcfb; }
+.about-story__inner { max-width:720px; margin:0 auto; }
+.about-story__heading { font-size:clamp(1.5rem,3.5vw,2.2rem); font-weight:700; font-family:var(--font-display,system-ui); color:#1c1917; margin-bottom:1.5rem; }
+.about-story__lead { font-size:clamp(1.1rem,2.2vw,1.35rem); font-weight:500; color:#44403c; line-height:1.65; margin-bottom:1.5rem; }
+.about-story__text { font-size:1.05rem; color:#78716c; line-height:1.8; }
+.about-values { padding:4rem 2rem 5rem; background:#f5f1eb; }
+.about-values__inner { max-width:960px; margin:0 auto; }
+.about-section-title { font-size:clamp(1.5rem,3.5vw,2.2rem); font-weight:700; font-family:var(--font-display,system-ui); color:#1c1917; text-align:center; margin-bottom:2.5rem; }
+.about-values__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem; }
+.about-value-card { background:#fff; border-radius:12px; padding:2rem 1.5rem; text-align:center; }
+.about-value-card__icon { font-size:2rem; display:block; margin-bottom:.75rem; }
+.about-value-card__title { font-size:1.1rem; font-weight:600; color:#1c1917; margin-bottom:.6rem; }
+.about-value-card__text { font-size:.95rem; color:#78716c; line-height:1.65; }
+.about-team { padding:5rem 2rem; background:#fdfcfb; }
+.about-team__inner { max-width:960px; margin:0 auto; }
+.about-team__intro { text-align:center; color:#78716c; font-size:1.05rem; line-height:1.7; max-width:560px; margin:-1.5rem auto 2.5rem; }
+.about-team__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; }
+.about-team-card { background:#fff; border:1px solid #e7e5e4; border-radius:12px; padding:2rem 1.5rem; text-align:center; }
+.about-team-card__avatar { width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,#d6cfc7,#a8998a); display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; }
+.about-team-card__initial { font-size:1.3rem; font-weight:600; color:#fff; }
+.about-team-card__role { font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; color:#a8a29e; font-weight:500; margin-bottom:.3rem; }
+.about-team-card__name { font-size:1.15rem; font-weight:600; color:#1c1917; margin-bottom:.5rem; }
+.about-team-card__bio { font-size:.92rem; color:#78716c; line-height:1.6; }
+.about-why { padding:5rem 2rem; background:#292524; color:#fff; }
+.about-why__inner { max-width:680px; margin:0 auto; text-align:center; }
+.about-why__heading { font-size:clamp(1.5rem,3.5vw,2.2rem); font-weight:700; font-family:var(--font-display,system-ui); margin-bottom:1.5rem; }
+.about-why__text { font-size:1.1rem; color:rgba(255,255,255,.8); line-height:1.8; }
+.about-cta { padding:4rem 2rem 5rem; background:#fdfcfb; }
+.about-cta__inner { max-width:560px; margin:0 auto; text-align:center; }
+.about-cta__heading { font-size:clamp(1.5rem,3.5vw,2rem); font-weight:700; font-family:var(--font-display,system-ui); color:#1c1917; margin-bottom:.5rem; }
+.about-cta__text { color:#78716c; font-size:1.05rem; margin-bottom:1.5rem; }
+.about-cta__buttons { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+.about-cta__buttons .btn--primary { background:#b91c1c; color:#fff; padding:.75rem 2rem; border-radius:8px; font-weight:600; text-decoration:none; font-size:.95rem; transition:background .2s; }
+.about-cta__buttons .btn--primary:hover { background:#991b1b; }
+.about-cta__buttons .btn--ghost { border:1.5px solid #d6d3d1; color:#44403c; padding:.75rem 2rem; border-radius:8px; font-weight:600; text-decoration:none; font-size:.95rem; transition:border-color .2s,background .2s; }
+.about-cta__buttons .btn--ghost:hover { border-color:#a8a29e; background:rgba(0,0,0,.02); }
+@media (max-width:640px) {
+  .about-hero { height:clamp(320px,55vh,480px); padding:2rem 1.5rem; }
+  .about-story,.about-team,.about-cta { padding:3rem 1.5rem; }
+  .about-values { padding:3rem 1.5rem; }
+  .about-why { padding:3.5rem 1.5rem; }
+}
+</style>
