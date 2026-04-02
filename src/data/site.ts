@@ -580,57 +580,58 @@ export const handbookPrep = {
   },
 };
 
+/* Trip page FAQ — practical details for people who are already interested */
 export const faq = [
   {
-    q: 'Do I need to speak Chinese?',
-    a: 'Not at all. Our team is bilingual and we provide support throughout. Many past participants spoke zero Chinese — and that was part of what made the trip eye-opening.',
+    q: 'What exactly does CAD $3,000 cover?',
+    a: '10 nights of accommodation, all transport between cities within China, group activities, and full organizer support. International flights, travel insurance, and personal spending (food beyond group meals, souvenirs, etc.) are not included. We send a detailed breakdown after your application is confirmed.',
   },
   {
-    q: 'What makes this different from a regular tour?',
-    a: "There's no tour bus, no gift shop stops, no rigid schedule. The route has structure, but it's built around real experiences — eating where locals eat, wandering neighborhoods at your own pace, and having time to just sit and watch a city move.",
+    q: 'Do I need a visa?',
+    a: 'Yes — Canadian passport holders need a Chinese tourist visa (L-type). We provide an official invitation letter and walk you through every step. Start early: processing usually takes 2–4 weeks. We send reminders so you don\'t miss deadlines.',
   },
   {
-    q: 'How intense is the schedule?',
-    a: "Active but not exhausting. Big landmark days are followed by lighter ones. There's always free time built in — some of the best moments happen when you wander off on your own.",
+    q: 'How physically demanding is the route?',
+    a: 'You should be comfortable walking 10,000–15,000 steps on active days. That said, big landmark days alternate with lighter afternoons, free-wander time, and recovery days after city transfers. Nobody gets dragged anywhere.',
   },
   {
-    q: 'What does the cost cover?',
-    a: 'Around CAD $3,000 covers accommodation, all in-China transport, key group activities, and organizer support. International flights and personal spending are separate. Full breakdown provided after confirmation.',
+    q: 'What about food allergies or dietary restrictions?',
+    a: 'Tell us early and we plan around it. China\'s food scene is enormous — vegetarian, halal, gluten-free, and other options exist in every city on the route. Some are easier than others, but we always have a backup plan and a food guide.',
   },
   {
-    q: 'Can you accommodate dietary needs?',
-    a: "Yes — let us know early and we'll plan around it. Chinese food culture is incredibly diverse, so there's almost always something that works. We'll also share a food guide before departure.",
+    q: 'What\'s the group size?',
+    a: 'We keep it between 15–25 people. Small enough that everyone knows each other by name. Large enough that you can find your own crowd within the group.',
   },
   {
-    q: 'What if I want to go but I\'m nervous?',
-    a: "That's normal — and honestly, that's exactly the kind of person this trip is for. The whole point is to make it feel manageable. You'll have a group, a team, and a structure. The nervousness usually disappears by day two.",
+    q: 'What if I need to cancel after paying?',
+    a: 'We get it — plans change. Cancellation terms depend on timing. The earlier you let us know, the more flexible we can be. Full refund policy is shared in writing before any deposit is collected.',
   },
 ];
 
 export const faqZh = [
   {
-    q: '不会说中文能参加吗？',
-    a: '完全可以。团队双语沟通，全程有翻译支持。很多参与者正是因为不会中文才来的——这是体验的一部分，不是门槛。',
+    q: 'CAD $3,000 具体包含什么？',
+    a: '10晚住宿、中国境内城市间所有交通、团体活动和全程组织支持。国际机票、旅行保险和个人花销（团餐以外的餐饮、纪念品等）不包含。确认报名后我们会发详细费用清单。',
   },
   {
-    q: '和普通旅行团有什么不同？',
-    a: '没有导游举旗、没有购物店、没有赶场。路线有节奏，但核心是真实体验——在本地人吃饭的地方吃饭，在街区里自己走走，有时间坐下来感受一座城市的运转。',
+    q: '需要签证吗？',
+    a: '需要——加拿大护照持有者需要中国旅游签证（L签）。我们提供正式邀请函并全程指导流程。建议提前准备，通常需要 2–4 周。每个节点我们都会提醒。',
   },
   {
-    q: '行程会不会太赶？',
-    a: '充实但不累。重要景点日后面跟的是轻松日，永远有留白。有些最好的瞬间反而发生在你自己溜达的时候。',
+    q: '行程对体力要求高吗？',
+    a: '活跃日大概走 10,000–15,000 步。但重点景点日和轻松时间交替安排，城市转场后有恢复日。不会被拖着走。',
   },
   {
-    q: '费用包含什么？',
-    a: '大约 CAD $3,000，覆盖住宿、境内所有交通、核心团体活动和组织支持。国际机票和个人消费另算。确认后会发详细费用拆解。',
+    q: '有食物过敏或饮食限制怎么办？',
+    a: '提前告诉我们就好。中国的餐饮选择非常丰富——路线上每座城市都能找到素食、清真、无麸质等方案。出发前我们也会提供饮食指南。',
   },
   {
-    q: '有饮食限制怎么办？',
-    a: '提前告诉我们就好。中国饮食文化非常丰富，几乎总能找到合适的选择。出发前我们也会发一份饮食指南。',
+    q: '团队有多少人？',
+    a: '我们控制在 15–25 人之间。小到每个人都能记住彼此的名字，大到你能在群体里找到自己最合拍的人。',
   },
   {
-    q: '想去但是有点紧张怎么办？',
-    a: '这很正常——说实话，这个行程就是为这样的人设计的。你会有同行的伙伴、团队支持和清晰的安排。紧张感通常在第二天就消失了。',
+    q: '付款后需要取消怎么办？',
+    a: '我们理解计划会变。取消条款取决于时间——越早越灵活。完整退款政策会在收取任何订金之前以书面形式说明。',
   },
 ];
 

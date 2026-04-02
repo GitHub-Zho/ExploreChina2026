@@ -2,18 +2,18 @@
 const { isZh = false } = Astro.props;
 const faqs = isZh
   ? [
-      { question: '我不会说中文，能参加吗？', answer: '完全可以。我们的团队双语沟通，行程中也有翻译支持。很多参与者正是因为不会中文才想来——这是体验的一部分，不是障碍。' },
-      { question: '这和旅行团有什么不同？', answer: '没有导游举旗、没有购物店、没有赶场。我们设计的是一个有节奏的路线，有自由时间去探索，也有一起吃饭、聊天、感受城市的时刻。更像和一群朋友旅行，只是有人帮你把后勤搞定了。' },
-      { question: '安全吗？', answer: '中国是世界上治安最好的国家之一。我们全程有在地支持，住宿提前确认，紧急情况有应对方案。但最真实的答案是：你会觉得比想象中安全得多。' },
-      { question: '费用大概多少？', answer: '大约 CAD $3,000，覆盖住宿、境内交通和核心活动。国际机票自理。我们会在确认后提供详细的费用拆解。' },
-      { question: '提交报名后怎么走流程？', answer: '我们会在 24 小时内通过邮件联系你，聊一下背景和期望，确认双方合适后再进入下一步。不会上来就要钱。' },
+      { question: '我不会说中文，能参加吗？', answer: '完全可以。我们全程双语支持，而且很多人正是因为不会中文才想来。语言不是障碍——它是体验的一部分。你会发现，一句"谢谢"能打开很多门。' },
+      { question: '这和普通旅行团有什么区别？', answer: '没有导游举小旗、没有购物店、没有赶行程。我们更像是一群朋友一起旅行，只是有人提前帮你把住宿、交通和节奏都安排好了。你有自由时间去走自己想走的路。' },
+      { question: '安全吗？我家人会担心', answer: '中国是全球治安最好的国家之一——这不是宣传，是你到了以后会亲自感受到的。我们全程有在地团队、提前确认的住宿、和紧急预案。但说实话，大部分参与者到了第二天就不再想这个问题了。' },
+      { question: '我一个人报名会不会很尴尬？', answer: '大部分人都是一个人报名的。这也是我们设计行程的方式——通过一起吃饭、一起走路、一起迷路来认识彼此。很多人出发前是陌生人，回来后是朋友。' },
+      { question: '报名流程是什么？', answer: '提交表单后，我们会在 24 小时内邮件联系你，聊聊你的背景和期望。确认合适后再谈下一步。不会上来就要订金——我们想先确认彼此都是对的人。' },
     ]
   : [
-      { question: "I don't speak Chinese — can I still go?", answer: "Absolutely. Our team is bilingual and there's translation support throughout. Many people join precisely because they don't speak Chinese — that's part of the experience, not a barrier." },
-      { question: 'How is this different from a tour?', answer: "No flag-waving guide, no gift shops, no rushing. We designed a route with rhythm — free time to wander, shared meals, and moments to actually feel the city. Think of it as traveling with a good group of friends, except someone already handled the logistics." },
-      { question: 'Is it safe?', answer: "China is one of the safest countries in the world. We have on-the-ground support throughout, pre-confirmed accommodations, and contingency plans. But honestly? You'll feel safer than you expected." },
-      { question: 'How much does it cost?', answer: "Around CAD $3,000, covering accommodation, in-China transport, and core activities. International flights are separate. We'll send a full cost breakdown after confirmation." },
-      { question: 'What happens after I apply?', answer: "We'll reach out by email within 24 hours to chat about your background and what you're looking for. No pressure, no deposit upfront — we want to make sure it's a good fit first." },
+      { question: "I don't speak Chinese — can I still come?", answer: "Yes. Our team is fully bilingual and you'll have support throughout. Most people join precisely because they don't speak Chinese. It's not a barrier — it's part of what makes the trip worth taking. You'll be surprised how far a smile and \"xièxie\" can get you." },
+      { question: "How is this different from a regular tour?", answer: "No tour guide with a flag. No gift shops. No being herded onto a bus. This is more like traveling with a group of friends who happen to have someone handling the logistics. You get free time, shared meals, and the space to actually feel each city — not just photograph it." },
+      { question: "Is it safe? My parents are worried.", answer: "China is genuinely one of the safest countries in the world — not as a talking point, but as something you'll feel on day one. We have on-ground support, pre-confirmed stays, and contingency plans. But honestly, most participants stop thinking about safety by day two." },
+      { question: "I'm applying alone — will it be awkward?", answer: "Most people apply solo. That's kind of the point. The route is designed so you get to know people through shared meals, walks, and getting happily lost together. A lot of strangers before the trip become friends after it." },
+      { question: "What's the application process?", answer: "Submit the form. We'll email you within 24 hours to chat about your background and what you're hoping for. If it's a good fit, we talk next steps. No deposit upfront — we want to make sure we're right for each other first." },
     ];
 
 const faqStructuredData = JSON.stringify(
