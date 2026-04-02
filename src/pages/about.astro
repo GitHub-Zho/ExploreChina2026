@@ -35,6 +35,27 @@ import { aboutContent, site } from '../data/site';
       <div class="about-story__body">
         <p class="about-story__lead">{aboutContent.heroText}</p>
         <p class="about-story__text">{aboutContent.story}</p>
+        <a href="/#story-section" class="about-story__link">Read our full story →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TEAM (moved up — people want to know who's behind it) ═══ -->
+  <section class="about-team">
+    <div class="about-team__inner">
+      <h2 class="about-section-title">The team</h2>
+      <p class="about-team__intro">A small crew of students who've lived and traveled in China — and want to help others do the same.</p>
+      <div class="about-team__grid">
+        {aboutContent.team.map((member) => (
+          <article class="about-team-card">
+            <div class="about-team-card__avatar">
+              <span class="about-team-card__initial">{member.name.charAt(0)}</span>
+            </div>
+            <p class="about-team-card__role">{member.role}</p>
+            <h3 class="about-team-card__name">{member.name}</h3>
+            <p class="about-team-card__bio">{member.bio}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -59,26 +80,6 @@ import { aboutContent, site } from '../data/site';
           <h3 class="about-value-card__title">Structure without restriction</h3>
           <p class="about-value-card__text">Enough planning so you feel safe. Enough freedom so it still feels like discovery. That balance is everything.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ TEAM ═══ -->
-  <section class="about-team">
-    <div class="about-team__inner">
-      <h2 class="about-section-title">The team</h2>
-      <p class="about-team__intro">A small crew of students who've lived and traveled in China — and want to help others do the same.</p>
-      <div class="about-team__grid">
-        {aboutContent.team.map((member) => (
-          <article class="about-team-card">
-            <div class="about-team-card__avatar">
-              <span class="about-team-card__initial">{member.name.charAt(0)}</span>
-            </div>
-            <p class="about-team-card__role">{member.role}</p>
-            <h3 class="about-team-card__name">{member.name}</h3>
-            <p class="about-team-card__bio">{member.bio}</p>
-          </article>
-        ))}
       </div>
     </div>
   </section>
@@ -183,6 +184,18 @@ import { aboutContent, site } from '../data/site';
   font-size: 1.05rem;
   color: #78716c;
   line-height: 1.8;
+}
+.about-story__link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #b91c1c;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.about-story__link:hover {
+  color: #991b1b;
 }
 
 /* ── Values ──────────────────────────────────── */

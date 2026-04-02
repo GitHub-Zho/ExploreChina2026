@@ -587,8 +587,8 @@ export const faq = [
     a: '10 nights of accommodation, all transport between cities within China, group activities, and full organizer support. International flights, travel insurance, and personal spending (food beyond group meals, souvenirs, etc.) are not included. We send a detailed breakdown after your application is confirmed.',
   },
   {
-    q: 'Do I need a visa?',
-    a: 'Yes — Canadian passport holders need a Chinese tourist visa (L-type). We provide an official invitation letter and walk you through every step. Start early: processing usually takes 2–4 weeks. We send reminders so you don\'t miss deadlines.',
+    q: 'Are there student discounts?',
+    a: 'Yes — if you\'re applying through one of our partner university clubs (such as organizations at Cambridge, UofT, or other affiliated schools), you may be eligible for a group discount. Mention your school and club affiliation in your application and we\'ll confirm.',
   },
   {
     q: 'How physically demanding is the route?',
@@ -614,8 +614,8 @@ export const faqZh = [
     a: '10晚住宿、中国境内城市间所有交通、团体活动和全程组织支持。国际机票、旅行保险和个人花销（团餐以外的餐饮、纪念品等）不包含。确认报名后我们会发详细费用清单。',
   },
   {
-    q: '需要签证吗？',
-    a: '需要——加拿大护照持有者需要中国旅游签证（L签）。我们提供正式邀请函并全程指导流程。建议提前准备，通常需要 2–4 周。每个节点我们都会提醒。',
+    q: '学生有优惠吗？',
+    a: '有——如果你通过我们合作的大学社团报名（比如 Cambridge、UofT 等学校的相关组织），可能享受团体优惠。报名时注明你的学校和社团，我们会确认。',
   },
   {
     q: '行程对体力要求高吗？',

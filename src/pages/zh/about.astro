@@ -33,6 +33,26 @@ import { aboutContent, site } from '../../data/site';
       <div class="about-story__body">
         <p class="about-story__lead">{aboutContent.heroTextZh}</p>
         <p class="about-story__text">{aboutContent.storyZh}</p>
+        <a href="/zh/#story-section" class="about-story__link">阅读完整故事 →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-team">
+    <div class="about-team__inner">
+      <h2 class="about-section-title">团队</h2>
+      <p class="about-team__intro">一群在中国生活和旅行过的学生——想帮更多人做到同样的事。</p>
+      <div class="about-team__grid">
+        {aboutContent.team.map((member) => (
+          <article class="about-team-card">
+            <div class="about-team-card__avatar">
+              <span class="about-team-card__initial">{member.name.charAt(0)}</span>
+            </div>
+            <p class="about-team-card__role">{member.roleZh}</p>
+            <h3 class="about-team-card__name">{member.name}</h3>
+            <p class="about-team-card__bio">{member.bioZh}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -56,25 +76,6 @@ import { aboutContent, site } from '../../data/site';
           <h3 class="about-value-card__title">有框架但不受限</h3>
           <p class="about-value-card__text">足够的规划让你安心，足够的自由让它依然像探索。这个平衡就是一切。</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="about-team">
-    <div class="about-team__inner">
-      <h2 class="about-section-title">团队</h2>
-      <p class="about-team__intro">一群在中国生活和旅行过的学生——想帮更多人做到同样的事。</p>
-      <div class="about-team__grid">
-        {aboutContent.team.map((member) => (
-          <article class="about-team-card">
-            <div class="about-team-card__avatar">
-              <span class="about-team-card__initial">{member.name.charAt(0)}</span>
-            </div>
-            <p class="about-team-card__role">{member.roleZh}</p>
-            <h3 class="about-team-card__name">{member.name}</h3>
-            <p class="about-team-card__bio">{member.bioZh}</p>
-          </article>
-        ))}
       </div>
     </div>
   </section>
@@ -112,6 +113,8 @@ import { aboutContent, site } from '../../data/site';
 .about-story__heading { font-size:clamp(1.5rem,3.5vw,2.2rem); font-weight:700; font-family:var(--font-display,system-ui); color:#1c1917; margin-bottom:1.5rem; }
 .about-story__lead { font-size:clamp(1.1rem,2.2vw,1.35rem); font-weight:500; color:#44403c; line-height:1.65; margin-bottom:1.5rem; }
 .about-story__text { font-size:1.05rem; color:#78716c; line-height:1.8; }
+.about-story__link { display:inline-block; margin-top:1.5rem; font-size:.95rem; font-weight:500; color:#b91c1c; text-decoration:none; transition:color .2s; }
+.about-story__link:hover { color:#991b1b; }
 .about-values { padding:4rem 2rem 5rem; background:#f5f1eb; }
 .about-values__inner { max-width:960px; margin:0 auto; }
 .about-section-title { font-size:clamp(1.5rem,3.5vw,2.2rem); font-weight:700; font-family:var(--font-display,system-ui); color:#1c1917; text-align:center; margin-bottom:2.5rem; }
