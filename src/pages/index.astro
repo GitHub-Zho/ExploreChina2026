@@ -32,7 +32,7 @@ const homeStructuredData = {
 };
 ---
 <Layout
-  title="Explore China Canada | Student Program"
+  title="Explore China 2026 | Student Travel Program from Canada"
   description="A student-led China cultural travel program for Canada-based students and young travelers, featuring Shanghai, Suzhou, Hangzhou, and Beijing."
   lang="en"
   alternateHref="/zh/"
@@ -151,7 +151,7 @@ const homeStructuredData = {
         <input class="border border-stone-300 p-3 bg-white" name="name" aria-label="Name" placeholder="Name" data-ph="Name" required />
         <input class="border border-stone-300 p-3 bg-white" name="email" type="email" aria-label="Email" placeholder="Email" data-ph="Email" required />
         <input class="border border-stone-300 p-3 bg-white" name="phone" aria-label="Phone" placeholder="Phone" data-ph="Phone" />
-        <input class="border border-stone-300 p-3 bg-white" name="city" aria-label="Current city" placeholder="Current city" data-ph="Current city" />
+        <input class="border border-stone-300 p-3 bg-white" name="school" aria-label="Your university or school" placeholder="Your university / school" data-ph="Your university / school" />
         <textarea class="md:col-span-2 border border-stone-300 p-3 bg-white min-h-[120px]" name="goals" aria-label="Your travel goals" placeholder="Your travel goals" data-ph="Your travel goals"></textarea>
         <button type="button" id="apply-btn" class="md:col-span-2 justify-self-start bg-red-700 text-white px-7 py-3 hover:bg-red-800 transition-colors">Submit Application</button>
       </form>
@@ -161,7 +161,7 @@ const homeStructuredData = {
         <div class="apply-modal__backdrop"></div>
         <div class="apply-modal__box">
           <h3 class="apply-modal__title">Confirm submission</h3>
-          <p class="apply-modal__text">Your application will be sent to our team. We'll get back to you by email within 24 hours.</p>
+          <p class="apply-modal__text">Your application will be sent to our team. We'll get back to you by email within 5 business days.</p>
           <div class="apply-modal__actions">
             <button type="button" id="modal-cancel" class="apply-modal__btn apply-modal__btn--cancel">Cancel</button>
             <button type="button" id="modal-confirm" class="apply-modal__btn apply-modal__btn--confirm">Send application</button>
@@ -1149,7 +1149,7 @@ const homeStructuredData = {
       headers: { 'Accept': 'application/json' }
     }).then(function (res) {
       if (res.ok) {
-        showToast('✓ Application sent! We\'ll be in touch within 24 hours.', 'success');
+        showToast('✓ Application sent! We\'ll be in touch within 5 business days.', 'success');
         form.reset();
       } else {
         showToast('Something went wrong. Please try again or email us directly.', 'error');

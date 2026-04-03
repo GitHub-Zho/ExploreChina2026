@@ -36,8 +36,8 @@ const {
 const pageDescription =
   description ??
   (lang === 'zh'
-    ? '面向加拿大学生与年轻旅行者的中国文化旅行项目，涵盖上海、苏州、杭州与北京。'
-    : 'Student-led China cultural travel program for Canada-based students and young travelers, covering Shanghai, Suzhou, Hangzhou, and Beijing.');
+    ? '面向加拿大学生与年轻旅行者的中国文化旅行项目。2026暑期路线涵盖上海、苏州、杭州、北京及云南（昆明、大理、丽江），由多伦多大学学生团队组织。'
+    : 'Student-led China travel program for university students from Canada. Summer 2026 routes cover Shanghai, Suzhou, Hangzhou, Beijing, and Yunnan (Kunming, Dali, Lijiang). Organized by UofT students.');
 
 const canonicalUrl = canonical ? new URL(canonical, Astro.site).toString() : Astro.url.href;
 const alternateUrl = new URL(alternateHref, Astro.site).toString();
@@ -53,7 +53,7 @@ const baseStructuredData = [
     '@type': 'Organization',
     name: 'Explore China',
     url: 'https://www.explorechina.ca/',
-    email: 'hello@explorationclub.ca',
+    email: 'hello@explorechina.ca',
   },
   {
     '@context': 'https://schema.org',

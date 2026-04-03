@@ -30,14 +30,23 @@ const destinations = [
 </section>
 
 <script is:inline>
-  document.querySelectorAll('.js-dest-scroll').forEach((el) => {
+  document.querySelectorAll('.js-dest-scroll').forEach(function (el) {
     el.addEventListener(
       'wheel',
-      (e) => {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-          e.preventDefault();
-          el.scrollLeft += e.deltaY;
-        }
+      function (e) {
+        /* Always capture vertical scroll when hovering the strip */
+        var maxScroll = el.scrollWidth - el.clientWidth;
+        if (maxScroll <= 0) return; /* nothing to scroll */
+
+        var atStart = el.scrollLeft <= 0;
+        var atEnd = el.scrollLeft >= maxScroll - 1;
+
+        /* Allow page scroll only if strip is at boundary AND user scrolls further that direction */
+        if (atStart && e.deltaY < 0) return;
+        if (atEnd && e.deltaY > 0) return;
+
+        e.preventDefault();
+        el.scrollLeft += e.deltaY;
       },
       { passive: false }
     );
