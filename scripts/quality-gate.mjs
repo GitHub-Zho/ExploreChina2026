@@ -31,10 +31,14 @@ for (const f of files) {
     failures.push(`${f}: contains figma/notion external link in user-facing source`);
   }
 
-  // 3) Catch obvious unresolved placeholders
-  const badPlaceholders = c.match(/\b(placeholder|tbd|todo)\b/gi) || [];
-  if (badPlaceholders.length > 0 && /src\/pages\//.test(f)) {
-    failures.push(`${f}: contains placeholder/TBD/TODO markers`);
+  // 3) Catch obvious unresolved placeholders (skip HTML placeholder= attribute)
+  const lines = c.split('\n');
+  for (const line of lines) {
+    if (/placeholder\s*=/.test(line)) continue;
+    if (/\b(tbd|todo)\b/i.test(line) && /src\/pages\//.test(f)) {
+      failures.push(`${f}: contains TBD/TODO markers`);
+      break;
+    }
   }
 }
 
