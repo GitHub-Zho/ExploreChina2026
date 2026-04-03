@@ -48,14 +48,33 @@ import Faq from '../../components/v1/Faq.astro';
     <div class="container">
       <p class="section-eyebrow">申请</p>
       <h2 class="section-title">提交你的申请</h2>
-      <form class="grid md:grid-cols-2 gap-4 mt-8">
-        <input class="border border-stone-300 p-3 bg-white" aria-label="姓名" data-ph="姓名" />
-        <input class="border border-stone-300 p-3 bg-white" aria-label="邮箱" data-ph="邮箱" />
-        <input class="border border-stone-300 p-3 bg-white" aria-label="电话" data-ph="电话" />
-        <input class="border border-stone-300 p-3 bg-white" aria-label="所在城市" data-ph="所在城市" />
-        <textarea class="md:col-span-2 border border-stone-300 p-3 bg-white min-h-[120px]" aria-label="你的行程目标" data-ph="你的行程目标"></textarea>
-        <button type="button" class="md:col-span-2 justify-self-start bg-red-700 text-white px-7 py-3 hover:bg-red-800 transition-colors">提交申请</button>
+      <form id="apply-form" class="grid md:grid-cols-2 gap-4 mt-8" action="https://formsubmit.co/hello@explorechina.ca" method="POST">
+        <input type="hidden" name="_subject" value="新申请 — Explore China" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_next" value="https://www.explorechina.ca/zh/#apply" />
+        <input type="text" name="_honey" style="display:none" />
+        <input class="border border-stone-300 p-3 bg-white" name="name" aria-label="姓名" placeholder="姓名" data-ph="姓名" required />
+        <input class="border border-stone-300 p-3 bg-white" name="email" type="email" aria-label="邮箱" placeholder="邮箱" data-ph="邮箱" required />
+        <input class="border border-stone-300 p-3 bg-white" name="phone" aria-label="电话" placeholder="电话" data-ph="电话" />
+        <input class="border border-stone-300 p-3 bg-white" name="school" aria-label="你的学校" placeholder="你的学校" data-ph="你的学校" />
+        <textarea class="md:col-span-2 border border-stone-300 p-3 bg-white min-h-[120px]" name="goals" aria-label="你的行程目标" placeholder="你的行程目标" data-ph="你的行程目标"></textarea>
+        <button type="button" id="apply-btn" class="md:col-span-2 justify-self-start bg-red-700 text-white px-7 py-3 hover:bg-red-800 transition-colors">提交申请</button>
       </form>
+
+      <div id="apply-modal" class="apply-modal" style="display:none">
+        <div class="apply-modal__backdrop"></div>
+        <div class="apply-modal__box">
+          <h3 class="apply-modal__title">确认提交</h3>
+          <p class="apply-modal__text">你的申请将发送给我们的团队，我们会在 5 个工作日内通过邮件回复你。</p>
+          <div class="apply-modal__actions">
+            <button type="button" id="modal-cancel" class="apply-modal__btn apply-modal__btn--cancel">取消</button>
+            <button type="button" id="modal-confirm" class="apply-modal__btn apply-modal__btn--confirm">发送申请</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="apply-toast" class="apply-toast" style="display:none"></div>
     </div>
   </section>
 </Layout>
@@ -103,4 +122,91 @@ import Faq from '../../components/v1/Faq.astro';
   document.querySelectorAll('[data-ph]').forEach(function(el) {
     el.setAttribute(phAttr, el.getAttribute('data-ph') || '');
   });
+
+  /* ── Apply form: confirmation modal + async submit + toast ── */
+  (function () {
+    var form = document.getElementById('apply-form');
+    var btn = document.getElementById('apply-btn');
+    var modal = document.getElementById('apply-modal');
+    var cancelBtn = document.getElementById('modal-cancel');
+    var confirmBtn = document.getElementById('modal-confirm');
+    var toast = document.getElementById('apply-toast');
+    if (!form || !btn || !modal) return;
+
+    function showToast(msg, type) {
+      toast.textContent = msg;
+      toast.className = 'apply-toast toast-visible ' + (type === 'success' ? 'toast-success' : 'toast-error');
+      toast.style.display = 'block';
+      setTimeout(function () {
+        toast.classList.remove('toast-visible');
+        setTimeout(function () { toast.style.display = 'none'; }, 300);
+      }, 3500);
+    }
+
+    function showModal() { modal.style.display = 'flex'; }
+    function hideModal() { modal.style.display = 'none'; }
+
+    btn.addEventListener('click', function () {
+      var name = form.querySelector('[name="name"]');
+      var email = form.querySelector('[name="email"]');
+      if (!name.value.trim() || !email.value.trim()) {
+        showToast('请填写姓名和邮箱', 'error');
+        return;
+      }
+      if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        showToast('请输入有效的邮箱地址', 'error');
+        return;
+      }
+      showModal();
+    });
+
+    cancelBtn.addEventListener('click', hideModal);
+    modal.querySelector('.apply-modal__backdrop').addEventListener('click', hideModal);
+
+    confirmBtn.addEventListener('click', function () {
+      hideModal();
+      confirmBtn.disabled = true;
+      btn.textContent = '发送中...';
+      btn.disabled = true;
+
+      var formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(function (res) {
+        if (res.ok) {
+          showToast('✓ 申请已发送！我们会在 5 个工作日内联系你。', 'success');
+          form.reset();
+        } else {
+          showToast('出了点问题，请重试或直接发邮件给我们。', 'error');
+        }
+      }).catch(function () {
+        showToast('网络错误，请检查连接后重试。', 'error');
+      }).finally(function () {
+        btn.textContent = '提交申请';
+        btn.disabled = false;
+        confirmBtn.disabled = false;
+      });
+    });
+  }());
 </script>
+
+<style is:global>
+.apply-modal { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:1rem; }
+.apply-modal__backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); }
+.apply-modal__box { position:relative; background:#fff; border-radius:12px; padding:2rem; max-width:420px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.15); animation:modalIn 0.25s ease; }
+@keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(8px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.apply-modal__title { font-size:1.25rem; font-weight:600; color:#1c1917; margin-bottom:0.5rem; }
+.apply-modal__text { font-size:0.95rem; color:#78716c; line-height:1.6; margin-bottom:1.5rem; }
+.apply-modal__actions { display:flex; gap:0.75rem; justify-content:flex-end; }
+.apply-modal__btn { padding:0.6rem 1.25rem; border-radius:8px; font-size:0.9rem; font-weight:500; cursor:pointer; border:none; transition:background 0.2s; }
+.apply-modal__btn--cancel { background:#f5f5f4; color:#57534e; }
+.apply-modal__btn--cancel:hover { background:#e7e5e4; }
+.apply-modal__btn--confirm { background:#b91c1c; color:#fff; }
+.apply-modal__btn--confirm:hover { background:#991b1b; }
+.apply-toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(20px); padding:0.85rem 1.5rem; border-radius:10px; font-size:0.95rem; font-weight:500; z-index:10000; opacity:0; transition:opacity 0.3s ease,transform 0.3s ease; pointer-events:none; white-space:nowrap; }
+.apply-toast.toast-visible { opacity:1; transform:translateX(-50%) translateY(0); }
+.apply-toast.toast-success { background:#166534; color:#fff; }
+.apply-toast.toast-error { background:#991b1b; color:#fff; }
+</style>

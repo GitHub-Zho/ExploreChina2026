@@ -31,21 +31,31 @@ const destinations = [
 
 <script is:inline>
   document.querySelectorAll('.js-dest-scroll').forEach(function (el) {
+    /* Temporarily disable snap during wheel so it doesn't fight scrollLeft */
+    var snapTimer = null;
     el.addEventListener(
       'wheel',
       function (e) {
-        /* Always capture vertical scroll when hovering the strip */
         var maxScroll = el.scrollWidth - el.clientWidth;
-        if (maxScroll <= 0) return; /* nothing to scroll */
+        if (maxScroll <= 0) return;
 
         var atStart = el.scrollLeft <= 0;
         var atEnd = el.scrollLeft >= maxScroll - 1;
 
-        /* Allow page scroll only if strip is at boundary AND user scrolls further that direction */
+        /* Let page scroll if at boundary and scrolling further */
         if (atStart && e.deltaY < 0) return;
         if (atEnd && e.deltaY > 0) return;
 
         e.preventDefault();
+        e.stopPropagation();
+
+        /* Disable snap during active scrolling */
+        el.style.scrollSnapType = 'none';
+        clearTimeout(snapTimer);
+        snapTimer = setTimeout(function () {
+          el.style.scrollSnapType = '';
+        }, 150);
+
         el.scrollLeft += e.deltaY;
       },
       { passive: false }
