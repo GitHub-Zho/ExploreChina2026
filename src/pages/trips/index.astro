@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Upcoming Trips | Explore China 2026"
+  description="Browse all Explore China trip routes for Canadian university students."
+  lang="en"
+  canonical="/trips"
+  alternateHref="/zh/trips"
+  alternateLabel="中文"
+>
+  <section style="padding: var(--section-gap) 0 clamp(2rem,5vw,4rem);">
+    <div class="container" style="text-align:center;">
+      <p class="section-eyebrow">Our Routes</p>
+      <h1 class="section-title">Upcoming Trips</h1>
+      <p class="section-sub" style="margin-inline:auto; text-align:center;">
+        Two routes. Different Chinas. Choose the one that fits how you want to travel.
+      </p>
+    </div>
+  </section>
+
+  <section class="trips-list">
+    <div class="container">
+
+      <a href="/trips/explore-china-2026-summer" class="trip-listing-card">
+        <div class="trip-listing-card__img">
+          <img src="/images/highlights/suzhou-canal.jpg" alt="Suzhou canal watertown" />
+        </div>
+        <div class="trip-listing-card__body">
+          <div class="trip-listing-card__top">
+            <div>
+              <h2 class="trip-listing-card__title">Classic China — East Route</h2>
+              <p class="trip-listing-card__subtitle">Shanghai · Suzhou · Hangzhou · Beijing</p>
+            </div>
+            <span class="trip-badge trip-badge--open">Open</span>
+          </div>
+          <p class="trip-listing-card__desc">Canal towns, ancient gardens, West Lake, and the Forbidden City. Four cities in ten days — the most complete first-time China experience.</p>
+          <div class="trip-listing-card__stats">
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">Duration</span>
+              <span class="trip-listing-card__stat-value">10 Days</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">Cities</span>
+              <span class="trip-listing-card__stat-value">4 Cities</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">Departure</span>
+              <span class="trip-listing-card__stat-value">Summer 2026</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">From</span>
+              <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">CAD ~$3,000</span>
+            </div>
+          </div>
+          <div class="trip-listing-card__footer">
+            <span class="trip-cta">View Itinerary →</span>
+          </div>
+        </div>
+      </a>
+
+      <div class="trip-listing-card trip-listing-card--muted">
+        <div class="trip-listing-card__img trip-listing-card__img--placeholder">
+          <span>Coming Soon</span>
+        </div>
+        <div class="trip-listing-card__body">
+          <div class="trip-listing-card__top">
+            <div>
+              <h2 class="trip-listing-card__title">Yunnan — Southwest Route</h2>
+              <p class="trip-listing-card__subtitle">Kunming · Lijiang · Dali</p>
+            </div>
+            <span class="trip-badge trip-badge--soon">Coming Soon</span>
+          </div>
+          <p class="trip-listing-card__desc">Ancient towns, minority cultures, rice terraces, and mountain landscapes. A route through one of China's most visually distinct provinces.</p>
+          <div class="trip-listing-card__stats">
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">Duration</span>
+              <span class="trip-listing-card__stat-value">10 Days</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">Cities</span>
+              <span class="trip-listing-card__stat-value">3 Cities</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">Departure</span>
+              <span class="trip-listing-card__stat-value">To be announced</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">Price</span>
+              <span class="trip-listing-card__stat-value" style="color:var(--color-ink-muted)">To be announced</span>
+            </div>
+          </div>
+          <div class="trip-listing-card__footer">
+            <span class="trip-cta trip-cta--ghost">Not Yet Open</span>
+          </div>
+          <form class="trip-notify" id="yunnan-notify">
+            <input class="trip-notify__input" type="email" placeholder="Get notified when this opens" required />
+            <button class="trip-notify__btn" type="submit">Notify Me</button>
+          </form>
+          <p class="trip-notify__confirm" id="yunnan-notify-confirm">You're on the list — we'll reach out when Yunnan opens.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    const notifyForm = document.getElementById('yunnan-notify');
+    const notifyConfirm = document.getElementById('yunnan-notify-confirm');
+    if (notifyForm) {
+      notifyForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = (notifyForm.querySelector('input[type="email"]') as HTMLInputElement).value;
+        try {
+          await fetch('https://formsubmit.co/hello@explorechina.ca', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ email, _subject: 'Yunnan Route — Notify Me', _captcha: 'false', route: 'Yunnan Southwest 2026' })
+          });
+        } catch (_) {}
+        if (notifyForm) (notifyForm as HTMLElement).style.display = 'none';
+        if (notifyConfirm) (notifyConfirm as HTMLElement).style.display = 'block';
+      });
+    }
+  </script>
+</Layout>

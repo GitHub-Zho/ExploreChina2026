@@ -25,7 +25,7 @@ const isZh = lang === 'zh';
     {minimal ? (
       <>
         <div class="navbar__minimal hidden md:flex items-center gap-3">
-          <a href={isZh ? '/zh/trips/explore-china-2026-summer' : '/trips/explore-china-2026-summer'} class="navbar__plain-link text-white text-sm">{isZh ? '行程' : 'Trip'}</a>
+          <a href={isZh ? '/zh/trips' : '/trips'} class="navbar__plain-link text-white text-sm">{isZh ? '行程' : 'Trips'}</a>
           <a href={isZh ? '/zh/handbook' : '/handbook'} class="navbar__plain-link text-white text-sm">{isZh ? '手册' : 'Handbook'}</a>
           <a href={isZh ? '/zh/about' : '/about'} class="navbar__plain-link text-white text-sm">{isZh ? '关于' : 'About'}</a>
           <a href={alternateHref} class="navbar__lang text-white text-sm">{alternateLabel}</a>
@@ -53,7 +53,7 @@ const isZh = lang === 'zh';
     ) : (
       <>
         <nav class="navbar__links hidden md:flex gap-8 text-sm font-medium tracking-wide text-white" aria-label="Main navigation">
-          <a href={isZh ? '/zh/trips/explore-china-2026-summer' : '/trips/explore-china-2026-summer'}>{isZh ? '行程' : 'Trip'}</a>
+          <a href={isZh ? '/zh/trips' : '/trips'}>{isZh ? '行程' : 'Trips'}</a>
           <a href={isZh ? '/zh/handbook' : '/handbook'}>{isZh ? '手册' : 'Handbook'}</a>
           <a href={isZh ? '/zh/about' : '/about'}>{isZh ? '关于' : 'About'}</a>
         </nav>
@@ -88,7 +88,7 @@ const isZh = lang === 'zh';
     aria-hidden="true"
   >
     <nav class="mobile-menu__nav" aria-label="Mobile navigation">
-      <a href={isZh ? '/zh/trips/explore-china-2026-summer' : '/trips/explore-china-2026-summer'} class="mobile-menu__link">{isZh ? '行程' : 'Trip'}</a>
+      <a href={isZh ? '/zh/trips' : '/trips'} class="mobile-menu__link">{isZh ? '行程' : 'Trips'}</a>
       <a href={isZh ? '/zh/handbook' : '/handbook'} class="mobile-menu__link">{isZh ? '手册' : 'Handbook'}</a>
       <a href={isZh ? '/zh/about' : '/about'} class="mobile-menu__link">{isZh ? '关于' : 'About'}</a>
       <a href={isZh ? '/zh/' : '/'} class="mobile-menu__link">{isZh ? '立即报名' : 'Apply'}</a>

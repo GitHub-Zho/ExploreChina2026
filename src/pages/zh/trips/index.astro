@@ -1,0 +1,127 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="即将出发的行程 | Explore China 2026"
+  description="浏览所有 Explore China 为加拿大大学生设计的旅行线路。"
+  lang="zh"
+  canonical="/zh/trips"
+  alternateHref="/trips"
+  alternateLabel="English"
+>
+  <section style="padding: var(--section-gap) 0 clamp(2rem,5vw,4rem);">
+    <div class="container" style="text-align:center;">
+      <p class="section-eyebrow">我们的线路</p>
+      <h1 class="section-title">所有行程</h1>
+      <p class="section-sub" style="margin-inline:auto; text-align:center;">
+        两条线路，两种中国。选择最适合你的方式出发。
+      </p>
+    </div>
+  </section>
+
+  <section class="trips-list">
+    <div class="container">
+
+      <a href="/zh/trips/explore-china-2026-summer" class="trip-listing-card">
+        <div class="trip-listing-card__img">
+          <img src="/images/highlights/suzhou-canal.jpg" alt="苏州运河古镇" />
+        </div>
+        <div class="trip-listing-card__body">
+          <div class="trip-listing-card__top">
+            <div>
+              <h2 class="trip-listing-card__title">经典东线</h2>
+              <p class="trip-listing-card__subtitle">上海 · 苏州 · 杭州 · 北京</p>
+            </div>
+            <span class="trip-badge trip-badge--open">开放报名</span>
+          </div>
+          <p class="trip-listing-card__desc">运河古镇、江南园林、西湖、故宫——十天四城，最完整的初次中国体验。</p>
+          <div class="trip-listing-card__stats">
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">行程天数</span>
+              <span class="trip-listing-card__stat-value">10 天</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">城市</span>
+              <span class="trip-listing-card__stat-value">4 座城市</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">出发时间</span>
+              <span class="trip-listing-card__stat-value">2026 年暑期</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">起价</span>
+              <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">约 CAD $3,000</span>
+            </div>
+          </div>
+          <div class="trip-listing-card__footer">
+            <span class="trip-cta">查看行程 →</span>
+          </div>
+        </div>
+      </a>
+
+      <div class="trip-listing-card trip-listing-card--muted">
+        <div class="trip-listing-card__img trip-listing-card__img--placeholder">
+          <span>即将推出</span>
+        </div>
+        <div class="trip-listing-card__body">
+          <div class="trip-listing-card__top">
+            <div>
+              <h2 class="trip-listing-card__title">云南西南线</h2>
+              <p class="trip-listing-card__subtitle">昆明 · 丽江 · 大理</p>
+            </div>
+            <span class="trip-badge trip-badge--soon">即将推出</span>
+          </div>
+          <p class="trip-listing-card__desc">古镇、少数民族文化、梯田与山地风光——穿越中国视觉上最独特的省份之一。</p>
+          <div class="trip-listing-card__stats">
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">行程天数</span>
+              <span class="trip-listing-card__stat-value">10 天</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">城市</span>
+              <span class="trip-listing-card__stat-value">3 座城市</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">出发时间</span>
+              <span class="trip-listing-card__stat-value">待定</span>
+            </div>
+            <div class="trip-listing-card__stat">
+              <span class="trip-listing-card__stat-label">价格</span>
+              <span class="trip-listing-card__stat-value" style="color:var(--color-ink-muted)">待定</span>
+            </div>
+          </div>
+          <div class="trip-listing-card__footer">
+            <span class="trip-cta trip-cta--ghost">暂未开放</span>
+          </div>
+          <form class="trip-notify" id="yunnan-notify">
+            <input class="trip-notify__input" type="email" placeholder="有新消息第一时间通知我" required />
+            <button class="trip-notify__btn" type="submit">通知我</button>
+          </form>
+          <p class="trip-notify__confirm" id="yunnan-notify-confirm">已加入通知列表，开放时我们会联系你。</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    const notifyForm = document.getElementById('yunnan-notify');
+    const notifyConfirm = document.getElementById('yunnan-notify-confirm');
+    if (notifyForm) {
+      notifyForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = (notifyForm.querySelector('input[type="email"]') as HTMLInputElement).value;
+        try {
+          await fetch('https://formsubmit.co/hello@explorechina.ca', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ email, _subject: 'Yunnan Route — Notify Me (ZH)', _captcha: 'false', route: 'Yunnan Southwest 2026' })
+          });
+        } catch (_) {}
+        if (notifyForm) (notifyForm as HTMLElement).style.display = 'none';
+        if (notifyConfirm) (notifyConfirm as HTMLElement).style.display = 'block';
+      });
+    }
+  </script>
+</Layout>
