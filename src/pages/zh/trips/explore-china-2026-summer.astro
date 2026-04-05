@@ -23,7 +23,7 @@ import {
   <!-- Hero Banner -->
   <div class="trip-hero">
     <img
-      src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1600&q=80"
+      src="/images/highlights/forbidden-city.jpg"
       alt="北京故宫鸟瞰"
       class="trip-hero__img"
     />
@@ -44,10 +44,72 @@ import {
         <div class="trip-strip__fact"><span class="trip-strip__label">截止</span><span class="trip-strip__val">{currentTrip.applicationDeadlineZh}</span></div>
       </div>
       <div class="trip-strip__actions">
-        <a class="btn btn--primary" href="#" style="background:#b91c1c; color:#fff; border-color:#b91c1c;">立即申请</a>
+        <a class="trip-cta" href="#apply">立即申请</a>
       </div>
     </div>
   </section>
+
+  <section class="route-intro">
+  <div class="route-intro__inner">
+    <div class="route-intro__rule"></div>
+
+    <p class="route-intro__headline">
+      「这是我们的招牌路线——乍一看可能和所有其他中国行程没什么两样。」
+    </p>
+
+    <div class="route-intro__body">
+      <p>
+        上海、苏州、杭州、北京。你在无数旅游套餐上都能看到这四个名字。
+        但就像巴黎有一千种游法，只有少数几种会让你真正爱上它——
+        让一段旅程难忘的，从来不是城市本身，而是你怎么走过它、和谁一起走，
+        以及那些任何宣传册都不会提到的瞬间。
+      </p>
+      <span class="route-intro__pivot">这就是那个版本的中国。</span>
+    </div>
+
+    <button class="route-intro__toggle" id="route-intro-toggle" aria-expanded="false">
+      阅读完整故事 ↓
+    </button>
+
+    <div class="route-intro__expandable" id="route-intro-body">
+      <div class="route-intro__body">
+
+        <span class="route-intro__city-label">上海</span>
+        <p>上海不会温柔地欢迎你。外滩黄昏，百年石柱建筑与对岸霓虹天际线隔江对望，灯光泼在黄浦江上，像整座城市在刻意炫耀。转个弯走进老城厢，包子铺热气弥漫，弄堂窄到两肩几乎触壁，再走几步，你已经站在一家还没开进纽约的概念店里，手里端着一杯叫不出名字的饮料。上海的矛盾密度极高，却从不自我撕裂——它不只是有能量，它的能量多到溢出来，而这正是它存在的方式。</p>
+
+        <span class="route-intro__city-label">苏州</span>
+        <p>苏州到来，像一声深呼气。喧嚣远了，运河慢下来，水出现在每一个转角——不是海，是古运河，沉静悠远，流了千年，曾经托载着丝商与文人。这里的古典园林不是公园，是哲学命题的实体——每一块太湖石经过精心放置，每一条廊道刻意调整了角度，让六百年前某人决定的月光，落在它应该落的地方。你会在一个将美视为道德责任的文明遗留下来的空间里穿行，并在读懂它之前，就已经在心里感受到它。</p>
+
+        <span class="route-intro__city-label">杭州</span>
+        <p>杭州会悄悄改变你，你还没意识到。西湖不像外滩那样迎面而来，它只是静静地在那里——倒映着山和柳和塔，像一幅有人忘了画完的画，又像根本不需要画完。黄昏时沿湖散步，你会突然明白，为什么中国诗人花了一千年写这片湖，仍觉得没说清楚。灵隐寺的钟声飘过水面，空气里是龙井茶的气息——不是茶馆里泡出来的，是山上茶叶本身的味道。这是摩天楼和高铁之前的中国，也将是它们之后的中国。你在这里最安静的那些时刻，身边会有人陪着，而那些人，你认识还不到一周。</p>
+
+        <span class="route-intro__city-label">北京</span>
+        <p>然后是北京——一切忽然变大了，不是渐进的，是即时的。大道更宽，历史更重，天空感觉更高。长城出现在山脊线上时，所有人同时安静了下来。你没有办法为这一刻做准备。照片看过，视频也看过，都没用。当那道古老的石脊爬上山峦、延伸进薄雾直到消失——你胸腔里有什么东西悄悄发生了。不是震撼，是比震撼更深的东西。是那种站在一个重要了两千年的地方、而你的身体在脑子之前就已经知道这件事的感觉。</p>
+        <p>故宫又是另一种感受——180英亩的皇城建筑，如此精确、庄重，凝重得让人不知不觉停止说话。整个文明曾经在这些朱红城墙之内被治理。然后你走出去，十分钟后站在一条胡同里，一位老奶奶在打牌，一只猫睡在自行车座上，衣服在风里晾着——北京又变成了一个街区，而不是一座纪念碑。</p>
+        <p>但这里还有一些其他行程给不了你的东西：在清华和北京大学真正度过的一天——不是走过校园，而是坐下来，和顶尖学府的学生面对面交流，那些对话会重新刷新你对世界的认知。亲手参与的文化工坊，让你不只是隔着绳子观看，而是用和几百年前一样的方式，亲手触碰这种文化。温泉，让长途飞行的疲惫在热水里慢慢散开。深夜的屋顶，天际线是背景，五天前认识的陌生人已经不再陌生。</p>
+        <p>这不是旅游团。这是十天，有什么东西会在你身体里悄悄重新排列——而刚认识的陌生人，到第三天就已经是朋友了。</p>
+
+      </div>
+
+      <p class="route-intro__colophon">
+        10天 &nbsp;·&nbsp; 4座城市 &nbsp;·&nbsp; 无需任何准备<br>
+        你只需要好奇心，和一个半空的行李箱。
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const toggle = document.getElementById('route-intro-toggle');
+  const body = document.getElementById('route-intro-body');
+  if (toggle && body) {
+    toggle.addEventListener('click', () => {
+      const isOpen = body.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.textContent = isOpen ? '收起 ↑' : '阅读完整故事 ↓';
+    });
+  }
+</script>
 
   <!-- Who is this for -->
   <section id="who-is-this-for" class="section" style="padding: 4rem 2rem;">
@@ -205,8 +267,63 @@ import {
     </div>
   </section>
 
+  <section id="apply" class="route-apply">
+  <div class="container">
+    <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">申请</p>
+    <h2 class="section-title" style="color:#fff;">准备好了吗？</h2>
+    <p class="route-apply__sub">你已经看完了行程安排。告诉我们一些关于你的信息——我们将在5个工作日内回复。</p>
 
+    <form id="trip-apply-form" class="route-apply__form" action="https://formsubmit.co/hello@explorechina.ca" method="POST">
+      <input type="hidden" name="_subject" value="申请 — 探索中国 2026 夏季路线" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_next" value="https://www.explorechina.ca/zh/trips/explore-china-2026-summer#apply" />
+      <input type="hidden" name="trip" value="探索中国 2026 — 夏季路线（上海 / 苏州 / 杭州 / 北京）" />
+      <input type="text" name="_honey" style="display:none" />
+      <input class="route-apply__input" name="name" placeholder="姓名" required />
+      <input class="route-apply__input" name="email" type="email" placeholder="电子邮箱" required />
+      <input class="route-apply__input" name="phone" placeholder="电话" />
+      <input class="route-apply__input" name="school" placeholder="就读院校" />
+      <textarea class="route-apply__input route-apply__textarea" name="goals" placeholder="你的旅行目标"></textarea>
+      <button type="button" id="trip-apply-btn" class="route-apply__submit">提交申请</button>
+    </form>
+
+    <!-- Confirmation Modal -->
+    <div id="trip-apply-modal" style="display:none">
+      <div class="apply-modal__backdrop"></div>
+      <div class="apply-modal__box">
+        <h3 class="apply-modal__title">确认提交</h3>
+        <p class="apply-modal__text">您的申请将发送给我们的团队，我们将在5个工作日内回复。</p>
+        <div class="apply-modal__actions">
+          <button type="button" id="trip-modal-cancel" class="apply-modal__btn apply-modal__btn--cancel">取消</button>
+          <button type="button" id="trip-modal-confirm" class="apply-modal__btn apply-modal__btn--confirm">发送申请</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="trip-apply-toast" class="apply-toast" role="alert" aria-live="polite" style="display:none"></div>
+  </div>
+</section>
 </Layout>
+
+<style is:global>
+.apply-modal { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:1rem; }
+.apply-modal__backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); }
+.apply-modal__box { position:relative; background:#fff; border-radius:12px; padding:2rem; max-width:420px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.15); animation:modalIn 0.25s ease; }
+@keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(8px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.apply-modal__title { font-size:1.25rem; font-weight:600; color:#1c1917; margin-bottom:0.5rem; }
+.apply-modal__text { font-size:0.95rem; color:#78716c; line-height:1.6; margin-bottom:1.5rem; }
+.apply-modal__actions { display:flex; gap:0.75rem; justify-content:flex-end; }
+.apply-modal__btn { padding:0.6rem 1.25rem; border-radius:8px; font-size:0.9rem; font-weight:500; cursor:pointer; border:none; transition:background 0.2s; }
+.apply-modal__btn--cancel { background:#f5f5f4; color:#57534e; }
+.apply-modal__btn--cancel:hover { background:#e7e5e4; }
+.apply-modal__btn--confirm { background:#b91c1c; color:#fff; }
+.apply-modal__btn--confirm:hover { background:#991b1b; }
+.apply-toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(20px); padding:1rem 2.5rem; border-radius:12px; font-size:1rem; font-weight:500; z-index:10000; opacity:0; transition:opacity 0.3s ease,transform 0.3s ease; pointer-events:none; min-width:320px; max-width:90vw; text-align:center; box-shadow:0 8px 30px rgba(0,0,0,0.15); }
+.apply-toast.toast-visible { opacity:1; transform:translateX(-50%) translateY(0); }
+.apply-toast.toast-success { background:#166534; color:#fff; }
+.apply-toast.toast-error { background:#991b1b; color:#fff; }
+</style>
 
 <style>
 .trip-hero {
@@ -289,4 +406,72 @@ import {
       });
     });
   });
+
+  /* ── Apply form: confirmation modal + async submit + toast ── */
+  (function () {
+    var form = document.getElementById('trip-apply-form');
+    var btn = document.getElementById('trip-apply-btn');
+    var modal = document.getElementById('trip-apply-modal');
+    var cancelBtn = document.getElementById('trip-modal-cancel');
+    var confirmBtn = document.getElementById('trip-modal-confirm');
+    var toast = document.getElementById('trip-apply-toast');
+    if (!form || !btn || !modal) return;
+
+    function showToast(msg, type) {
+      toast.textContent = msg;
+      toast.className = 'apply-toast toast-visible ' + (type === 'success' ? 'toast-success' : 'toast-error');
+      toast.style.display = 'block';
+      setTimeout(function () {
+        toast.classList.remove('toast-visible');
+        setTimeout(function () { toast.style.display = 'none'; }, 300);
+      }, 3500);
+    }
+
+    function showModal() { modal.style.display = 'flex'; }
+    function hideModal() { modal.style.display = 'none'; }
+
+    btn.addEventListener('click', function () {
+      var name = form.querySelector('[name="name"]');
+      var email = form.querySelector('[name="email"]');
+      if (!name.value.trim() || !email.value.trim()) {
+        showToast('请填写姓名和电子邮箱。', 'error');
+        return;
+      }
+      if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        showToast('请输入有效的电子邮箱地址。', 'error');
+        return;
+      }
+      showModal();
+    });
+
+    cancelBtn.addEventListener('click', hideModal);
+    modal.querySelector('.apply-modal__backdrop').addEventListener('click', hideModal);
+
+    confirmBtn.addEventListener('click', function () {
+      hideModal();
+      confirmBtn.disabled = true;
+      btn.textContent = '发送中...';
+      btn.disabled = true;
+
+      var formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(function (res) {
+        if (res.ok) {
+          showToast('✓ 申请已发送！我们将在5个工作日内与您联系。', 'success');
+          form.reset();
+        } else {
+          showToast('出现错误，请重试或直接发送邮件联系我们。', 'error');
+        }
+      }).catch(function () {
+        showToast('网络错误，请检查您的连接后重试。', 'error');
+      }).finally(function () {
+        btn.textContent = '提交申请';
+        btn.disabled = false;
+        confirmBtn.disabled = false;
+      });
+    });
+  }());
 </script>

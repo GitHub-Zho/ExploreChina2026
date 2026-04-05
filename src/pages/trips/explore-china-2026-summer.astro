@@ -43,8 +43,8 @@ const tripStructuredData = [
 
   <div class="trip-hero">
     <img
-      src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1600&q=80"
-      alt="Beijing Forbidden City aerial view"
+      src="/images/highlights/forbidden-city.jpg"
+      alt="Forbidden City, Beijing"
       class="trip-hero__img"
     />
     <div class="trip-hero__overlay">
@@ -63,10 +63,72 @@ const tripStructuredData = [
         <div class="trip-strip__fact"><span class="trip-strip__label">Deadline</span><span class="trip-strip__val">{currentTrip.applicationDeadline}</span></div>
       </div>
       <div class="trip-strip__actions">
-        <a class="btn btn--primary" href="#" style="background:#b91c1c; color:#fff; border-color:#b91c1c;">Apply for This Trip</a>
+        <a class="trip-cta" href="#apply">Apply for This Trip</a>
       </div>
     </div>
   </section>
+
+  <section class="route-intro">
+  <div class="route-intro__inner">
+    <div class="route-intro__rule"></div>
+
+    <p class="route-intro__headline">
+      This is our signature route — and it might look like every other China itinerary at first glance.
+    </p>
+
+    <div class="route-intro__body">
+      <p>
+        Shanghai, Suzhou, Hangzhou, Beijing. The same four names you'll find on a dozen tour packages.
+        But the way Paris has a thousand tours and only a few that make you fall in love with it —
+        the cities aren't what make a trip unforgettable. It's how you move through them, who you're with,
+        and the moments no brochure ever mentions.
+      </p>
+      <span class="route-intro__pivot">This is that version of China.</span>
+    </div>
+
+    <button class="route-intro__toggle" id="route-intro-toggle" aria-expanded="false">
+      Read the full story ↓
+    </button>
+
+    <div class="route-intro__expandable" id="route-intro-body">
+      <div class="route-intro__body">
+
+        <span class="route-intro__city-label">Shanghai</span>
+        <p>Shanghai doesn't introduce itself gently. It throws you into the deep end — the Bund at dusk, where a century of colonial stone faces off against a skyline so futuristic it looks computer-generated, light pouring across the Huangpu like the city is showing off because it knows you're watching. Then you turn a corner into the Old Town, and suddenly it's steam rising from dumpling carts, grandmothers haggling over morning vegetables, lanes so narrow your shoulders brush both walls. Three blocks later you're standing in a concept store that hasn't opened in New York yet, drinking something you can't pronounce, wondering how a single city holds this many contradictions without breaking apart. It doesn't just have energy — it has too much energy, and that's exactly the point.</p>
+
+        <span class="route-intro__city-label">Suzhou</span>
+        <p>Suzhou arrives like a deep exhale. The noise drops. The sky opens. Water appears everywhere — not ocean water, but canal water, slow and dark and ancient, the kind that has carried silk traders and scholar-poets for a thousand years. The classical gardens here aren't parks. They're philosophical arguments built in stone and water — every rock placed to frame a specific view, every corridor angled so the moonlight lands exactly where someone decided it should, six centuries ago. You'll walk through spaces designed by people who believed beauty was a moral obligation, and you'll feel it in your chest before you understand it in your head. There's a stillness here that Shanghai would never allow, and your body will thank you for it.</p>
+
+        <span class="route-intro__city-label">Hangzhou</span>
+        <p>Hangzhou is where the trip changes you — quietly, without warning. West Lake doesn't hit you the way the Bund does. It doesn't shout. It just sits there, impossibly calm, reflecting mountains and willows and pagodas like a painting that someone forgot to finish because perfection was already there. You'll walk along the water at golden hour and understand, suddenly, viscerally, why Chinese poets spent a thousand years writing about this lake and still felt they hadn't said enough. Lingyin Temple bells drift across the surface. The air smells like Longjing tea — not from a shop, but from the actual hillside where the leaves are still growing. This is the China that existed long before the skyscrapers, long before the bullet trains, and it will exist long after. Some of the quietest moments of your life will happen here, surrounded by people you met a week ago who already feel like old friends.</p>
+
+        <span class="route-intro__city-label">Beijing</span>
+        <p>Then Beijing — and everything gets bigger. Not gradually. Immediately. The avenues are wider. The history is heavier. The sky somehow feels higher. And then the Great Wall appears on the ridgeline and every single person goes quiet at the same time. There is no preparation for this. You've seen the photos. You've watched the videos. None of it matters. When that ancient stone spine rises over the mountains and stretches into the haze until it disappears — something happens in your chest that you weren't expecting. It's not awe. It's something deeper. It's the physical sensation of standing somewhere that has mattered for two thousand years and realizing your body already knows it before your mind catches up.</p>
+        <p>The Forbidden City does something similar but different — 180 acres of imperial architecture so precise, so deliberate, so heavy with meaning that you stop talking without deciding to. An entire civilization was governed from behind these crimson walls. And then you step into a hutong alley ten minutes later, and there's a grandmother playing cards, a cat sleeping on a bicycle seat, someone's laundry drying in the wind — and Beijing suddenly feels like a neighborhood instead of a monument.</p>
+        <p>But here's what no other itinerary gives you. A day at Tsinghua and Peking University — not walking past buildings, but sitting across from students at China's most elite institutions, having the kind of conversations that rewire how you think about the world. Hands-on workshops where you don't watch culture from behind a rope — you shape it with your hands, the same way it's been passed down for generations. Hot springs where the exhaustion of a long-haul flight dissolves into warm water and fresh seasonal fruit. Late-night rooftop bars where the skyline becomes the backdrop to friendships that started five days ago and already feel irreplaceable.</p>
+        <p>This isn't a tour. It's ten days that will rearrange something inside you — and a group of strangers who won't be strangers by day three.</p>
+
+      </div>
+
+      <p class="route-intro__colophon">
+        10 days &nbsp;·&nbsp; 4 cities &nbsp;·&nbsp; Zero planning<br>
+        All you need is curiosity and a half-empty suitcase.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const toggle = document.getElementById('route-intro-toggle');
+  const body = document.getElementById('route-intro-body');
+  if (toggle && body) {
+    toggle.addEventListener('click', () => {
+      const isOpen = body.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.textContent = isOpen ? 'Close ↑' : 'Read the full story ↓';
+    });
+  }
+</script>
 
   <section id="who-is-this-for" class="section" style="padding: 4rem 2rem;">
     <div style="max-width:48rem; margin:0 auto;">
@@ -227,7 +289,64 @@ const tripStructuredData = [
       </div>
     </div>
   </section>
+
+  <section id="apply" class="route-apply">
+  <div class="container">
+    <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Apply</p>
+    <h2 class="section-title" style="color:#fff;">Ready to go?</h2>
+    <p class="route-apply__sub">You've read the itinerary. Tell us a bit about yourself — we'll follow up within 5 business days.</p>
+
+    <form id="trip-apply-form" class="route-apply__form" action="https://formsubmit.co/hello@explorechina.ca" method="POST">
+      <input type="hidden" name="_subject" value="Application — Explore China 2026 Summer Route" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_next" value="https://www.explorechina.ca/trips/explore-china-2026-summer#apply" />
+      <input type="hidden" name="trip" value="Explore China 2026 — Summer Route (Shanghai / Suzhou / Hangzhou / Beijing)" />
+      <input type="text" name="_honey" style="display:none" />
+      <input class="route-apply__input" name="name" placeholder="Name" required />
+      <input class="route-apply__input" name="email" type="email" placeholder="Email" required />
+      <input class="route-apply__input" name="phone" placeholder="Phone" />
+      <input class="route-apply__input" name="school" placeholder="Your university / school" />
+      <textarea class="route-apply__input route-apply__textarea" name="goals" placeholder="Your travel goals"></textarea>
+      <button type="button" id="trip-apply-btn" class="route-apply__submit">Submit Application</button>
+    </form>
+
+    <!-- Confirmation Modal -->
+    <div id="trip-apply-modal" style="display:none">
+      <div class="apply-modal__backdrop"></div>
+      <div class="apply-modal__box">
+        <h3 class="apply-modal__title">Confirm submission</h3>
+        <p class="apply-modal__text">Your application for the Summer 2026 Route will be sent to our team. We'll get back to you within 5 business days.</p>
+        <div class="apply-modal__actions">
+          <button type="button" id="trip-modal-cancel" class="apply-modal__btn apply-modal__btn--cancel">Cancel</button>
+          <button type="button" id="trip-modal-confirm" class="apply-modal__btn apply-modal__btn--confirm">Send application</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="trip-apply-toast" class="apply-toast" role="alert" aria-live="polite" style="display:none"></div>
+  </div>
+</section>
 </Layout>
+
+<style is:global>
+.apply-modal { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:1rem; }
+.apply-modal__backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); }
+.apply-modal__box { position:relative; background:#fff; border-radius:12px; padding:2rem; max-width:420px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.15); animation:modalIn 0.25s ease; }
+@keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(8px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.apply-modal__title { font-size:1.25rem; font-weight:600; color:#1c1917; margin-bottom:0.5rem; }
+.apply-modal__text { font-size:0.95rem; color:#78716c; line-height:1.6; margin-bottom:1.5rem; }
+.apply-modal__actions { display:flex; gap:0.75rem; justify-content:flex-end; }
+.apply-modal__btn { padding:0.6rem 1.25rem; border-radius:8px; font-size:0.9rem; font-weight:500; cursor:pointer; border:none; transition:background 0.2s; }
+.apply-modal__btn--cancel { background:#f5f5f4; color:#57534e; }
+.apply-modal__btn--cancel:hover { background:#e7e5e4; }
+.apply-modal__btn--confirm { background:#b91c1c; color:#fff; }
+.apply-modal__btn--confirm:hover { background:#991b1b; }
+.apply-toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(20px); padding:1rem 2.5rem; border-radius:12px; font-size:1rem; font-weight:500; z-index:10000; opacity:0; transition:opacity 0.3s ease,transform 0.3s ease; pointer-events:none; min-width:320px; max-width:90vw; text-align:center; box-shadow:0 8px 30px rgba(0,0,0,0.15); }
+.apply-toast.toast-visible { opacity:1; transform:translateX(-50%) translateY(0); }
+.apply-toast.toast-success { background:#166534; color:#fff; }
+.apply-toast.toast-error { background:#991b1b; color:#fff; }
+</style>
 
 <style>
 .trip-hero {
@@ -325,4 +444,72 @@ const tripStructuredData = [
     }, { threshold: 0.5 });
     highlightCards.forEach((card) => io.observe(card));
   }
+
+  /* ── Apply form: confirmation modal + async submit + toast ── */
+  (function () {
+    var form = document.getElementById('trip-apply-form');
+    var btn = document.getElementById('trip-apply-btn');
+    var modal = document.getElementById('trip-apply-modal');
+    var cancelBtn = document.getElementById('trip-modal-cancel');
+    var confirmBtn = document.getElementById('trip-modal-confirm');
+    var toast = document.getElementById('trip-apply-toast');
+    if (!form || !btn || !modal) return;
+
+    function showToast(msg, type) {
+      toast.textContent = msg;
+      toast.className = 'apply-toast toast-visible ' + (type === 'success' ? 'toast-success' : 'toast-error');
+      toast.style.display = 'block';
+      setTimeout(function () {
+        toast.classList.remove('toast-visible');
+        setTimeout(function () { toast.style.display = 'none'; }, 300);
+      }, 3500);
+    }
+
+    function showModal() { modal.style.display = 'flex'; }
+    function hideModal() { modal.style.display = 'none'; }
+
+    btn.addEventListener('click', function () {
+      var name = form.querySelector('[name="name"]');
+      var email = form.querySelector('[name="email"]');
+      if (!name.value.trim() || !email.value.trim()) {
+        showToast('Please fill in your name and email.', 'error');
+        return;
+      }
+      if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        showToast('Please enter a valid email address.', 'error');
+        return;
+      }
+      showModal();
+    });
+
+    cancelBtn.addEventListener('click', hideModal);
+    modal.querySelector('.apply-modal__backdrop').addEventListener('click', hideModal);
+
+    confirmBtn.addEventListener('click', function () {
+      hideModal();
+      confirmBtn.disabled = true;
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      var formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(function (res) {
+        if (res.ok) {
+          showToast('✓ Application sent! We\'ll be in touch within 5 business days.', 'success');
+          form.reset();
+        } else {
+          showToast('Something went wrong. Please try again or email us directly.', 'error');
+        }
+      }).catch(function () {
+        showToast('Network error. Please check your connection and try again.', 'error');
+      }).finally(function () {
+        btn.textContent = 'Submit Application';
+        btn.disabled = false;
+        confirmBtn.disabled = false;
+      });
+    });
+  }());
 </script>
