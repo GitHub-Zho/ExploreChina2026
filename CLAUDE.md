@@ -42,6 +42,12 @@ git merge test --no-edit
 git push origin main          # triggers production deploy
 ```
 
+**After every push** — run the following and report the deployment URL to Jo:
+```bash
+gh api repos/GitHub-Zho/ExploreChina2026/deployments --jq '.[0].id' | xargs -I{} gh api repos/GitHub-Zho/ExploreChina2026/deployments/{}/statuses --jq '.[0].environment_url'
+```
+Always give Jo the exact preview URL after pushing to `test`, and the production URL after pushing to `main`.
+
 **This repo stores website code only** — no workspace configs, AGENTS.md, SOUL.md, memory files, etc.
 
 ---
