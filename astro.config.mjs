@@ -1,8 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
+import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://www.explorechina.ca',
-  integrations: [tailwind()],
+  integrations: [tailwind(), react()],
 });

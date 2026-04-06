@@ -291,80 +291,21 @@ const tripStructuredData = [
   </section>
 
   <section id="apply" class="route-apply">
-  <div class="container">
-    <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Apply</p>
-    <h2 class="section-title" style="color:#fff;">Ready to go?</h2>
-    <p class="route-apply__sub">You've read the itinerary. Tell us a bit about yourself — we'll follow up within 5 business days.</p>
-
-    <form id="trip-apply-form" class="route-apply__form" action="https://formsubmit.co/hello@explorechina.ca" method="POST">
-      <input type="hidden" name="_subject" value="Application — Explore China 2026 Summer Route" />
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_next" value="https://www.explorechina.ca/trips/explore-china-2026-summer#apply" />
-      <input type="hidden" name="trip" value="Explore China 2026 — Summer Route (Shanghai / Suzhou / Hangzhou / Beijing)" />
-      <input type="text" name="_honey" style="display:none" />
-      <input class="route-apply__input" name="name" placeholder="Name" required />
-      <input class="route-apply__input" name="email" type="email" placeholder="Email" required />
-      <input class="route-apply__input" name="phone" placeholder="Phone" />
-      <input class="route-apply__input" name="school" placeholder="Your university / school" />
-      <textarea class="route-apply__input route-apply__textarea" name="goals" placeholder="Your travel goals"></textarea>
-      <button type="button" id="trip-apply-btn" class="route-apply__submit">Submit Application</button>
-    </form>
-
-    <!-- Confirmation Modal -->
-    <div id="trip-apply-modal" style="display:none">
-      <div class="apply-modal__backdrop"></div>
-      <div class="apply-modal__box">
-        <h3 class="apply-modal__title">Confirm submission</h3>
-        <p class="apply-modal__text">Your application for the Summer 2026 Route will be sent to our team. We'll get back to you within 5 business days.</p>
-        <div class="apply-modal__actions">
-          <button type="button" id="trip-modal-cancel" class="apply-modal__btn apply-modal__btn--cancel">Cancel</button>
-          <button type="button" id="trip-modal-confirm" class="apply-modal__btn apply-modal__btn--confirm">Send application</button>
-        </div>
-      </div>
+    <div class="container" style="text-align:center; padding-top:0; padding-bottom:0;">
+      <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Apply</p>
+      <h2 class="section-title" style="color:#fff; margin-bottom:1rem;">Ready to go?</h2>
+      <p style="color:rgba(255,255,255,0.72); font-size:clamp(0.95rem,2vw,1.05rem); line-height:1.75; max-width:460px; margin:0 auto 2rem;">
+        Tell us about yourself and which trip you're interested in — we'll follow up within 5 business days.
+      </p>
+      <a href="/apply"
+        style="display:inline-block; background:var(--color-red,#c8102e); color:#fff; padding:0.9rem 2.5rem; font-size:0.875rem; font-weight:600; letter-spacing:0.08em; text-decoration:none; text-transform:uppercase; transition:background 0.2s;"
+        onmouseover="this.style.background='#a00d24'"
+        onmouseout="this.style.background='var(--color-red,#c8102e)'">
+        Apply Now →
+      </a>
     </div>
-
-  </div>
-  <div id="trip-apply-toast" class="trip-apply-toast" role="alert" aria-live="polite" style="display:none;"></div>
-</section>
+  </section>
 </Layout>
-
-<style is:global>
-.apply-modal { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:1rem; }
-.apply-modal__backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); }
-.apply-modal__box { position:relative; background:#fff; border-radius:12px; padding:2rem; max-width:420px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.15); animation:modalIn 0.25s ease; }
-@keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(8px)} to{opacity:1;transform:scale(1) translateY(0)} }
-.apply-modal__title { font-size:1.25rem; font-weight:600; color:#1c1917; margin-bottom:0.5rem; }
-.apply-modal__text { font-size:0.95rem; color:#78716c; line-height:1.6; margin-bottom:1.5rem; }
-.apply-modal__actions { display:flex; gap:0.75rem; justify-content:flex-end; }
-.apply-modal__btn { padding:0.6rem 1.25rem; border-radius:8px; font-size:0.9rem; font-weight:500; cursor:pointer; border:none; transition:background 0.2s; }
-.apply-modal__btn--cancel { background:#f5f5f4; color:#57534e; }
-.apply-modal__btn--cancel:hover { background:#e7e5e4; }
-.apply-modal__btn--confirm { background:#b91c1c; color:#fff; }
-.apply-modal__btn--confirm:hover { background:#991b1b; }
-.trip-apply-toast {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.875rem 2rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  z-index: 10001;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  min-width: 280px;
-  max-width: 90vw;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  white-space: nowrap;
-}
-.trip-apply-toast.toast-visible { opacity: 1; }
-.trip-apply-toast.toast-success { background: #166534; color: #fff; }
-.trip-apply-toast.toast-error { background: #991b1b; color: #fff; }
-</style>
 
 <style>
 .trip-hero {
@@ -463,74 +404,4 @@ const tripStructuredData = [
     highlightCards.forEach((card) => io.observe(card));
   }
 
-  /* ── Apply form: confirmation modal + async submit + toast ── */
-  (function () {
-    var form = document.getElementById('trip-apply-form');
-    var btn = document.getElementById('trip-apply-btn');
-    var modal = document.getElementById('trip-apply-modal');
-    var cancelBtn = document.getElementById('trip-modal-cancel');
-    var confirmBtn = document.getElementById('trip-modal-confirm');
-    var toast = document.getElementById('trip-apply-toast');
-    if (!form || !btn || !modal) return;
-
-    function showToast(msg, type) {
-      toast.textContent = msg;
-      toast.style.display = 'block';
-      toast.className = 'trip-apply-toast toast-visible ' + (type === 'success' ? 'toast-success' : 'toast-error');
-      setTimeout(function () {
-        toast.classList.remove('toast-visible');
-        setTimeout(function () {
-          toast.style.display = 'none';
-          toast.className = 'trip-apply-toast';
-        }, 300);
-      }, 3500);
-    }
-
-    function showModal() { modal.style.display = 'flex'; }
-    function hideModal() { modal.style.display = 'none'; }
-
-    btn.addEventListener('click', function () {
-      var name = form.querySelector('[name="name"]');
-      var email = form.querySelector('[name="email"]');
-      if (!name.value.trim() || !email.value.trim()) {
-        showToast('Please fill in your name and email.', 'error');
-        return;
-      }
-      if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-        showToast('Please enter a valid email address.', 'error');
-        return;
-      }
-      showModal();
-    });
-
-    cancelBtn.addEventListener('click', hideModal);
-    modal.querySelector('.apply-modal__backdrop').addEventListener('click', hideModal);
-
-    confirmBtn.addEventListener('click', function () {
-      hideModal();
-      confirmBtn.disabled = true;
-      btn.textContent = 'Sending...';
-      btn.disabled = true;
-
-      var formData = new FormData(form);
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      }).then(function (res) {
-        if (res.ok) {
-          showToast('✓ Application sent! We\'ll be in touch within 5 business days.', 'success');
-          form.reset();
-        } else {
-          showToast('Something went wrong. Please try again or email us directly.', 'error');
-        }
-      }).catch(function () {
-        showToast('Network error. Please check your connection and try again.', 'error');
-      }).finally(function () {
-        btn.textContent = 'Submit Application';
-        btn.disabled = false;
-        confirmBtn.disabled = false;
-      });
-    });
-  }());
 </script>

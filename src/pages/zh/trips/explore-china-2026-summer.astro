@@ -269,60 +269,21 @@ import {
   </section>
 
   <section id="apply" class="route-apply">
-  <div class="container">
-    <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">申请</p>
-    <h2 class="section-title" style="color:#fff;">准备好了吗？</h2>
-    <p class="route-apply__sub">你已经看完了行程安排。告诉我们一些关于你的信息——我们将在5个工作日内回复。</p>
-
-    <form id="trip-apply-form" class="route-apply__form" action="https://formsubmit.co/hello@explorechina.ca" method="POST">
-      <input type="hidden" name="_subject" value="申请 — 探索中国 2026 夏季路线" />
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_next" value="https://www.explorechina.ca/zh/trips/explore-china-2026-summer#apply" />
-      <input type="hidden" name="trip" value="探索中国 2026 — 夏季路线（上海 / 苏州 / 杭州 / 北京）" />
-      <input type="text" name="_honey" style="display:none" />
-      <input class="route-apply__input" name="name" placeholder="姓名" required />
-      <input class="route-apply__input" name="email" type="email" placeholder="电子邮箱" required />
-      <input class="route-apply__input" name="phone" placeholder="电话" />
-      <input class="route-apply__input" name="school" placeholder="就读院校" />
-      <textarea class="route-apply__input route-apply__textarea" name="goals" placeholder="你的旅行目标"></textarea>
-      <button type="button" id="trip-apply-btn" class="route-apply__submit">提交申请</button>
-    </form>
-
-    <!-- Confirmation Modal -->
-    <div id="trip-apply-modal" style="display:none">
-      <div class="apply-modal__backdrop"></div>
-      <div class="apply-modal__box">
-        <h3 class="apply-modal__title">确认提交</h3>
-        <p class="apply-modal__text">您的申请将发送给我们的团队，我们将在5个工作日内回复。</p>
-        <div class="apply-modal__actions">
-          <button type="button" id="trip-modal-cancel" class="apply-modal__btn apply-modal__btn--cancel">取消</button>
-          <button type="button" id="trip-modal-confirm" class="apply-modal__btn apply-modal__btn--confirm">发送申请</button>
-        </div>
-      </div>
+    <div class="container" style="text-align:center; padding-top:0; padding-bottom:0;">
+      <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">申请</p>
+      <h2 class="section-title" style="color:#fff; margin-bottom:1rem;">准备好了吗？</h2>
+      <p style="color:rgba(255,255,255,0.72); font-size:clamp(0.95rem,2vw,1.05rem); line-height:1.75; max-width:460px; margin:0 auto 2rem;">
+        告诉我们一些关于你的信息，以及你感兴趣的行程——我们将在5个工作日内回复。
+      </p>
+      <a href="/apply"
+        style="display:inline-block; background:var(--color-red,#c8102e); color:#fff; padding:0.9rem 2.5rem; font-size:0.875rem; font-weight:600; letter-spacing:0.08em; text-decoration:none; text-transform:uppercase; transition:background 0.2s;"
+        onmouseover="this.style.background='#a00d24'"
+        onmouseout="this.style.background='var(--color-red,#c8102e)'">
+        立即申请 →
+      </a>
     </div>
-
-  </div>
-</section>
+  </section>
 </Layout>
-
-<div id="trip-apply-toast" class="trip-apply-toast" role="alert" aria-live="polite" style="display:none;position:fixed"></div>
-
-<style is:global>
-.apply-modal { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:1rem; }
-.apply-modal__backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); }
-.apply-modal__box { position:relative; background:#fff; border-radius:12px; padding:2rem; max-width:420px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.15); animation:modalIn 0.25s ease; }
-@keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(8px)} to{opacity:1;transform:scale(1) translateY(0)} }
-.apply-modal__title { font-size:1.25rem; font-weight:600; color:#1c1917; margin-bottom:0.5rem; }
-.apply-modal__text { font-size:0.95rem; color:#78716c; line-height:1.6; margin-bottom:1.5rem; }
-.apply-modal__actions { display:flex; gap:0.75rem; justify-content:flex-end; }
-.apply-modal__btn { padding:0.6rem 1.25rem; border-radius:8px; font-size:0.9rem; font-weight:500; cursor:pointer; border:none; transition:background 0.2s; }
-.apply-modal__btn--cancel { background:#f5f5f4; color:#57534e; }
-.apply-modal__btn--cancel:hover { background:#e7e5e4; }
-.apply-modal__btn--confirm { background:#b91c1c; color:#fff; }
-.apply-modal__btn--confirm:hover { background:#991b1b; }
-
-</style>
 
 <style>
 .trip-hero {
@@ -406,74 +367,4 @@ import {
     });
   });
 
-  /* ── Apply form: confirmation modal + async submit + toast ── */
-  (function () {
-    var form = document.getElementById('trip-apply-form');
-    var btn = document.getElementById('trip-apply-btn');
-    var modal = document.getElementById('trip-apply-modal');
-    var cancelBtn = document.getElementById('trip-modal-cancel');
-    var confirmBtn = document.getElementById('trip-modal-confirm');
-    var toast = document.getElementById('trip-apply-toast');
-    if (!form || !btn || !modal) return;
-
-    function showToast(msg, type) {
-      toast.textContent = msg;
-      toast.style.display = 'block';
-      toast.className = 'trip-apply-toast toast-visible ' + (type === 'success' ? 'toast-success' : 'toast-error');
-      setTimeout(function () {
-        toast.classList.remove('toast-visible');
-        setTimeout(function () {
-          toast.style.display = 'none';
-          toast.className = 'trip-apply-toast';
-        }, 300);
-      }, 3500);
-    }
-
-    function showModal() { modal.style.display = 'flex'; }
-    function hideModal() { modal.style.display = 'none'; }
-
-    btn.addEventListener('click', function () {
-      var name = form.querySelector('[name="name"]');
-      var email = form.querySelector('[name="email"]');
-      if (!name.value.trim() || !email.value.trim()) {
-        showToast('请填写姓名和电子邮箱。', 'error');
-        return;
-      }
-      if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-        showToast('请输入有效的电子邮箱地址。', 'error');
-        return;
-      }
-      showModal();
-    });
-
-    cancelBtn.addEventListener('click', hideModal);
-    modal.querySelector('.apply-modal__backdrop').addEventListener('click', hideModal);
-
-    confirmBtn.addEventListener('click', function () {
-      hideModal();
-      confirmBtn.disabled = true;
-      btn.textContent = '发送中...';
-      btn.disabled = true;
-
-      var formData = new FormData(form);
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      }).then(function (res) {
-        if (res.ok) {
-          showToast('✓ 申请已发送！我们将在5个工作日内与您联系。', 'success');
-          form.reset();
-        } else {
-          showToast('出现错误，请重试或直接发送邮件联系我们。', 'error');
-        }
-      }).catch(function () {
-        showToast('网络错误，请检查您的连接后重试。', 'error');
-      }).finally(function () {
-        btn.textContent = '提交申请';
-        btn.disabled = false;
-        confirmBtn.disabled = false;
-      });
-    });
-  }());
 </script>

@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ApplyForm from '../components/ApplyForm.jsx';
+---
+<Layout
+  title="Apply — Explore China 2026"
+  description="Apply for the Explore China 2026 student travel program."
+  lang="en"
+  canonical="/apply"
+>
+  <section style="padding: clamp(3rem, 8vw, 5rem) 0; background: var(--color-bg, #f9f6f0); min-height: 80vh;">
+    <div class="container">
+      <ApplyForm client:load />
+    </div>
+  </section>
+</Layout>
