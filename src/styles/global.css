@@ -67,6 +67,7 @@ a { color: inherit; text-decoration: none; }
 }
 .section-sub {
   color: var(--color-ink-muted);
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
   max-width: 720px;
   line-height: 1.7;
 }
