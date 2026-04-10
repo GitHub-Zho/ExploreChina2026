@@ -41,6 +41,15 @@ export const southChinaItinerary = [
     titleZh: '抵达厦门，感受海边节奏',
     plan: 'Arrival at Xiamen Gaoqi International Airport. Airport pickup, hotel check-in, SIM card and Alipay/WeChat Pay setup. Evening orientation walk along Zhongshan Road — the century-old pedestrian street — and first local dinner.',
     planZh: '抵达厦门高崎国际机场，接机、入住酒店、办理SIM卡与支付设置。傍晚沿中山路步行区漫步，感受百年老街的闽南氛围，享用本地特色晚餐。',
+    landmarks: [
+      {
+        name: 'Zhongshan Road',
+        nameZh: '中山路',
+        image: 'https://images.unsplash.com/photo-3u6BRuwc5-k?auto=format&fit=crop&w=800&q=80',
+        background: "Zhongshan Road is Xiamen's oldest commercial street, built in the 1920s in the Amoy Deco style — a hybrid of Southern Fujian shophouse architecture and European colonial facades. The covered colonnaded walkways (qilou) were designed to shelter pedestrians from tropical rain. The street was constructed after the city began reclaiming land from the sea and is now a pedestrian-only zone. Most of the original early-20th-century facades remain intact.",
+        backgroundZh: '中山路是厦门最古老的商业街，建于1920年代，融合了闽南骑楼与欧式殖民立面，廊柱设计最初是为了遮蔽热带雨季。这条街建于海岸填海区之上，如今已是全步行商业区，大部分民国时期建筑立面至今保存完好。',
+      },
+    ],
   },
   {
     day: 'Day 2', dayZh: '第2天',
@@ -49,6 +58,15 @@ export const southChinaItinerary = [
     titleZh: '鼓浪屿全天',
     plan: 'Full day on Gulangyu Island by ferry. UNESCO World Heritage colonial architecture, piano museum, sunken gardens, and the narrow lanes that once housed consulates from 13 nations. Evening return to Xiamen for seafood dinner at the port.',
     planZh: '乘轮渡前往鼓浪屿，游览世界文化遗产的殖民地建筑群、钢琴博物馆与菽庄花园。在迷宫般的小巷中穿行，傍晚返回厦门港，享用海鲜晚餐。',
+    landmarks: [
+      {
+        name: 'Gulangyu Island',
+        nameZh: '鼓浪屿',
+        image: 'https://images.unsplash.com/photo-AHKGpaGfS8Q?auto=format&fit=crop&w=800&q=80',
+        background: 'Gulangyu was designated a treaty port concession in 1903, and for four decades 13 nations operated consulates on this small island just 600 metres offshore from Xiamen. The resulting architecture — German consulate, British American Tobacco headquarters, Hokkien clan temples, and traditional courtyard houses all within walking distance — is now a UNESCO World Heritage Site. No motorized vehicles are permitted on the island. It is also known as Piano Island: at its peak, Gulangyu had more pianos per capita than anywhere else in China.',
+        backgroundZh: '1903年鼓浪屿被辟为公共租界，此后四十年间13国在此设立领事馆。德国领事馆、英美烟草公司旧址、闽南宗祠与传统院落建筑共处步行可达的范围之内，现已列入UNESCO世界文化遗产。岛上禁止机动车进入。这里还有另一个称号——钢琴岛：鼎盛时期，鼓浪屿的人均钢琴拥有量为全国之最。',
+      },
+    ],
   },
   {
     day: 'Day 3', dayZh: '第3天',
@@ -57,6 +75,22 @@ export const southChinaItinerary = [
     titleZh: '南普陀寺与厦大海岸',
     plan: "Morning at South Putuo Temple (Nanputuo) — a thousand-year Buddhist complex built into the granite hills above the sea. Walk through Xiamen University campus, widely considered the most beautiful in China. Afternoon free for Zengcuo'an village — an artist enclave by the water.",
     planZh: '上午游览南普陀寺，千年佛寺依山傍海，晨光中格外静谧。穿越厦门大学校园——被誉为中国最美大学。下午自由活动，可前往曾厝垵渔村艺术聚落漫逛。',
+    landmarks: [
+      {
+        name: 'South Putuo Temple',
+        nameZh: '南普陀寺',
+        image: 'https://images.unsplash.com/photo-w3Gx0HRnqy0?auto=format&fit=crop&w=800&q=80',
+        background: 'South Putuo Temple was originally built during the Tang Dynasty (618–907 AD) and rebuilt in its current form during the Qing Dynasty. The temple is dedicated to Guanyin, the Buddhist bodhisattva of mercy, and takes its name from the sacred Mount Putuo in Zhejiang Province — the earthly home of Guanyin. The complex climbs the granite face of Wulao Mountain directly behind Xiamen University, its pavilions stepping upward through incense smoke and stone carvings. It remains an active place of worship visited by tens of thousands of pilgrims annually.',
+        backgroundZh: '南普陀寺始建于唐代，现存建筑群重建于清朝。寺庙供奉观音菩萨，得名于浙江普陀山——观音的道场。建筑群依五老山花岗岩山势层叠而上，香烟缭绕，石雕精美。至今仍是香火鼎盛的佛教圣地，每年吸引数以万计的信众朝拜。',
+      },
+      {
+        name: 'Xiamen University',
+        nameZh: '厦门大学',
+        image: 'https://images.unsplash.com/photo-EtEGq8csseY?auto=format&fit=crop&w=800&q=80',
+        background: 'Xiamen University was founded in 1921 by Tan Kah Kee, a rubber and pineapple magnate from Singapore whose family had emigrated from Fujian Province. It was one of the first modern universities in China to be established entirely by private, overseas-Chinese funding. The campus design — white neoclassical buildings arranged around a cove, with a sea wall looking out toward Taiwan — reflects both the Western education model Tan admired and the coastal Fujian identity he never abandoned. The university is consistently voted the most beautiful campus in China.',
+        backgroundZh: '厦门大学于1921年由新加坡华商陈嘉庚创办——其家族从福建移民南洋，后在橡胶与菠萝种植业积累财富。这是中国最早完全由海外华人私人捐资创办的现代大学之一。校园规划以西式新古典建筑环抱海湾，海堤远眺台湾，既体现了陈嘉庚对西式教育的推崇，也映射出他对闽南故土的眷恋。该校长期被评为中国最美大学。',
+      },
+    ],
   },
   {
     day: 'Day 4', dayZh: '第4天',
@@ -65,6 +99,22 @@ export const southChinaItinerary = [
     titleZh: '前往潮州，走进古城',
     plan: 'High-speed train from Xiamen to Chaozhou (approx. 1.5 hours). Check in, then afternoon exploration of Chaozhou Ancient City: the stone pailou archways, the East Gate Tower, and the old streets lined with Qing-era merchant houses. First Gongfu tea ceremony in the evening.',
     planZh: '乘高铁从厦门前往潮州（约1.5小时）。入住后下午探索潮州古城：牌坊街、东门楼与清代商业街区。傍晚体验第一次功夫茶。',
+    landmarks: [
+      {
+        name: 'Chaozhou Ancient City',
+        nameZh: '潮州古城',
+        image: 'https://images.unsplash.com/photo-8y3JEm038cw?auto=format&fit=crop&w=800&q=80',
+        background: 'Chaozhou has been continuously inhabited for over 2,600 years. Its historic centre — anchored by the East Gate Tower and the stone pailou archways of Pai Fang Street — preserves one of the densest concentrations of intact Ming and Qing dynasty architecture in southern China. The city gave its name to the Teochew (Chaozhou) people and their diaspora: an estimated 15 million ethnic Teochew live outside China, primarily across Southeast Asia, where their language, cuisine, and temple customs remain largely intact across multiple generations.',
+        backgroundZh: '潮州有着超过2600年的连续居住史。以东门楼与牌坊街为核心的历史街区，保存了中国华南地区最密集的明清建筑群之一。"潮州"即是潮汕人（潮州人）及其海外侨民群体的名称来源：估计有1500万潮汕人侨居海外，主要分布于东南亚各地，其语言、饮食与宗教习俗历经数代而基本保持完整。',
+      },
+      {
+        name: 'Gongfu Tea Ceremony',
+        nameZh: '功夫茶',
+        image: 'https://images.unsplash.com/photo-8bIwzXRosfk?auto=format&fit=crop&w=800&q=80',
+        background: 'Chaoshan Gongfu tea is considered the origin of Chinese tea ceremony culture. The ritual uses extremely small clay teapots (Yixing or local Chaozhou clay) and tiny cups, brewing high-grade oolong — typically Dan Cong from the Phoenix Mountain — in rapid infusions of 10 to 20 seconds. A formal session involves 18 specific steps. The practice developed in the Chaoshan region during the Ming Dynasty and spread globally with the Teochew diaspora. In Chaoshan, a tea session is a form of hospitality: a host who offers you tea is beginning a conversation that may last several hours.',
+        backgroundZh: '潮汕功夫茶被视为中国茶道文化的源头之一。仪式使用极小的紫砂或潮州朱泥茶壶与微型茶杯，冲泡高端乌龙茶——通常是凤凰山单丛，每泡时间仅10至20秒。正式茶道分18道程序。这一习俗形成于明代潮汕地区，随潮州移民扩散至全球。在潮汕，奉茶是一种待客之道：主人为你泡茶，意味着一段可能持续数小时的对话正在开始。',
+      },
+    ],
   },
   {
     day: 'Day 5', dayZh: '第5天',
@@ -73,6 +123,22 @@ export const southChinaItinerary = [
     titleZh: '广济桥、开元寺与潮汕茶道',
     plan: 'Morning at Guangji Bridge — the Song-dynasty floating pontoon bridge, one of the most unusual ancient bridges in China. Kaiyuan Temple before noon. Afternoon: a guided Teochew Gongfu tea session learning the 18-step ritual. Dinner: Chaoshan beef hotpot — paper-thin cuts cooked in seconds.',
     planZh: '上午游览广济桥，这座宋代浮桥是中国最独特的古桥之一。参观开元寺。下午参加潮州功夫茶体验，学习18道茶艺程序。晚餐：潮汕牛肉火锅。',
+    landmarks: [
+      {
+        name: 'Guangji Bridge',
+        nameZh: '广济桥',
+        image: 'https://images.unsplash.com/photo-Lv9ufPwLfnE?auto=format&fit=crop&w=800&q=80',
+        background: "Guangji Bridge spans the Han River in Chaozhou and was first completed in 1170 AD during the Southern Song Dynasty. It is one of China's four great ancient bridges. Its most distinctive feature is a central section of 18 pontoon boats that can be untethered and floated aside to allow river traffic to pass — a functional engineering solution that has been in operation, in various forms, for over 850 years. The bridge has been destroyed and rebuilt multiple times by floods and wars; significant restoration work was completed in 2007.",
+        backgroundZh: '广济桥横跨潮州韩江，始建于南宋1170年，是中国四大古桥之一。其最独特之处在于中间18只梭船构成的浮动桥段，可以解开浮锚让船只通过——这一功能性工程设计已以各种形式沿用逾850年。该桥历经洪水与战火多次损毁重建，2007年完成了重要的修复工程。',
+      },
+      {
+        name: 'Kaiyuan Temple',
+        nameZh: '开元寺',
+        image: 'https://images.unsplash.com/photo-ekAcojX7aNk?auto=format&fit=crop&w=800&q=80',
+        background: 'Kaiyuan Temple was founded in 738 AD during the Tang Dynasty by imperial decree — Emperor Xuanzong ordered a Kaiyuan Temple built in every prefecture of the empire. The Chaozhou version survived where many others were destroyed, and its current structure preserves Tang and Song dynasty architectural elements within a Qing-period renovation. The temple complex includes a central hall, two flanking pagodas, and a courtyard of ancient banyan trees that are estimated to be several hundred years old.',
+        backgroundZh: '开元寺建于唐玄宗开元二十六年（738年），奉皇帝御旨在全国各州府各建一座开元寺。潮州开元寺在历史上屡遭破坏却幸存至今，现存建筑保留了唐宋结构与清代修缮的痕迹。寺内主殿、双塔与庭院中数棵树龄数百年的古榕树共同构成了这一建筑群。',
+      },
+    ],
   },
   {
     day: 'Day 6', dayZh: '第6天',
@@ -81,6 +147,15 @@ export const southChinaItinerary = [
     titleZh: '汕头老埠头与出发前准备',
     plan: 'Morning transfer to Shantou (30 min by taxi or bus). Walk the Shantou Old Bund — the 1860s treaty port waterfront along the Han River estuary. Visit the Zhongshan Park area and the covered walkway arcades (qi lou) of the old commercial district. Evening: train or bus prep for Shenzhen.',
     planZh: '上午前往汕头（约30分钟）。漫步汕头老埠头，这段1860年代的条约港岸线如今静静伫立在韩江入海口。游览骑楼老街区。傍晚准备前往深圳的交通。',
+    landmarks: [
+      {
+        name: 'Shantou Old Bund',
+        nameZh: '汕头老埠头',
+        image: 'https://images.unsplash.com/photo-tPoYdRrqUqY?auto=format&fit=crop&w=800&q=80',
+        background: 'Shantou was forced open as a treaty port in 1860 under the Convention of Peking following the Second Opium War. At its peak in the early 20th century, it was one of the busiest ports in southern China, processing the emigration of millions of Teochew-speaking Fujianese to Southeast Asia. The Old Bund waterfront along the Han River estuary preserves the 1920s-era customs house, merchant warehouses, and qilou (covered arcade) commercial streets that defined the treaty port era. The city declined as Hong Kong absorbed regional trade after 1949.',
+        backgroundZh: '汕头于1860年《北京条约》签订后被迫开辟为通商口岸。20世纪初鼎盛时期，这里是华南最繁忙的港口之一，数以百万计的潮州移民从此出发前往东南亚。老埠头沿韩江入海口的岸线保留了1920年代的海关大楼、商行仓库与骑楼商业街，是条约口岸时代的历史见证。1949年后随着香港逐渐承接区域贸易，汕头港逐渐式微。',
+      },
+    ],
   },
   {
     day: 'Day 7', dayZh: '第7天',
@@ -89,6 +164,15 @@ export const southChinaItinerary = [
     titleZh: '抵达深圳，感受速度',
     plan: 'Travel from Chaoshan to Shenzhen by high-speed train (approx. 2 hours). Hotel check-in near Nanshan or Futian. Afternoon: OCT Loft Creative Zone — converted factory buildings now housing galleries, design studios, and independent cafés. Evening: rooftop drinks at Hou Hai bar district with bay views.',
     planZh: '乘高铁从潮汕抵达深圳（约2小时）。入住南山或福田附近酒店。下午：华侨城创意文化园（OCT LOFT）——废旧工厂改造的艺术区，画廊与独立咖啡馆云集。傍晚在后海酒吧区享用海湾夜景。',
+    landmarks: [
+      {
+        name: 'OCT Loft Creative Zone',
+        nameZh: '华侨城创意文化园',
+        image: 'https://images.unsplash.com/photo-SS8B5_oKsaI?auto=format&fit=crop&w=800&q=80',
+        background: "OCT Loft was developed in the early 2000s by the state-owned Overseas Chinese Town corporation, converting a former industrial compound into an arts and creative district. Shenzhen, built from scratch after 1980, had no inherited cultural infrastructure — its museums, galleries, and creative districts all had to be deliberately constructed. OCT Loft became the centre of this effort: its converted factory buildings now house independent galleries, design studios, record shops, and a concentration of independently-owned cafés that is unusually high for mainland China. It represents Shenzhen's characteristic approach: take any given problem and solve it with speed and design.",
+        backgroundZh: 'OCT LOFT由国有企业华侨城集团于2000年代初开发，将旧工业厂区改造为艺术创意园区。深圳是1980年后从零开始建起的城市，没有任何既有的文化基础设施——博物馆、画廊、创意区全部需要主动建造。OCT LOFT成为这一努力的核心：改建后的厂房建筑群现已入驻独立画廊、设计工作室、唱片店与密集程度在内地罕见的独立咖啡馆。这正是深圳一贯的做法：任何问题，用速度和设计来解决。',
+      },
+    ],
   },
   {
     day: 'Day 8', dayZh: '第8天',
@@ -97,6 +181,22 @@ export const southChinaItinerary = [
     titleZh: '大芬油画村、深圳湾与创意城市',
     plan: "Morning at Dafen Oil Painting Village — the neighborhood that once produced 60% of the world's reproduced oil paintings. Walk through the open studios. Afternoon: Shenzhen Bay Park coastal greenway with skyline views of both Shenzhen and Hong Kong. Evening: free time in the Futian area.",
     planZh: '上午前往大芬油画村——这里曾产出全球60%的复制油画。开放式工作室可以直接进入参观。下午：深圳湾公园海岸绿道，同时眺望深港两座城市天际线。傍晚自由活动。',
+    landmarks: [
+      {
+        name: 'Dafen Oil Painting Village',
+        nameZh: '大芬油画村',
+        image: 'https://images.unsplash.com/photo-KuudDjBHIlA?auto=format&fit=crop&w=800&q=80',
+        background: "In 1989, a Hong Kong art dealer named Huang Jiang relocated his reproduction painting operation to the Dafen neighbourhood of Shenzhen, hiring local painters to produce oil painting copies at scale. The industry grew rapidly: at its peak, Dafen employed over 8,000 painters and produced an estimated 60% of the world's commercially reproduced oil paintings. Works range from Van Gogh and Monet reproductions to custom portraits and hotel lobby art. The village has since developed a parallel original art scene, with painters who settled here for the reproduction trade and stayed to develop their own practice.",
+        backgroundZh: '1989年，香港艺术商人黄江将其复制油画业务迁至深圳大芬村，雇用本地画师批量生产。产业迅速壮大：鼎盛时期大芬共有8000余名职业画师，据估计产出了全球60%的商业复制油画，从梵高、莫奈名作到定制肖像与酒店装饰画一应俱全。如今村内也发展出了原创艺术生态——许多最初为复制画而来的画师留下来，逐渐开拓出了自己的创作方向。',
+      },
+      {
+        name: 'Shenzhen Bay Park',
+        nameZh: '深圳湾公园',
+        image: 'https://images.unsplash.com/photo-Rdim3-x3mRM?auto=format&fit=crop&w=800&q=80',
+        background: "Shenzhen Bay Park is a 15-kilometre coastal greenway built on reclaimed land along the bay that separates Shenzhen from Hong Kong's New Territories. On a clear day, the hills of Hong Kong's Lantau Island are visible across the water. The bay is a major stopover point for migratory birds on the East Asian-Australasian Flyway, and the park includes wetland areas that attract flocks of egrets, black-faced spoonbills, and dunlins during migration season. The Deep Bay rail-road crossing visible from the park is one of the border checkpoints between mainland China and Hong Kong.",
+        backgroundZh: '深圳湾公园是一条沿填海地带修建的15公里海滨绿道，隔海与香港新界相望，晴天可见大屿山山影。深圳湾是东亚—澳大利西亚候鸟迁徙路线上的重要中转站，公园内的湿地区域每年吸引白鹭、黑脸琵鹭等珍稀候鸟栖息。从公园眺望可见的深圳湾大桥是深港之间的重要口岸之一。',
+      },
+    ],
   },
   {
     day: 'Day 9', dayZh: '第9天',
@@ -105,6 +205,22 @@ export const southChinaItinerary = [
     titleZh: '过境香港，九龙与庙街',
     plan: 'Morning cross into Hong Kong via MTR Lo Wu / Lok Ma Chau or high-speed rail to West Kowloon (19 minutes). Hotel check-in in Tsim Sha Tsui or Mong Kok. Afternoon: walk Kowloon — the Avenue of Stars, Tsim Sha Tsui waterfront, and Nathan Road. Evening: Temple Street Night Market — fortune tellers, dai pai dong stalls, and old Kowloon energy.',
     planZh: '上午过境香港（乘高铁至西九龙站仅19分钟）。入住尖沙咀或旺角附近酒店。下午：漫步九龙——星光大道、尖沙咀海旁与弥敦道。傍晚：庙街夜市——算命摊、大排档与旧九龙风情。',
+    landmarks: [
+      {
+        name: 'Tsim Sha Tsui Waterfront',
+        nameZh: '尖沙咀海旁',
+        image: 'https://images.unsplash.com/photo-AVJWwxBmcYA?auto=format&fit=crop&w=800&q=80',
+        background: "The Tsim Sha Tsui waterfront in Kowloon faces the full sweep of Hong Kong Island's financial district across Victoria Harbour. The promenade runs from the old Kowloon-Canton Railway Clock Tower (1915) — the only remaining structure of the colonial-era rail terminus — along the Avenue of Stars. The view from this waterfront is one of the most photographed urban panoramas in the world. The density of the skyline visible from here — over 9,000 high-rise buildings on the island alone — represents the highest concentration of skyscrapers of any city on earth.",
+        backgroundZh: '尖沙咀海旁位于九龙，正对维多利亚港对岸的香港岛金融区。海滨长廊从1915年建成的九广铁路钟楼（殖民时期铁路总站唯一存留的建筑）延伸至星光大道。这片海旁是全球拍摄次数最多的城市全景之一。从这里望去，对岸香港岛密集的天际线中有逾9000栋高层建筑，是地球上摩天楼密度最高的城市地带。',
+      },
+      {
+        name: 'Temple Street Night Market',
+        nameZh: '庙街夜市',
+        image: 'https://images.unsplash.com/photo-V_nKGHsgo5A?auto=format&fit=crop&w=800&q=80',
+        background: "Temple Street in Yau Ma Tei, Kowloon, has operated as a working-class night market since the 1920s. Named for the Tin Hau Temple at its centre, the market runs from late afternoon until well past midnight. Street stalls sell watches, electronics, jade, clothing, and seafood. Cantonese opera performances and fortune tellers — palm readers, face readers, and bird-cage practitioners who train birds to select fortune cards — still occupy the southern section of the street. It is one of Hong Kong's last remaining night markets and one of the most intact examples of the street-level commercial culture the city has largely built over.",
+        backgroundZh: '庙街位于九龙油麻地，自1920年代起便是香港传统的平民夜市。以中段的天后庙命名，每天从傍晚营业至深夜。地摊出售手表、电器、翡翠、成衣与海鲜。粤剧表演与算命摊——看手相、观面相、用训练过的鸟儿挑选签文——至今仍在街道南段延续。这是香港最后留存的夜市之一，也是这座城市大半已被高楼覆盖的街头商业文化最完整的留存。',
+      },
+    ],
   },
   {
     day: 'Day 10', dayZh: '第10天',
@@ -113,6 +229,22 @@ export const southChinaItinerary = [
     titleZh: '太平山顶、中环，然后离港',
     plan: 'Morning: Peak Tram to Victoria Peak for the iconic panorama over both sides of the harbour. Walk through Central and Sheung Wan — PMQ creative hub, Hollywood Road antique dealers, and the narrow Mid-Levels escalator. Afternoon departure transfer to Hong Kong International Airport (HKIA).',
     planZh: '上午：乘山顶缆车前往太平山顶，俯瞰维多利亚港两岸全景。漫步中环与上环——PMQ创意中心、荷李活道古玩街、半山扶梯。下午前往香港国际机场，结束旅程。',
+    landmarks: [
+      {
+        name: 'Victoria Peak',
+        nameZh: '太平山顶',
+        image: 'https://images.unsplash.com/photo-Iz1lW8maiEE?auto=format&fit=crop&w=800&q=80',
+        background: "Victoria Peak is the highest point on Hong Kong Island at 552 metres. During the British colonial period, residence on the Peak was legally restricted to Europeans — a racial zoning policy that persisted until 1947 and shaped the social geography of the city in ways still visible today. The Peak Tram, opened in 1888, is one of the world's oldest funicular railways still in continuous operation. The view from the Peak Galleria encompasses both sides of Victoria Harbour — the full skyline of Hong Kong Island on one side and the Kowloon Peninsula stretching to the northern hills on the other.",
+        backgroundZh: '太平山是香港岛的最高点，海拔552米。英国殖民时期，山顶居住权曾以法律形式限定仅供欧洲人居住——这一种族区隔政策直至1947年才废除，其影响至今仍隐约可见于这座城市的社会地理格局之中。1888年开通的山顶缆车是世界上仍在持续运营的最古老缆索铁路之一。从山顶凌霄阁俯瞰，维多利亚港两岸尽收眼底——一侧是香港岛全景天际线，另一侧是向北延伸至山峦的九龙半岛。',
+      },
+      {
+        name: 'Star Ferry',
+        nameZh: '天星小轮',
+        image: 'https://images.unsplash.com/photo-mYWQ4Pb_-cs?auto=format&fit=crop&w=800&q=80',
+        background: "The Star Ferry has crossed Victoria Harbour since 1888, connecting Hong Kong Island to Kowloon. The fare for the lower deck costs less than USD $0.30 — making it one of the world's great cheap urban experiences. The green-and-white double-deck ferries, built in the 1950s through 1970s, remain largely unchanged in design. In 2006, the demolition of the original Star Ferry Pier on the Hong Kong Island side — replaced by reclaimed land — triggered some of the largest heritage protests in the city's post-colonial history. The crossing takes approximately 10 minutes.",
+        backgroundZh: '天星小轮自1888年起穿梭于维多利亚港，连接香港岛与九龙。下层舱位票价不足0.3美元，是全球性价比最高的城市体验之一。现役的绿白双层渡轮建造于1950至70年代，船体设计至今基本未变。2006年，香港岛原天星码头因填海工程被拆除，引发了香港后殖民时代规模最大的历史建筑保育抗议之一。每程约10分钟。',
+      },
+    ],
   },
 ];
 
