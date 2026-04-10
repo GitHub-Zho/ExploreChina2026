@@ -68,6 +68,41 @@ const tripStructuredData = [
     </div>
   </section>
 
+  <!-- Highlights Strip -->
+  <section class="highlights-strip" aria-label="Route highlights">
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=80" alt="The Bund Shanghai" loading="lazy" />
+      <p class="highlights-strip__caption">A waterfront built to impress empires — still working</p>
+    </div>
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80" alt="Xiaolongbao Shanghai soup dumplings" loading="lazy" />
+      <p class="highlights-strip__caption">Soup inside a dumpling. The technique took 600 years to perfect.</p>
+    </div>
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1535082623926-b39352a03fb7?auto=format&fit=crop&w=600&q=80" alt="Suzhou classical garden" loading="lazy" />
+      <p class="highlights-strip__caption">Gardens designed to make you forget which century you're in</p>
+    </div>
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1500039436846-25ae2f11882e?auto=format&fit=crop&w=600&q=80" alt="West Lake Hangzhou" loading="lazy" />
+      <p class="highlights-strip__caption">A lake so famous it was written into the national consciousness</p>
+    </div>
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=600&q=80" alt="Peking duck Beijing" loading="lazy" />
+      <p class="highlights-strip__caption">Duck roasted at 200°C — unchanged since the Ming Dynasty</p>
+    </div>
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?auto=format&fit=crop&w=600&q=80" alt="Forbidden City Beijing" loading="lazy" />
+      <p class="highlights-strip__caption">9,999 rooms. Only one person was allowed to count them.</p>
+    </div>
+
+  </section>
+
   <section class="route-intro">
   <div class="route-intro__inner">
     <div class="route-intro__rule"></div>
@@ -139,23 +174,6 @@ const tripStructuredData = [
     </div>
   </section>
 
-  <section id="itinerary" class="section card tone-sand">
-    <h2 class="section-title">10-day route at a glance</h2>
-    <div class="trip-timeline">
-      {itinerary.map((d) => (
-        <div class="trip-timeline__row">
-          <div class="trip-timeline__day">{d.day}</div>
-          <div class="trip-timeline__dot"></div>
-          <div class="trip-timeline__content">
-            <strong class="trip-timeline__city">{d.city}</strong>
-            <span class="trip-timeline__title">{d.title}</span>
-            <p class="trip-timeline__plan">{d.plan}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
   <section class="section card tone-blue city-tabs-section" id="city-guides" data-city-tabs>
     <div class="city-tabs-section__header">
       <p class="section-eyebrow">City Guide Tabs</p>
@@ -216,6 +234,23 @@ const tripStructuredData = [
         </div>
       </article>
     ))}
+  </section>
+
+  <section id="itinerary" class="section card tone-sand">
+    <h2 class="section-title">10-day route at a glance</h2>
+    <div class="trip-timeline">
+      {itinerary.map((d) => (
+        <div class="trip-timeline__row">
+          <div class="trip-timeline__day">{d.day}</div>
+          <div class="trip-timeline__dot"></div>
+          <div class="trip-timeline__content">
+            <strong class="trip-timeline__city">{d.city}</strong>
+            <span class="trip-timeline__title">{d.title}</span>
+            <p class="trip-timeline__plan">{d.plan}</p>
+          </div>
+        </div>
+      ))}
+    </div>
   </section>
 
   <section class="section incl-grid">
