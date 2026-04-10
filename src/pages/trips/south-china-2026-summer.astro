@@ -138,16 +138,16 @@ const tripStructuredData = [
       <div class="route-intro__body">
 
         <span class="route-intro__city-label">Xiamen</span>
-        <p>Xiamen is China turned down to a more livable frequency. The sea is always there — in the morning air, in the ferry horn across the channel to Gulangyu. It was forced open as a treaty port in 1842, and for nearly a century the island offshore housed consulates from 13 nations. Today that layering shows in the architecture, the food, and in the faces of the Hokkien diaspora who keep coming back.</p>
+        <p>The sea arrives before the city does. You smell it first — salt and rain and something faintly sweet that turns out to be incense from the temple at the end of the lane. On Gulangyu the streets are too narrow for cars, which means you hear everything: piano scales from a second-floor window, the clatter of a bicycle, someone's grandmother arguing with a fruit seller. The pace is different here. You will notice it by the end of the first afternoon.</p>
 
         <span class="route-intro__city-label">Chaoshan</span>
-        <p>Chaoshan isn't a single city — it's a region, an identity, a diaspora of 15 million Teochew speakers scattered across Southeast Asia who still send money home and return for funerals. In Chaozhou you walk through 2,600 years of continuous civilization. A tea session here lasts three hours. Nobody checks their phone.</p>
+        <p>Chaoshan moves at the speed of tea. A session here is not a tourist activity — it's how people talk. Your host will fill the tiny cup before it empties; refusing means you want to leave. Sit long enough and the conversation finds its own rhythm. The beef at dinner was in a paddock this morning. The noodles were made by hand two hours ago. Everything is closer to its source than you expect.</p>
 
         <span class="route-intro__city-label">Shenzhen</span>
-        <p>In 1980, Shenzhen was a fishing village of 30,000 people. Today it has 17 million. That sprint — 58% annual GDP growth in its early years — is the defining fact of the city, and it shows in everything: the architecture that doesn't pretend to be old, the residents who came from everywhere else, the energy that still feels like it's trying to prove something. It is also China's youngest major city by median age.</p>
+        <p>Shenzhen announces itself through scale. The buildings are enormous and new and completely unapologetic about it. There is no nostalgia here — the city is 45 years old and knows it. What you find instead is energy: the electronics market where engineers source components at 8am, the art district that appeared in a former factory compound, the young residents who came from everywhere else and are still figuring out what kind of place this is.</p>
 
         <span class="route-intro__city-label">Hong Kong</span>
-        <p>Hong Kong is where 156 years of British rule layered onto Cantonese civilization — and instead of erasing either, created something genuinely new. Its own legal system, currency, immigration controls, and a Cantonese-speaking identity that is distinct from the mainland. The tram creaks up Garden Road. The star ferry horn echoes off the towers. In Sham Shui Po you can still find rolls of fabric from a different era. The city is dense, layered, and entirely real.</p>
+        <p>Hong Kong runs on compression. The trams move slowly through streets packed tight with signage in three scripts. The Star Ferry costs almost nothing and takes ten minutes and gives you the full sweep of the harbour in both directions. In the wet market at dawn the fish are still moving. In the evening the light from ten thousand windows turns the harbour gold. The city is dense and real and entirely itself.</p>
 
       </div>
 
@@ -179,82 +179,96 @@ const tripStructuredData = [
     </div>
   </section>
 
-  <section class="section card tone-blue city-tabs-section" id="city-guides" data-city-tabs>
-    <div class="city-tabs-section__header">
-      <p class="section-eyebrow">City Guide Tabs</p>
-      <h2 class="section-title">Meet the cities before you arrive</h2>
-      <p class="section-sub">Switch tabs in place to get the cultural story, the on-the-ground feeling, and a few practical anchors for each stop on the route.</p>
-    </div>
-
-    <div class="city-tabs__nav" role="tablist" aria-label="City guide tabs">
-      {cityGuides.map((city, idx) => (
-        <button
-          type="button"
-          class={`city-tabs__tab ${idx === 0 ? 'is-active' : ''}`}
-          id={`city-tab-${city.city.toLowerCase()}`}
-          role="tab"
-          aria-selected={idx === 0 ? 'true' : 'false'}
-          aria-controls={`city-panel-${city.city.toLowerCase()}`}
-          data-city-tab={city.city.toLowerCase()}
-          tabindex={idx === 0 ? '0' : '-1'}
-        >
-          <span>{city.city}</span>
-          <span class="city-tabs__tab-sub">{city.cityZh}</span>
-        </button>
-      ))}
-    </div>
-
-    {cityGuides.map((city, idx) => (
-      <article
-        class={`city-tabs__panel ${idx === 0 ? 'is-active' : ''}`}
-        id={`city-panel-${city.city.toLowerCase()}`}
-        role="tabpanel"
-        aria-labelledby={`city-tab-${city.city.toLowerCase()}`}
-        hidden={idx !== 0}
-        data-city-panel={city.city.toLowerCase()}
-      >
-        <div class="city-tabs__panel-grid">
-          <figure class="card city-tabs__hero">
-            <img class="photo media-wide" src={city.heroImage} alt={city.heroAlt} loading={idx === 0 ? 'eager' : 'lazy'} />
-          </figure>
-          <div class="city-tabs__story">
-            <p class="pill">{city.city} · {city.cityZh}</p>
-            <h3 class="city-tabs__title">Why this city matters on the route</h3>
-            <p class="city-tabs__lead">{city.context}</p>
-            <p class="city-tabs__text">{city.feeling}</p>
-          </div>
-        </div>
-
-        <div class="city-tabs__highlights">
-          {city.explore.slice(0, 4).map((spot) => (
-            <article class="card city-tabs__highlight" style={spot.image ? `--highlight-bg: url(${spot.image})` : ''}>
-              {spot.image && <div class="highlight-img" aria-hidden="true"></div>}
-              <div class="highlight-content">
-                <p class="label">Key highlight</p>
-                <h4>{spot.title}</h4>
-                <p class="muted">{spot.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </article>
-    ))}
-  </section>
-
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">10-day route at a glance</h2>
-    <div class="trip-timeline">
-      {itinerary.map((d) => (
-        <div class="trip-timeline__row">
-          <div class="trip-timeline__day">{d.day}</div>
-          <div class="trip-timeline__dot"></div>
-          <div class="trip-timeline__content">
-            <strong class="trip-timeline__city">{d.city}</strong>
-            <span class="trip-timeline__title">{d.title}</span>
-            <p class="trip-timeline__plan">{d.plan}</p>
+    <p class="section-sub" style="margin-bottom:2rem;">Click any day to explore the places you'll visit.</p>
+
+    <div class="itinerary-accordion">
+      {itinerary.map((d, idx) => {
+        const isFirstCityDay = idx === 0 || itinerary[idx - 1].city !== d.city;
+        const cityGuide = cityGuides.find(g => g.city === d.city);
+        const slides = [
+          ...(isFirstCityDay && cityGuide ? [{ type: 'city' as const, guide: cityGuide }] : []),
+          ...((d as any).landmarks ?? []).map((lm: any) => ({ type: 'landmark' as const, lm })),
+        ];
+        return (
+          <div
+            class={`itinerary-day${isFirstCityDay ? ' itinerary-day--city-start' : ''}`}
+            data-day-idx={idx}
+          >
+            <button class="itinerary-day__header" aria-expanded="false" data-day-toggle>
+              <span class="itinerary-day__num">{d.day}</span>
+              <span class="itinerary-day__meta">
+                <span class="itinerary-day__city">{d.city}</span>
+                <span class="itinerary-day__title">{d.title}</span>
+              </span>
+              <svg class="itinerary-day__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            <div class="itinerary-day__body" data-day-body>
+              <div class="itinerary-day__inner">
+                {slides.length > 0 && (
+                  <div class="landmark-carousel" data-carousel>
+                    <div class="landmark-carousel__track-wrap">
+                      <div class="landmark-carousel__track" data-carousel-track>
+
+                        {slides.map((slide) => (
+                          <div class="landmark-carousel__slide">
+                            {slide.type === 'city' ? (
+                              <div class="city-intro-card">
+                                <img
+                                  class="city-intro-card__img"
+                                  src={slide.guide.heroImage}
+                                  alt={slide.guide.heroAlt}
+                                  loading="lazy"
+                                />
+                                <div class="city-intro-card__text">
+                                  <span class="city-intro-card__label">City overview</span>
+                                  <h3 class="city-intro-card__name">{slide.guide.city}</h3>
+                                  <p class="city-intro-card__body">{slide.guide.context}</p>
+                                </div>
+                              </div>
+                            ) : (
+                              <div class="landmark-card">
+                                <img
+                                  class="landmark-card__img"
+                                  src={slide.lm.image}
+                                  alt={slide.lm.name}
+                                  loading="lazy"
+                                />
+                                <div class="landmark-card__body">
+                                  <h4 class="landmark-card__name">{slide.lm.name}</h4>
+                                  <span class="landmark-card__name-zh">{slide.lm.nameZh}</span>
+                                  <p class="landmark-card__text">{slide.lm.background}</p>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+
+                      </div>
+                    </div>
+
+                    {slides.length > 1 && (
+                      <div class="landmark-carousel__nav">
+                        <button class="landmark-carousel__btn" data-carousel-prev aria-label="Previous">←</button>
+                        <div class="landmark-carousel__dots">
+                          {slides.map((_, i) => (
+                            <span class={`landmark-carousel__dot${i === 0 ? ' is-active' : ''}`} data-carousel-dot></span>
+                          ))}
+                        </div>
+                        <button class="landmark-carousel__btn" data-carousel-next aria-label="Next">→</button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   </section>
 
@@ -387,60 +401,60 @@ const tripStructuredData = [
 </style>
 
 <script is:inline>
-  document.querySelectorAll('.faq__q').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      document.querySelectorAll('.faq__q').forEach((b) => b.setAttribute('aria-expanded', 'false'));
-      if (!expanded) btn.setAttribute('aria-expanded', 'true');
-    });
+// ── FAQ accordion ──────────────────────────────────────
+document.querySelectorAll('.faq__item').forEach(item => {
+  const btn = item.querySelector('.faq__q');
+  const answer = item.querySelector('.faq__a');
+  btn?.addEventListener('click', () => {
+    const open = item.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(open));
+    if (answer) answer.style.maxHeight = open ? answer.scrollHeight + 'px' : '0';
   });
+});
 
-  document.querySelectorAll('[data-city-tabs]').forEach((root) => {
-    const tabs = Array.from(root.querySelectorAll('[data-city-tab]'));
-    const panels = Array.from(root.querySelectorAll('[data-city-panel]'));
-
-    const activateTab = (key) => {
-      tabs.forEach((tab) => {
-        const active = tab.getAttribute('data-city-tab') === key;
-        tab.classList.toggle('is-active', active);
-        tab.setAttribute('aria-selected', active ? 'true' : 'false');
-        tab.setAttribute('tabindex', active ? '0' : '-1');
-      });
-
-      panels.forEach((panel) => {
-        const active = panel.getAttribute('data-city-panel') === key;
-        panel.classList.toggle('is-active', active);
-        panel.hidden = !active;
-      });
-    };
-
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => activateTab(tab.getAttribute('data-city-tab')));
-      tab.addEventListener('keydown', (event) => {
-        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
-        event.preventDefault();
-        const nextIndex = event.key === 'ArrowRight'
-          ? (index + 1) % tabs.length
-          : (index - 1 + tabs.length) % tabs.length;
-        const nextTab = tabs[nextIndex];
-        nextTab.focus();
-        activateTab(nextTab.getAttribute('data-city-tab'));
-      });
-    });
+// ── Itinerary day accordion ────────────────────────────
+document.querySelectorAll('.itinerary-day').forEach(day => {
+  const header = day.querySelector('[data-day-toggle]');
+  const body = day.querySelector('[data-day-body]');
+  if (!header || !body) return;
+  header.addEventListener('click', () => {
+    const open = day.classList.toggle('is-open');
+    header.setAttribute('aria-expanded', String(open));
+    body.style.maxHeight = open ? '900px' : '0';
   });
+});
 
-  /* ── Mobile: IntersectionObserver reveals highlight images on scroll ── */
-  if (window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window) {
-    const highlightCards = document.querySelectorAll('.city-tabs__highlight');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in-view');
-        } else {
-          e.target.classList.remove('in-view');
-        }
-      });
-    }, { threshold: 0.5 });
-    highlightCards.forEach((card) => io.observe(card));
+// ── Landmark carousels ─────────────────────────────────
+document.querySelectorAll('[data-carousel]').forEach(carousel => {
+  const track = carousel.querySelector('[data-carousel-track]');
+  const slides = carousel.querySelectorAll('.landmark-carousel__slide');
+  const prevBtn = carousel.querySelector('[data-carousel-prev]');
+  const nextBtn = carousel.querySelector('[data-carousel-next]');
+  const dots = carousel.querySelectorAll('[data-carousel-dot]');
+  if (!track || slides.length === 0) return;
+
+  let idx = 0;
+  const total = slides.length;
+  const slideWidth = 88;
+
+  function goTo(n) {
+    idx = Math.max(0, Math.min(n, total - 1));
+    track.style.transform = `translateX(-${idx * slideWidth}%)`;
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    if (prevBtn) prevBtn.disabled = idx === 0;
+    if (nextBtn) nextBtn.disabled = idx === total - 1;
   }
+
+  prevBtn?.addEventListener('click', () => goTo(idx - 1));
+  nextBtn?.addEventListener('click', () => goTo(idx + 1));
+
+  let touchX = 0;
+  carousel.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  carousel.addEventListener('touchend', e => {
+    const delta = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 40) goTo(idx + (delta > 0 ? 1 : -1));
+  });
+
+  goTo(0);
+});
 </script>
