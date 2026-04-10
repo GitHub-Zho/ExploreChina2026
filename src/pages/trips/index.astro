@@ -60,68 +60,49 @@ import Layout from '../../layouts/Layout.astro';
         </div>
       </a>
 
-      <div class="trip-listing-card trip-listing-card--muted">
-        <div class="trip-listing-card__img trip-listing-card__img--placeholder">
-          <span>Coming Soon</span>
+      <a href="/trips/south-china-2026-summer" class="trip-listing-card">
+        <div class="trip-listing-card__img">
+          <img
+            src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=800&q=80"
+            alt="Hong Kong harbour at dusk"
+            loading="lazy"
+          />
         </div>
         <div class="trip-listing-card__body">
           <div class="trip-listing-card__top">
             <div>
-              <h2 class="trip-listing-card__title">Yunnan — Southwest Route</h2>
-              <p class="trip-listing-card__subtitle">Kunming · Lijiang · Dali</p>
+              <h3 class="trip-listing-card__title">South China Route</h3>
+              <p class="trip-listing-card__subtitle">Xiamen → Chaoshan → Shenzhen → Hong Kong</p>
             </div>
             <span class="trip-badge trip-badge--soon">Coming Soon</span>
           </div>
-          <p class="trip-listing-card__desc">Ancient towns, minority cultures, rice terraces, and mountain landscapes. A route through one of China's most visually distinct provinces.</p>
+          <p class="trip-listing-card__desc">
+            Coastal nostalgia, ancient Teochew civilization, China's fastest-growing city, and a harbour skyline that belongs to no easy category. Ten days through four very different Chinas.
+          </p>
           <div class="trip-listing-card__stats">
             <div class="trip-listing-card__stat">
               <span class="trip-listing-card__stat-label">Duration</span>
-              <span class="trip-listing-card__stat-value">10 Days</span>
+              <span class="trip-listing-card__stat-value">10 days</span>
             </div>
             <div class="trip-listing-card__stat">
               <span class="trip-listing-card__stat-label">Cities</span>
-              <span class="trip-listing-card__stat-value">3 Cities</span>
+              <span class="trip-listing-card__stat-value">4 cities</span>
             </div>
             <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">Departure</span>
-              <span class="trip-listing-card__stat-value">To be announced</span>
+              <span class="trip-listing-card__stat-label">Departs</span>
+              <span class="trip-listing-card__stat-value">Summer 2026</span>
             </div>
             <div class="trip-listing-card__stat">
               <span class="trip-listing-card__stat-label">Price</span>
-              <span class="trip-listing-card__stat-value" style="color:var(--color-ink-muted)">To be announced</span>
+              <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">~CAD $2,598</span>
             </div>
           </div>
           <div class="trip-listing-card__footer">
-            <span class="trip-cta trip-cta--ghost">Not Yet Open</span>
+            <span class="trip-cta">View Itinerary →</span>
           </div>
-          <form class="trip-notify" id="yunnan-notify">
-            <input class="trip-notify__input" type="email" placeholder="Get notified when this opens" required />
-            <button class="trip-notify__btn" type="submit">Notify Me</button>
-          </form>
-          <p class="trip-notify__confirm" id="yunnan-notify-confirm">You're on the list — we'll reach out when Yunnan opens.</p>
         </div>
-      </div>
+      </a>
 
     </div>
   </section>
-
-  <script>
-    const notifyForm = document.getElementById('yunnan-notify');
-    const notifyConfirm = document.getElementById('yunnan-notify-confirm');
-    if (notifyForm) {
-      notifyForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = (notifyForm.querySelector('input[type="email"]') as HTMLInputElement).value;
-        try {
-          await fetch('https://formsubmit.co/hello@explorechina.ca', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({ email, _subject: 'Yunnan Route — Notify Me', _captcha: 'false', route: 'Yunnan Southwest 2026' })
-          });
-        } catch (_) {}
-        if (notifyForm) (notifyForm as HTMLElement).style.display = 'none';
-        if (notifyConfirm) (notifyConfirm as HTMLElement).style.display = 'block';
-      });
-    }
-  </script>
 </Layout>

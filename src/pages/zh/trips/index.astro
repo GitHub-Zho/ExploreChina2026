@@ -60,68 +60,49 @@ import Layout from '../../../layouts/Layout.astro';
         </div>
       </a>
 
-      <div class="trip-listing-card trip-listing-card--muted">
-        <div class="trip-listing-card__img trip-listing-card__img--placeholder">
-          <span>即将推出</span>
+      <a href="/zh/trips/south-china-2026-summer" class="trip-listing-card">
+        <div class="trip-listing-card__img">
+          <img
+            src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=800&q=80"
+            alt="香港维多利亚港夜景"
+            loading="lazy"
+          />
         </div>
         <div class="trip-listing-card__body">
           <div class="trip-listing-card__top">
             <div>
-              <h2 class="trip-listing-card__title">云南西南线</h2>
-              <p class="trip-listing-card__subtitle">昆明 · 丽江 · 大理</p>
+              <h3 class="trip-listing-card__title">华南线</h3>
+              <p class="trip-listing-card__subtitle">厦门 → 潮汕 → 深圳 → 香港</p>
             </div>
-            <span class="trip-badge trip-badge--soon">即将推出</span>
+            <span class="trip-badge trip-badge--soon">即将开放</span>
           </div>
-          <p class="trip-listing-card__desc">古镇、少数民族文化、梯田与山地风光——穿越中国视觉上最独特的省份之一。</p>
+          <p class="trip-listing-card__desc">
+            海边的南洋气息、两千年潮州文明、中国建城速度最快的城市，还有那片说不清属于哪里的维多利亚港。十天，四座截然不同的中国城市。
+          </p>
           <div class="trip-listing-card__stats">
             <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">行程天数</span>
-              <span class="trip-listing-card__stat-value">10 天</span>
+              <span class="trip-listing-card__stat-label">天数</span>
+              <span class="trip-listing-card__stat-value">10天</span>
             </div>
             <div class="trip-listing-card__stat">
               <span class="trip-listing-card__stat-label">城市</span>
-              <span class="trip-listing-card__stat-value">3 座城市</span>
+              <span class="trip-listing-card__stat-value">4座城市</span>
             </div>
             <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">出发时间</span>
-              <span class="trip-listing-card__stat-value">待定</span>
+              <span class="trip-listing-card__stat-label">出发</span>
+              <span class="trip-listing-card__stat-value">2026年暑期</span>
             </div>
             <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">价格</span>
-              <span class="trip-listing-card__stat-value" style="color:var(--color-ink-muted)">待定</span>
+              <span class="trip-listing-card__stat-label">费用</span>
+              <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">约 CAD $2,598</span>
             </div>
           </div>
           <div class="trip-listing-card__footer">
-            <span class="trip-cta trip-cta--ghost">暂未开放</span>
+            <span class="trip-cta">查看行程 →</span>
           </div>
-          <form class="trip-notify" id="yunnan-notify">
-            <input class="trip-notify__input" type="email" placeholder="有新消息第一时间通知我" required />
-            <button class="trip-notify__btn" type="submit">通知我</button>
-          </form>
-          <p class="trip-notify__confirm" id="yunnan-notify-confirm">已加入通知列表，开放时我们会联系你。</p>
         </div>
-      </div>
+      </a>
 
     </div>
   </section>
-
-  <script>
-    const notifyForm = document.getElementById('yunnan-notify');
-    const notifyConfirm = document.getElementById('yunnan-notify-confirm');
-    if (notifyForm) {
-      notifyForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = (notifyForm.querySelector('input[type="email"]') as HTMLInputElement).value;
-        try {
-          await fetch('https://formsubmit.co/hello@explorechina.ca', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({ email, _subject: 'Yunnan Route — Notify Me (ZH)', _captcha: 'false', route: 'Yunnan Southwest 2026' })
-          });
-        } catch (_) {}
-        if (notifyForm) (notifyForm as HTMLElement).style.display = 'none';
-        if (notifyConfirm) (notifyConfirm as HTMLElement).style.display = 'block';
-      });
-    }
-  </script>
 </Layout>
