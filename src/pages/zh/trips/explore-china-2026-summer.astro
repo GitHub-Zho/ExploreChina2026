@@ -9,6 +9,23 @@ import {
   itinerary,
   recommendedVideos,
 } from '../../../data/site';
+
+// Pre-compute slides for each day in the frontmatter
+type LandmarkItemEC = { name: string; nameZh: string; image: string; background: string; backgroundZh: string };
+type CitySlidEC = { type: 'city'; guide: typeof cityGuides[0] };
+type LandmarkSlidEC = { type: 'landmark'; lm: LandmarkItemEC };
+type DaySlidEC = CitySlidEC | LandmarkSlidEC;
+
+const itineraryWithSlides = itinerary.map((d, idx) => {
+  const isFirstCityDay = idx === 0 || itinerary[idx - 1].city !== d.city;
+  const cityGuide = cityGuides.find(g => g.city === d.city);
+  const landmarks: LandmarkItemEC[] = (d as any).landmarks ?? [];
+  const slides: DaySlidEC[] = [
+    ...(isFirstCityDay && cityGuide ? [{ type: 'city' as const, guide: cityGuide }] : []),
+    ...landmarks.map(lm => ({ type: 'landmark' as const, lm })),
+  ];
+  return { ...d, isFirstCityDay, slides };
+});
 ---
 <Layout
   title={currentTrip.titleZh}
@@ -109,21 +126,16 @@ import {
       <div class="route-intro__body">
 
         <span class="route-intro__city-label">上海</span>
-        <p>上海是一座不讲道理的城市。外滩的天际线你在照片里看过一百遍了，但当你真正站在黄浦江边，看浦东的灯光整面整面地亮起来的时候，你会发现照片骗了你——不是因为它比照片差，是因为照片根本装不下那种扑面而来的压迫感和兴奋感同时涌上来的瞬间。然后你拐进老城厢的巷子，踩着青石板，闻到葱油饼的香气，听见弄堂里有人用上海话吵架，三步之外一家咖啡店放着你在多伦多也会听的歌。这座城市最迷人的地方不是它有多现代，是它把一百年前和五分钟后的东西，摆在同一条街上，而且毫不违和。</p>
+        <p>上海是一座还没决定自己是否建完的城市。外滩的清晨是石材与江雾；对岸的高楼入夜之后是玻璃与灯光。中间是法租界——梧桐树夹道，石库门弄堂改成了咖啡馆，石板路上有雨水的气息。你会在这里吃到一样无法准确描述的东西，然后在之后很多个星期里还会想起它。</p>
 
         <span class="route-intro__city-label">苏州</span>
-        <p>苏州是上海按下暂停键之后的世界。声音变小了。节奏变慢了。水出现了——不是海水，是运河的水，暗绿色的，安静的，载过丝绸商人也载过落第书生的那种水。"君到姑苏见，人家尽枕河"，一千年前有人写下这句话的时候看到的画面，和你将要看到的，几乎没有区别。古典园林里每一块石头的位置都不是随意的，每一扇窗框出去的景色都是被设计过的——六百年前的人相信美是一种责任，不是装饰。你不需要懂园林，你的身体会比脑子先感受到那种安静。在上海的兴奋劲还没完全消退的时候走进苏州，你会突然理解为什么中国文人用了一千年来区分"热闹"和"好"这两个概念。</p>
+        <p>苏州的古典园林是为了制造一种特定的感受而建造的：让你觉得自己侧身走进了另一种和时间的关系。水在其中流动得很慢。山石与花木透过窗框的取景是刻意为之的——每一个视角都是构图。园林外面，河道边的小巷窄而湿润，还有人在住。老妇人在水面上晾衣服。运河是生活设施，不是景色。</p>
 
         <span class="route-intro__city-label">杭州</span>
-        <p>杭州是这趟旅程中你会被悄悄改变的地方。西湖不震撼你，它不需要。它只是在那里，平静得不像话，把山和柳和塔倒映在水面上，像一幅没有画框的画。苏轼说"淡妆浓抹总相宜"的时候大概也是这样一个下午——光线刚好，湖风刚好，你刚好走在断桥上，身边是五天前还是陌生人现在已经开始分享耳机的人。灵隐寺的钟声从湖面上飘过来，空气里有龙井茶的味道，不是从店里飘出来的，是从山坡上正在生长的茶树上飘过来的。杭州是那种你到了之后不想发朋友圈的地方——不是因为它不够好，是因为你觉得这个瞬间应该先留给自己。</p>
+        <p>西湖在清晨最好——游船还没出来，水面还有薄雾，苏堤上安静到可以听见鸟叫。湖上方的茶园是另一种安静：整齐的、绿的、带着新叶气味的。下午湖光是金色的。宋朝的诗人写过这些，并没有夸张。</p>
 
         <span class="route-intro__city-label">北京</span>
-        <p>然后是北京。然后一切都变大了。不是渐渐变大，是突然变大。路更宽了，天更高了，历史变得有重量了，压在你头顶上那种。长城出现在山脊线上的时候，所有人会在同一秒安静下来。你看过照片，看过视频，看过纪录片，但没有任何东西能替代那个瞬间——那条石头铸成的脊背从山脉上升起来，一直延伸到你看不到的地方，消失在雾里。你胸口会有一种说不出来的感觉，不是激动，比激动更深，是站在一个已经重要了两千年的地方时，身体先于意识做出的反应。</p>
-        <p>故宫是另一种震撼——180英亩的皇城建筑，每一根柱子每一片琉璃瓦都摆在它该在的位置上，精确到让你不自觉地降低说话的音量。一整个文明曾经在这些红墙之后被治理。然后你走进十分钟之外的胡同，看到有人在巷口下棋，有只猫趴在自行车座上睡觉，有人的衣服晾在风里——北京突然从纪念碑变成了一个社区，而你恰好路过。</p>
-
-        <p>但真正让这趟旅行变成"我们的"而不是"谁都能做的"，是那些行程表以外的东西。在清华和北大，你不是去参观校园——你会和这个国家最顶尖学府里的学生面对面坐下来，聊他们怎么看世界，怎么看你来的地方，怎么看那些你以为理所当然的事情。这种对话会让你不舒服，也会让你兴奋，因为你的世界观正在被轻轻推了一下。你会亲手做一些流传下来的工艺——不是隔着绳子拍照，是你自己的手去触碰那些材料，按照传承了几百年的方式去塑造它。你也会泡温泉，会去那些只有本地人知道的酒吧，会在某个屋顶上端着一杯酒看着城市的灯光和身边这群一周前还不认识的人聊到凌晨三点——然后意识到，这些人已经不是陌生人了。</p>
-
-        <p>你不需要会中文。你不需要研究攻略。你不需要操心签证、支付、交通、VPN。这些我们全部替你做好了。你只需要带上好奇心，和一个装了一半的行李箱——因为你一定会想把什么东西带回去。可能是一件东西，也可能是一种你之前没有过的感觉。</p>
+        <p>北京是一座知道自己是首都的城市。那个规模是刻意的——宽阔的大道、纪念碑式的广场、大到看不到对面的故宫。但你会记住的是胡同：鼓楼后面的那些小巷，北京旧有的生活节奏还在那里，煤烟味混着炒菜声，某个二楼的窗户里有人在听京剧。</p>
 
       </div>
 
@@ -156,80 +168,87 @@ import {
     </div>
   </section>
 
-  <!-- City Guides -->
-  <section class="section card tone-blue city-tabs-section" id="city-guides" data-city-tabs>
-    <div class="city-tabs-section__header">
-      <p class="section-eyebrow">城市导览 Tabs</p>
-      <h2 class="section-title">先在页面里认识这几座城市</h2>
-      <p class="section-sub">点击标签即可原地切换内容，用更有人味的故事、感受和几个关键亮点，提前建立对每一站的熟悉感。</p>
-    </div>
-
-    <div class="city-tabs__nav" role="tablist" aria-label="城市导览标签">
-      {cityGuides.map((city, idx) => (
-        <button
-          type="button"
-          class={`city-tabs__tab ${idx === 0 ? 'is-active' : ''}`}
-          id={`city-tab-${city.city.toLowerCase()}`}
-          role="tab"
-          aria-selected={idx === 0 ? 'true' : 'false'}
-          aria-controls={`city-panel-${city.city.toLowerCase()}`}
-          data-city-tab={city.city.toLowerCase()}
-          tabindex={idx === 0 ? '0' : '-1'}
-        >
-          <span>{city.cityZh}</span>
-          <span class="city-tabs__tab-sub">{city.city}</span>
-        </button>
-      ))}
-    </div>
-
-    {cityGuides.map((city, idx) => (
-      <article
-        class={`city-tabs__panel ${idx === 0 ? 'is-active' : ''}`}
-        id={`city-panel-${city.city.toLowerCase()}`}
-        role="tabpanel"
-        aria-labelledby={`city-tab-${city.city.toLowerCase()}`}
-        hidden={idx !== 0}
-        data-city-panel={city.city.toLowerCase()}
-      >
-        <div class="city-tabs__panel-grid">
-          <figure class="card city-tabs__hero">
-            <img class="photo media-wide" src={city.heroImage} alt={city.heroAlt} loading={idx === 0 ? 'eager' : 'lazy'} />
-          </figure>
-          <div class="city-tabs__story">
-            <p class="pill">{city.cityZh} · {city.city}</p>
-            <h3 class="city-tabs__title">为什么这座城市值得你在路上认真感受</h3>
-            <p class="city-tabs__lead">{city.contextZh}</p>
-            <p class="city-tabs__text">{city.feelingZh}</p>
-          </div>
-        </div>
-
-        <div class="city-tabs__highlights">
-          {city.explore.slice(0, 4).map((spot) => (
-            <article class="card city-tabs__highlight">
-              <p class="label">关键亮点</p>
-              <h4>{spot.titleZh}</h4>
-              <p class="muted">{spot.descriptionZh}</p>
-            </article>
-          ))}
-        </div>
-      </article>
-    ))}
-  </section>
-
-  <!-- Itinerary — compact timeline -->
   <section id="itinerary" class="section card tone-sand">
-    <h2 class="section-title">10天路线一览</h2>
-    <div class="trip-timeline">
-      {itinerary.map((d) => (
-        <div class="trip-timeline__row">
-          <div class="trip-timeline__day">{d.dayZh}</div>
-          <div class="trip-timeline__dot"></div>
-          <div class="trip-timeline__content">
-            <strong class="trip-timeline__city">{d.cityZh}</strong>
-            <span class="trip-timeline__title">{d.titleZh}</span>
-            <p class="trip-timeline__plan">{d.planZh}</p>
+    <h2 class="section-title">十天行程一览</h2>
+    <p class="section-sub" style="margin-bottom:2rem;">点击每一天，探索沿途的城市与景点。</p>
+
+    <div class="itinerary-accordion">
+      {itineraryWithSlides.map((d, idx) => (
+          <div
+            class={`itinerary-day${d.isFirstCityDay ? ' itinerary-day--city-start' : ''}`}
+            data-day-idx={idx}
+          >
+            <button class="itinerary-day__header" aria-expanded="false" data-day-toggle>
+              <span class="itinerary-day__num">{d.dayZh}</span>
+              <span class="itinerary-day__meta">
+                <span class="itinerary-day__city">{d.cityZh}</span>
+                <span class="itinerary-day__title">{d.titleZh}</span>
+              </span>
+              <svg class="itinerary-day__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            <div class="itinerary-day__body" data-day-body>
+              <div class="itinerary-day__inner">
+                {d.slides.length > 0 && (
+                  <div class="landmark-carousel" data-carousel>
+                    <div class="landmark-carousel__track-wrap">
+                      <div class="landmark-carousel__track" data-carousel-track>
+
+                        {d.slides.map((slide) => (
+                          <div class="landmark-carousel__slide">
+                            {slide.type === 'city' ? (
+                              <div class="city-intro-card">
+                                <img
+                                  class="city-intro-card__img"
+                                  src={slide.guide.heroImage}
+                                  alt={slide.guide.heroAlt}
+                                  loading="lazy"
+                                />
+                                <div class="city-intro-card__text">
+                                  <span class="city-intro-card__label">城市概览</span>
+                                  <h3 class="city-intro-card__name">{slide.guide.cityZh}</h3>
+                                  <p class="city-intro-card__body">{slide.guide.contextZh}</p>
+                                </div>
+                              </div>
+                            ) : (
+                              <div class="landmark-card">
+                                <img
+                                  class="landmark-card__img"
+                                  src={slide.lm.image}
+                                  alt={slide.lm.nameZh}
+                                  loading="lazy"
+                                />
+                                <div class="landmark-card__body">
+                                  <h4 class="landmark-card__name">{slide.lm.nameZh}</h4>
+                                  <span class="landmark-card__name-zh">{slide.lm.name}</span>
+                                  <p class="landmark-card__text">{slide.lm.backgroundZh}</p>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+
+                      </div>
+                    </div>
+
+                    {d.slides.length > 1 && (
+                      <div class="landmark-carousel__nav">
+                        <button class="landmark-carousel__btn" data-carousel-prev aria-label="上一张">←</button>
+                        <div class="landmark-carousel__dots">
+                          {d.slides.map((_slide, i) => (
+                            <span class={`landmark-carousel__dot${i === 0 ? ' is-active' : ''}`} data-carousel-dot></span>
+                          ))}
+                        </div>
+                        <button class="landmark-carousel__btn" data-carousel-next aria-label="下一张">→</button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
       ))}
     </div>
   </section>
@@ -359,46 +378,60 @@ import {
 </style>
 
 <script is:inline>
-  document.querySelectorAll('.faq__q').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      document.querySelectorAll('.faq__q').forEach((b) => b.setAttribute('aria-expanded', 'false'));
-      if (!expanded) btn.setAttribute('aria-expanded', 'true');
-    });
+// ── FAQ accordion ──────────────────────────────────────
+document.querySelectorAll('.faq__item').forEach(item => {
+  const btn = item.querySelector('.faq__q');
+  const answer = item.querySelector('.faq__a');
+  btn?.addEventListener('click', () => {
+    const open = item.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(open));
+    if (answer) answer.style.maxHeight = open ? answer.scrollHeight + 'px' : '0';
+  });
+});
+
+// ── Itinerary day accordion ────────────────────────────
+document.querySelectorAll('.itinerary-day').forEach(day => {
+  const header = day.querySelector('[data-day-toggle]');
+  const body = day.querySelector('[data-day-body]');
+  if (!header || !body) return;
+  header.addEventListener('click', () => {
+    const open = day.classList.toggle('is-open');
+    header.setAttribute('aria-expanded', String(open));
+    body.style.maxHeight = open ? '900px' : '0';
+  });
+});
+
+// ── Landmark carousels ─────────────────────────────────
+document.querySelectorAll('[data-carousel]').forEach(carousel => {
+  const track = carousel.querySelector('[data-carousel-track]');
+  const slides = carousel.querySelectorAll('.landmark-carousel__slide');
+  const prevBtn = carousel.querySelector('[data-carousel-prev]');
+  const nextBtn = carousel.querySelector('[data-carousel-next]');
+  const dots = carousel.querySelectorAll('[data-carousel-dot]');
+  if (!track || slides.length === 0) return;
+
+  let idx = 0;
+  const total = slides.length;
+  const slideWidth = 88;
+
+  function goTo(n) {
+    idx = Math.max(0, Math.min(n, total - 1));
+    track.style.transform = `translateX(-${idx * slideWidth}%)`;
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    if (prevBtn) prevBtn.disabled = idx === 0;
+    if (nextBtn) nextBtn.disabled = idx === total - 1;
+  }
+
+  prevBtn?.addEventListener('click', () => goTo(idx - 1));
+  nextBtn?.addEventListener('click', () => goTo(idx + 1));
+
+  let touchX = 0;
+  carousel.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  carousel.addEventListener('touchend', e => {
+    const delta = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 40) goTo(idx + (delta > 0 ? 1 : -1));
   });
 
-  document.querySelectorAll('[data-city-tabs]').forEach((root) => {
-    const tabs = Array.from(root.querySelectorAll('[data-city-tab]'));
-    const panels = Array.from(root.querySelectorAll('[data-city-panel]'));
-
-    const activateTab = (key) => {
-      tabs.forEach((tab) => {
-        const active = tab.getAttribute('data-city-tab') === key;
-        tab.classList.toggle('is-active', active);
-        tab.setAttribute('aria-selected', active ? 'true' : 'false');
-        tab.setAttribute('tabindex', active ? '0' : '-1');
-      });
-
-      panels.forEach((panel) => {
-        const active = panel.getAttribute('data-city-panel') === key;
-        panel.classList.toggle('is-active', active);
-        panel.hidden = !active;
-      });
-    };
-
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => activateTab(tab.getAttribute('data-city-tab')));
-      tab.addEventListener('keydown', (event) => {
-        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
-        event.preventDefault();
-        const nextIndex = event.key === 'ArrowRight'
-          ? (index + 1) % tabs.length
-          : (index - 1 + tabs.length) % tabs.length;
-        const nextTab = tabs[nextIndex];
-        nextTab.focus();
-        activateTab(nextTab.getAttribute('data-city-tab'));
-      });
-    });
-  });
-
+  goTo(0);
+});
 </script>
