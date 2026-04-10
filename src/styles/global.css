@@ -1746,6 +1746,62 @@ a { color: inherit; text-decoration: none; }
   .trip-notify { max-width: none; }
 }
 
+/* ─── Highlights Strip ──────────────────────────────── */
+.highlights-strip {
+  overflow-x: auto;
+  display: flex;
+  gap: 1.25rem;
+  padding: 2.5rem clamp(1rem, 5vw, 3rem);
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.highlights-strip::-webkit-scrollbar { display: none; }
+
+.highlights-strip__card {
+  flex: 0 0 clamp(200px, 26vw, 300px);
+  scroll-snap-align: start;
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: var(--color-ink);
+  border-radius: var(--card-radius);
+}
+
+.highlights-strip__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+  transition: opacity 0.4s ease, transform 0.5s ease;
+  display: block;
+}
+
+.highlights-strip__card:hover img {
+  opacity: 0.88;
+  transform: scale(1.05);
+}
+
+.highlights-strip__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 1rem 1rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+  line-height: 1.45;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .highlights-strip__card {
+    flex: 0 0 72vw;
+  }
+}
+
 /* Route Introduction */
 .route-intro {
   background: #f5f1e9;
