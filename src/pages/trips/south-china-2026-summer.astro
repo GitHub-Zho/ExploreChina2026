@@ -18,6 +18,23 @@ const included        = southChinaIncluded;
 const notIncluded     = southChinaNotIncluded;
 const recommendedVideos = southChinaVideos;
 
+// Pre-compute slides for each day in the frontmatter (TypeScript safe)
+type LandmarkItem = { name: string; nameZh: string; image: string; background: string; backgroundZh: string };
+type CitySlide = { type: 'city'; guide: typeof cityGuides[0] };
+type LandmarkSlide = { type: 'landmark'; lm: LandmarkItem };
+type DaySlide = CitySlide | LandmarkSlide;
+
+const itineraryWithSlides = itinerary.map((d, idx) => {
+  const isFirstCityDay = idx === 0 || itinerary[idx - 1].city !== d.city;
+  const cityGuide = cityGuides.find(g => g.city === d.city);
+  const landmarks: LandmarkItem[] = (d as any).landmarks ?? [];
+  const slides: DaySlide[] = [
+    ...(isFirstCityDay && cityGuide ? [{ type: 'city' as const, guide: cityGuide }] : []),
+    ...landmarks.map(lm => ({ type: 'landmark' as const, lm })),
+  ];
+  return { ...d, isFirstCityDay, slides };
+});
+
 const tripStructuredData = [
   {
     '@context': 'https://schema.org',
@@ -184,16 +201,9 @@ const tripStructuredData = [
     <p class="section-sub" style="margin-bottom:2rem;">Click any day to explore the places you'll visit.</p>
 
     <div class="itinerary-accordion">
-      {itinerary.map((d, idx) => {
-        const isFirstCityDay = idx === 0 || itinerary[idx - 1].city !== d.city;
-        const cityGuide = cityGuides.find(g => g.city === d.city);
-        const slides = [
-          ...(isFirstCityDay && cityGuide ? [{ type: 'city' as const, guide: cityGuide }] : []),
-          ...((d as any).landmarks ?? []).map((lm: any) => ({ type: 'landmark' as const, lm })),
-        ];
-        return (
+      {itineraryWithSlides.map((d, idx) => (
           <div
-            class={`itinerary-day${isFirstCityDay ? ' itinerary-day--city-start' : ''}`}
+            class={`itinerary-day${d.isFirstCityDay ? ' itinerary-day--city-start' : ''}`}
             data-day-idx={idx}
           >
             <button class="itinerary-day__header" aria-expanded="false" data-day-toggle>
@@ -209,12 +219,12 @@ const tripStructuredData = [
 
             <div class="itinerary-day__body" data-day-body>
               <div class="itinerary-day__inner">
-                {slides.length > 0 && (
+                {d.slides.length > 0 && (
                   <div class="landmark-carousel" data-carousel>
                     <div class="landmark-carousel__track-wrap">
                       <div class="landmark-carousel__track" data-carousel-track>
 
-                        {slides.map((slide) => (
+                        {d.slides.map((slide) => (
                           <div class="landmark-carousel__slide">
                             {slide.type === 'city' ? (
                               <div class="city-intro-card">
@@ -251,11 +261,11 @@ const tripStructuredData = [
                       </div>
                     </div>
 
-                    {slides.length > 1 && (
+                    {d.slides.length > 1 && (
                       <div class="landmark-carousel__nav">
                         <button class="landmark-carousel__btn" data-carousel-prev aria-label="Previous">←</button>
                         <div class="landmark-carousel__dots">
-                          {slides.map((_, i) => (
+                          {d.slides.map((_slide, i) => (
                             <span class={`landmark-carousel__dot${i === 0 ? ' is-active' : ''}`} data-carousel-dot></span>
                           ))}
                         </div>
@@ -267,8 +277,7 @@ const tripStructuredData = [
               </div>
             </div>
           </div>
-        );
-      })}
+      ))}
     </div>
   </section>
 
