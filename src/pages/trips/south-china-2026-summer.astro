@@ -1,0 +1,411 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {
+  southChinaTrip,
+  southChinaItinerary,
+  southChinaCityGuides,
+  southChinaFaq,
+  southChinaIncluded,
+  southChinaNotIncluded,
+  southChinaVideos,
+} from '../../data/south-china.ts';
+
+const currentTrip     = southChinaTrip;
+const itinerary       = southChinaItinerary;
+const cityGuides      = southChinaCityGuides;
+const faq             = southChinaFaq;
+const included        = southChinaIncluded;
+const notIncluded     = southChinaNotIncluded;
+const recommendedVideos = southChinaVideos;
+
+const tripStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'TouristTrip',
+    name: currentTrip.title,
+    description:
+      'A 10-day student travel route through Xiamen, Chaoshan, Shenzhen and Hong Kong — cultural depth, coastal energy, and East-meets-West intensity.',
+    itinerary: itinerary.map((day) => `${day.day}: ${day.city} - ${day.title}`),
+    touristType: 'Students and young travelers from Canada',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.explorechina.ca/' },
+      { '@type': 'ListItem', position: 2, name: 'South China Route', item: 'https://www.explorechina.ca/trips/south-china-2026-summer' },
+    ],
+  },
+];
+---
+<Layout
+  title="South China Route · Explore China 2026"
+  description="A 10-day student travel route through Xiamen, Chaoshan, Shenzhen and Hong Kong — cultural depth, coastal energy, and East-meets-West intensity."
+  lang="en"
+  alternateHref="/zh/trips/south-china-2026-summer"
+  alternateLabel="中文"
+  canonical="/trips/south-china-2026-summer"
+  structuredData={tripStructuredData}
+  darkNav={true}
+>
+
+  <div class="trip-hero">
+    <img
+      src="https://images.unsplash.com/photo-1506812574058-fc75fa93fead?auto=format&fit=crop&w=1600&q=80"
+      alt="Xiamen coastal view at dusk"
+      class="trip-hero__img"
+    />
+    <div class="trip-hero__overlay">
+      <h1 class="trip-hero__title">{currentTrip.title}</h1>
+      <p class="trip-hero__sub">{currentTrip.subtitle}</p>
+    </div>
+  </div>
+
+  <section id="overview" class="trip-strip">
+    <div class="trip-strip__inner">
+      <div class="trip-strip__facts">
+        <div class="trip-strip__fact"><span class="trip-strip__label">Route</span><span class="trip-strip__val">{currentTrip.subtitle}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Departure</span><span class="trip-strip__val">{currentTrip.departureWindow}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Price</span><span class="trip-strip__val trip-strip__val--price">{currentTrip.priceCad}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Group</span><span class="trip-strip__val">{currentTrip.groupSize}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Deadline</span><span class="trip-strip__val">{currentTrip.applicationDeadline}</span></div>
+      </div>
+      <div class="trip-strip__actions">
+        <a class="trip-cta" href="#apply">Apply for This Trip</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="route-intro">
+  <div class="route-intro__inner">
+    <div class="route-intro__rule"></div>
+
+    <p class="route-intro__headline">
+      Four cities. Four different Chinas.
+    </p>
+
+    <div class="route-intro__body">
+      <p>
+        The South China Route moves through a register of the country that most travelers miss:
+        Xiamen's colonial sea air and diaspora nostalgia, the ancient Teochew civilization of
+        Chaoshan, Shenzhen's speed-built ambition, and finally Hong Kong — the place where East
+        and West stopped being a metaphor and became actual streets, food stalls, and a way of
+        moving through the world.
+      </p>
+      <span class="route-intro__pivot">Read the full story ↓</span>
+    </div>
+
+    <button class="route-intro__toggle" id="route-intro-toggle" aria-expanded="false">
+      Read the full story ↓
+    </button>
+
+    <div class="route-intro__expandable" id="route-intro-body">
+      <div class="route-intro__body">
+
+        <span class="route-intro__city-label">Xiamen</span>
+        <p>Xiamen is China turned down to a more livable frequency. The sea is always there — in the morning air, in the ferry horn across the channel to Gulangyu. It was forced open as a treaty port in 1842, and for nearly a century the island offshore housed consulates from 13 nations. Today that layering shows in the architecture, the food, and in the faces of the Hokkien diaspora who keep coming back.</p>
+
+        <span class="route-intro__city-label">Chaoshan</span>
+        <p>Chaoshan isn't a single city — it's a region, an identity, a diaspora of 15 million Teochew speakers scattered across Southeast Asia who still send money home and return for funerals. In Chaozhou you walk through 2,600 years of continuous civilization. A tea session here lasts three hours. Nobody checks their phone.</p>
+
+        <span class="route-intro__city-label">Shenzhen</span>
+        <p>In 1980, Shenzhen was a fishing village of 30,000 people. Today it has 17 million. That sprint — 58% annual GDP growth in its early years — is the defining fact of the city, and it shows in everything: the architecture that doesn't pretend to be old, the residents who came from everywhere else, the energy that still feels like it's trying to prove something. It is also China's youngest major city by median age.</p>
+
+        <span class="route-intro__city-label">Hong Kong</span>
+        <p>Hong Kong is where 156 years of British rule layered onto Cantonese civilization — and instead of erasing either, created something genuinely new. Its own legal system, currency, immigration controls, and a Cantonese-speaking identity that is distinct from the mainland. The tram creaks up Garden Road. The star ferry horn echoes off the towers. In Sham Shui Po you can still find rolls of fabric from a different era. The city is dense, layered, and entirely real.</p>
+
+      </div>
+
+      <p class="route-intro__colophon">
+        10 days &nbsp;·&nbsp; Xiamen · Chaoshan · Shenzhen · Hong Kong
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const toggle = document.getElementById('route-intro-toggle');
+  const body = document.getElementById('route-intro-body');
+  if (toggle && body) {
+    toggle.addEventListener('click', () => {
+      const isOpen = body.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.textContent = isOpen ? 'Close ↑' : 'Read the full story ↓';
+    });
+  }
+</script>
+
+  <section id="who-is-this-for" class="section" style="padding: 4rem 2rem;">
+    <div style="max-width:48rem; margin:0 auto;">
+      <h2 style="font-size:clamp(20px,3vw,30px); font-weight:700; font-family:var(--font-display); line-height:1.2; margin-bottom:1.25rem;">This route is for people who want the version of China that takes a little more effort to reach.</h2>
+      <p class="muted" style="font-size:clamp(0.9rem,1.5vw,1.05rem); line-height:1.85; margin-bottom:1rem;">A slower tea ceremony. A border crossing. A fishing village. A UNESCO island you reach by ferry.</p>
+      <p class="muted" style="font-size:clamp(0.9rem,1.5vw,1.05rem); line-height:1.85; margin-bottom:1rem;">No prior China experience required. No Mandarin. The complicated parts — payments, SIM cards, cross-border logistics — are already handled.</p>
+      <p class="muted" style="font-size:clamp(0.9rem,1.5vw,1.05rem); line-height:1.85; padding-bottom:1.5rem;">Curiosity is enough.</p>
+    </div>
+  </section>
+
+  <section id="itinerary" class="section card tone-sand">
+    <h2 class="section-title">10-day route at a glance</h2>
+    <div class="trip-timeline">
+      {itinerary.map((d) => (
+        <div class="trip-timeline__row">
+          <div class="trip-timeline__day">{d.day}</div>
+          <div class="trip-timeline__dot"></div>
+          <div class="trip-timeline__content">
+            <strong class="trip-timeline__city">{d.city}</strong>
+            <span class="trip-timeline__title">{d.title}</span>
+            <p class="trip-timeline__plan">{d.plan}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section card tone-blue city-tabs-section" id="city-guides" data-city-tabs>
+    <div class="city-tabs-section__header">
+      <p class="section-eyebrow">City Guide Tabs</p>
+      <h2 class="section-title">Meet the cities before you arrive</h2>
+      <p class="section-sub">Switch tabs in place to get the cultural story, the on-the-ground feeling, and a few practical anchors for each stop on the route.</p>
+    </div>
+
+    <div class="city-tabs__nav" role="tablist" aria-label="City guide tabs">
+      {cityGuides.map((city, idx) => (
+        <button
+          type="button"
+          class={`city-tabs__tab ${idx === 0 ? 'is-active' : ''}`}
+          id={`city-tab-${city.city.toLowerCase()}`}
+          role="tab"
+          aria-selected={idx === 0 ? 'true' : 'false'}
+          aria-controls={`city-panel-${city.city.toLowerCase()}`}
+          data-city-tab={city.city.toLowerCase()}
+          tabindex={idx === 0 ? '0' : '-1'}
+        >
+          <span>{city.city}</span>
+          <span class="city-tabs__tab-sub">{city.cityZh}</span>
+        </button>
+      ))}
+    </div>
+
+    {cityGuides.map((city, idx) => (
+      <article
+        class={`city-tabs__panel ${idx === 0 ? 'is-active' : ''}`}
+        id={`city-panel-${city.city.toLowerCase()}`}
+        role="tabpanel"
+        aria-labelledby={`city-tab-${city.city.toLowerCase()}`}
+        hidden={idx !== 0}
+        data-city-panel={city.city.toLowerCase()}
+      >
+        <div class="city-tabs__panel-grid">
+          <figure class="card city-tabs__hero">
+            <img class="photo media-wide" src={city.heroImage} alt={city.heroAlt} loading={idx === 0 ? 'eager' : 'lazy'} />
+          </figure>
+          <div class="city-tabs__story">
+            <p class="pill">{city.city} · {city.cityZh}</p>
+            <h3 class="city-tabs__title">Why this city matters on the route</h3>
+            <p class="city-tabs__lead">{city.context}</p>
+            <p class="city-tabs__text">{city.feeling}</p>
+          </div>
+        </div>
+
+        <div class="city-tabs__highlights">
+          {city.explore.slice(0, 4).map((spot) => (
+            <article class="card city-tabs__highlight" style={spot.image ? `--highlight-bg: url(${spot.image})` : ''}>
+              {spot.image && <div class="highlight-img" aria-hidden="true"></div>}
+              <div class="highlight-content">
+                <p class="label">Key highlight</p>
+                <h4>{spot.title}</h4>
+                <p class="muted">{spot.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="section incl-grid">
+    <article class="incl-card incl-card--yes">
+      <h2 class="incl-card__title">Included</h2>
+      <ul class="incl-list">
+        {included.map((item) => (
+          <li class="incl-item"><i class="incl-icon incl-icon--yes">✓</i><span>{item}</span></li>
+        ))}
+      </ul>
+    </article>
+    <article class="incl-card incl-card--no">
+      <h2 class="incl-card__title">Not included</h2>
+      <ul class="incl-list">
+        {notIncluded.map((item) => (
+          <li class="incl-item"><i class="incl-icon incl-icon--no">×</i><span>{item}</span></li>
+        ))}
+      </ul>
+    </article>
+  </section>
+
+  <section class="section card tone-blue">
+    <h2 class="section-title">Video references before you decide</h2>
+    <div class="grid cols-3 video-grid">
+      {recommendedVideos.map((video) => {
+        const ytId = video.url.match(/[?&]v=([^&]+)/)?.[1] || '';
+        return (
+          <a href={video.url} target="_blank" rel="noopener" class="video-card">
+            <div class="video-card__thumb">
+              <img src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`} alt={video.title} loading="lazy" />
+              <div class="video-card__play">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.6)"/><path d="M19 15l14 9-14 9V15z" fill="#fff"/></svg>
+              </div>
+            </div>
+            <div class="video-card__info">
+              <h3 class="video-card__title">{video.title}</h3>
+              <p class="video-card__creator">{video.creator}</p>
+              <p class="video-card__note">{video.note}</p>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- SEO context — visually subtle, content-rich for search engines -->
+  <section class="section" style="padding: 1.5rem 2rem 0;">
+    <div style="max-width:54rem; margin:0 auto; border-top:1px solid #e8e5e0; padding-top:1.5rem;">
+      <p style="font-size:13px; line-height:1.9; color:#9a9590; text-align:center;">Planning a South China trip from Toronto or elsewhere in Canada? Start with the <a href="/handbook" style="color:#b8524a;">handbook</a>, then check the <a href="/about" style="color:#b8524a;">team background</a> and <a href="/privacy" style="color:#b8524a;">privacy policy</a>.</p>
+    </div>
+  </section>
+
+  <section id="faq" class="faq">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">FAQ</p>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq__list">
+        {faq.map((f, i) => (
+          <div class="faq__item" id={`sc-faq-${i}`}>
+            <button class="faq__q" aria-expanded="false" aria-controls={`sc-faq-answer-${i}`}>
+              <span>{f.q}</span>
+              <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq__a" id={`sc-faq-answer-${i}`} role="region" aria-labelledby={`sc-faq-${i}`}>
+              <div class="faq__a-inner">{f.a}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="apply" class="route-apply">
+    <div class="container" style="text-align:center; padding-top:0; padding-bottom:0;">
+      <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Apply</p>
+      <h2 class="section-title" style="color:#fff; margin-bottom:1rem;">Ready to go?</h2>
+      <p style="color:rgba(255,255,255,0.72); font-size:clamp(0.95rem,2vw,1.05rem); line-height:1.75; max-width:460px; margin:0 auto 2rem;">
+        Tell us about yourself and which trip you're interested in — we'll follow up within 5 business days.
+      </p>
+      <a href="/apply"
+        style="display:inline-block; background:var(--color-red,#c8102e); color:#fff; padding:0.9rem 2.5rem; font-size:0.875rem; font-weight:600; letter-spacing:0.08em; text-decoration:none; text-transform:uppercase; transition:background 0.2s;"
+        onmouseover="this.style.background='#a00d24'"
+        onmouseout="this.style.background='var(--color-red,#c8102e)'">
+        Apply Now →
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+.trip-hero {
+  position: relative;
+  height: 420px;
+  overflow: hidden;
+}
+.trip-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.trip-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 2.5rem;
+  text-align: center;
+}
+.trip-hero__title {
+  color: #fff;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  font-family: var(--font-display);
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+.trip-hero__sub {
+  color: rgba(255,255,255,0.85);
+  font-size: 1.1rem;
+  max-width: 640px;
+  line-height: 1.7;
+}
+</style>
+
+<script is:inline>
+  document.querySelectorAll('.faq__q').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.faq__q').forEach((b) => b.setAttribute('aria-expanded', 'false'));
+      if (!expanded) btn.setAttribute('aria-expanded', 'true');
+    });
+  });
+
+  document.querySelectorAll('[data-city-tabs]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll('[data-city-tab]'));
+    const panels = Array.from(root.querySelectorAll('[data-city-panel]'));
+
+    const activateTab = (key) => {
+      tabs.forEach((tab) => {
+        const active = tab.getAttribute('data-city-tab') === key;
+        tab.classList.toggle('is-active', active);
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        tab.setAttribute('tabindex', active ? '0' : '-1');
+      });
+
+      panels.forEach((panel) => {
+        const active = panel.getAttribute('data-city-panel') === key;
+        panel.classList.toggle('is-active', active);
+        panel.hidden = !active;
+      });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateTab(tab.getAttribute('data-city-tab')));
+      tab.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+        event.preventDefault();
+        const nextIndex = event.key === 'ArrowRight'
+          ? (index + 1) % tabs.length
+          : (index - 1 + tabs.length) % tabs.length;
+        const nextTab = tabs[nextIndex];
+        nextTab.focus();
+        activateTab(nextTab.getAttribute('data-city-tab'));
+      });
+    });
+  });
+
+  /* ── Mobile: IntersectionObserver reveals highlight images on scroll ── */
+  if (window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window) {
+    const highlightCards = document.querySelectorAll('.city-tabs__highlight');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+        } else {
+          e.target.classList.remove('in-view');
+        }
+      });
+    }, { threshold: 0.5 });
+    highlightCards.forEach((card) => io.observe(card));
+  }
+</script>
