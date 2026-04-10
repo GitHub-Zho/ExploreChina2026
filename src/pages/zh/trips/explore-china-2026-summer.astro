@@ -49,6 +49,40 @@ import {
     </div>
   </section>
 
+  <section class="highlights-strip" aria-label="路线亮点">
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=80" alt="上海外滩" loading="lazy" />
+      <p class="highlights-strip__caption">专为震慑帝国而建的海滨，时至今日仍在运作</p>
+    </div>
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80" alt="上海小笼包" loading="lazy" />
+      <p class="highlights-strip__caption">汤包里藏着汤，这门技艺花了六百年打磨</p>
+    </div>
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1535082623926-b39352a03fb7?auto=format&fit=crop&w=600&q=80" alt="苏州古典园林" loading="lazy" />
+      <p class="highlights-strip__caption">让你忘记身处哪个朝代的园林</p>
+    </div>
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1500039436846-25ae2f11882e?auto=format&fit=crop&w=600&q=80" alt="杭州西湖" loading="lazy" />
+      <p class="highlights-strip__caption">被写进民族记忆的那片湖</p>
+    </div>
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=600&q=80" alt="北京烤鸭" loading="lazy" />
+      <p class="highlights-strip__caption">明朝传下来的烤法，两百度，从未改变</p>
+    </div>
+
+    <div class="highlights-strip__card">
+      <img src="https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?auto=format&fit=crop&w=600&q=80" alt="北京故宫" loading="lazy" />
+      <p class="highlights-strip__caption">九千九百九十九间房，只有一个人获准清点</p>
+    </div>
+
+  </section>
+
   <section class="route-intro">
   <div class="route-intro__inner">
     <div class="route-intro__rule"></div>
@@ -122,24 +156,6 @@ import {
     </div>
   </section>
 
-  <!-- Itinerary — compact timeline -->
-  <section id="itinerary" class="section card tone-sand">
-    <h2 class="section-title">10天路线一览</h2>
-    <div class="trip-timeline">
-      {itinerary.map((d) => (
-        <div class="trip-timeline__row">
-          <div class="trip-timeline__day">{d.dayZh}</div>
-          <div class="trip-timeline__dot"></div>
-          <div class="trip-timeline__content">
-            <strong class="trip-timeline__city">{d.cityZh}</strong>
-            <span class="trip-timeline__title">{d.titleZh}</span>
-            <p class="trip-timeline__plan">{d.planZh}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
   <!-- City Guides -->
   <section class="section card tone-blue city-tabs-section" id="city-guides" data-city-tabs>
     <div class="city-tabs-section__header">
@@ -198,6 +214,24 @@ import {
         </div>
       </article>
     ))}
+  </section>
+
+  <!-- Itinerary — compact timeline -->
+  <section id="itinerary" class="section card tone-sand">
+    <h2 class="section-title">10天路线一览</h2>
+    <div class="trip-timeline">
+      {itinerary.map((d) => (
+        <div class="trip-timeline__row">
+          <div class="trip-timeline__day">{d.dayZh}</div>
+          <div class="trip-timeline__dot"></div>
+          <div class="trip-timeline__content">
+            <strong class="trip-timeline__city">{d.cityZh}</strong>
+            <span class="trip-timeline__title">{d.titleZh}</span>
+            <p class="trip-timeline__plan">{d.planZh}</p>
+          </div>
+        </div>
+      ))}
+    </div>
   </section>
 
   <!-- Included / Not Included -->
