@@ -390,6 +390,7 @@ export const itinerary = [
     titleZh: '抵达、调整与基础设置',
     plan: 'Arrival support, hotel check-in, SIM/payment/transit setup, followed by an all-in-one urban relaxation experience \u2014 hot springs and fresh seasonal fruits to reset after long-haul travel.',
     planZh: '完成抵达、入住、SIM/支付/交通设置，并给长途飞行后的身体和节奏一点恢复空间。',
+    landmarks: [],
   },
   {
     day: 'Day 2',
@@ -400,6 +401,15 @@ export const itinerary = [
     titleZh: '博物馆、运河节奏与夜间氛围',
     plan: 'Suzhou museum and Jiangnan atmosphere, with canal-side walking and a softer evening city rhythm before return.',
     planZh: '通过馆藏、运河步行和更安静的城市夜景，体验与上海完全不同的江南气质。',
+    landmarks: [
+      {
+        name: 'Pingjiang Road',
+        nameZh: '平江路',
+        image: 'https://images.unsplash.com/photo-1470003216996-1a01af8d3a54?auto=format&fit=crop&w=800&q=80',
+        background: "Pingjiang Road is one of Suzhou's oldest streets, running parallel to the Pingjiang River canal for approximately 1.6 kilometres through the northeastern part of the old city. The street preserves the traditional water-town urban form that defined Suzhou before modernisation: stone-paved lanes, whitewashed walls, arched bridges crossing the narrow canal, and residential compounds with internal courtyards. Some buildings along the street date to the Song Dynasty (960–1279 AD). The area has been carefully restored and is one of the best-preserved historic neighbourhoods in the Yangtze Delta region.",
+        backgroundZh: '平江路是苏州最古老的街道之一，沿平江河蜿蜒约1.6公里，穿越古城东北部。这条街道保留了苏州现代化以前传统水乡城市的空间形态：青石板路、粉墙黛瓦、石拱桥跨越狭窄水道，两岸是带有内院的传统民居。部分建筑可追溯至宋代（960–1279年）。这一片区经过精心修缮，是长三角地区保存最完整的历史街区之一。',
+      },
+    ],
   },
   {
     day: 'Day 3',
@@ -409,7 +419,23 @@ export const itinerary = [
     title: 'Old Shanghai + skyline contrast',
     titleZh: '老城氛围与天际线反差',
     plan: 'Yu Garden, Old Town, and Bund skyline blocks that give the clearest contrast between historical Shanghai and modern urban scale.',
-    planZh: '豫园、老城厢与外滩组合在一起，最能体现上海“传统与现代并置”的城市感。',
+    planZh: '豫园、老城厢与外滩组合在一起，最能体现上海”传统与现代并置”的城市感。',
+    landmarks: [
+      {
+        name: 'The Bund',
+        nameZh: '外滩',
+        image: 'https://images.unsplash.com/photo-NldT0B6aKrI?auto=format&fit=crop&w=800&q=80',
+        background: 'The Bund is a waterfront promenade in central Shanghai running along the western bank of the Huangpu River. The 52 buildings lining the Bund — built between 1860 and 1940 — represent the full range of Western architectural styles that defined the treaty port era: neoclassical, Art Deco, Gothic Revival, and Beaux-Arts. During the early 20th century, the Bund was the financial centre of the Far East, housing the headquarters of every major international bank and trading house operating in Asia. The buildings are now largely occupied by luxury brands and restaurants.',
+        backgroundZh: '外滩是上海市中心沿黄浦江西岸延伸的滨水长廊。沿线52栋建筑建于1860至1940年间，汇聚了条约口岸时代西方建筑风格的全谱系：新古典主义、装饰艺术、哥特复兴与布杂艺术。20世纪初，外滩是远东的金融中心，各大国际银行与洋行的亚洲总部均设于此。这些建筑如今大多已由奢侈品牌与餐厅进驻。',
+      },
+      {
+        name: 'Yu Garden',
+        nameZh: '豫园',
+        image: 'https://images.unsplash.com/photo-EZPYwo4vlTY?auto=format&fit=crop&w=800&q=80',
+        background: “Yu Garden is a classical Chinese garden built between 1559 and 1577 during the Ming Dynasty by Pan Yunduan, an official who wanted a peaceful retreat for his elderly father. The garden covers approximately 2 hectares and features 30 distinct scenic areas including rockeries, pavilions, ponds, and covered walkways, all designed according to traditional southern Chinese garden principles. After Pan's death the garden fell into disrepair and was later used as a military headquarters during the Small Swords Society uprising of 1853. Major restoration was completed in the 1960s.”,
+        backgroundZh: '豫园是一座明代古典园林，由官员潘允端于1559至1577年间为其年迈父亲修建，作为颐养天年的静谧庭院。园区约2公顷，包含30处各具特色的景区，叠山、水榭、厅堂与游廊依照江南园林传统营造。潘允端身后园林逐渐荒废，1853年小刀会起义期间曾被用作军事指挥部。20世纪60年代完成了重要的修复工程。',
+      },
+    ],
   },
   {
     day: 'Day 4',
@@ -420,6 +446,15 @@ export const itinerary = [
     titleZh: '弹性城市探索日',
     plan: 'A flexible block for food districts, slower neighborhood exploration, shopping, or optional social/nightlife time.',
     planZh: '这一天会给大家留出更多自由度，用来吃、逛、拍照、补充休息或参加可选社交安排。',
+    landmarks: [
+      {
+        name: 'French Concession',
+        nameZh: '法租界',
+        image: 'https://images.unsplash.com/photo-jFCViYFYcus?auto=format&fit=crop&w=800&q=80',
+        background: "The former French Concession was established in 1849 and operated as a semi-autonomous zone administered by France until 1943. Its tree-lined streets — particularly on Wukang Road, Fuxing Road, and Huaihai Road — are lined with 1920s and 1930s French colonial villas, Art Deco apartment buildings, and shikumen (stone-gate) lane houses. The neighbourhood housed a significant proportion of Shanghai's international community during the Republican era and became a centre of political intrigue: Sun Yat-sen, Zhou Enlai, and various foreign intelligence operatives all operated from here.",
+        backgroundZh: '法租界于1849年设立，作为法国管辖的半自治区域运营至1943年。武康路、复兴路、淮海路等街道两侧种植法国梧桐，沿线分布着1920至30年代的法式花园洋房、装饰艺术公寓与石库门里弄建筑。中华民国时期，这一街区聚居了上海大量国际社群，也是各方政治活动的中心：孙中山、周恩来及多国情报人员均在此活动。',
+      },
+    ],
   },
   {
     day: 'Day 5',
@@ -430,6 +465,22 @@ export const itinerary = [
     titleZh: '西湖与文化松弛感',
     plan: 'West Lake, Lingyin Temple, and tea-culture atmosphere create the quietest and most scenic day of the route.',
     planZh: '西湖、灵隐寺和茶文化氛围会让整段路线在这一天进入最舒展、最有画面感的状态。',
+    landmarks: [
+      {
+        name: 'West Lake',
+        nameZh: '西湖',
+        image: 'https://images.unsplash.com/photo-GHKx7V6KiMQ?auto=format&fit=crop&w=800&q=80',
+        background: "West Lake was designated a UNESCO World Heritage Cultural Landscape in 2011, recognising it as a landscape that has profoundly influenced garden design, painting, poetry, and philosophy across China, Japan, and Korea for over a millennium. The lake was originally a coastal lagoon that became separated from Hangzhou Bay by gradual silting; it was maintained and managed as an engineered landscape from the Tang Dynasty onward. The poet Su Dongpo (Su Shi) built the Su Causeway across the lake during his tenure as Hangzhou's governor in 1089 — it remains one of the lake's defining features. During the Southern Song Dynasty (1127–1279), Hangzhou served as the imperial capital and West Lake became synonymous with cultural refinement.",
+        backgroundZh: '西湖于2011年列入UNESCO世界文化遗产，作为文化景观被认定为千余年来对中、日、韩园林设计、绘画、诗歌与哲学影响深远的地方。西湖最初是一处与杭州湾相连的海岸泻湖，因泥沙淤积逐渐与海湾分离，自唐代起经人工规划管理延续至今。1089年苏东坡（苏轼）任杭州知州期间修筑苏堤横贯湖面，至今仍是西湖的标志性景观。南宋（1127–1279年）建都杭州期间，西湖成为文人雅士心中高雅品位的象征。',
+      },
+      {
+        name: 'Lingyin Temple',
+        nameZh: '灵隐寺',
+        image: 'https://images.unsplash.com/photo-ZJd99Auk7UE?auto=format&fit=crop&w=800&q=80',
+        background: "Lingyin Temple — translated as Temple of the Soul's Retreat — was founded in 328 AD by an Indian Buddhist monk named Huili, who believed the surrounding hills resembled those of his homeland in India. The temple complex has been destroyed and rebuilt sixteen times over its 1,700-year history. The current main hall houses a 24.8-metre camphor wood statue of Maitreya Buddha (the future Buddha), completed in 1956. In the cliff face opposite the temple, over 300 stone carvings of Buddhist figures were carved between the Five Dynasties period and the Yuan Dynasty (907–1368 AD).",
+        backgroundZh: '灵隐寺意为"灵魂隐居之所"，相传于公元328年由印度僧人慧理创建，他认为此处山形与故乡印度相似。这座寺庙在1700年历史中经历了十六次毁建。现存大雄宝殿内供奉着一尊高24.8米的香樟木弥勒佛像，建成于1956年。寺庙对面的飞来峰崖壁上，保存着五代至元代（907–1368年）间雕凿的300余尊摩崖石刻造像。',
+      },
+    ],
   },
   {
     day: 'Day 6',
@@ -440,6 +491,7 @@ export const itinerary = [
     titleZh: '北上转场与入住适应',
     plan: 'Transfer north to Beijing, settle into the new city pace, and reset before the landmark-heavy final phase.',
     planZh: '完成北上转场、入住和节奏切换，为后面更集中、更重量级的地标段做准备。',
+    landmarks: [],
   },
   {
     day: 'Day 7',
@@ -450,6 +502,15 @@ export const itinerary = [
     titleZh: '长城全天行程',
     plan: 'A full-day Great Wall experience that acts as one of the strongest emotional and visual anchors of the entire route.',
     planZh: '长城会是这次路线里最强的视觉与情绪锚点之一，也是很多人最早记住的一天。',
+    landmarks: [
+      {
+        name: 'Great Wall of China',
+        nameZh: '长城',
+        image: 'https://images.unsplash.com/photo-KAFPwqxhNgM?auto=format&fit=crop&w=800&q=80',
+        background: "The Great Wall of China is not a single continuous structure but a series of fortifications built by successive Chinese states and dynasties over more than 2,000 years, beginning in the 7th century BC. The most well-preserved sections — and those visited today — were built by the Ming Dynasty between 1368 and 1644, stretching approximately 8,850 kilometres from Jiayuguan in the west to Hushan in the east. The wall served as a military frontier, a customs checkpoint, and a communication network: beacons along the wall could relay signals from one end to the other in a matter of hours. The Mutianyu and Jiankou sections north of Beijing are among the most dramatic in terms of topography; Badaling is the most visited.",
+        backgroundZh: '长城并非一道连续的单一建筑，而是中国历代王朝历经逾2000年分段修建的军事防线，最早可追溯至公元前7世纪。保存最完好、如今开放参观的段落建于明代（1368–1644年），全长约8850公里，西起嘉峪关，东至虎山。长城兼具军事边境、海关关卡与通讯网络的功能：沿线烽火台可在数小时内将信号从一端传至另一端。北京北部的慕田峪与箭扣段地势最为险峻壮观，八达岭是参观人数最多的段落。',
+      },
+    ],
   },
   {
     day: 'Day 8',
@@ -460,6 +521,22 @@ export const itinerary = [
     titleZh: '帝都文化日',
     plan: 'Forbidden City plus Summer Palace, with pacing designed to keep the day substantial but still manageable.',
     planZh: '故宫与颐和园放在同一天，会把北京的历史体量与文化密度集中呈现出来。',
+    landmarks: [
+      {
+        name: 'Forbidden City',
+        nameZh: '故宫',
+        image: 'https://images.unsplash.com/photo-2RGwK0NDLv8?auto=format&fit=crop&w=800&q=80',
+        background: 'The Forbidden City was the imperial palace of the Ming and Qing dynasties, constructed between 1406 and 1420 under the Yongle Emperor. At 720,000 square metres with 980 surviving buildings, it is the largest collection of preserved ancient wooden structures in the world. For nearly 500 years — from 1420 to 1912 — no commoner was permitted to enter without imperial summons; the complex was entirely sealed from the city around it. It housed 24 emperors across two dynasties. The name derives from the Forbidden Purple City: a reference to the Purple Star in Chinese astronomy, representing the celestial abode of the supreme deity, around which all stars revolve.',
+        backgroundZh: '故宫是明清两代的皇家宫殿，由明成祖朱棣于1406至1420年间下令修建。建筑群占地72万平方米，现存980座建筑，是世界上规模最大的古代木结构建筑群。自1420年至1912年近五百年间，未经皇帝召见的平民一律不得入内——宫城与周围城市之间形成了绝对的隔断。两朝共24位皇帝在此居住。名称源自"紫禁城"：紫，取自中国天文学中紫微星——天帝居所，众星环绕其运行。',
+      },
+      {
+        name: 'Temple of Heaven',
+        nameZh: '天坛',
+        image: 'https://images.unsplash.com/photo-xv53O3UJPhw?auto=format&fit=crop&w=800&q=80',
+        background: 'The Temple of Heaven was built between 1406 and 1420 and served as the site of annual imperial ceremonies in which the emperor — as the Son of Heaven and mediator between humanity and the divine — conducted rites to pray for good harvests. The complex is designed on the principle that heaven is round and earth is square: the main structures are circular, set within square enclosures. The emperor arrived by processional route, having fasted and purified himself for three days. From 1368 to 1912, the ceremonies at the Temple of Heaven were the most sacred event in the Chinese imperial calendar. The complex covers 273 hectares — almost four times the area of the Forbidden City.',
+        backgroundZh: '天坛建于1406至1420年间，是皇帝每年举行祭天仪式的场所——皇帝作为天子，是人间与上天之间的中介，在此祈求五谷丰登。建筑群以天圆地方为设计原则：主体建筑为圆形，置于方形围墙之内。皇帝须斋戒沐浴三天后，经仪仗出行至此。自1368年至1912年，天坛祭天是中国皇家历法中最为神圣的仪式。建筑群占地273公顷，面积约为故宫的四倍。',
+      },
+    ],
   },
   {
     day: 'Day 9',
@@ -469,7 +546,16 @@ export const itinerary = [
     title: 'Student exchange + closing night',
     titleZh: '学生交流 + 结营之夜',
     plan: 'A local student exchange block followed by a closing social night to turn the itinerary into a shared group memory.',
-    planZh: '先做同龄交流，再用结营夜收束情绪和关系，让路线从“行程”变成“共同经历”。',
+    planZh: '先做同龄交流，再用结营夜收束情绪和关系，让路线从”行程”变成”共同经历”。',
+    landmarks: [
+      {
+        name: 'Beijing Hutongs',
+        nameZh: '北京胡同',
+        image: 'https://images.unsplash.com/photo-6Te1KtNhp6o?auto=format&fit=crop&w=800&q=80',
+        background: 'Hutongs are the traditional narrow alleyways and courtyard residential compounds (siheyuan) of Beijing, most of them dating to the Yuan, Ming, and Qing dynasties. At their peak in the early 20th century, Beijing had over 3,000 hutong neighbourhoods; urban demolition since the 1950s has reduced this to fewer than 1,000, with the most intact areas concentrated around the Drum Tower, Nanluoguxiang, and Shichahai. A siheyuan courtyard compound is structured around a central courtyard facing south, with the main hall on the north side and subsidiary rooms on the east and west — a spatial logic that reflects Confucian family hierarchy. Several hundred hutong lanes remain designated as historically protected areas.',
+        backgroundZh: '胡同是北京传统的狭窄里弄与四合院民居区，大多建于元、明、清三代。20世纪初鼎盛时期，北京曾有逾3000条胡同；1950年代以来的城市拆建使这一数字降至不足1000条，现存最完整的区域主要集中在鼓楼、南锣鼓巷与什刹海一带。四合院的格局以南向的中央院落为核心，正房居北，厢房分列东西——这种空间逻辑反映了儒家的家庭伦理秩序。目前仍有数百条胡同被列为历史文化保护街区。',
+      },
+    ],
   },
   {
     day: 'Day 10',
@@ -480,6 +566,7 @@ export const itinerary = [
     titleZh: '离境支持',
     plan: 'Departure coordination, airport support, and a clean outbound finish.',
     planZh: '完成离境协调与机场支持，让整个旅程有一个清晰、不慌乱的收尾。',
+    landmarks: [],
   },
 ];
 
