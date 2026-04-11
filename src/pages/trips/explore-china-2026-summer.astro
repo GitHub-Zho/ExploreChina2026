@@ -10,6 +10,23 @@ import {
   recommendedVideos,
 } from '../../data/site';
 
+// Pre-compute slides for each day in the frontmatter (TypeScript safe)
+type LandmarkItem = { name: string; nameZh: string; image: string; background: string; backgroundZh: string };
+type CitySlide = { type: 'city'; guide: typeof cityGuides[0] };
+type LandmarkSlide = { type: 'landmark'; lm: LandmarkItem };
+type DaySlide = CitySlide | LandmarkSlide;
+
+const itineraryWithSlides = itinerary.map((d, idx) => {
+  const isFirstCityDay = idx === 0 || itinerary[idx - 1].city !== d.city;
+  const cityGuide = cityGuides.find(g => g.city === d.city);
+  const landmarks: LandmarkItem[] = (d as any).landmarks ?? [];
+  const slides: DaySlide[] = [
+    ...(isFirstCityDay && cityGuide ? [{ type: 'city' as const, guide: cityGuide }] : []),
+    ...landmarks.map(lm => ({ type: 'landmark' as const, lm })),
+  ];
+  return { ...d, isFirstCityDay, slides };
+});
+
 const tripStructuredData = [
   {
     '@context': 'https://schema.org',
@@ -129,19 +146,16 @@ const tripStructuredData = [
       <div class="route-intro__body">
 
         <span class="route-intro__city-label">Shanghai</span>
-        <p>Shanghai doesn't introduce itself gently. It throws you into the deep end — the Bund at dusk, where a century of colonial stone faces off against a skyline so futuristic it looks computer-generated, light pouring across the Huangpu like the city is showing off because it knows you're watching. Then you turn a corner into the Old Town, and suddenly it's steam rising from dumpling carts, grandmothers haggling over morning vegetables, lanes so narrow your shoulders brush both walls. Three blocks later you're standing in a concept store that hasn't opened in New York yet, drinking something you can't pronounce, wondering how a single city holds this many contradictions without breaking apart. It doesn't just have energy — it has too much energy, and that's exactly the point.</p>
+        <p>Shanghai moves like a city that has not decided whether it is finished yet. The Bund is all colonial stone and river fog in the morning; the towers across the water are all glass and light after dark. In between is the French Concession — plane trees lining the sidewalks, a lane house converted to a coffee shop, the smell of rain on stone. You will eat something here that you cannot explain precisely and will think about for weeks afterward.</p>
 
         <span class="route-intro__city-label">Suzhou</span>
-        <p>Suzhou arrives like a deep exhale. The noise drops. The sky opens. Water appears everywhere — not ocean water, but canal water, slow and dark and ancient, the kind that has carried silk traders and scholar-poets for a thousand years. The classical gardens here aren't parks. They're philosophical arguments built in stone and water — every rock placed to frame a specific view, every corridor angled so the moonlight lands exactly where someone decided it should, six centuries ago. You'll walk through spaces designed by people who believed beauty was a moral obligation, and you'll feel it in your chest before you understand it in your head. There's a stillness here that Shanghai would never allow, and your body will thank you for it.</p>
+        <p>The classical gardens of Suzhou were designed to produce a specific feeling: the sense that you have stepped sideways into a different relationship with time. Water moves through them slowly. The framing of rocks and plants through windows is deliberate — each view is composed. Outside the gardens, the canal streets are narrow and wet-stone and still residential. Old women hang laundry over the water. The canal is working infrastructure, not scenery.</p>
 
         <span class="route-intro__city-label">Hangzhou</span>
-        <p>Hangzhou is where the trip changes you — quietly, without warning. West Lake doesn't hit you the way the Bund does. It doesn't shout. It just sits there, impossibly calm, reflecting mountains and willows and pagodas like a painting that someone forgot to finish because perfection was already there. You'll walk along the water at golden hour and understand, suddenly, viscerally, why Chinese poets spent a thousand years writing about this lake and still felt they hadn't said enough. Lingyin Temple bells drift across the surface. The air smells like Longjing tea — not from a shop, but from the actual hillside where the leaves are still growing. This is the China that existed long before the skyscrapers, long before the bullet trains, and it will exist long after. Some of the quietest moments of your life will happen here, surrounded by people you met a week ago who already feel like old friends.</p>
+        <p>West Lake is better at dawn than at any other time — before the tour boats, when the mist is still on the water and the Su Causeway is quiet enough that you can hear the birds. The tea fields above the city are a different kind of quiet: geometric and green and smelling of fresh leaf. In the afternoon the light on the lake is gold. The Song dynasty poets wrote about this and were not exaggerating.</p>
 
         <span class="route-intro__city-label">Beijing</span>
-        <p>Then Beijing — and everything gets bigger. Not gradually. Immediately. The avenues are wider. The history is heavier. The sky somehow feels higher. And then the Great Wall appears on the ridgeline and every single person goes quiet at the same time. There is no preparation for this. You've seen the photos. You've watched the videos. None of it matters. When that ancient stone spine rises over the mountains and stretches into the haze until it disappears — something happens in your chest that you weren't expecting. It's not awe. It's something deeper. It's the physical sensation of standing somewhere that has mattered for two thousand years and realizing your body already knows it before your mind catches up.</p>
-        <p>The Forbidden City does something similar but different — 180 acres of imperial architecture so precise, so deliberate, so heavy with meaning that you stop talking without deciding to. An entire civilization was governed from behind these crimson walls. And then you step into a hutong alley ten minutes later, and there's a grandmother playing cards, a cat sleeping on a bicycle seat, someone's laundry drying in the wind — and Beijing suddenly feels like a neighborhood instead of a monument.</p>
-        <p>But here's what no other itinerary gives you. A day at Tsinghua and Peking University — not walking past buildings, but sitting across from students at China's most elite institutions, having the kind of conversations that rewire how you think about the world. Hands-on workshops where you don't watch culture from behind a rope — you shape it with your hands, the same way it's been passed down for generations. Hot springs where the exhaustion of a long-haul flight dissolves into warm water and fresh seasonal fruit. Late-night rooftop bars where the skyline becomes the backdrop to friendships that started five days ago and already feel irreplaceable.</p>
-        <p>This isn't a tour. It's ten days that will rearrange something inside you — and a group of strangers who won't be strangers by day three.</p>
+        <p>Beijing is a city that knows it is the capital. The scale is intentional — the long avenues, the monumental squares, the Forbidden City which is large enough that you cannot see across it. But what stays with you is the hutongs: the lanes behind the drum tower where old Beijing still exists at the pace it always had, where the smell of coal smoke mixes with cooking and someone's radio is playing Peking opera from a window two floors up.</p>
 
       </div>
 
@@ -174,81 +188,87 @@ const tripStructuredData = [
     </div>
   </section>
 
-  <section class="section card tone-blue city-tabs-section" id="city-guides" data-city-tabs>
-    <div class="city-tabs-section__header">
-      <p class="section-eyebrow">City Guide Tabs</p>
-      <h2 class="section-title">Meet the cities before you arrive</h2>
-      <p class="section-sub">Switch tabs in place to get the cultural story, the on-the-ground feeling, and a few practical anchors for each stop on the route.</p>
-    </div>
-
-    <div class="city-tabs__nav" role="tablist" aria-label="City guide tabs">
-      {cityGuides.map((city, idx) => (
-        <button
-          type="button"
-          class={`city-tabs__tab ${idx === 0 ? 'is-active' : ''}`}
-          id={`city-tab-${city.city.toLowerCase()}`}
-          role="tab"
-          aria-selected={idx === 0 ? 'true' : 'false'}
-          aria-controls={`city-panel-${city.city.toLowerCase()}`}
-          data-city-tab={city.city.toLowerCase()}
-          tabindex={idx === 0 ? '0' : '-1'}
-        >
-          <span>{city.city}</span>
-          <span class="city-tabs__tab-sub">{city.cityZh}</span>
-        </button>
-      ))}
-    </div>
-
-    {cityGuides.map((city, idx) => (
-      <article
-        class={`city-tabs__panel ${idx === 0 ? 'is-active' : ''}`}
-        id={`city-panel-${city.city.toLowerCase()}`}
-        role="tabpanel"
-        aria-labelledby={`city-tab-${city.city.toLowerCase()}`}
-        hidden={idx !== 0}
-        data-city-panel={city.city.toLowerCase()}
-      >
-        <div class="city-tabs__panel-grid">
-          <figure class="card city-tabs__hero">
-            <img class="photo media-wide" src={city.heroImage} alt={city.heroAlt} loading={idx === 0 ? 'eager' : 'lazy'} />
-          </figure>
-          <div class="city-tabs__story">
-            <p class="pill">{city.city} · {city.cityZh}</p>
-            <h3 class="city-tabs__title">Why this city matters on the route</h3>
-            <p class="city-tabs__lead">{city.context}</p>
-            <p class="city-tabs__text">{city.feeling}</p>
-          </div>
-        </div>
-
-        <div class="city-tabs__highlights">
-          {city.explore.slice(0, 4).map((spot) => (
-            <article class="card city-tabs__highlight" style={spot.image ? `--highlight-bg: url(${spot.image})` : ''}>
-              {spot.image && <div class="highlight-img" aria-hidden="true"></div>}
-              <div class="highlight-content">
-                <p class="label">Key highlight</p>
-                <h4>{spot.title}</h4>
-                <p class="muted">{spot.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </article>
-    ))}
-  </section>
-
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">10-day route at a glance</h2>
-    <div class="trip-timeline">
-      {itinerary.map((d) => (
-        <div class="trip-timeline__row">
-          <div class="trip-timeline__day">{d.day}</div>
-          <div class="trip-timeline__dot"></div>
-          <div class="trip-timeline__content">
-            <strong class="trip-timeline__city">{d.city}</strong>
-            <span class="trip-timeline__title">{d.title}</span>
-            <p class="trip-timeline__plan">{d.plan}</p>
+    <p class="section-sub" style="margin-bottom:2rem;">Click any day to explore the places you'll visit.</p>
+
+    <div class="itinerary-accordion">
+      {itineraryWithSlides.map((d, idx) => (
+          <div
+            class={`itinerary-day${d.isFirstCityDay ? ' itinerary-day--city-start' : ''}`}
+            data-day-idx={idx}
+          >
+            <button class="itinerary-day__header" aria-expanded="false" data-day-toggle>
+              <span class="itinerary-day__num">{d.day}</span>
+              <span class="itinerary-day__meta">
+                <span class="itinerary-day__city">{d.city}</span>
+                <span class="itinerary-day__title">{d.title}</span>
+              </span>
+              <svg class="itinerary-day__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            <div class="itinerary-day__body" data-day-body>
+              <div class="itinerary-day__inner">
+                {d.slides.length > 0 && (
+                  <div class="landmark-carousel" data-carousel>
+                    <div class="landmark-carousel__track-wrap">
+                      <div class="landmark-carousel__track" data-carousel-track>
+
+                        {d.slides.map((slide) => (
+                          <div class="landmark-carousel__slide">
+                            {slide.type === 'city' ? (
+                              <div class="city-intro-card">
+                                <img
+                                  class="city-intro-card__img"
+                                  src={slide.guide.heroImage}
+                                  alt={slide.guide.heroAlt}
+                                  loading="lazy"
+                                />
+                                <div class="city-intro-card__text">
+                                  <span class="city-intro-card__label">City overview</span>
+                                  <h3 class="city-intro-card__name">{slide.guide.city}</h3>
+                                  <p class="city-intro-card__body">{slide.guide.context}</p>
+                                </div>
+                              </div>
+                            ) : (
+                              <div class="landmark-card">
+                                <img
+                                  class="landmark-card__img"
+                                  src={slide.lm.image}
+                                  alt={slide.lm.name}
+                                  loading="lazy"
+                                />
+                                <div class="landmark-card__body">
+                                  <h4 class="landmark-card__name">{slide.lm.name}</h4>
+                                  <span class="landmark-card__name-zh">{slide.lm.nameZh}</span>
+                                  <p class="landmark-card__text">{slide.lm.background}</p>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+
+                      </div>
+                    </div>
+
+                    {d.slides.length > 1 && (
+                      <div class="landmark-carousel__nav">
+                        <button class="landmark-carousel__btn" data-carousel-prev aria-label="Previous">←</button>
+                        <div class="landmark-carousel__dots">
+                          {d.slides.map((_slide, i) => (
+                            <span class={`landmark-carousel__dot${i === 0 ? ' is-active' : ''}`} data-carousel-dot></span>
+                          ))}
+                        </div>
+                        <button class="landmark-carousel__btn" data-carousel-next aria-label="Next">→</button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
       ))}
     </div>
   </section>
@@ -382,61 +402,60 @@ const tripStructuredData = [
 </style>
 
 <script is:inline>
-  document.querySelectorAll('.faq__q').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      document.querySelectorAll('.faq__q').forEach((b) => b.setAttribute('aria-expanded', 'false'));
-      if (!expanded) btn.setAttribute('aria-expanded', 'true');
-    });
+// ── FAQ accordion ──────────────────────────────────────
+document.querySelectorAll('.faq__item').forEach(item => {
+  const btn = item.querySelector('.faq__q');
+  const answer = item.querySelector('.faq__a');
+  btn?.addEventListener('click', () => {
+    const open = item.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(open));
+    if (answer) answer.style.maxHeight = open ? answer.scrollHeight + 'px' : '0';
   });
+});
 
-  document.querySelectorAll('[data-city-tabs]').forEach((root) => {
-    const tabs = Array.from(root.querySelectorAll('[data-city-tab]'));
-    const panels = Array.from(root.querySelectorAll('[data-city-panel]'));
-
-    const activateTab = (key) => {
-      tabs.forEach((tab) => {
-        const active = tab.getAttribute('data-city-tab') === key;
-        tab.classList.toggle('is-active', active);
-        tab.setAttribute('aria-selected', active ? 'true' : 'false');
-        tab.setAttribute('tabindex', active ? '0' : '-1');
-      });
-
-      panels.forEach((panel) => {
-        const active = panel.getAttribute('data-city-panel') === key;
-        panel.classList.toggle('is-active', active);
-        panel.hidden = !active;
-      });
-    };
-
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => activateTab(tab.getAttribute('data-city-tab')));
-      tab.addEventListener('keydown', (event) => {
-        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
-        event.preventDefault();
-        const nextIndex = event.key === 'ArrowRight'
-          ? (index + 1) % tabs.length
-          : (index - 1 + tabs.length) % tabs.length;
-        const nextTab = tabs[nextIndex];
-        nextTab.focus();
-        activateTab(nextTab.getAttribute('data-city-tab'));
-      });
-    });
+// ── Itinerary day accordion ────────────────────────────
+document.querySelectorAll('.itinerary-day').forEach(day => {
+  const header = day.querySelector('[data-day-toggle]');
+  const body = day.querySelector('[data-day-body]');
+  if (!header || !body) return;
+  header.addEventListener('click', () => {
+    const open = day.classList.toggle('is-open');
+    header.setAttribute('aria-expanded', String(open));
+    body.style.maxHeight = open ? '900px' : '0';
   });
+});
 
-  /* ── Mobile: IntersectionObserver reveals highlight images on scroll ── */
-  if (window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window) {
-    const highlightCards = document.querySelectorAll('.city-tabs__highlight');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in-view');
-        } else {
-          e.target.classList.remove('in-view');
-        }
-      });
-    }, { threshold: 0.5 });
-    highlightCards.forEach((card) => io.observe(card));
+// ── Landmark carousels ─────────────────────────────────
+document.querySelectorAll('[data-carousel]').forEach(carousel => {
+  const track = carousel.querySelector('[data-carousel-track]');
+  const slides = carousel.querySelectorAll('.landmark-carousel__slide');
+  const prevBtn = carousel.querySelector('[data-carousel-prev]');
+  const nextBtn = carousel.querySelector('[data-carousel-next]');
+  const dots = carousel.querySelectorAll('[data-carousel-dot]');
+  if (!track || slides.length === 0) return;
+
+  let idx = 0;
+  const total = slides.length;
+  const slideWidth = 88;
+
+  function goTo(n) {
+    idx = Math.max(0, Math.min(n, total - 1));
+    track.style.transform = `translateX(-${idx * slideWidth}%)`;
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    if (prevBtn) prevBtn.disabled = idx === 0;
+    if (nextBtn) nextBtn.disabled = idx === total - 1;
   }
 
+  prevBtn?.addEventListener('click', () => goTo(idx - 1));
+  nextBtn?.addEventListener('click', () => goTo(idx + 1));
+
+  let touchX = 0;
+  carousel.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  carousel.addEventListener('touchend', e => {
+    const delta = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 40) goTo(idx + (delta > 0 ? 1 : -1));
+  });
+
+  goTo(0);
+});
 </script>
