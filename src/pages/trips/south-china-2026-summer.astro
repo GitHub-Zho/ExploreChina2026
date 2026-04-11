@@ -206,23 +206,19 @@ const tripStructuredData = [
             class={`itinerary-day${d.isFirstCityDay ? ' itinerary-day--city-start' : ''}`}
             data-day-idx={idx}
           >
-            <button class="itinerary-day__header" aria-expanded="false" data-day-toggle>
-              <div class="trip-timeline__day">{d.day}</div>
-              <div class="trip-timeline__dot"></div>
-              <div class="trip-timeline__content">
-                <strong class="trip-timeline__city">{d.city}</strong>
-                <span class="trip-timeline__title">{d.title}</span>
-                <p class="trip-timeline__plan">{d.plan}</p>
+            <button class="itinerary-day__header" data-day-toggle aria-expanded="false">
+              <span class="itinerary-day__number">{d.day}</span>
+              <span class="itinerary-day__dot"></span>
+              <div class="itinerary-day__meta">
+                <span class="itinerary-day__city">{d.city}</span>
+                <h3 class="itinerary-day__title">{d.title}</h3>
+                <p class="itinerary-day__plan">{d.plan}</p>
               </div>
-              <svg class="itinerary-day__chevron" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" width="16" height="16"
-                   aria-hidden="true">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
+              <span class="itinerary-day__toggle-icon" aria-hidden="true">+</span>
             </button>
 
             <div class="itinerary-day__body" data-day-body>
-              <div class="itinerary-day__inner">
+              <div class="itinerary-day__body-inner">
                 {d.slides.length > 0 && (
                   <div class="landmark-carousel" data-carousel>
                     <div class="landmark-carousel__track-wrap">
@@ -232,30 +228,35 @@ const tripStructuredData = [
                           <div class="landmark-carousel__slide">
                             {slide.type === 'city' ? (
                               <div class="city-intro-card">
-                                <img
-                                  class="city-intro-card__img"
-                                  src={slide.guide.heroImage}
-                                  alt={slide.guide.heroAlt}
-                                  loading="lazy"
-                                />
-                                <div class="city-intro-card__text">
+                                <div class="city-intro-card__content">
                                   <span class="city-intro-card__label">City overview</span>
-                                  <h3 class="city-intro-card__name">{slide.guide.city}</h3>
-                                  <p class="city-intro-card__body">{slide.guide.context}</p>
+                                  <h3 class="city-intro-card__city">{slide.guide.city}</h3>
+                                  <p class="city-intro-card__desc">{slide.guide.context}</p>
+                                </div>
+                                <div class="city-intro-card__image">
+                                  <img
+                                    src={slide.guide.heroImage}
+                                    alt={slide.guide.heroAlt}
+                                    loading="lazy"
+                                  />
                                 </div>
                               </div>
                             ) : (
                               <div class="landmark-card">
-                                <img
-                                  class="landmark-card__img"
-                                  src={slide.lm.image}
-                                  alt={slide.lm.name}
-                                  loading="lazy"
-                                />
+                                <div class="landmark-card__visual">
+                                  <img
+                                    src={slide.lm.image}
+                                    alt={slide.lm.name}
+                                    loading="lazy"
+                                  />
+                                  <div class="landmark-card__overlay"></div>
+                                  <div class="landmark-card__name-overlay">
+                                    <p class="landmark-card__name">{slide.lm.name}</p>
+                                    <p class="landmark-card__name-zh">{slide.lm.nameZh}</p>
+                                  </div>
+                                </div>
                                 <div class="landmark-card__body">
-                                  <h4 class="landmark-card__name">{slide.lm.name}</h4>
-                                  <span class="landmark-card__name-zh">{slide.lm.nameZh}</span>
-                                  <p class="landmark-card__text">{slide.lm.background}</p>
+                                  <p class="landmark-card__background">{slide.lm.background}</p>
                                 </div>
                               </div>
                             )}
@@ -266,16 +267,14 @@ const tripStructuredData = [
                     </div>
 
                     {d.slides.length > 1 && (
-                      <div class="landmark-carousel__nav">
-                        <button class="landmark-carousel__btn" data-carousel-prev aria-label="Previous">←</button>
-                        <div class="landmark-carousel__dots">
-                          {d.slides.map((_slide, i) => (
-                            <span class={`landmark-carousel__dot${i === 0 ? ' is-active' : ''}`} data-carousel-dot></span>
-                          ))}
-                        </div>
-                        <button class="landmark-carousel__btn" data-carousel-next aria-label="Next">→</button>
+                      <div class="landmark-carousel__dots" style="margin-top:0.5rem;">
+                        {d.slides.map((_slide, i) => (
+                          <span class={`landmark-carousel__dot${i === 0 ? ' is-active' : ''}`} data-carousel-dot></span>
+                        ))}
                       </div>
                     )}
+                    <button class="landmark-carousel__btn landmark-carousel__btn--prev" data-carousel-prev aria-label="Previous">←</button>
+                    <button class="landmark-carousel__btn landmark-carousel__btn--next" data-carousel-next aria-label="Next">→</button>
                   </div>
                 )}
               </div>
@@ -431,9 +430,8 @@ document.querySelectorAll('.itinerary-day').forEach(day => {
   const body = day.querySelector('[data-day-body]');
   if (!header || !body) return;
   header.addEventListener('click', () => {
-    const open = day.classList.toggle('is-open');
+    const open = body.classList.toggle('is-open');
     header.setAttribute('aria-expanded', String(open));
-    body.style.maxHeight = open ? '900px' : '0';
   });
 });
 
