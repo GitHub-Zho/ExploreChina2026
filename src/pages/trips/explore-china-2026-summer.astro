@@ -193,86 +193,64 @@ const tripStructuredData = [
     <p class="section-sub" style="margin-bottom:2rem;">Click any day to explore the places you'll visit.</p>
 
     <div class="itinerary-accordion">
-      {itineraryWithSlides.map((d, idx) => (
-          <div
-            class={`itinerary-day${d.isFirstCityDay ? ' itinerary-day--city-start' : ''}`}
-            data-day-idx={idx}
-          >
-            <button class="itinerary-day__header" aria-expanded="false" data-day-toggle>
-              <div class="trip-timeline__day">{d.day}</div>
-              <div class="trip-timeline__dot"></div>
-              <div class="trip-timeline__content">
-                <strong class="trip-timeline__city">{d.city}</strong>
-                <span class="trip-timeline__title">{d.title}</span>
-                <p class="trip-timeline__plan">{d.plan}</p>
-              </div>
-              <svg class="itinerary-day__chevron" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" width="16" height="16"
-                   aria-hidden="true">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
+      {itineraryWithSlides.map((d) => (
+        <div class={`itinerary-day${d.isFirstCityDay ? ' itinerary-day--city-start' : ''}`}>
+          <button class="itinerary-day__header" data-day-toggle aria-expanded="false">
+            <span class="itinerary-day__number">{d.day}</span>
+            <span class="itinerary-day__dot"></span>
+            <div class="itinerary-day__meta">
+              <span class="itinerary-day__city">{d.city}</span>
+              <h3 class="itinerary-day__title">{d.title}</h3>
+              <p class="itinerary-day__plan">{d.plan}</p>
+            </div>
+            <span class="itinerary-day__toggle-icon" aria-hidden="true">+</span>
+          </button>
 
-            <div class="itinerary-day__body" data-day-body>
-              <div class="itinerary-day__inner">
-                {d.slides.length > 0 && (
-                  <div class="landmark-carousel" data-carousel>
-                    <div class="landmark-carousel__track-wrap">
-                      <div class="landmark-carousel__track" data-carousel-track>
-
-                        {d.slides.map((slide) => (
-                          <div class="landmark-carousel__slide">
-                            {slide.type === 'city' ? (
-                              <div class="city-intro-card">
-                                <img
-                                  class="city-intro-card__img"
-                                  src={slide.guide.heroImage}
-                                  alt={slide.guide.heroAlt}
-                                  loading="lazy"
-                                />
-                                <div class="city-intro-card__text">
-                                  <span class="city-intro-card__label">City overview</span>
-                                  <h3 class="city-intro-card__name">{slide.guide.city}</h3>
-                                  <p class="city-intro-card__body">{slide.guide.context}</p>
+          <div class="itinerary-day__body" data-day-body>
+            <div class="itinerary-day__body-inner">
+              {d.slides.length > 0 && (
+                <div class="landmark-carousel">
+                  <button class="landmark-carousel__btn landmark-carousel__btn--prev" aria-label="Previous">←</button>
+                  <div class="landmark-carousel__track-wrap">
+                    <div class="landmark-carousel__track">
+                      {d.slides.map((slide) => (
+                        <div class="landmark-carousel__slide">
+                          {slide.type === 'city' ? (
+                            <div class="city-intro-card">
+                              <div class="city-intro-card__content">
+                                <span class="city-intro-card__label">City overview</span>
+                                <h3 class="city-intro-card__city">{slide.guide.city}</h3>
+                                <p class="city-intro-card__desc">{slide.guide.context}</p>
+                              </div>
+                              <div class="city-intro-card__image">
+                                <img src={slide.guide.heroImage} alt={slide.guide.heroAlt} loading="lazy" />
+                              </div>
+                            </div>
+                          ) : (
+                            <div class="landmark-card">
+                              <div class="landmark-card__visual">
+                                <img src={slide.lm.image} alt={slide.lm.name} loading="lazy" />
+                                <div class="landmark-card__overlay"></div>
+                                <div class="landmark-card__name-overlay">
+                                  <p class="landmark-card__name">{slide.lm.name}</p>
+                                  <p class="landmark-card__name-zh">{slide.lm.nameZh}</p>
                                 </div>
                               </div>
-                            ) : (
-                              <div class="landmark-card">
-                                <img
-                                  class="landmark-card__img"
-                                  src={slide.lm.image}
-                                  alt={slide.lm.name}
-                                  loading="lazy"
-                                />
-                                <div class="landmark-card__body">
-                                  <h4 class="landmark-card__name">{slide.lm.name}</h4>
-                                  <span class="landmark-card__name-zh">{slide.lm.nameZh}</span>
-                                  <p class="landmark-card__text">{slide.lm.background}</p>
-                                </div>
+                              <div class="landmark-card__body">
+                                <p class="landmark-card__background">{slide.lm.background}</p>
                               </div>
-                            )}
-                          </div>
-                        ))}
-
-                      </div>
-                    </div>
-
-                    {d.slides.length > 1 && (
-                      <div class="landmark-carousel__nav">
-                        <button class="landmark-carousel__btn" data-carousel-prev aria-label="Previous">←</button>
-                        <div class="landmark-carousel__dots">
-                          {d.slides.map((_slide, i) => (
-                            <span class={`landmark-carousel__dot${i === 0 ? ' is-active' : ''}`} data-carousel-dot></span>
-                          ))}
+                            </div>
+                          )}
                         </div>
-                        <button class="landmark-carousel__btn" data-carousel-next aria-label="Next">→</button>
-                      </div>
-                    )}
+                      ))}
+                    </div>
                   </div>
-                )}
-              </div>
+                  <button class="landmark-carousel__btn landmark-carousel__btn--next" aria-label="Next">→</button>
+                </div>
+              )}
             </div>
           </div>
+        </div>
       ))}
     </div>
   </section>
@@ -418,48 +396,41 @@ document.querySelectorAll('.faq__item').forEach(item => {
 });
 
 // ── Itinerary day accordion ────────────────────────────
-document.querySelectorAll('.itinerary-day').forEach(day => {
-  const header = day.querySelector('[data-day-toggle]');
-  const body = day.querySelector('[data-day-body]');
-  if (!header || !body) return;
-  header.addEventListener('click', () => {
-    const open = day.classList.toggle('is-open');
-    header.setAttribute('aria-expanded', String(open));
-    body.style.maxHeight = open ? '900px' : '0';
+document.querySelectorAll('[data-day-toggle]').forEach(btn => {
+  const body = btn.nextElementSibling;
+  if (!body) return;
+  btn.addEventListener('click', () => {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    body.classList.toggle('is-open', !isOpen);
   });
 });
 
 // ── Landmark carousels ─────────────────────────────────
-document.querySelectorAll('[data-carousel]').forEach(carousel => {
-  const track = carousel.querySelector('[data-carousel-track]');
+document.querySelectorAll('.landmark-carousel').forEach(carousel => {
+  const track = carousel.querySelector('.landmark-carousel__track');
   const slides = carousel.querySelectorAll('.landmark-carousel__slide');
-  const prevBtn = carousel.querySelector('[data-carousel-prev]');
-  const nextBtn = carousel.querySelector('[data-carousel-next]');
-  const dots = carousel.querySelectorAll('[data-carousel-dot]');
+  const prevBtn = carousel.querySelector('.landmark-carousel__btn--prev');
+  const nextBtn = carousel.querySelector('.landmark-carousel__btn--next');
   if (!track || slides.length === 0) return;
 
-  let idx = 0;
+  let current = 0;
   const total = slides.length;
-  const slideWidth = 88;
 
   function goTo(n) {
-    idx = Math.max(0, Math.min(n, total - 1));
-    track.style.transform = `translateX(-${idx * slideWidth}%)`;
-    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
-    if (prevBtn) prevBtn.disabled = idx === 0;
-    if (nextBtn) nextBtn.disabled = idx === total - 1;
+    current = Math.max(0, Math.min(n, total - 1));
+    const slideWidth = slides[0].offsetWidth + 16;
+    track.style.transform = `translateX(-${current * slideWidth}px)`;
   }
 
-  prevBtn?.addEventListener('click', () => goTo(idx - 1));
-  nextBtn?.addEventListener('click', () => goTo(idx + 1));
+  prevBtn?.addEventListener('click', () => goTo(current - 1));
+  nextBtn?.addEventListener('click', () => goTo(current + 1));
 
   let touchX = 0;
   carousel.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
   carousel.addEventListener('touchend', e => {
     const delta = touchX - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 40) goTo(idx + (delta > 0 ? 1 : -1));
+    if (Math.abs(delta) > 40) goTo(current + (delta > 0 ? 1 : -1));
   });
-
-  goTo(0);
 });
 </script>
