@@ -199,12 +199,16 @@ const tripStructuredData = [
             data-day-idx={idx}
           >
             <button class="itinerary-day__header" aria-expanded="false" data-day-toggle>
-              <span class="itinerary-day__num">{d.day}</span>
-              <span class="itinerary-day__meta">
-                <span class="itinerary-day__city">{d.city}</span>
-                <span class="itinerary-day__title">{d.title}</span>
-              </span>
-              <svg class="itinerary-day__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <div class="trip-timeline__day">{d.day}</div>
+              <div class="trip-timeline__dot"></div>
+              <div class="trip-timeline__content">
+                <strong class="trip-timeline__city">{d.city}</strong>
+                <span class="trip-timeline__title">{d.title}</span>
+                <p class="trip-timeline__plan">{d.plan}</p>
+              </div>
+              <svg class="itinerary-day__chevron" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2" width="16" height="16"
+                   aria-hidden="true">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>

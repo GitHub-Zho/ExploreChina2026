@@ -1948,57 +1948,23 @@ a { color: inherit; text-decoration: none; }
 .itinerary-accordion {
   display: flex;
   flex-direction: column;
-  position: relative;
-  padding-left: 2.5rem;
-}
-
-/* Vertical connecting line along left edge */
-.itinerary-accordion::before {
-  content: '';
-  position: absolute;
-  left: 0.9rem;
-  top: 1.5rem;
-  bottom: 1.5rem;
-  width: 1px;
-  background: rgba(200, 16, 46, 0.18);
 }
 
 .itinerary-day {
-  position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }
 
-/* Timeline dot for every day */
-.itinerary-day::before {
-  content: '';
-  position: absolute;
-  left: -1.7rem;
-  top: 1.4rem;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-bg);
-  border: 2px solid rgba(200, 16, 46, 0.35);
-  z-index: 1;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-/* Filled red dot on city-start days */
-.itinerary-day--city-start::before {
+.itinerary-day.is-open > .itinerary-day__header .trip-timeline__dot {
   background: var(--color-red);
-  border-color: var(--color-red);
-  width: 10px;
-  height: 10px;
-  left: -1.8rem;
-  top: 1.35rem;
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.25);
 }
 
 .itinerary-day__header {
   display: grid;
-  grid-template-columns: 3rem 1fr auto;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.2rem 0.25rem 1.2rem 0;
+  grid-template-columns: 3rem 1.5rem 1fr auto;
+  align-items: flex-start;
+  gap: 0;
+  padding: 0;
   cursor: pointer;
   user-select: none;
   background: transparent;
@@ -2007,60 +1973,37 @@ a { color: inherit; text-decoration: none; }
   text-align: left;
   transition: opacity 0.18s ease;
 }
+.itinerary-day__header:hover { opacity: 0.75; }
 
-.itinerary-day__header:hover {
-  opacity: 0.72;
+/* Override absolute positioning so children sit in the grid columns */
+.itinerary-day__header .trip-timeline__day {
+  position: static;
+  left: auto;
+  width: auto;
+  text-align: left;
+  padding: 1rem 0;
 }
-
-.itinerary-day__num {
-  font-family: var(--font-display);
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--color-red);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  line-height: 1;
+.itinerary-day__header .trip-timeline__dot {
+  position: static;
+  left: auto;
+  top: auto;
+  margin-top: 1.1rem;
 }
-
-.itinerary-day__meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.18rem;
-}
-
-.itinerary-day__city {
-  font-size: 0.62rem;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--color-ink-muted);
-  font-weight: 700;
-}
-
-.itinerary-day__title {
-  font-family: var(--font-display);
-  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-  font-weight: 600;
-  color: var(--color-ink);
-  line-height: 1.35;
+.itinerary-day__header .trip-timeline__content {
+  padding: 0.85rem 0;
 }
 
 .itinerary-day__chevron {
   width: 1rem;
   height: 1rem;
   color: var(--color-ink-muted);
-  opacity: 0.5;
+  opacity: 0.45;
   transition: transform 0.3s ease;
   flex-shrink: 0;
+  margin-top: 1.1rem;
 }
-
 .itinerary-day.is-open .itinerary-day__chevron {
   transform: rotate(180deg);
-}
-
-.itinerary-day.is-open::before {
-  background: var(--color-red);
-  border-color: var(--color-red);
 }
 
 .itinerary-day__body {
@@ -2068,13 +2011,12 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
   transition: max-height 0.45s ease;
 }
-
 .itinerary-day.is-open .itinerary-day__body {
   max-height: 1200px;
 }
-
 .itinerary-day__inner {
-  padding: 0.25rem 0 2rem 0;
+  padding: 0.5rem 0 2rem 4.5rem;
+  overflow: hidden;
 }
 
 /* ─── City Intro Card ───────────────────────────────── */
@@ -2141,17 +2083,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 640px) {
-  .itinerary-accordion {
-    padding-left: 1.75rem;
-  }
-  .itinerary-accordion::before {
-    left: 0.6rem;
-  }
-  .itinerary-day::before {
-    left: -1.3rem;
-  }
-  .itinerary-day--city-start::before {
-    left: -1.4rem;
+  .itinerary-day__inner {
+    padding-left: 3rem;
   }
   .city-intro-card {
     grid-template-columns: 1fr;
@@ -2166,10 +2099,12 @@ a { color: inherit; text-decoration: none; }
 .landmark-carousel {
   position: relative;
   overflow: hidden;
+  max-width: 100%;
 }
 
 .landmark-carousel__track-wrap {
   overflow: hidden;
+  width: 100%;
 }
 
 .landmark-carousel__track {
