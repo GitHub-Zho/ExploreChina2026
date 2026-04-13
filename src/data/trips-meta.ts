@@ -1,6 +1,12 @@
 // Single source of truth for trip card data.
 // Used by: src/pages/trips/index.astro, src/pages/zh/trips/index.astro,
 //          and the homepage itinerary section (src/pages/index.astro).
+//
+// Route names (title/titleZh) are imported from the canonical trip data files
+// so changing a name in site.ts or south-china.ts updates everywhere at once.
+
+import { currentTrip } from './site';
+import { southChinaTrip } from './south-china';
 
 export type TripStatus = 'open' | 'soon';
 
@@ -32,8 +38,8 @@ export const tripsMeta: TripMeta[] = [
     id: 'east-china',
     href: '/trips/east-china-2026-summer',
     hrefZh: '/zh/trips/east-china-2026-summer',
-    title: 'Old Souls, New Lights',
-    titleZh: '古韵今潮',
+    title: currentTrip.title,        // ← site.ts
+    titleZh: currentTrip.titleZh,    // ← site.ts
     subtitle: 'Shanghai · Suzhou · Hangzhou · Beijing',
     subtitleZh: '上海 · 苏州 · 杭州 · 北京',
     status: 'open',
@@ -56,8 +62,8 @@ export const tripsMeta: TripMeta[] = [
     id: 'south-china',
     href: '/trips/south-china-2026-summer',
     hrefZh: '/zh/trips/south-china-2026-summer',
-    title: 'Nanyang & Beyond',
-    titleZh: '南洋之外',
+    title: southChinaTrip.title,     // ← south-china.ts
+    titleZh: southChinaTrip.titleZh, // ← south-china.ts
     subtitle: 'Xiamen · Chaoshan · Shenzhen · Hong Kong',
     subtitleZh: '厦门 · 潮汕 · 深圳 · 香港',
     status: 'open',
@@ -77,6 +83,7 @@ export const tripsMeta: TripMeta[] = [
     price: 'CAD ~$2,598',
   },
   {
+    // Yunnan has no data file yet — name managed here until one is created
     id: 'yunnan',
     href: '/trips/yunnan-2026-summer',
     hrefZh: '/zh/trips/yunnan-2026-summer',
