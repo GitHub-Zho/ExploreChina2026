@@ -139,11 +139,11 @@ const homeStructuredData = {
 
   <section id="apply" class="py-20">
     <div class="container">
-      <p class="section-eyebrow">Apply</p>
-      <h2 class="section-title">Start Your Application</h2>
-      <p class="section-sub" style="width:100%; max-width:44rem; margin-inline:auto;">If you are looking for a student trip to China from Canada, this is the fastest way to tell us your background, timeline, and travel goals. We review for fit and follow up with next steps by email.</p>
+      <p class="section-eyebrow">Contact</p>
+      <h2 class="section-title">Contact Us</h2>
+      <p class="section-sub" style="width:100%; max-width:44rem; margin-inline:auto;">ExploreChina is a student-run program — trips are organized in partnership with university clubs and student organizations. If you're interested in joining a trip, connect with a partner club at your school first. Use this form for general inquiries and we'll get back to you within 5 business days.</p>
       <form id="apply-form" class="grid md:grid-cols-2 gap-4 mt-8" action="https://formsubmit.co/hello@explorechina.ca" method="POST">
-        <input type="hidden" name="_subject" value="New Application — Explore China" />
+        <input type="hidden" name="_subject" value="New Inquiry — Explore China" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_next" value="https://www.explorechina.ca/#apply" />
@@ -152,19 +152,19 @@ const homeStructuredData = {
         <input class="border border-stone-300 p-3 bg-white" name="email" type="email" aria-label="Email" placeholder="Email" data-ph="Email" required />
         <input class="border border-stone-300 p-3 bg-white" name="phone" aria-label="Phone" placeholder="Phone" data-ph="Phone" />
         <input class="border border-stone-300 p-3 bg-white" name="school" aria-label="Your university or school" placeholder="Your university / school" data-ph="Your university / school" />
-        <textarea class="md:col-span-2 border border-stone-300 p-3 bg-white min-h-[120px]" name="goals" aria-label="Your travel goals" placeholder="Your travel goals" data-ph="Your travel goals"></textarea>
-        <button type="button" id="apply-btn" class="md:col-span-2 justify-self-start bg-red-700 text-white px-7 py-3 hover:bg-red-800 transition-colors">Submit Application</button>
+        <textarea class="md:col-span-2 border border-stone-300 p-3 bg-white min-h-[120px]" name="goals" aria-label="Your message" placeholder="Your message" data-ph="Your message"></textarea>
+        <button type="button" id="apply-btn" class="md:col-span-2 justify-self-start bg-red-700 text-white px-7 py-3 hover:bg-red-800 transition-colors">Send Message</button>
       </form>
 
       <!-- Confirmation Modal -->
       <div id="apply-modal" class="apply-modal" style="display:none">
         <div class="apply-modal__backdrop"></div>
         <div class="apply-modal__box">
-          <h3 class="apply-modal__title">Confirm submission</h3>
-          <p class="apply-modal__text">Your application will be sent to our team. We'll get back to you by email within 5 business days.</p>
+          <h3 class="apply-modal__title">Confirm message</h3>
+          <p class="apply-modal__text">Your message will be sent to our team. We'll get back to you by email within 5 business days.</p>
           <div class="apply-modal__actions">
             <button type="button" id="modal-cancel" class="apply-modal__btn apply-modal__btn--cancel">Cancel</button>
-            <button type="button" id="modal-confirm" class="apply-modal__btn apply-modal__btn--confirm">Send application</button>
+            <button type="button" id="modal-confirm" class="apply-modal__btn apply-modal__btn--confirm">Send message</button>
           </div>
         </div>
       </div>
