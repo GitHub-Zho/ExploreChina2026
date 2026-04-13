@@ -4,6 +4,7 @@ import HeroSection from '../components/v1/HeroSection.astro';
 import DestinationCarousel from '../components/v1/DestinationCarousel.astro';
 import DestinationGrid from '../components/v1/DestinationGrid.astro';
 import Faq from '../components/v1/Faq.astro';
+import { tripsMeta } from '../data/trips-meta.ts';
 
 const homeStructuredData = {
   '@context': 'https://schema.org',
@@ -113,36 +114,47 @@ const homeStructuredData = {
 
   <section id="itinerary" class="py-20">
     <div class="container">
-      <p class="section-eyebrow">Itinerary</p>
-      <h2 class="section-title">10-Day Route Overview</h2>
-      <div class="grid md:grid-cols-2 gap-8 mt-8">
-        <a href="/trips/explore-china-2026-summer/" class="block bg-white p-6 border border-stone-200 hover:border-red-300 hover:shadow-md transition-all group">
-          <h3 class="text-2xl font-semibold mb-2 group-hover:text-red-700 transition-colors">Beijing 10-Day Trip</h3>
-          <p class="text-stone-600 leading-7">Great Wall, Forbidden City, student exchange activities, and a closing social night. A complete immersion in China's capital.</p>
-          <span class="inline-block mt-4 text-red-700 font-medium text-sm">View itinerary →</span>
-        </a>
-        <button type="button" id="yunnan-card" class="text-left bg-white p-6 border border-stone-200 hover:border-amber-300 hover:shadow-md transition-all cursor-pointer w-full">
-          <h3 class="text-2xl font-semibold mb-2">Yunnan 10-Day Trip</h3>
-          <p class="text-stone-600 leading-7">Ancient towns, minority cultures, rice terraces, and mountain landscapes. A route through one of China's most visually distinct provinces.</p>
-          <span class="inline-block mt-4 text-stone-400 font-medium text-sm">Coming soon →</span>
-        </button>
+      <p class="section-eyebrow">Our Routes</p>
+      <h2 class="section-title">Choose Your China</h2>
+      <div class="home-trip-grid mt-8">
+        {tripsMeta.map((trip) => (
+          trip.status === 'open' ? (
+            <a href={trip.href} class="home-trip-card">
+              <div class="home-trip-card__img">
+                {trip.image && <img src={trip.image} alt={trip.imageAlt} loading="lazy" />}
+              </div>
+              <div class="home-trip-card__body">
+                <p class="home-trip-card__subtitle">{trip.subtitle}</p>
+                <h3 class="home-trip-card__title">{trip.title}</h3>
+                <p class="home-trip-card__desc">{trip.description}</p>
+                <span class="home-trip-card__cta">View itinerary →</span>
+              </div>
+            </a>
+          ) : (
+            <div class="home-trip-card home-trip-card--soon">
+              <div class="home-trip-card__img home-trip-card__img--placeholder"></div>
+              <div class="home-trip-card__body">
+                <p class="home-trip-card__subtitle">{trip.subtitle}</p>
+                <h3 class="home-trip-card__title">{trip.title}</h3>
+                <p class="home-trip-card__desc">{trip.description}</p>
+                <span class="home-trip-card__cta home-trip-card__cta--soon">Coming soon</span>
+              </div>
+            </div>
+          )
+        ))}
       </div>
     </div>
   </section>
-
-  <!-- Toast notification -->
-  <div id="yunnan-toast" role="alert" aria-live="polite" class="yunnan-toast">
-    This itinerary is currently being planned. Stay tuned! / 该行程正在筹备中，敬请期待！
-  </div>
 
   <Faq />
 
   <section id="apply" class="py-20">
     <div class="container">
+      <div style="max-width:44rem; margin:0 auto;">
       <p class="section-eyebrow">Contact</p>
-      <h2 class="section-title">Contact Us</h2>
-      <p class="section-sub" style="width:100%; max-width:44rem; margin-inline:auto;">ExploreChina is a student-run program — trips are organized in partnership with university clubs and student organizations. If you're interested in joining a trip, connect with a partner club at your school first. Use this form for general inquiries and we'll get back to you within 5 business days.</p>
-      <form id="apply-form" class="grid md:grid-cols-2 gap-4 mt-8" action="https://formsubmit.co/hello@explorechina.ca" method="POST">
+      <h2 class="section-title" style="text-align:left;">Contact Us</h2>
+      <p class="section-sub" style="max-width:none; margin:0 0 2rem;">ExploreChina is a student-run program — trips are organized in partnership with university clubs and student organizations. If you're interested in joining a trip, connect with a partner club at your school first. Use this form for general inquiries and we'll get back to you within 5 business days.</p>
+      <form id="apply-form" class="grid md:grid-cols-2 gap-4" action="https://formsubmit.co/hello@explorechina.ca" method="POST">
         <input type="hidden" name="_subject" value="New Inquiry — Explore China" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
@@ -171,6 +183,7 @@ const homeStructuredData = {
 
       <!-- Toast notification -->
       <div id="apply-toast" class="apply-toast" style="display:none"></div>
+      </div>
     </div>
   </section>
 </Layout>

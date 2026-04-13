@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { tripsMeta } from '../../data/trips-meta.ts';
 ---
 
 <Layout
@@ -14,8 +15,8 @@ import Layout from '../../layouts/Layout.astro';
     <div class="container" style="text-align:center;">
       <p class="section-eyebrow">Our Routes</p>
       <h1 class="section-title">Upcoming Trips</h1>
-      <p class="section-sub" style="margin-inline:auto; text-align:center;">
-        Two routes. Different Chinas. Choose the one that fits how you want to travel.
+      <p class="section-sub" style="text-align:center;">
+        Three routes. Different Chinas. Choose the one that fits how you want to travel.
       </p>
     </div>
   </section>
@@ -23,86 +24,99 @@ import Layout from '../../layouts/Layout.astro';
   <section class="trips-list">
     <div class="container">
 
-      <a href="/trips/explore-china-2026-summer" class="trip-listing-card">
-        <div class="trip-listing-card__img">
-          <img src="/images/highlights/suzhou-canal.jpg" alt="Suzhou canal watertown" />
-        </div>
-        <div class="trip-listing-card__body">
-          <div class="trip-listing-card__top">
-            <div>
-              <h2 class="trip-listing-card__title">Classic China — East Route</h2>
-              <p class="trip-listing-card__subtitle">Shanghai · Suzhou · Hangzhou · Beijing</p>
+      {tripsMeta.map((trip) => (
+        trip.status === 'open' ? (
+          <a href={trip.href} class="trip-listing-card">
+            <div class="trip-listing-card__img">
+              {trip.image && <img src={trip.image} alt={trip.imageAlt} loading="lazy" />}
             </div>
-            <span class="trip-badge trip-badge--open">Open</span>
+            <div class="trip-listing-card__body">
+              <div class="trip-listing-card__top">
+                <div>
+                  <h2 class="trip-listing-card__title">{trip.title}</h2>
+                  <p class="trip-listing-card__subtitle">{trip.subtitle}</p>
+                </div>
+                <span class="trip-badge trip-badge--open">Open</span>
+              </div>
+              <p class="trip-listing-card__desc">{trip.description}</p>
+              <div class="trip-listing-card__stats">
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">Duration</span>
+                  <span class="trip-listing-card__stat-value">{trip.duration}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">Cities</span>
+                  <span class="trip-listing-card__stat-value">{trip.cities}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">Departure</span>
+                  <span class="trip-listing-card__stat-value">{trip.departure}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">From</span>
+                  <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">{trip.price}</span>
+                </div>
+              </div>
+              <div class="trip-listing-card__footer">
+                <span class="trip-cta">View Itinerary →</span>
+              </div>
+            </div>
+          </a>
+        ) : (
+          <div class="trip-listing-card trip-listing-card--soon">
+            <div class="trip-listing-card__img">
+              {trip.image
+                ? <img src={trip.image} alt={trip.imageAlt} loading="lazy" />
+                : <div class="trip-listing-card__img-placeholder"></div>
+              }
+            </div>
+            <div class="trip-listing-card__body">
+              <div class="trip-listing-card__top">
+                <div>
+                  <h2 class="trip-listing-card__title">{trip.title}</h2>
+                  <p class="trip-listing-card__subtitle">{trip.subtitle}</p>
+                </div>
+                <span class="trip-badge trip-badge--soon">Coming Soon</span>
+              </div>
+              <p class="trip-listing-card__desc">{trip.description}</p>
+              <div class="trip-listing-card__stats">
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">Duration</span>
+                  <span class="trip-listing-card__stat-value">{trip.duration}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">Cities</span>
+                  <span class="trip-listing-card__stat-value">{trip.cities}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">Departure</span>
+                  <span class="trip-listing-card__stat-value">{trip.departure}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">Price</span>
+                  <span class="trip-listing-card__stat-value">{trip.price}</span>
+                </div>
+              </div>
+              <div class="trip-listing-card__footer">
+                <span style="color:#a8a29e; font-size:0.875rem;">Details coming soon</span>
+              </div>
+            </div>
           </div>
-          <p class="trip-listing-card__desc">Canal towns, ancient gardens, West Lake, and the Forbidden City. Four cities in ten days — the most complete first-time China experience.</p>
-          <div class="trip-listing-card__stats">
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">Duration</span>
-              <span class="trip-listing-card__stat-value">10 Days</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">Cities</span>
-              <span class="trip-listing-card__stat-value">4 Cities</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">Departure</span>
-              <span class="trip-listing-card__stat-value">Summer 2026</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">From</span>
-              <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">CAD ~$3,000</span>
-            </div>
-          </div>
-          <div class="trip-listing-card__footer">
-            <span class="trip-cta">View Itinerary →</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="/trips/south-china-2026-summer" class="trip-listing-card">
-        <div class="trip-listing-card__img">
-          <img
-            src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=800&q=80"
-            alt="Hong Kong harbour at dusk"
-            loading="lazy"
-          />
-        </div>
-        <div class="trip-listing-card__body">
-          <div class="trip-listing-card__top">
-            <div>
-              <h3 class="trip-listing-card__title">South China Route</h3>
-              <p class="trip-listing-card__subtitle">Xiamen → Chaoshan → Shenzhen → Hong Kong</p>
-            </div>
-            <span class="trip-badge trip-badge--soon">Coming Soon</span>
-          </div>
-          <p class="trip-listing-card__desc">
-            Coastal nostalgia, ancient Teochew civilization, China's fastest-growing city, and a harbour skyline that belongs to no easy category. Ten days through four very different Chinas.
-          </p>
-          <div class="trip-listing-card__stats">
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">Duration</span>
-              <span class="trip-listing-card__stat-value">10 days</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">Cities</span>
-              <span class="trip-listing-card__stat-value">4 cities</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">Departs</span>
-              <span class="trip-listing-card__stat-value">Summer 2026</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">Price</span>
-              <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">~CAD $2,598</span>
-            </div>
-          </div>
-          <div class="trip-listing-card__footer">
-            <span class="trip-cta">View Itinerary →</span>
-          </div>
-        </div>
-      </a>
+        )
+      ))}
 
     </div>
   </section>
 </Layout>
+
+<style>
+.trip-listing-card--soon {
+  opacity: 0.72;
+  cursor: default;
+}
+.trip-listing-card__img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #e7e5e0;
+}
+</style>

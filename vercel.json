@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/trips/explore-china-2026-summer",
+      "destination": "/trips/east-china-2026-summer",
+      "permanent": true
+    },
+    {
+      "source": "/zh/trips/explore-china-2026-summer",
+      "destination": "/zh/trips/east-china-2026-summer",
+      "permanent": true
+    }
+  ]
+}

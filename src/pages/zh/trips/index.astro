@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import { tripsMeta } from '../../../data/trips-meta.ts';
 ---
 
 <Layout
@@ -14,8 +15,8 @@ import Layout from '../../../layouts/Layout.astro';
     <div class="container" style="text-align:center;">
       <p class="section-eyebrow">我们的线路</p>
       <h1 class="section-title">所有行程</h1>
-      <p class="section-sub" style="margin-inline:auto; text-align:center;">
-        两条线路，两种中国。选择最适合你的方式出发。
+      <p class="section-sub" style="text-align:center;">
+        三条线路，三种中国。选择最适合你的方式出发。
       </p>
     </div>
   </section>
@@ -23,86 +24,99 @@ import Layout from '../../../layouts/Layout.astro';
   <section class="trips-list">
     <div class="container">
 
-      <a href="/zh/trips/explore-china-2026-summer" class="trip-listing-card">
-        <div class="trip-listing-card__img">
-          <img src="/images/highlights/suzhou-canal.jpg" alt="苏州运河古镇" />
-        </div>
-        <div class="trip-listing-card__body">
-          <div class="trip-listing-card__top">
-            <div>
-              <h2 class="trip-listing-card__title">经典东线</h2>
-              <p class="trip-listing-card__subtitle">上海 · 苏州 · 杭州 · 北京</p>
+      {tripsMeta.map((trip) => (
+        trip.status === 'open' ? (
+          <a href={trip.hrefZh} class="trip-listing-card">
+            <div class="trip-listing-card__img">
+              {trip.image && <img src={trip.image} alt={trip.imageAltZh} loading="lazy" />}
             </div>
-            <span class="trip-badge trip-badge--open">开放报名</span>
+            <div class="trip-listing-card__body">
+              <div class="trip-listing-card__top">
+                <div>
+                  <h2 class="trip-listing-card__title">{trip.titleZh}</h2>
+                  <p class="trip-listing-card__subtitle">{trip.subtitleZh}</p>
+                </div>
+                <span class="trip-badge trip-badge--open">开放报名</span>
+              </div>
+              <p class="trip-listing-card__desc">{trip.descriptionZh}</p>
+              <div class="trip-listing-card__stats">
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">天数</span>
+                  <span class="trip-listing-card__stat-value">{trip.durationZh}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">城市</span>
+                  <span class="trip-listing-card__stat-value">{trip.citiesZh}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">出发</span>
+                  <span class="trip-listing-card__stat-value">{trip.departureZh}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">费用</span>
+                  <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">{trip.price}</span>
+                </div>
+              </div>
+              <div class="trip-listing-card__footer">
+                <span class="trip-cta">查看行程 →</span>
+              </div>
+            </div>
+          </a>
+        ) : (
+          <div class="trip-listing-card trip-listing-card--soon">
+            <div class="trip-listing-card__img">
+              {trip.image
+                ? <img src={trip.image} alt={trip.imageAltZh} loading="lazy" />
+                : <div class="trip-listing-card__img-placeholder"></div>
+              }
+            </div>
+            <div class="trip-listing-card__body">
+              <div class="trip-listing-card__top">
+                <div>
+                  <h2 class="trip-listing-card__title">{trip.titleZh}</h2>
+                  <p class="trip-listing-card__subtitle">{trip.subtitleZh}</p>
+                </div>
+                <span class="trip-badge trip-badge--soon">即将开放</span>
+              </div>
+              <p class="trip-listing-card__desc">{trip.descriptionZh}</p>
+              <div class="trip-listing-card__stats">
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">天数</span>
+                  <span class="trip-listing-card__stat-value">{trip.durationZh}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">城市</span>
+                  <span class="trip-listing-card__stat-value">{trip.citiesZh}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">出发</span>
+                  <span class="trip-listing-card__stat-value">{trip.departureZh}</span>
+                </div>
+                <div class="trip-listing-card__stat">
+                  <span class="trip-listing-card__stat-label">费用</span>
+                  <span class="trip-listing-card__stat-value">{trip.price}</span>
+                </div>
+              </div>
+              <div class="trip-listing-card__footer">
+                <span style="color:#a8a29e; font-size:0.875rem;">详情即将公布</span>
+              </div>
+            </div>
           </div>
-          <p class="trip-listing-card__desc">运河古镇、江南园林、西湖、故宫——十天四城，最完整的初次中国体验。</p>
-          <div class="trip-listing-card__stats">
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">行程天数</span>
-              <span class="trip-listing-card__stat-value">10 天</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">城市</span>
-              <span class="trip-listing-card__stat-value">4 座城市</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">出发时间</span>
-              <span class="trip-listing-card__stat-value">2026 年暑期</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">起价</span>
-              <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">约 CAD $3,000</span>
-            </div>
-          </div>
-          <div class="trip-listing-card__footer">
-            <span class="trip-cta">查看行程 →</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="/zh/trips/south-china-2026-summer" class="trip-listing-card">
-        <div class="trip-listing-card__img">
-          <img
-            src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=800&q=80"
-            alt="香港维多利亚港夜景"
-            loading="lazy"
-          />
-        </div>
-        <div class="trip-listing-card__body">
-          <div class="trip-listing-card__top">
-            <div>
-              <h3 class="trip-listing-card__title">华南线</h3>
-              <p class="trip-listing-card__subtitle">厦门 → 潮汕 → 深圳 → 香港</p>
-            </div>
-            <span class="trip-badge trip-badge--soon">即将开放</span>
-          </div>
-          <p class="trip-listing-card__desc">
-            海边的南洋气息、两千年潮州文明、中国建城速度最快的城市，还有那片说不清属于哪里的维多利亚港。十天，四座截然不同的中国城市。
-          </p>
-          <div class="trip-listing-card__stats">
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">天数</span>
-              <span class="trip-listing-card__stat-value">10天</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">城市</span>
-              <span class="trip-listing-card__stat-value">4座城市</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">出发</span>
-              <span class="trip-listing-card__stat-value">2026年暑期</span>
-            </div>
-            <div class="trip-listing-card__stat">
-              <span class="trip-listing-card__stat-label">费用</span>
-              <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">约 CAD $2,598</span>
-            </div>
-          </div>
-          <div class="trip-listing-card__footer">
-            <span class="trip-cta">查看行程 →</span>
-          </div>
-        </div>
-      </a>
+        )
+      ))}
 
     </div>
   </section>
 </Layout>
+
+<style>
+.trip-listing-card--soon {
+  opacity: 0.72;
+  cursor: default;
+}
+.trip-listing-card__img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #e7e5e0;
+}
+</style>
