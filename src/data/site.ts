@@ -11,8 +11,8 @@ export const site = {
 
 export const currentTrip = {
   slug: 'explore-china-2026-summer',
-  title: 'Explore China · 10-Day Summer Trip',
-  titleZh: '探索中国 · 10天暑期行程',
+  title: 'Old Souls, New Lights',
+  titleZh: '古韵今潮',
   subtitle: 'Shanghai → Suzhou → Hangzhou → Beijing',
   subtitleZh: '上海 → 苏州 → 杭州 → 北京',
   duration: '10 days',

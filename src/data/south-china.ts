@@ -9,8 +9,8 @@
 
 export const southChinaTrip = {
   slug: 'south-china-2026-summer',
-  title: 'Explore China · South China Route',
-  titleZh: '探索中国 · 华南线路',
+  title: 'Nanyang & Beyond',
+  titleZh: '只此南洋',
   subtitle: 'Xiamen → Chaoshan → Shenzhen → Hong Kong',
   subtitleZh: '厦门 → 潮汕 → 深圳 → 香港',
   duration: '10 days',
