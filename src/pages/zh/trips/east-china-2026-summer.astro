@@ -202,17 +202,17 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
                           <div class="landmark-carousel__slide">
                             {slide.type === 'city' ? (
                               <div class="city-intro-card">
-                                <div class="city-intro-card__content">
-                                  <span class="city-intro-card__label">城市概览</span>
-                                  <h3 class="city-intro-card__city">{slide.guide.cityZh}</h3>
-                                  <p class="city-intro-card__desc">{slide.guide.contextZh}</p>
-                                </div>
                                 <div class="city-intro-card__image">
                                   <img
                                     src={slide.guide.heroImage}
                                     alt={slide.guide.heroAlt}
                                     loading="lazy"
                                   />
+                                </div>
+                                <div class="city-intro-card__content">
+                                  <span class="city-intro-card__label">城市概览</span>
+                                  <h3 class="city-intro-card__city">{slide.guide.cityZh}</h3>
+                                  <p class="city-intro-card__desc">{slide.guide.contextZh}</p>
                                 </div>
                               </div>
                             ) : (
