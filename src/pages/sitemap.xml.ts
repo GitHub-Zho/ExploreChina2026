@@ -5,12 +5,14 @@ const routes = [
   '/about',
   '/handbook',
   '/privacy',
-  '/trips/explore-china-2026-summer',
+  '/trips/east-china-2026-summer',
+  '/trips/south-china-2026-summer',
   '/zh',
   '/zh/about',
   '/zh/handbook',
   '/zh/privacy',
-  '/zh/trips/explore-china-2026-summer',
+  '/zh/trips/east-china-2026-summer',
+  '/zh/trips/south-china-2026-summer',
 ];
 
 export const GET: APIRoute = ({ site }) => {

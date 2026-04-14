@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getTripById } from '../../data/registry';
 import {
-  southChinaTrip,
   southChinaItinerary,
   southChinaCityGuides,
   southChinaFaq,
@@ -10,7 +10,7 @@ import {
   southChinaVideos,
 } from '../../data/south-china.ts';
 
-const currentTrip     = southChinaTrip;
+const trip            = getTripById('south-china-2026-summer')!;
 const itinerary       = southChinaItinerary;
 const cityGuides      = southChinaCityGuides;
 const faq             = southChinaFaq;
@@ -39,7 +39,7 @@ const tripStructuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'TouristTrip',
-    name: currentTrip.title,
+    name: trip.title,
     description:
       'A 10-day student travel route through Xiamen, Chaoshan, Shenzhen and Hong Kong — cultural depth, coastal energy, and East-meets-West intensity.',
     itinerary: itinerary.map((day) => `${day.day}: ${day.city} - ${day.title}`),
@@ -56,7 +56,7 @@ const tripStructuredData = [
 ];
 ---
 <Layout
-  title={`${currentTrip.title} · Explore China 2026`}
+  title={`${trip.title} · Explore China 2026`}
   description="A 10-day student travel route through Xiamen, Chaoshan, Shenzhen and Hong Kong — cultural depth, coastal energy, and East-meets-West intensity."
   lang="en"
   alternateHref="/zh/trips/south-china-2026-summer"
@@ -73,19 +73,19 @@ const tripStructuredData = [
       class="trip-hero__img"
     />
     <div class="trip-hero__overlay">
-      <h1 class="trip-hero__title">{currentTrip.title}</h1>
-      <p class="trip-hero__sub">{currentTrip.subtitle}</p>
+      <h1 class="trip-hero__title">{trip.title}</h1>
+      <p class="trip-hero__sub">{trip.summary}</p>
     </div>
   </div>
 
   <section id="overview" class="trip-strip">
     <div class="trip-strip__inner">
       <div class="trip-strip__facts">
-        <div class="trip-strip__fact"><span class="trip-strip__label">Route</span><span class="trip-strip__val">{currentTrip.subtitle}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">Departure</span><span class="trip-strip__val">{currentTrip.departureWindow}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">Price</span><span class="trip-strip__val trip-strip__val--price">{currentTrip.priceCad}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">Group</span><span class="trip-strip__val">{currentTrip.groupSize}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">Deadline</span><span class="trip-strip__val">{currentTrip.applicationDeadline}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Route</span><span class="trip-strip__val">{trip.routeName}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Departure</span><span class="trip-strip__val">{trip.departureWindow}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Price</span><span class="trip-strip__val trip-strip__val--price">{trip.priceCad}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Group</span><span class="trip-strip__val">{trip.groupSize}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Deadline</span><span class="trip-strip__val">{trip.applicationDeadline}</span></div>
       </div>
       <div class="trip-strip__actions">
         <a class="trip-cta" href="#apply">Apply for This Trip</a>

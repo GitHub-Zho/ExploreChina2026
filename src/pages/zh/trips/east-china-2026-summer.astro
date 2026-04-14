@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import { getTripById } from '../../../data/registry';
 import {
-  currentTrip,
   faqZh,
   includedZh,
   notIncludedZh,
@@ -9,6 +9,8 @@ import {
   itinerary,
   recommendedVideos,
 } from '../../../data/site';
+
+const trip = getTripById('east-china-2026-summer')!;
 
 // Pre-compute slides for each day in the frontmatter
 type LandmarkItemEC = { name: string; nameZh: string; image: string; background: string; backgroundZh: string };
@@ -28,7 +30,7 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
 });
 ---
 <Layout
-  title={currentTrip.titleZh}
+  title={trip.titleZh}
   description="2026 年学生带队中国夏季行程，从加拿大出发，10 天走访上海、苏州、杭州与北京。"
   lang="zh"
   alternateHref="/trips/east-china-2026-summer"
@@ -45,8 +47,8 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
       class="trip-hero__img"
     />
     <div class="trip-hero__overlay">
-      <h1 class="trip-hero__title">{currentTrip.titleZh}</h1>
-      <p class="trip-hero__sub">{currentTrip.summaryZh}</p>
+      <h1 class="trip-hero__title">{trip.titleZh}</h1>
+      <p class="trip-hero__sub">{trip.summaryZh}</p>
     </div>
   </div>
 
@@ -54,11 +56,11 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
   <section id="overview" class="trip-strip">
     <div class="trip-strip__inner">
       <div class="trip-strip__facts">
-        <div class="trip-strip__fact"><span class="trip-strip__label">路线</span><span class="trip-strip__val">{currentTrip.subtitleZh}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">出发</span><span class="trip-strip__val">{currentTrip.departureWindowZh}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">价格</span><span class="trip-strip__val trip-strip__val--price">{currentTrip.priceCadZh}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">人数</span><span class="trip-strip__val">{currentTrip.groupSizeZh}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">截止</span><span class="trip-strip__val">{currentTrip.applicationDeadlineZh}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">路线</span><span class="trip-strip__val">{trip.routeNameZh}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">出发</span><span class="trip-strip__val">{trip.departureWindowZh}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">价格</span><span class="trip-strip__val trip-strip__val--price">{trip.priceCadZh}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">人数</span><span class="trip-strip__val">{trip.groupSizeZh}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">截止</span><span class="trip-strip__val">{trip.applicationDeadlineZh}</span></div>
       </div>
       <div class="trip-strip__actions">
         <a class="trip-cta" href="#apply">立即申请</a>
