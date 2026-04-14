@@ -223,13 +223,16 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
                                     alt={slide.lm.nameZh}
                                     loading="lazy"
                                   />
-                                  <div class="landmark-card__overlay"></div>
-                                  <div class="landmark-card__name-overlay">
-                                    <p class="landmark-card__name">{slide.lm.nameZh}</p>
-                                    <p class="landmark-card__name-zh">{slide.lm.name}</p>
-                                  </div>
                                 </div>
+                                <div class="landmark-card__base-overlay"></div>
+                                <div class="landmark-card__name-overlay">
+                                  <p class="landmark-card__name">{slide.lm.nameZh}</p>
+                                  <p class="landmark-card__name-zh">{slide.lm.name}</p>
+                                </div>
+                                <div class="landmark-card__overlay"></div>
                                 <div class="landmark-card__body">
+                                  <p class="landmark-card__body-name">{slide.lm.nameZh}</p>
+                                  <p class="landmark-card__body-name-zh">{slide.lm.name}</p>
                                   <p class="landmark-card__background">{slide.lm.backgroundZh ?? slide.lm.background}</p>
                                 </div>
                               </div>

@@ -2024,17 +2024,14 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   .route-apply__form { grid-template-columns: 1fr; }
 }
 
-/* ── Itinerary Accordion ── */
+/* ── Accordion ── */
 .itinerary-accordion {
-  width: 100%;
-  max-width: 760px;
-  margin-left: auto;
-  margin-right: auto;
-  border-top: 1px solid rgba(0,0,0,0.12);
+  margin-top: 48px;
+  border-top: 1px solid rgba(0,0,0,0.1);
 }
 
 .itinerary-day {
-  border-bottom: 1px solid rgba(0,0,0,0.12);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 .itinerary-day__header {
@@ -2052,23 +2049,23 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 }
 
 .itinerary-day__header:hover {
-  background: rgba(0,0,0,0.015);
+  background: rgba(0,0,0,0.018);
 }
 
 .itinerary-day__number {
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   color: var(--color-red);
   text-transform: uppercase;
   padding-top: 4px;
   text-align: right;
+  white-space: nowrap;
 }
 
 .itinerary-day__dot {
   width: 1px;
-  height: 100%;
   min-height: 48px;
   background: rgba(0,0,0,0.15);
   position: relative;
@@ -2095,16 +2092,16 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 }
 
 .itinerary-day__city {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-gold);
 }
 
 .itinerary-day__title {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
@@ -2113,19 +2110,19 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 
 .itinerary-day__plan {
   font-size: 0.82rem;
-  color: #666;
+  color: #777;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .itinerary-day__toggle-icon {
   font-size: 1.4rem;
   font-weight: 300;
-  color: #999;
+  color: #aaa;
   line-height: 1;
-  padding-top: 2px;
-  transition: transform 0.3s ease, color 0.2s;
+  padding-top: 4px;
   flex-shrink: 0;
+  transition: transform 0.3s ease, color 0.2s;
 }
 
 .itinerary-day__header[aria-expanded="true"] .itinerary-day__toggle-icon {
@@ -2133,7 +2130,7 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   color: var(--color-red);
 }
 
-/* ── Accordion Body ── */
+/* ── Accordion body ── */
 .itinerary-day__body {
   max-height: 0;
   overflow: hidden;
@@ -2141,54 +2138,53 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 }
 
 .itinerary-day__body.is-open {
-  max-height: 700px;
+  max-height: 600px;
 }
 
 .itinerary-day__body-inner {
-  padding: 0 0 36px 100px;
+  /* indent to align with text column (past DAY label + dot) */
+  padding: 4px 0 36px calc(72px + 28px + 1px + 28px);
 }
 
-/* ── Landmark Carousel ── */
+/* ── Carousel: bleeds slightly past container for peek effect ── */
 .landmark-carousel {
-  width: 100%;
-  overflow: hidden;
   position: relative;
-  margin-top: 8px;
+  margin-right: -24px;
 }
 
 .landmark-carousel__track-wrap {
-  width: 100%;
   overflow: hidden;
+  padding-right: 24px;
 }
 
 .landmark-carousel__track {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
 
 .landmark-carousel__slide {
-  flex: 0 0 88%;
+  flex: 0 0 260px;
   min-width: 0;
-  max-width: 340px;
 }
 
-/* ── Landmark Card — editorial full-bleed style ── */
+/* ══════════════════════════════════════════
+   LANDMARK CARD — hover-reveal editorial
+══════════════════════════════════════════ */
+
 .landmark-card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 0;
+  position: relative;
+  height: 340px;
   overflow: hidden;
-  background: #111;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  cursor: pointer;
+  background: #0a0a0a;
+  display: block;
 }
 
 .landmark-card__visual {
-  position: relative;
-  height: 220px;
-  overflow: hidden;
-  background: #1a1a1a;
+  position: absolute;
+  inset: 0;
 }
 
 .landmark-card__visual img {
@@ -2196,119 +2192,199 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.65s cubic-bezier(0.25, 0, 0.25, 1);
 }
 
 .landmark-card:hover .landmark-card__visual img {
-  transform: scale(1.04);
+  transform: scale(1.06);
 }
 
-.landmark-card__overlay {
+/* always-visible bottom gradient */
+.landmark-card__base-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.72) 100%);
+  background: linear-gradient(
+    to bottom,
+    transparent 35%,
+    rgba(0,0,0,0.5) 65%,
+    rgba(0,0,0,0.85) 100%
+  );
+  z-index: 1;
   pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
+.landmark-card:hover .landmark-card__base-overlay {
+  opacity: 0;
+}
+
+/* name — always visible at bottom */
 .landmark-card__name-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 16px 18px 14px;
+  padding: 18px 16px 16px;
+  z-index: 3;
+  transition: opacity 0.25s ease;
+}
+
+.landmark-card:hover .landmark-card__name-overlay {
+  opacity: 0;
 }
 
 .landmark-card__name {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 3px;
+  line-height: 1.2;
+}
+
+.landmark-card__name-zh {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+/* hover: full dark cover */
+.landmark-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8,8,8,0.86);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+
+.landmark-card:hover .landmark-card__overlay {
+  opacity: 1;
+}
+
+/* hover: content slides up */
+.landmark-card__body {
+  position: absolute;
+  inset: 0;
+  padding: 20px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  z-index: 4;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.32s ease 0.06s, transform 0.32s ease 0.06s;
+}
+
+.landmark-card:hover .landmark-card__body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.landmark-card__body-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
   font-weight: 700;
   color: #fff;
   margin: 0 0 2px;
   line-height: 1.2;
 }
 
-.landmark-card__name-zh {
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.65);
-  letter-spacing: 0.08em;
-  margin: 0;
-}
-
-.landmark-card__body {
-  padding: 14px 18px 18px;
-  background: #111;
+.landmark-card__body-name-zh {
+  font-size: 0.65rem;
+  color: var(--color-gold);
+  letter-spacing: 0.12em;
+  margin: 0 0 8px;
 }
 
 .landmark-card__background {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.6);
-  line-height: 1.65;
-  margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* hide broken placeholder images */
-.landmark-card__visual img[src*="PLACEHOLDER"],
-.city-intro-card__image img[src*="PLACEHOLDER"] {
-  display: none;
-}
-
-/* ── City Intro Card ── */
-.city-intro-card {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  min-height: 280px;
-  background: #0d0d0d;
-  overflow: hidden;
-}
-
-.city-intro-card__content {
-  padding: 32px 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-}
-
-.city-intro-card__label {
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-gold);
-}
-
-.city-intro-card__city {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0;
-  line-height: 1.15;
-}
-
-.city-intro-card__desc {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.55);
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.68);
   line-height: 1.7;
   margin: 0;
 }
 
-.city-intro-card__image {
+/* hide broken/empty images */
+.landmark-card__visual img[src=""],
+.landmark-card__visual img[src*="PLACEHOLDER"],
+.city-intro-card__image img[src=""],
+.city-intro-card__image img[src*="PLACEHOLDER"] {
+  display: none;
+}
+
+/* ══════════════════════════════════════════
+   CITY INTRO CARD — same size as landmark card
+══════════════════════════════════════════ */
+
+.city-intro-card {
   position: relative;
+  height: 340px;
   overflow: hidden;
+  background: #0d0d0d;
+  display: block;
+}
+
+.city-intro-card__image {
+  position: absolute;
+  inset: 0;
 }
 
 .city-intro-card__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.3;
 }
 
-/* ── Carousel Nav Buttons ── */
+.city-intro-card__content {
+  position: absolute;
+  inset: 0;
+  padding: 20px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.05) 0%,
+    rgba(0,0,0,0.55) 55%,
+    rgba(0,0,0,0.9) 100%
+  );
+}
+
+.city-intro-card__label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold);
+  padding: 3px 7px;
+  width: fit-content;
+  margin-bottom: 2px;
+}
+
+.city-intro-card__city {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.city-intro-card__desc {
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Carousel nav buttons ── */
 .landmark-carousel__btn {
   position: absolute;
   top: 50%;
@@ -2317,24 +2393,25 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   height: 36px;
   border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(0,0,0,0.5);
+  background: rgba(8,8,8,0.55);
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  transition: background 0.2s;
-  backdrop-filter: blur(4px);
+  z-index: 20;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .landmark-carousel__btn:hover {
-  background: rgba(0,0,0,0.8);
+  background: rgba(8,8,8,0.88);
+  border-color: rgba(255,255,255,0.45);
 }
 
-.landmark-carousel__btn--prev { left: 8px; }
-.landmark-carousel__btn--next { right: 8px; }
+.landmark-carousel__btn--prev { left: 6px; }
+.landmark-carousel__btn--next { right: 6px; }
 
 /* Dot indicators */
 .landmark-carousel__dots {
@@ -2359,25 +2436,26 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .itinerary-day__header {
     grid-template-columns: 52px 1px 1fr auto;
     gap: 0 16px;
-    padding: 20px 0;
+    padding: 22px 0;
   }
   .itinerary-day__body-inner {
-    padding: 0 0 28px 68px;
+    padding: 4px 0 28px calc(52px + 16px + 1px + 16px);
   }
-  .itinerary-day__title {
-    font-size: 1.1rem;
-  }
-  .landmark-carousel__slide {
-    flex: 0 0 85%;
-  }
-  .city-intro-card {
-    grid-template-columns: 1fr;
-  }
-  .city-intro-card__image {
-    height: 180px;
-  }
+  .itinerary-day__title { font-size: 1.1rem; }
+}
+
+@media (max-width: 600px) {
+  .landmark-carousel__slide { flex: 0 0 78%; }
+  .landmark-card,
+  .city-intro-card { height: 300px; }
+
+  /* mobile: show content without hover */
+  .landmark-card__overlay { opacity: 1; }
+  .landmark-card__body { opacity: 1; transform: translateY(0); }
+  .landmark-card__name-overlay { opacity: 0; }
+  .landmark-card__base-overlay { opacity: 0; }
 }
