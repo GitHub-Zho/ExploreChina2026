@@ -417,7 +417,15 @@ export const eastChinaItinerary = [
     titleZh: '北上转场与入住适应',
     plan: 'Transfer north to Beijing, settle into the new city pace, and reset before the landmark-heavy final phase.',
     planZh: '完成北上转场、入住和节奏切换，为后面更集中、更重量级的地标段做准备。',
-    landmarks: [],
+    landmarks: [
+      {
+        name: 'Drum Tower District',
+        nameZh: '鼓楼街区',
+        image: '/images/places/beijing-drum-tower-itin-1.jpg',
+        background: 'The Drum Tower anchors a neighborhood of hutong lanes that have survived Beijing\'s rapid development. A low-key evening here — rooftop bars, local dumpling spots, the distant sound of evening drums — makes for the right introduction to the old city.',
+        backgroundZh: '鼓楼是这片胡同街区的地标，也是北京少数在快速发展中留存下来的旧城核心。傍晚在这里溜达——屋顶酒吧、街边饺子馆、远处传来的鼓声——是进入老北京最自然的方式。',
+      },
+    ],
   },
   {
     day: 'Day 7',
