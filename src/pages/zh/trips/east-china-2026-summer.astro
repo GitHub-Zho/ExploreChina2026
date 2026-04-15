@@ -69,97 +69,63 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
   </section>
 
   <section class="highlights-strip" aria-label="路线亮点">
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-bund.jpg" alt="上海外滩夜景" loading="lazy" />
-      <p class="highlights-strip__caption">改写了天际线的外滩，今日依旧气势不减</p>
+    <div class="highlights-strip__header">
+      <p class="highlights-strip__eyebrow">行程亮点</p>
+      <h2 class="highlights-strip__title">这些等着你</h2>
     </div>
+    <div class="highlights-strip__stage">
 
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-suzhou-garden.jpg" alt="苏州古典园林" loading="lazy" />
-      <p class="highlights-strip__caption">每一块石、每一方水，都有人用心放置</p>
+      <!-- 第一行 → 向左（图1–9）-->
+      <div class="highlights-strip__row highlights-strip__row--1">
+        <div class="highlights-strip__track">
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-bund.jpg" alt="上海外滩夜景" loading="lazy" /><p class="highlights-strip__caption">改写了天际线的外滩，今日依旧气势不减</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-suzhou-garden.jpg" alt="苏州古典园林" loading="lazy" /><p class="highlights-strip__caption">每一块石、每一方水，都有人用心放置</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-forbidden-city.jpg" alt="北京故宫" loading="lazy" /><p class="highlights-strip__caption">城墙之内的城，为帝王和时间而建</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-pingjiang-canal.jpg" alt="苏州平江路夜晚运河" loading="lazy" /><p class="highlights-strip__caption">时间在这条水街里慢了下来</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-west-lake.jpg" alt="杭州西湖" loading="lazy" /><p class="highlights-strip__caption">湖光、柳影，以及一种先于你落定的宁静</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-lingyin-temple.jpg" alt="杭州灵隐寺" loading="lazy" /><p class="highlights-strip__caption">石刻、香烟与山间空气共同承载的静谧</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-summer-palace.jpg" alt="北京颐和园" loading="lazy" /><p class="highlights-strip__caption">彩绘廊柱，一步接一步延伸得比你想象的更远</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-great-wall.jpg" alt="雾中长城" loading="lazy" /><p class="highlights-strip__caption">山脊、风声，以及一道消失于视野之外的边界</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-shanghai-coffee.jpg" alt="上海咖啡街巷" loading="lazy" /><p class="highlights-strip__caption">城市在这些小巷里放慢脚步，等着你转过下一个弯</p></div>
+          <!-- 复制（无障碍隐藏）-->
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-bund.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">改写了天际线的外滩，今日依旧气势不减</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-suzhou-garden.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">每一块石、每一方水，都有人用心放置</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-forbidden-city.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">城墙之内的城，为帝王和时间而建</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-pingjiang-canal.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">时间在这条水街里慢了下来</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-west-lake.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">湖光、柳影，以及一种先于你落定的宁静</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-lingyin-temple.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">石刻、香烟与山间空气共同承载的静谧</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-summer-palace.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">彩绘廊柱，一步接一步延伸得比你想象的更远</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-great-wall.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">山脊、风声，以及一道消失于视野之外的边界</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-shanghai-coffee.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">城市在这些小巷里放慢脚步，等着你转过下一个弯</p></div>
+        </div>
+      </div>
+
+      <!-- 第二行 → 向右（图10–18）-->
+      <div class="highlights-strip__row highlights-strip__row--2">
+        <div class="highlights-strip__track">
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-shanghai-nightlife.jpg" alt="上海夜生活灯光" loading="lazy" /><p class="highlights-strip__caption">灯光、音乐，以及这座城市只在深夜才展示的那面</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-hanfu.jpg" alt="汉服体验" loading="lazy" /><p class="highlights-strip__caption">布料、动作，以及穿越同一街道的另一种方式</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-tea-plantation.jpg" alt="杭州茶园梯田" loading="lazy" /><p class="highlights-strip__caption">由双手、天气与年复一年的重复塑造出的梯田</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-high-speed-rail.jpg" alt="中国高铁" loading="lazy" /><p class="highlights-strip__caption">距离折叠进一道不断变化的窗外风景</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-night-market.jpg" alt="夜市食摊与灯笼" loading="lazy" /><p class="highlights-strip__caption">热气、炊烟，以及多到让你难以抉择的诱惑</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-guardian-statue.jpg" alt="中国石兽雕像" loading="lazy" /><p class="highlights-strip__caption">守望了数个世纪，沉默至今</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-temple-prayer.jpg" alt="寺庙前祈祷" loading="lazy" /><p class="highlights-strip__caption">烟雾、祈祷，以及人们仍在相信的某种重量</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-museum-space.jpg" alt="博物馆空间" loading="lazy" /><p class="highlights-strip__caption">形式、光线，以及一个无需解释自己的空间</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-soup-dumplings.jpg" alt="上海小笼包" loading="lazy" /><p class="highlights-strip__caption">刚出笼的小笼包</p></div>
+          <!-- 复制 -->
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-shanghai-nightlife.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">灯光、音乐，以及这座城市只在深夜才展示的那面</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-hanfu.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">布料、动作，以及穿越同一街道的另一种方式</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-tea-plantation.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">由双手、天气与年复一年的重复塑造出的梯田</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-high-speed-rail.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">距离折叠进一道不断变化的窗外风景</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-night-market.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">热气、炊烟，以及多到让你难以抉择的诱惑</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-guardian-statue.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">守望了数个世纪，沉默至今</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-temple-prayer.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">烟雾、祈祷，以及人们仍在相信的某种重量</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-museum-space.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">形式、光线，以及一个无需解释自己的空间</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-soup-dumplings.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">刚出笼的小笼包</p></div>
+        </div>
+      </div>
+
     </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-forbidden-city.jpg" alt="北京故宫" loading="lazy" />
-      <p class="highlights-strip__caption">城墙之内的城，为帝王和时间而建</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-pingjiang-canal.jpg" alt="苏州平江路夜晚运河" loading="lazy" />
-      <p class="highlights-strip__caption">时间在这条水街里慢了下来</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-west-lake.jpg" alt="杭州西湖" loading="lazy" />
-      <p class="highlights-strip__caption">湖光、柳影，以及一种先于你落定的宁静</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-lingyin-temple.jpg" alt="杭州灵隐寺" loading="lazy" />
-      <p class="highlights-strip__caption">石刻、香烟与山间空气共同承载的静谧</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-summer-palace.jpg" alt="北京颐和园" loading="lazy" />
-      <p class="highlights-strip__caption">彩绘廊柱，一步接一步延伸得比你想象的更远</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-great-wall.jpg" alt="雾中长城" loading="lazy" />
-      <p class="highlights-strip__caption">山脊、风声，以及一道消失于视野之外的边界</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-shanghai-coffee.jpg" alt="上海咖啡街巷" loading="lazy" />
-      <p class="highlights-strip__caption">城市在这些小巷里放慢脚步，等着你转过下一个弯</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-shanghai-nightlife.jpg" alt="上海夜生活灯光" loading="lazy" />
-      <p class="highlights-strip__caption">灯光、音乐，以及这座城市只在深夜才展示的那面</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-hanfu.jpg" alt="汉服体验" loading="lazy" />
-      <p class="highlights-strip__caption">布料、动作，以及穿越同一街道的另一种方式</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-tea-plantation.jpg" alt="杭州茶园梯田" loading="lazy" />
-      <p class="highlights-strip__caption">由双手、天气与年复一年的重复塑造出的梯田</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-high-speed-rail.jpg" alt="中国高铁" loading="lazy" />
-      <p class="highlights-strip__caption">距离折叠进一道不断变化的窗外风景</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-night-market.jpg" alt="夜市食摊与灯笼" loading="lazy" />
-      <p class="highlights-strip__caption">热气、炊烟，以及多到让你难以抉择的诱惑</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-guardian-statue.jpg" alt="中国石兽雕像" loading="lazy" />
-      <p class="highlights-strip__caption">守望了数个世纪，沉默至今</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-temple-prayer.jpg" alt="寺庙前祈祷" loading="lazy" />
-      <p class="highlights-strip__caption">烟雾、祈祷，以及人们仍在相信的某种重量</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-museum-space.jpg" alt="博物馆空间" loading="lazy" />
-      <p class="highlights-strip__caption">形式、光线，以及一个无需解释自己的空间</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/ec-soup-dumplings.jpg" alt="上海小笼包" loading="lazy" />
-      <p class="highlights-strip__caption">刚出笼的小笼包</p>
-    </div>
-
   </section>
 
   <section class="route-intro">
@@ -465,6 +431,27 @@ document.querySelectorAll('.itinerary-day').forEach(day => {
   header.addEventListener('click', () => {
     const open = body.classList.toggle('is-open');
     header.setAttribute('aria-expanded', String(open));
+  });
+});
+
+// ── Highlights marquee — tap to pause (mobile) ─────────
+document.querySelectorAll('.highlights-strip__stage').forEach(stage => {
+  stage.addEventListener('click', (e) => {
+    const card = e.target.closest('.highlights-strip__card');
+    const allCards = stage.querySelectorAll('.highlights-strip__card');
+    if (card) {
+      const isActive = card.classList.contains('is-active');
+      allCards.forEach(c => c.classList.remove('is-active'));
+      if (isActive) {
+        stage.classList.remove('is-paused');
+      } else {
+        stage.classList.add('is-paused');
+        card.classList.add('is-active');
+      }
+    } else {
+      stage.classList.remove('is-paused');
+      allCards.forEach(c => c.classList.remove('is-active'));
+    }
   });
 });
 

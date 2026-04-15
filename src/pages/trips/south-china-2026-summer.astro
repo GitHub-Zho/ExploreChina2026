@@ -95,37 +95,63 @@ const tripStructuredData = [
 
   <!-- Highlights Strip -->
   <section class="highlights-strip" aria-label="Route highlights">
-
-    <div class="highlights-strip__card">
-      <img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="Gulangyu Island colonial architecture" loading="lazy" />
-      <p class="highlights-strip__caption">An island with 13 former consulates and no cars</p>
+    <div class="highlights-strip__header">
+      <p class="highlights-strip__eyebrow">Route Highlights</p>
+      <h2 class="highlights-strip__title">What you'll see</h2>
     </div>
+    <div class="highlights-strip__stage">
 
-    <div class="highlights-strip__card">
-      <img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="Xiamen shacha noodles" loading="lazy" />
-      <p class="highlights-strip__caption">A bowl of peanut broth that Xiamen calls its own</p>
+      <!-- Row 1 → left (6 images × 3 for seamless loop on wide screens) -->
+      <div class="highlights-strip__row highlights-strip__row--1 hs-cycle3">
+        <div class="highlights-strip__track">
+          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="Gulangyu Island colonial architecture" loading="lazy" /><p class="highlights-strip__caption">An island with 13 former consulates and no cars</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="Xiamen shacha noodles" loading="lazy" /><p class="highlights-strip__caption">A bowl of peanut broth that Xiamen calls its own</p></div>
+          <div class="highlights-strip__card"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="Chaozhou Paifang Street" loading="lazy" /><p class="highlights-strip__caption">A street of stone archways that Chaoshan never let modernize</p></div>
+          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="Chaoshan beef hotpot" loading="lazy" /><p class="highlights-strip__caption">Fresh-cut beef, still warm from the market, in clear broth</p></div>
+          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="Shenzhen modern skyline" loading="lazy" /><p class="highlights-strip__caption">A fishing village of 30,000 that became a city of 17 million</p></div>
+          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="Hong Kong harbour star ferry" loading="lazy" /><p class="highlights-strip__caption">Eleven minutes across the harbour. Two very different cities.</p></div>
+          <!-- clone ×2 for 3-cycle loop -->
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">An island with 13 former consulates and no cars</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">A bowl of peanut broth that Xiamen calls its own</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">A street of stone archways that Chaoshan never let modernize</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">Fresh-cut beef, still warm from the market, in clear broth</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">A fishing village of 30,000 that became a city of 17 million</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">Eleven minutes across the harbour. Two very different cities.</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">An island with 13 former consulates and no cars</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">A bowl of peanut broth that Xiamen calls its own</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">A street of stone archways that Chaoshan never let modernize</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">Fresh-cut beef, still warm from the market, in clear broth</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">A fishing village of 30,000 that became a city of 17 million</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">Eleven minutes across the harbour. Two very different cities.</p></div>
+        </div>
+      </div>
+
+      <!-- Row 2 → right (reversed order × 3) -->
+      <div class="highlights-strip__row highlights-strip__row--2 hs-cycle3">
+        <div class="highlights-strip__track">
+          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="Hong Kong harbour star ferry" loading="lazy" /><p class="highlights-strip__caption">Eleven minutes across the harbour. Two very different cities.</p></div>
+          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="Shenzhen modern skyline" loading="lazy" /><p class="highlights-strip__caption">A fishing village of 30,000 that became a city of 17 million</p></div>
+          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="Chaoshan beef hotpot" loading="lazy" /><p class="highlights-strip__caption">Fresh-cut beef, still warm from the market, in clear broth</p></div>
+          <div class="highlights-strip__card"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="Chaozhou Paifang Street" loading="lazy" /><p class="highlights-strip__caption">A street of stone archways that Chaoshan never let modernize</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="Xiamen shacha noodles" loading="lazy" /><p class="highlights-strip__caption">A bowl of peanut broth that Xiamen calls its own</p></div>
+          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="Gulangyu Island colonial architecture" loading="lazy" /><p class="highlights-strip__caption">An island with 13 former consulates and no cars</p></div>
+          <!-- clone ×2 -->
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">Eleven minutes across the harbour. Two very different cities.</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">A fishing village of 30,000 that became a city of 17 million</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">Fresh-cut beef, still warm from the market, in clear broth</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">A street of stone archways that Chaoshan never let modernize</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">A bowl of peanut broth that Xiamen calls its own</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">An island with 13 former consulates and no cars</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">Eleven minutes across the harbour. Two very different cities.</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">A fishing village of 30,000 that became a city of 17 million</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">Fresh-cut beef, still warm from the market, in clear broth</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">A street of stone archways that Chaoshan never let modernize</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">A bowl of peanut broth that Xiamen calls its own</p></div>
+          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">An island with 13 former consulates and no cars</p></div>
+        </div>
+      </div>
+
     </div>
-
-    <div class="highlights-strip__card">
-      <img src="/images/places/chaoshan-paifang-street-1.jpg" alt="Chaozhou Paifang Street historic archways" loading="lazy" />
-      <p class="highlights-strip__caption">A street of stone archways that Chaoshan never let modernize</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="Chaoshan beef hotpot" loading="lazy" />
-      <p class="highlights-strip__caption">Fresh-cut beef, still warm from the market, in clear broth</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="Shenzhen modern skyline" loading="lazy" />
-      <p class="highlights-strip__caption">A fishing village of 30,000 that became a city of 17 million</p>
-    </div>
-
-    <div class="highlights-strip__card">
-      <img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="Hong Kong harbour star ferry" loading="lazy" />
-      <p class="highlights-strip__caption">Eleven minutes across the harbour. Two very different cities.</p>
-    </div>
-
   </section>
 
   <section class="route-intro">
@@ -427,6 +453,27 @@ document.querySelectorAll('.itinerary-day').forEach(day => {
   header.addEventListener('click', () => {
     const open = body.classList.toggle('is-open');
     header.setAttribute('aria-expanded', String(open));
+  });
+});
+
+// ── Highlights marquee — tap to pause (mobile) ─────────
+document.querySelectorAll('.highlights-strip__stage').forEach(stage => {
+  stage.addEventListener('click', (e) => {
+    const card = e.target.closest('.highlights-strip__card');
+    const allCards = stage.querySelectorAll('.highlights-strip__card');
+    if (card) {
+      const isActive = card.classList.contains('is-active');
+      allCards.forEach(c => c.classList.remove('is-active'));
+      if (isActive) {
+        stage.classList.remove('is-paused');
+      } else {
+        stage.classList.add('is-paused');
+        card.classList.add('is-active');
+      }
+    } else {
+      stage.classList.remove('is-paused');
+      allCards.forEach(c => c.classList.remove('is-active'));
+    }
   });
 });
 
