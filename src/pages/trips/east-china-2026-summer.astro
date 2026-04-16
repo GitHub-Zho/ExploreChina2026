@@ -168,48 +168,50 @@ const tripStructuredData = [
       <span class="route-intro__pivot">This is that version of China.</span>
     </div>
 
-    <button class="route-intro__toggle" id="route-intro-toggle" aria-expanded="false">
-      Read the full story ↓
-    </button>
+    <nav class="route-intro__city-nav" aria-label="City descriptions">
+      <button class="route-intro__city-btn is-active" data-city="0">Shanghai</button>
+      <button class="route-intro__city-btn" data-city="1">Suzhou</button>
+      <button class="route-intro__city-btn" data-city="2">Hangzhou</button>
+      <button class="route-intro__city-btn" data-city="3">Beijing</button>
+    </nav>
 
-    <div class="route-intro__expandable" id="route-intro-body">
-      <div class="route-intro__body">
-
-        <span class="route-intro__city-label">Shanghai</span>
+    <div class="route-intro__city-panels">
+      <div class="route-intro__city-panel is-active">
         <p>Shanghai moves like a city that has not decided whether it is finished yet. The Bund is all colonial stone and river fog in the morning; the towers across the water are all glass and light after dark. In between is the French Concession — plane trees lining the sidewalks, a lane house converted to a coffee shop, the smell of rain on stone. You will eat something here that you cannot explain precisely and will think about for weeks afterward.</p>
-
-        <span class="route-intro__city-label">Suzhou</span>
-        <p>The classical gardens of Suzhou were designed to produce a specific feeling: the sense that you have stepped sideways into a different relationship with time. Water moves through them slowly. The framing of rocks and plants through windows is deliberate — each view is composed. Outside the gardens, the canal streets are narrow and wet-stone and still residential. Old women hang laundry over the water. The canal is working infrastructure, not scenery.</p>
-
-        <span class="route-intro__city-label">Hangzhou</span>
-        <p>West Lake is better at dawn than at any other time — before the tour boats, when the mist is still on the water and the Su Causeway is quiet enough that you can hear the birds. The tea fields above the city are a different kind of quiet: geometric and green and smelling of fresh leaf. In the afternoon the light on the lake is gold. The Song dynasty poets wrote about this and were not exaggerating.</p>
-
-        <span class="route-intro__city-label">Beijing</span>
-        <p>Beijing is a city that knows it is the capital. The scale is intentional — the long avenues, the monumental squares, the Forbidden City which is large enough that you cannot see across it. But what stays with you is the hutongs: the lanes behind the drum tower where old Beijing still exists at the pace it always had, where the smell of coal smoke mixes with cooking and someone's radio is playing Peking opera from a window two floors up.</p>
-
       </div>
-
-      <p class="route-intro__colophon">
-        10 days &nbsp;·&nbsp; 4 cities &nbsp;·&nbsp; Zero planning<br>
-        All you need is curiosity and a half-empty suitcase.
-      </p>
+      <div class="route-intro__city-panel">
+        <p>The classical gardens of Suzhou were designed to produce a specific feeling: the sense that you have stepped sideways into a different relationship with time. Water moves through them slowly. The framing of rocks and plants through windows is deliberate — each view is composed. Outside the gardens, the canal streets are narrow and wet-stone and still residential. Old women hang laundry over the water. The canal is working infrastructure, not scenery.</p>
+      </div>
+      <div class="route-intro__city-panel">
+        <p>West Lake is better at dawn than at any other time — before the tour boats, when the mist is still on the water and the Su Causeway is quiet enough that you can hear the birds. The tea fields above the city are a different kind of quiet: geometric and green and smelling of fresh leaf. In the afternoon the light on the lake is gold. The Song dynasty poets wrote about this and were not exaggerating.</p>
+      </div>
+      <div class="route-intro__city-panel">
+        <p>Beijing is a city that knows it is the capital. The scale is intentional — the long avenues, the monumental squares, the Forbidden City which is large enough that you cannot see across it. But what stays with you is the hutongs: the lanes behind the drum tower where old Beijing still exists at the pace it always had, where the smell of coal smoke mixes with cooking and someone's radio is playing Peking opera from a window two floors up.</p>
+      </div>
     </div>
+
+    <p class="route-intro__colophon">
+      10 days &nbsp;·&nbsp; 4 cities &nbsp;·&nbsp; Zero planning<br>
+      All you need is curiosity and a half-empty suitcase.
+    </p>
   </div>
 </section>
 
 <script>
-  const toggle = document.getElementById('route-intro-toggle');
-  const body = document.getElementById('route-intro-body');
-  if (toggle && body) {
-    toggle.addEventListener('click', () => {
-      const isOpen = body.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      toggle.textContent = isOpen ? 'Close ↑' : 'Read the full story ↓';
+  document.querySelectorAll('.route-intro__city-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const inner = btn.closest('.route-intro__inner');
+      inner.querySelectorAll('.route-intro__city-btn').forEach(b => b.classList.remove('is-active'));
+      inner.querySelectorAll('.route-intro__city-panel').forEach(p => p.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      inner.querySelectorAll('.route-intro__city-panel')[Number(btn.dataset.city)]?.classList.add('is-active');
     });
-  }
+  });
 </script>
 
   <TripWhyUs lang="en" />
+
+  <TripPriceBreakdown lang="en" />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">10-day route at a glance</h2>
@@ -353,8 +355,6 @@ const tripStructuredData = [
     </div>
   </section>
 
-  <TripPriceBreakdown lang="en" />
-
   <section id="apply" class="route-apply">
     <div class="container" style="text-align:center; padding-top:0; padding-bottom:0;">
       <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Apply</p>
@@ -375,7 +375,7 @@ const tripStructuredData = [
 <style>
 .trip-hero {
   position: relative;
-  height: 420px;
+  height: clamp(480px, 65vh, 720px);
   overflow: hidden;
 }
 .trip-hero__img {

@@ -148,47 +148,49 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
       <span class="route-intro__pivot">这就是那个版本的中国。</span>
     </div>
 
-    <button class="route-intro__toggle" id="route-intro-toggle" aria-expanded="false">
-      阅读完整故事 ↓
-    </button>
+    <nav class="route-intro__city-nav" aria-label="城市介绍">
+      <button class="route-intro__city-btn is-active" data-city="0">上海</button>
+      <button class="route-intro__city-btn" data-city="1">苏州</button>
+      <button class="route-intro__city-btn" data-city="2">杭州</button>
+      <button class="route-intro__city-btn" data-city="3">北京</button>
+    </nav>
 
-    <div class="route-intro__expandable" id="route-intro-body">
-      <div class="route-intro__body">
-
-        <span class="route-intro__city-label">上海</span>
+    <div class="route-intro__city-panels">
+      <div class="route-intro__city-panel is-active">
         <p>上海是一座还没决定自己是否建完的城市。外滩的清晨是石材与江雾；对岸的高楼入夜之后是玻璃与灯光。中间是法租界——梧桐树夹道，石库门弄堂改成了咖啡馆，石板路上有雨水的气息。你会在这里吃到一样无法准确描述的东西，然后在之后很多个星期里还会想起它。</p>
-
-        <span class="route-intro__city-label">苏州</span>
-        <p>苏州的古典园林是为了制造一种特定的感受而建造的：让你觉得自己侧身走进了另一种和时间的关系。水在其中流动得很慢。山石与花木透过窗框的取景是刻意为之的——每一个视角都是构图。园林外面，河道边的小巷窄而湿润，还有人在住。老妇人在水面上晾衣服。运河是生活设施，不是景色。</p>
-
-        <span class="route-intro__city-label">杭州</span>
-        <p>西湖在清晨最好——游船还没出来，水面还有薄雾，苏堤上安静到可以听见鸟叫。湖上方的茶园是另一种安静：整齐的、绿的、带着新叶气味的。下午湖光是金色的。宋朝的诗人写过这些，并没有夸张。</p>
-
-        <span class="route-intro__city-label">北京</span>
-        <p>北京是一座知道自己是首都的城市。那个规模是刻意的——宽阔的大道、纪念碑式的广场、大到看不到对面的故宫。但你会记住的是胡同：鼓楼后面的那些小巷，北京旧有的生活节奏还在那里，煤烟味混着炒菜声，某个二楼的窗户里有人在听京剧。</p>
-
       </div>
-
-      <p class="route-intro__colophon">
-        十天 &nbsp;·&nbsp; 四座城 &nbsp;·&nbsp; 一群对的人
-      </p>
+      <div class="route-intro__city-panel">
+        <p>苏州的古典园林是为了制造一种特定的感受而建造的：让你觉得自己侧身走进了另一种和时间的关系。水在其中流动得很慢。山石与花木透过窗框的取景是刻意为之的——每一个视角都是构图。园林外面，河道边的小巷窄而湿润，还有人在住。老妇人在水面上晾衣服。运河是生活设施，不是景色。</p>
+      </div>
+      <div class="route-intro__city-panel">
+        <p>西湖在清晨最好——游船还没出来，水面还有薄雾，苏堤上安静到可以听见鸟叫。湖上方的茶园是另一种安静：整齐的、绿的、带着新叶气味的。下午湖光是金色的。宋朝的诗人写过这些，并没有夸张。</p>
+      </div>
+      <div class="route-intro__city-panel">
+        <p>北京是一座知道自己是首都的城市。那个规模是刻意的——宽阔的大道、纪念碑式的广场、大到看不到对面的故宫。但你会记住的是胡同：鼓楼后面的那些小巷，北京旧有的生活节奏还在那里，煤烟味混着炒菜声，某个二楼的窗户里有人在听京剧。</p>
+      </div>
     </div>
+
+    <p class="route-intro__colophon">
+      十天 &nbsp;·&nbsp; 四座城 &nbsp;·&nbsp; 一群对的人
+    </p>
   </div>
 </section>
 
 <script>
-  const toggle = document.getElementById('route-intro-toggle');
-  const body = document.getElementById('route-intro-body');
-  if (toggle && body) {
-    toggle.addEventListener('click', () => {
-      const isOpen = body.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      toggle.textContent = isOpen ? '收起 ↑' : '阅读完整故事 ↓';
+  document.querySelectorAll('.route-intro__city-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const inner = btn.closest('.route-intro__inner');
+      inner.querySelectorAll('.route-intro__city-btn').forEach(b => b.classList.remove('is-active'));
+      inner.querySelectorAll('.route-intro__city-panel').forEach(p => p.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      inner.querySelectorAll('.route-intro__city-panel')[Number(btn.dataset.city)]?.classList.add('is-active');
     });
-  }
+  });
 </script>
 
   <TripWhyUs lang="zh" />
+
+  <TripPriceBreakdown lang="zh" />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">十天行程一览</h2>
@@ -349,8 +351,6 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
     </div>
   </section>
 
-  <TripPriceBreakdown lang="zh" />
-
   <section id="apply" class="route-apply">
     <div class="container" style="text-align:center; padding-top:0; padding-bottom:0;">
       <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">申请</p>
@@ -371,7 +371,7 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
 <style>
 .trip-hero {
   position: relative;
-  height: 420px;
+  height: clamp(480px, 65vh, 720px);
   overflow: hidden;
 }
 .trip-hero__img {

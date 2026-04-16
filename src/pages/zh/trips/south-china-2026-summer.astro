@@ -168,50 +168,51 @@ const tripStructuredData = [
       <p>
         华南线路穿越的，是大多数旅行者从未抵达的那个中国：厦门的海风与闽南离散情结、潮汕沉积千年的潮州文明、深圳用三十年造出来的城市雄心，还有香港——那个东方与西方不再只是比喻、而是真实地化为街道、食档与生活方式的地方。
       </p>
-      <span class="route-intro__pivot">阅读完整故事 ↓</span>
     </div>
 
-    <button class="route-intro__toggle" id="route-intro-toggle" aria-expanded="false">
-      阅读完整故事 ↓
-    </button>
+    <nav class="route-intro__city-nav" aria-label="城市介绍">
+      <button class="route-intro__city-btn is-active" data-city="0">厦门</button>
+      <button class="route-intro__city-btn" data-city="1">潮汕</button>
+      <button class="route-intro__city-btn" data-city="2">深圳</button>
+      <button class="route-intro__city-btn" data-city="3">香港</button>
+    </nav>
 
-    <div class="route-intro__expandable" id="route-intro-body">
-      <div class="route-intro__body">
-
-        <span class="route-intro__city-label">厦门</span>
+    <div class="route-intro__city-panels">
+      <div class="route-intro__city-panel is-active">
         <p>海比城市先到。你先闻到它——盐味、雨气，还有一丝来自巷子尽头庙宇的香烟。鼓浪屿的路窄得不够车过，于是你听见了一切：二楼窗户里的钢琴音阶，自行车经过的声音，有人的阿嬷在和水果摊吵架。节奏在这里不一样，你第一个下午就能感觉到。</p>
-
-        <span class="route-intro__city-label">潮汕</span>
-        <p>潮汕按功夫茶的速度运转。在这里，喝茶不是旅游项目，是人们说话的方式。主人会在杯子见底前续满；拒绝意味着你要走了。坐够久，对话会找到自己的节奏。晚饭桌上的牛肉今天早上还在田里，面条两个小时前刚手工做好。一切都比你以为的更靠近它的来处。</p>
-
-        <span class="route-intro__city-label">深圳</span>
-        <p>深圳用体量宣告自己。楼很高，很新，毫不道歉。这座城市45岁，它知道。没有怀旧，只有能量：电子市场里清晨八点就来取货的工程师，旧厂房里长出来的艺术区，从四面八方来的年轻人，还在摸索这地方究竟是什么。</p>
-
-        <span class="route-intro__city-label">香港</span>
-        <p>香港靠密度运转。叮叮车在三种文字的招牌之间慢慢穿行。天星小轮几乎不要钱，十分钟，给你港湾两岸的完整全景。清晨菜市场的鱼还在动。入夜，一万扇窗的灯光把港湾染成金色。这座城市真实，密实，完全是它自己。</p>
-
       </div>
-
-      <p class="route-intro__colophon">
-        10天 &nbsp;·&nbsp; 厦门 · 潮汕 · 深圳 · 香港
-      </p>
+      <div class="route-intro__city-panel">
+        <p>潮汕按功夫茶的速度运转。在这里，喝茶不是旅游项目，是人们说话的方式。主人会在杯子见底前续满；拒绝意味着你要走了。坐够久，对话会找到自己的节奏。晚饭桌上的牛肉今天早上还在田里，面条两个小时前刚手工做好。一切都比你以为的更靠近它的来处。</p>
+      </div>
+      <div class="route-intro__city-panel">
+        <p>深圳用体量宣告自己。楼很高，很新，毫不道歉。这座城市45岁，它知道。没有怀旧，只有能量：电子市场里清晨八点就来取货的工程师，旧厂房里长出来的艺术区，从四面八方来的年轻人，还在摸索这地方究竟是什么。</p>
+      </div>
+      <div class="route-intro__city-panel">
+        <p>香港靠密度运转。叮叮车在三种文字的招牌之间慢慢穿行。天星小轮几乎不要钱，十分钟，给你港湾两岸的完整全景。清晨菜市场的鱼还在动。入夜，一万扇窗的灯光把港湾染成金色。这座城市真实，密实，完全是它自己。</p>
+      </div>
     </div>
+
+    <p class="route-intro__colophon">
+      10天 &nbsp;·&nbsp; 厦门 · 潮汕 · 深圳 · 香港
+    </p>
   </div>
 </section>
 
 <script>
-  const toggle = document.getElementById('route-intro-toggle');
-  const body = document.getElementById('route-intro-body');
-  if (toggle && body) {
-    toggle.addEventListener('click', () => {
-      const isOpen = body.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      toggle.textContent = isOpen ? '收起 ↑' : '阅读完整故事 ↓';
+  document.querySelectorAll('.route-intro__city-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const inner = btn.closest('.route-intro__inner');
+      inner.querySelectorAll('.route-intro__city-btn').forEach(b => b.classList.remove('is-active'));
+      inner.querySelectorAll('.route-intro__city-panel').forEach(p => p.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      inner.querySelectorAll('.route-intro__city-panel')[Number(btn.dataset.city)]?.classList.add('is-active');
     });
-  }
+  });
 </script>
 
   <TripWhyUs lang="zh" />
+
+  <TripPriceBreakdown lang="zh" />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">十天行程一览</h2>
@@ -367,8 +368,6 @@ const tripStructuredData = [
     </div>
   </section>
 
-  <TripPriceBreakdown lang="zh" />
-
   <section id="apply" class="route-apply">
     <div class="container" style="text-align:center; padding-top:0; padding-bottom:0;">
       <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">报名</p>
@@ -389,7 +388,7 @@ const tripStructuredData = [
 <style>
 .trip-hero {
   position: relative;
-  height: 420px;
+  height: clamp(480px, 65vh, 720px);
   overflow: hidden;
 }
 .trip-hero__img {
