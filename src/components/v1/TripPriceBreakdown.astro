@@ -1,0 +1,99 @@
+---
+const { lang = 'en' } = Astro.props;
+const zh = lang === 'zh';
+
+const items = [
+  {
+    labelEn: 'Accommodation',
+    labelZh: '住宿',
+    noteEn: '4–5★ hotel, shared double room',
+    noteZh: '4–5星酒店，双人间',
+    amount: 800,
+    pct: 27,
+  },
+  {
+    labelEn: 'Food & dining',
+    labelZh: '餐饮',
+    noteEn: 'Local specialty restaurants daily',
+    noteZh: '每日特色餐厅',
+    amount: 900,
+    pct: 30,
+  },
+  {
+    labelEn: 'Activities & tickets',
+    labelZh: '活动与门票',
+    noteEn: 'Entrance fees + special programming',
+    noteZh: '景点门票及特色活动',
+    amount: 500,
+    pct: 17,
+  },
+  {
+    labelEn: 'Guide & local transport',
+    labelZh: '导游及市内交通',
+    noteEn: 'Professional guide + daily in-city',
+    noteZh: '专业导游及每日市内交通',
+    amount: 500,
+    pct: 17,
+  },
+  {
+    labelEn: 'City-to-city transfers',
+    labelZh: '城市间交通',
+    noteEn: 'High-speed rail & domestic flights',
+    noteZh: '高铁及国内航班',
+    amount: 200,
+    pct: 7,
+  },
+];
+---
+
+<section class="price-breakdown">
+  <div class="price-breakdown__inner">
+
+    <div class="price-breakdown__copy">
+      <p class="price-breakdown__eyebrow">{zh ? '关于价格' : 'About the price'}</p>
+      <h2 class="price-breakdown__title">
+        {zh ? 'CAD $3,000，钱花在了哪里' : 'CAD $3,000 — here\'s where it goes'}
+      </h2>
+      <div class="price-breakdown__body">
+        {zh ? (
+          <>
+            <p>你或许能找到同价位、甚至更便宜的中国行程。但我们想做的，不是那种普通的旅行。</p>
+            <p>你要飞到地球另一端。既然来了，就值得认真对待——不只是景点，还有游戏、派对、深夜美食、手工艺体验，以及真正与当地人相处的时间。</p>
+            <p>这些都有成本。但这正是重点所在。</p>
+            <strong>我们希望你离开时带走的是回忆，而不是遗憾。</strong>
+          </>
+        ) : (
+          <>
+            <p>You could find a similar itinerary for the same price. Maybe cheaper. But that kind of trip isn't what we're building.</p>
+            <p>You're flying to the other side of the world. If you're making that trip, make it count — not just the views, but games, parties, local food nights, craft workshops, hanging out with people who actually live there.</p>
+            <p>That costs something. But that's exactly the point.</p>
+            <strong>We designed this so you leave with memories, not regrets.</strong>
+          </>
+        )}
+      </div>
+      <p class="price-breakdown__disclaimer">
+        {zh ? '✈ 国际往返机票不含在内' : '✈ International flights not included'}
+      </p>
+    </div>
+
+    <div class="price-breakdown__bars">
+      {items.map(item => (
+        <div class="price-bar">
+          <div class="price-bar__labels">
+            <span class="price-bar__name">{zh ? item.labelZh : item.labelEn}</span>
+            <span class="price-bar__amount">~${item.amount}</span>
+          </div>
+          <p class="price-bar__note">{zh ? item.noteZh : item.noteEn}</p>
+          <div class="price-bar__track">
+            <div class="price-bar__fill" style={`width: ${item.pct}%`}></div>
+          </div>
+        </div>
+      ))}
+      <div class="price-bar__total">
+        <span>{zh ? '合计（不含机票）' : 'Total (excl. flights)'}</span>
+        <span>~$2,900</span>
+      </div>
+    </div>
+
+  </div>
+</section>

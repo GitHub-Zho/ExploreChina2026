@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getTripById } from '../../data/registry';
+import TripWhyUs from '../../components/v1/TripWhyUs.astro';
+import TripPriceBreakdown from '../../components/v1/TripPriceBreakdown.astro';
 import {
   southChinaItinerary,
   southChinaCityGuides,
@@ -213,14 +215,7 @@ const tripStructuredData = [
   }
 </script>
 
-  <section id="who-is-this-for" class="section" style="padding: 4rem 2rem;">
-    <div style="max-width:48rem; margin:0 auto;">
-      <h2 style="font-size:clamp(20px,3vw,30px); font-weight:700; font-family:var(--font-display); line-height:1.2; margin-bottom:1.25rem;">This route is for people who want the version of China that takes a little more effort to reach.</h2>
-      <p class="muted" style="font-size:clamp(0.9rem,1.5vw,1.05rem); line-height:1.85; margin-bottom:1rem;">A slower tea ceremony. A border crossing. A fishing village. A UNESCO island you reach by ferry.</p>
-      <p class="muted" style="font-size:clamp(0.9rem,1.5vw,1.05rem); line-height:1.85; margin-bottom:1rem;">No prior China experience required. No Mandarin. The complicated parts — payments, SIM cards, cross-border logistics — are already handled.</p>
-      <p class="muted" style="font-size:clamp(0.9rem,1.5vw,1.05rem); line-height:1.85; padding-bottom:1.5rem;">Curiosity is enough.</p>
-    </div>
-  </section>
+  <TripWhyUs lang="en" />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">10-day route at a glance</h2>
@@ -376,6 +371,8 @@ const tripStructuredData = [
       </div>
     </div>
   </section>
+
+  <TripPriceBreakdown lang="en" />
 
   <section id="apply" class="route-apply">
     <div class="container" style="text-align:center; padding-top:0; padding-bottom:0;">

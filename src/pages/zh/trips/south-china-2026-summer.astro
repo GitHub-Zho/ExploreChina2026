@@ -1,6 +1,8 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { getTripById } from '../../../data/registry';
+import TripWhyUs from '../../../components/v1/TripWhyUs.astro';
+import TripPriceBreakdown from '../../../components/v1/TripPriceBreakdown.astro';
 import {
   southChinaItinerary,
   southChinaCityGuides,
@@ -209,14 +211,7 @@ const tripStructuredData = [
   }
 </script>
 
-  <section id="who-is-this-for" class="section" style="padding: 4rem 2rem;">
-    <div style="max-width:48rem; margin:0 auto;">
-      <h2 style="font-size:clamp(20px,3vw,30px); font-weight:700; font-family:var(--font-display); line-height:1.2; margin-bottom:1.25rem;">这条路线，专为想看深层中国的人。</h2>
-      <p class="muted" style="font-size:clamp(0.9rem,1.5vw,1.05rem); line-height:1.85; margin-bottom:1rem;">一场慢茶、一次过境、一座渔村、一座坐船才能抵达的世界文化遗产岛。</p>
-      <p class="muted" style="font-size:clamp(0.9rem,1.5vw,1.05rem); line-height:1.85; margin-bottom:1rem;">不需要中文，不需要提前了解中国。那些复杂的部分——支付、SIM卡、深港过境——我们都已经处理好了。</p>
-      <p class="muted" style="font-size:clamp(0.9rem,1.5vw,1.05rem); line-height:1.85; padding-bottom:1.5rem;">好奇心就够了。</p>
-    </div>
-  </section>
+  <TripWhyUs lang="zh" />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">十天行程一览</h2>
@@ -371,6 +366,8 @@ const tripStructuredData = [
       </div>
     </div>
   </section>
+
+  <TripPriceBreakdown lang="zh" />
 
   <section id="apply" class="route-apply">
     <div class="container" style="text-align:center; padding-top:0; padding-bottom:0;">
