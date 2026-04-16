@@ -168,25 +168,38 @@ const tripStructuredData = [
       <span class="route-intro__pivot">This is that version of China.</span>
     </div>
 
-    <nav class="route-intro__city-nav" aria-label="City descriptions">
-      <button class="route-intro__city-btn is-active" data-city="0">Shanghai</button>
-      <button class="route-intro__city-btn" data-city="1">Suzhou</button>
-      <button class="route-intro__city-btn" data-city="2">Hangzhou</button>
-      <button class="route-intro__city-btn" data-city="3">Beijing</button>
-    </nav>
-
-    <div class="route-intro__city-panels">
-      <div class="route-intro__city-panel is-active">
-        <p>Shanghai moves like a city that has not decided whether it is finished yet. The Bund is all colonial stone and river fog in the morning; the towers across the water are all glass and light after dark. In between is the French Concession — plane trees lining the sidewalks, a lane house converted to a coffee shop, the smell of rain on stone. You will eat something here that you cannot explain precisely and will think about for weeks afterward.</p>
+    <div class="route-intro__selector">
+      <div class="route-intro__city-list">
+        <button class="route-intro__city-item" data-city="0">
+          <span class="route-intro__city-name">Shanghai</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="1">
+          <span class="route-intro__city-name">Suzhou</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="2">
+          <span class="route-intro__city-name">Hangzhou</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="3">
+          <span class="route-intro__city-name">Beijing</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
       </div>
-      <div class="route-intro__city-panel">
-        <p>The classical gardens of Suzhou were designed to produce a specific feeling: the sense that you have stepped sideways into a different relationship with time. Water moves through them slowly. The framing of rocks and plants through windows is deliberate — each view is composed. Outside the gardens, the canal streets are narrow and wet-stone and still residential. Old women hang laundry over the water. The canal is working infrastructure, not scenery.</p>
-      </div>
-      <div class="route-intro__city-panel">
-        <p>West Lake is better at dawn than at any other time — before the tour boats, when the mist is still on the water and the Su Causeway is quiet enough that you can hear the birds. The tea fields above the city are a different kind of quiet: geometric and green and smelling of fresh leaf. In the afternoon the light on the lake is gold. The Song dynasty poets wrote about this and were not exaggerating.</p>
-      </div>
-      <div class="route-intro__city-panel">
-        <p>Beijing is a city that knows it is the capital. The scale is intentional — the long avenues, the monumental squares, the Forbidden City which is large enough that you cannot see across it. But what stays with you is the hutongs: the lanes behind the drum tower where old Beijing still exists at the pace it always had, where the smell of coal smoke mixes with cooking and someone's radio is playing Peking opera from a window two floors up.</p>
+      <div class="route-intro__city-content">
+        <div class="route-intro__city-panel" data-panel="0">
+          <p>Shanghai moves like a city that has not decided whether it is finished yet. The Bund is all colonial stone and river fog in the morning; the towers across the water are all glass and light after dark. In between is the French Concession — plane trees lining the sidewalks, a lane house converted to a coffee shop, the smell of rain on stone. You will eat something here that you cannot explain precisely and will think about for weeks afterward.</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="1">
+          <p>The classical gardens of Suzhou were designed to produce a specific feeling: the sense that you have stepped sideways into a different relationship with time. Water moves through them slowly. The framing of rocks and plants through windows is deliberate — each view is composed. Outside the gardens, the canal streets are narrow and wet-stone and still residential. Old women hang laundry over the water. The canal is working infrastructure, not scenery.</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="2">
+          <p>West Lake is better at dawn than at any other time — before the tour boats, when the mist is still on the water and the Su Causeway is quiet enough that you can hear the birds. The tea fields above the city are a different kind of quiet: geometric and green and smelling of fresh leaf. In the afternoon the light on the lake is gold. The Song dynasty poets wrote about this and were not exaggerating.</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="3">
+          <p>Beijing is a city that knows it is the capital. The scale is intentional — the long avenues, the monumental squares, the Forbidden City which is large enough that you cannot see across it. But what stays with you is the hutongs: the lanes behind the drum tower where old Beijing still exists at the pace it always had, where the smell of coal smoke mixes with cooking and someone's radio is playing Peking opera from a window two floors up.</p>
+        </div>
       </div>
     </div>
 
@@ -198,15 +211,35 @@ const tripStructuredData = [
 </section>
 
 <script>
-  document.querySelectorAll('.route-intro__city-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const inner = btn.closest('.route-intro__inner');
-      inner.querySelectorAll('.route-intro__city-btn').forEach(b => b.classList.remove('is-active'));
-      inner.querySelectorAll('.route-intro__city-panel').forEach(p => p.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      inner.querySelectorAll('.route-intro__city-panel')[Number(btn.dataset.city)]?.classList.add('is-active');
+(function () {
+  const DURATION = 5000;
+  const selector = document.querySelector('.route-intro__selector');
+  if (!selector) return;
+  const items = Array.from(selector.querySelectorAll('.route-intro__city-item'));
+  const panels = Array.from(selector.querySelectorAll('.route-intro__city-panel'));
+  let current = 0, timer = null, paused = false;
+
+  function activate(index) {
+    current = index;
+    items.forEach((item, i) => {
+      item.classList.toggle('is-active', i === index);
+      const fill = item.querySelector('.route-intro__progress-fill');
+      if (fill) { fill.style.animation = 'none'; void fill.offsetWidth; }
+      if (i === index && fill) fill.style.animation = `routeProgress ${DURATION}ms linear forwards`;
     });
+    panels.forEach((p, i) => p.classList.toggle('is-active', i === index));
+    clearTimeout(timer);
+    if (!paused) timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
+  }
+
+  items.forEach((item, i) => item.addEventListener('click', () => { paused = false; activate(i); }));
+  selector.addEventListener('mouseenter', () => { paused = true; clearTimeout(timer); });
+  selector.addEventListener('mouseleave', () => {
+    paused = false;
+    timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
   });
+  activate(0);
+})();
 </script>
 
   <TripWhyUs lang="en" />

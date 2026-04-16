@@ -170,25 +170,38 @@ const tripStructuredData = [
       </p>
     </div>
 
-    <nav class="route-intro__city-nav" aria-label="城市介绍">
-      <button class="route-intro__city-btn is-active" data-city="0">厦门</button>
-      <button class="route-intro__city-btn" data-city="1">潮汕</button>
-      <button class="route-intro__city-btn" data-city="2">深圳</button>
-      <button class="route-intro__city-btn" data-city="3">香港</button>
-    </nav>
-
-    <div class="route-intro__city-panels">
-      <div class="route-intro__city-panel is-active">
-        <p>海比城市先到。你先闻到它——盐味、雨气，还有一丝来自巷子尽头庙宇的香烟。鼓浪屿的路窄得不够车过，于是你听见了一切：二楼窗户里的钢琴音阶，自行车经过的声音，有人的阿嬷在和水果摊吵架。节奏在这里不一样，你第一个下午就能感觉到。</p>
+    <div class="route-intro__selector">
+      <div class="route-intro__city-list">
+        <button class="route-intro__city-item" data-city="0">
+          <span class="route-intro__city-name">厦门</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="1">
+          <span class="route-intro__city-name">潮汕</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="2">
+          <span class="route-intro__city-name">深圳</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="3">
+          <span class="route-intro__city-name">香港</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
       </div>
-      <div class="route-intro__city-panel">
-        <p>潮汕按功夫茶的速度运转。在这里，喝茶不是旅游项目，是人们说话的方式。主人会在杯子见底前续满；拒绝意味着你要走了。坐够久，对话会找到自己的节奏。晚饭桌上的牛肉今天早上还在田里，面条两个小时前刚手工做好。一切都比你以为的更靠近它的来处。</p>
-      </div>
-      <div class="route-intro__city-panel">
-        <p>深圳用体量宣告自己。楼很高，很新，毫不道歉。这座城市45岁，它知道。没有怀旧，只有能量：电子市场里清晨八点就来取货的工程师，旧厂房里长出来的艺术区，从四面八方来的年轻人，还在摸索这地方究竟是什么。</p>
-      </div>
-      <div class="route-intro__city-panel">
-        <p>香港靠密度运转。叮叮车在三种文字的招牌之间慢慢穿行。天星小轮几乎不要钱，十分钟，给你港湾两岸的完整全景。清晨菜市场的鱼还在动。入夜，一万扇窗的灯光把港湾染成金色。这座城市真实，密实，完全是它自己。</p>
+      <div class="route-intro__city-content">
+        <div class="route-intro__city-panel" data-panel="0">
+          <p>海比城市先到。你先闻到它——盐味、雨气，还有一丝来自巷子尽头庙宇的香烟。鼓浪屿的路窄得不够车过，于是你听见了一切：二楼窗户里的钢琴音阶，自行车经过的声音，有人的阿嬷在和水果摊吵架。节奏在这里不一样，你第一个下午就能感觉到。</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="1">
+          <p>潮汕按功夫茶的速度运转。在这里，喝茶不是旅游项目，是人们说话的方式。主人会在杯子见底前续满；拒绝意味着你要走了。坐够久，对话会找到自己的节奏。晚饭桌上的牛肉今天早上还在田里，面条两个小时前刚手工做好。一切都比你以为的更靠近它的来处。</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="2">
+          <p>深圳用体量宣告自己。楼很高，很新，毫不道歉。这座城市45岁，它知道。没有怀旧，只有能量：电子市场里清晨八点就来取货的工程师，旧厂房里长出来的艺术区，从四面八方来的年轻人，还在摸索这地方究竟是什么。</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="3">
+          <p>香港靠密度运转。叮叮车在三种文字的招牌之间慢慢穿行。天星小轮几乎不要钱，十分钟，给你港湾两岸的完整全景。清晨菜市场的鱼还在动。入夜，一万扇窗的灯光把港湾染成金色。这座城市真实，密实，完全是它自己。</p>
+        </div>
       </div>
     </div>
 
@@ -199,15 +212,35 @@ const tripStructuredData = [
 </section>
 
 <script>
-  document.querySelectorAll('.route-intro__city-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const inner = btn.closest('.route-intro__inner');
-      inner.querySelectorAll('.route-intro__city-btn').forEach(b => b.classList.remove('is-active'));
-      inner.querySelectorAll('.route-intro__city-panel').forEach(p => p.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      inner.querySelectorAll('.route-intro__city-panel')[Number(btn.dataset.city)]?.classList.add('is-active');
+(function () {
+  const DURATION = 5000;
+  const selector = document.querySelector('.route-intro__selector');
+  if (!selector) return;
+  const items = Array.from(selector.querySelectorAll('.route-intro__city-item'));
+  const panels = Array.from(selector.querySelectorAll('.route-intro__city-panel'));
+  let current = 0, timer = null, paused = false;
+
+  function activate(index) {
+    current = index;
+    items.forEach((item, i) => {
+      item.classList.toggle('is-active', i === index);
+      const fill = item.querySelector('.route-intro__progress-fill');
+      if (fill) { fill.style.animation = 'none'; void fill.offsetWidth; }
+      if (i === index && fill) fill.style.animation = `routeProgress ${DURATION}ms linear forwards`;
     });
+    panels.forEach((p, i) => p.classList.toggle('is-active', i === index));
+    clearTimeout(timer);
+    if (!paused) timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
+  }
+
+  items.forEach((item, i) => item.addEventListener('click', () => { paused = false; activate(i); }));
+  selector.addEventListener('mouseenter', () => { paused = true; clearTimeout(timer); });
+  selector.addEventListener('mouseleave', () => {
+    paused = false;
+    timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
   });
+  activate(0);
+})();
 </script>
 
   <TripWhyUs lang="zh" />

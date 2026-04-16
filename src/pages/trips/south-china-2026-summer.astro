@@ -174,25 +174,38 @@ const tripStructuredData = [
       </p>
     </div>
 
-    <nav class="route-intro__city-nav" aria-label="City descriptions">
-      <button class="route-intro__city-btn is-active" data-city="0">Xiamen</button>
-      <button class="route-intro__city-btn" data-city="1">Chaoshan</button>
-      <button class="route-intro__city-btn" data-city="2">Shenzhen</button>
-      <button class="route-intro__city-btn" data-city="3">Hong Kong</button>
-    </nav>
-
-    <div class="route-intro__city-panels">
-      <div class="route-intro__city-panel is-active">
-        <p>The sea arrives before the city does. You smell it first — salt and rain and something faintly sweet that turns out to be incense from the temple at the end of the lane. On Gulangyu the streets are too narrow for cars, which means you hear everything: piano scales from a second-floor window, the clatter of a bicycle, someone's grandmother arguing with a fruit seller. The pace is different here. You will notice it by the end of the first afternoon.</p>
+    <div class="route-intro__selector">
+      <div class="route-intro__city-list">
+        <button class="route-intro__city-item" data-city="0">
+          <span class="route-intro__city-name">Xiamen</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="1">
+          <span class="route-intro__city-name">Chaoshan</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="2">
+          <span class="route-intro__city-name">Shenzhen</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="3">
+          <span class="route-intro__city-name">Hong Kong</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
       </div>
-      <div class="route-intro__city-panel">
-        <p>Chaoshan moves at the speed of tea. A session here is not a tourist activity — it's how people talk. Your host will fill the tiny cup before it empties; refusing means you want to leave. Sit long enough and the conversation finds its own rhythm. The beef at dinner was in a paddock this morning. The noodles were made by hand two hours ago. Everything is closer to its source than you expect.</p>
-      </div>
-      <div class="route-intro__city-panel">
-        <p>Shenzhen announces itself through scale. The buildings are enormous and new and completely unapologetic about it. There is no nostalgia here — the city is 45 years old and knows it. What you find instead is energy: the electronics market where engineers source components at 8am, the art district that appeared in a former factory compound, the young residents who came from everywhere else and are still figuring out what kind of place this is.</p>
-      </div>
-      <div class="route-intro__city-panel">
-        <p>Hong Kong runs on compression. The trams move slowly through streets packed tight with signage in three scripts. The Star Ferry costs almost nothing and takes ten minutes and gives you the full sweep of the harbour in both directions. In the wet market at dawn the fish are still moving. In the evening the light from ten thousand windows turns the harbour gold. The city is dense and real and entirely itself.</p>
+      <div class="route-intro__city-content">
+        <div class="route-intro__city-panel" data-panel="0">
+          <p>The sea arrives before the city does. You smell it first — salt and rain and something faintly sweet that turns out to be incense from the temple at the end of the lane. On Gulangyu the streets are too narrow for cars, which means you hear everything: piano scales from a second-floor window, the clatter of a bicycle, someone's grandmother arguing with a fruit seller. The pace is different here. You will notice it by the end of the first afternoon.</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="1">
+          <p>Chaoshan moves at the speed of tea. A session here is not a tourist activity — it's how people talk. Your host will fill the tiny cup before it empties; refusing means you want to leave. Sit long enough and the conversation finds its own rhythm. The beef at dinner was in a paddock this morning. The noodles were made by hand two hours ago. Everything is closer to its source than you expect.</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="2">
+          <p>Shenzhen announces itself through scale. The buildings are enormous and new and completely unapologetic about it. There is no nostalgia here — the city is 45 years old and knows it. What you find instead is energy: the electronics market where engineers source components at 8am, the art district that appeared in a former factory compound, the young residents who came from everywhere else and are still figuring out what kind of place this is.</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="3">
+          <p>Hong Kong runs on compression. The trams move slowly through streets packed tight with signage in three scripts. The Star Ferry costs almost nothing and takes ten minutes and gives you the full sweep of the harbour in both directions. In the wet market at dawn the fish are still moving. In the evening the light from ten thousand windows turns the harbour gold. The city is dense and real and entirely itself.</p>
+        </div>
       </div>
     </div>
 
@@ -203,15 +216,35 @@ const tripStructuredData = [
 </section>
 
 <script>
-  document.querySelectorAll('.route-intro__city-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const inner = btn.closest('.route-intro__inner');
-      inner.querySelectorAll('.route-intro__city-btn').forEach(b => b.classList.remove('is-active'));
-      inner.querySelectorAll('.route-intro__city-panel').forEach(p => p.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      inner.querySelectorAll('.route-intro__city-panel')[Number(btn.dataset.city)]?.classList.add('is-active');
+(function () {
+  const DURATION = 5000;
+  const selector = document.querySelector('.route-intro__selector');
+  if (!selector) return;
+  const items = Array.from(selector.querySelectorAll('.route-intro__city-item'));
+  const panels = Array.from(selector.querySelectorAll('.route-intro__city-panel'));
+  let current = 0, timer = null, paused = false;
+
+  function activate(index) {
+    current = index;
+    items.forEach((item, i) => {
+      item.classList.toggle('is-active', i === index);
+      const fill = item.querySelector('.route-intro__progress-fill');
+      if (fill) { fill.style.animation = 'none'; void fill.offsetWidth; }
+      if (i === index && fill) fill.style.animation = `routeProgress ${DURATION}ms linear forwards`;
     });
+    panels.forEach((p, i) => p.classList.toggle('is-active', i === index));
+    clearTimeout(timer);
+    if (!paused) timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
+  }
+
+  items.forEach((item, i) => item.addEventListener('click', () => { paused = false; activate(i); }));
+  selector.addEventListener('mouseenter', () => { paused = true; clearTimeout(timer); });
+  selector.addEventListener('mouseleave', () => {
+    paused = false;
+    timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
   });
+  activate(0);
+})();
 </script>
 
   <TripWhyUs lang="en" />

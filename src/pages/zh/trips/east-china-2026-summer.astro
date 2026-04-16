@@ -148,25 +148,38 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
       <span class="route-intro__pivot">这就是那个版本的中国。</span>
     </div>
 
-    <nav class="route-intro__city-nav" aria-label="城市介绍">
-      <button class="route-intro__city-btn is-active" data-city="0">上海</button>
-      <button class="route-intro__city-btn" data-city="1">苏州</button>
-      <button class="route-intro__city-btn" data-city="2">杭州</button>
-      <button class="route-intro__city-btn" data-city="3">北京</button>
-    </nav>
-
-    <div class="route-intro__city-panels">
-      <div class="route-intro__city-panel is-active">
-        <p>上海是一座还没决定自己是否建完的城市。外滩的清晨是石材与江雾；对岸的高楼入夜之后是玻璃与灯光。中间是法租界——梧桐树夹道，石库门弄堂改成了咖啡馆，石板路上有雨水的气息。你会在这里吃到一样无法准确描述的东西，然后在之后很多个星期里还会想起它。</p>
+    <div class="route-intro__selector">
+      <div class="route-intro__city-list">
+        <button class="route-intro__city-item" data-city="0">
+          <span class="route-intro__city-name">上海</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="1">
+          <span class="route-intro__city-name">苏州</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="2">
+          <span class="route-intro__city-name">杭州</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
+        <button class="route-intro__city-item" data-city="3">
+          <span class="route-intro__city-name">北京</span>
+          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+        </button>
       </div>
-      <div class="route-intro__city-panel">
-        <p>苏州的古典园林是为了制造一种特定的感受而建造的：让你觉得自己侧身走进了另一种和时间的关系。水在其中流动得很慢。山石与花木透过窗框的取景是刻意为之的——每一个视角都是构图。园林外面，河道边的小巷窄而湿润，还有人在住。老妇人在水面上晾衣服。运河是生活设施，不是景色。</p>
-      </div>
-      <div class="route-intro__city-panel">
-        <p>西湖在清晨最好——游船还没出来，水面还有薄雾，苏堤上安静到可以听见鸟叫。湖上方的茶园是另一种安静：整齐的、绿的、带着新叶气味的。下午湖光是金色的。宋朝的诗人写过这些，并没有夸张。</p>
-      </div>
-      <div class="route-intro__city-panel">
-        <p>北京是一座知道自己是首都的城市。那个规模是刻意的——宽阔的大道、纪念碑式的广场、大到看不到对面的故宫。但你会记住的是胡同：鼓楼后面的那些小巷，北京旧有的生活节奏还在那里，煤烟味混着炒菜声，某个二楼的窗户里有人在听京剧。</p>
+      <div class="route-intro__city-content">
+        <div class="route-intro__city-panel" data-panel="0">
+          <p>上海是一座还没决定自己是否建完的城市。外滩的清晨是石材与江雾；对岸的高楼入夜之后是玻璃与灯光。中间是法租界——梧桐树夹道，石库门弄堂改成了咖啡馆，石板路上有雨水的气息。你会在这里吃到一样无法准确描述的东西，然后在之后很多个星期里还会想起它。</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="1">
+          <p>苏州的古典园林是为了制造一种特定的感受而建造的：让你觉得自己侧身走进了另一种和时间的关系。水在其中流动得很慢。山石与花木透过窗框的取景是刻意为之的——每一个视角都是构图。园林外面，河道边的小巷窄而湿润，还有人在住。老妇人在水面上晾衣服。运河是生活设施，不是景色。</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="2">
+          <p>西湖在清晨最好——游船还没出来，水面还有薄雾，苏堤上安静到可以听见鸟叫。湖上方的茶园是另一种安静：整齐的、绿的、带着新叶气味的。下午湖光是金色的。宋朝的诗人写过这些，并没有夸张。</p>
+        </div>
+        <div class="route-intro__city-panel" data-panel="3">
+          <p>北京是一座知道自己是首都的城市。那个规模是刻意的——宽阔的大道、纪念碑式的广场、大到看不到对面的故宫。但你会记住的是胡同：鼓楼后面的那些小巷，北京旧有的生活节奏还在那里，煤烟味混着炒菜声，某个二楼的窗户里有人在听京剧。</p>
+        </div>
       </div>
     </div>
 
@@ -177,15 +190,35 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
 </section>
 
 <script>
-  document.querySelectorAll('.route-intro__city-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const inner = btn.closest('.route-intro__inner');
-      inner.querySelectorAll('.route-intro__city-btn').forEach(b => b.classList.remove('is-active'));
-      inner.querySelectorAll('.route-intro__city-panel').forEach(p => p.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      inner.querySelectorAll('.route-intro__city-panel')[Number(btn.dataset.city)]?.classList.add('is-active');
+(function () {
+  const DURATION = 5000;
+  const selector = document.querySelector('.route-intro__selector');
+  if (!selector) return;
+  const items = Array.from(selector.querySelectorAll('.route-intro__city-item'));
+  const panels = Array.from(selector.querySelectorAll('.route-intro__city-panel'));
+  let current = 0, timer = null, paused = false;
+
+  function activate(index) {
+    current = index;
+    items.forEach((item, i) => {
+      item.classList.toggle('is-active', i === index);
+      const fill = item.querySelector('.route-intro__progress-fill');
+      if (fill) { fill.style.animation = 'none'; void fill.offsetWidth; }
+      if (i === index && fill) fill.style.animation = `routeProgress ${DURATION}ms linear forwards`;
     });
+    panels.forEach((p, i) => p.classList.toggle('is-active', i === index));
+    clearTimeout(timer);
+    if (!paused) timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
+  }
+
+  items.forEach((item, i) => item.addEventListener('click', () => { paused = false; activate(i); }));
+  selector.addEventListener('mouseenter', () => { paused = true; clearTimeout(timer); });
+  selector.addEventListener('mouseleave', () => {
+    paused = false;
+    timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
   });
+  activate(0);
+})();
 </script>
 
   <TripWhyUs lang="zh" />
