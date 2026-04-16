@@ -191,26 +191,32 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
 
 <script>
 (function () {
-  const DURATION = 5000;
+  const DURATION = 12000;
+  const INK_MS   = 1800;
   const selector = document.querySelector('.route-intro__selector');
   if (!selector) return;
-  const items = Array.from(selector.querySelectorAll('.route-intro__city-item'));
+  const items  = Array.from(selector.querySelectorAll('.route-intro__city-item'));
   const panels = Array.from(selector.querySelectorAll('.route-intro__city-panel'));
   let current = 0, timer = null, paused = false;
-
+  function rnd(min, max) { return (Math.random() * (max - min) + min).toFixed(1) + '%'; }
   function activate(index) {
     current = index;
+    panels.forEach(p => { p.style.transition = 'none'; p.classList.remove('is-active'); });
     items.forEach((item, i) => {
       item.classList.toggle('is-active', i === index);
       const fill = item.querySelector('.route-intro__progress-fill');
       if (fill) { fill.style.animation = 'none'; void fill.offsetWidth; }
       if (i === index && fill) fill.style.animation = `routeProgress ${DURATION}ms linear forwards`;
     });
-    panels.forEach((p, i) => p.classList.toggle('is-active', i === index));
+    const panel = panels[index];
+    panel.style.setProperty('--clip-origin', `${rnd(25, 75)} ${rnd(25, 75)}`);
+    requestAnimationFrame(() => {
+      panel.style.transition = `clip-path ${INK_MS}ms cubic-bezier(0.16, 1, 0.3, 1)`;
+      panel.classList.add('is-active');
+    });
     clearTimeout(timer);
     if (!paused) timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
   }
-
   items.forEach((item, i) => item.addEventListener('click', () => { paused = false; activate(i); }));
   selector.addEventListener('mouseenter', () => { paused = true; clearTimeout(timer); });
   selector.addEventListener('mouseleave', () => {
