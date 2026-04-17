@@ -172,19 +172,19 @@ const tripStructuredData = [
       <div class="route-intro__city-list">
         <button class="route-intro__city-item" data-city="0">
           <span class="route-intro__city-name">Shanghai</span>
-          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="1">
           <span class="route-intro__city-name">Suzhou</span>
-          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="2">
           <span class="route-intro__city-name">Hangzhou</span>
-          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="3">
           <span class="route-intro__city-name">Beijing</span>
-          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
       </div>
       <div class="route-intro__city-content">
@@ -212,22 +212,42 @@ const tripStructuredData = [
 
 <script>
 (function () {
-  const DURATION = 5000;
+  const DURATION = 12000;
+  const INK_MS   = 1800;
   const selector = document.querySelector('.route-intro__selector');
   if (!selector) return;
-  const items = Array.from(selector.querySelectorAll('.route-intro__city-item'));
+  const items  = Array.from(selector.querySelectorAll('.route-intro__city-item'));
   const panels = Array.from(selector.querySelectorAll('.route-intro__city-panel'));
   let current = 0, timer = null, paused = false;
 
+  function rnd(min, max) { return (Math.random() * (max - min) + min).toFixed(1) + '%'; }
+
   function activate(index) {
     current = index;
+
+    // Instantly hide all panels (remove transition first)
+    panels.forEach(p => { p.style.transition = 'none'; p.classList.remove('is-active'); });
+
+    // Reset progress bars
     items.forEach((item, i) => {
       item.classList.toggle('is-active', i === index);
-      const fill = item.querySelector('.route-intro__progress-fill');
-      if (fill) { fill.style.animation = 'none'; void fill.offsetWidth; }
-      if (i === index && fill) fill.style.animation = `routeProgress ${DURATION}ms linear forwards`;
+      const dots = Array.from(item.querySelectorAll('.route-intro__dot'));
+      dots.forEach(d => { d.style.animation = 'none'; d.style.animationDelay = '0ms'; });
+      void item.offsetWidth;
+      if (i === index) {
+        const step = DURATION / dots.length;
+        dots.forEach((d, di) => { d.style.animationDelay = `${di * step}ms`; d.style.animation = `dotActivate ${step}ms linear forwards`; });
+      }
     });
-    panels.forEach((p, i) => p.classList.toggle('is-active', i === index));
+
+    // Set random origin, inject transition, activate — after a frame so clip snaps to 0 first
+    const panel = panels[index];
+    panel.style.setProperty('--clip-origin', `${rnd(25, 75)} ${rnd(25, 75)}`);
+    requestAnimationFrame(() => {
+      panel.style.transition = `clip-path ${INK_MS}ms cubic-bezier(0.16, 1, 0.3, 1)`;
+      panel.classList.add('is-active');
+    });
+
     clearTimeout(timer);
     if (!paused) timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
   }

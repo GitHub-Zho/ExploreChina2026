@@ -152,19 +152,19 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
       <div class="route-intro__city-list">
         <button class="route-intro__city-item" data-city="0">
           <span class="route-intro__city-name">上海</span>
-          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="1">
           <span class="route-intro__city-name">苏州</span>
-          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="2">
           <span class="route-intro__city-name">杭州</span>
-          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="3">
           <span class="route-intro__city-name">北京</span>
-          <div class="route-intro__progress-bar"><div class="route-intro__progress-fill"></div></div>
+          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
       </div>
       <div class="route-intro__city-content">
@@ -204,9 +204,13 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
     panels.forEach(p => { p.style.transition = 'none'; p.classList.remove('is-active'); });
     items.forEach((item, i) => {
       item.classList.toggle('is-active', i === index);
-      const fill = item.querySelector('.route-intro__progress-fill');
-      if (fill) { fill.style.animation = 'none'; void fill.offsetWidth; }
-      if (i === index && fill) fill.style.animation = `routeProgress ${DURATION}ms linear forwards`;
+      const dots = Array.from(item.querySelectorAll('.route-intro__dot'));
+      dots.forEach(d => { d.style.animation = 'none'; d.style.animationDelay = '0ms'; });
+      void item.offsetWidth;
+      if (i === index) {
+        const step = DURATION / dots.length;
+        dots.forEach((d, di) => { d.style.animationDelay = `${di * step}ms`; d.style.animation = `dotActivate ${step}ms linear forwards`; });
+      }
     });
     const panel = panels[index];
     panel.style.setProperty('--clip-origin', `${rnd(25, 75)} ${rnd(25, 75)}`);

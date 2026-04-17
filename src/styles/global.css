@@ -2112,40 +2112,37 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   color: var(--color-ink);
   font-weight: 700;
 }
-.route-intro__progress-bar {
-  width: 100%;
-  height: 1px;
-  background: #e5e0d8;
-  overflow: hidden;
+.route-intro__dots {
+  display: flex;
+  gap: 5px;
+  margin-top: 0.5rem;
 }
-.route-intro__progress-fill {
-  height: 100%;
-  width: 0%;
-  background: var(--color-red);
+.route-intro__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ddd8d0;
 }
-@keyframes routeProgress {
-  from { width: 0%; }
-  to   { width: 100%; }
+@keyframes dotActivate {
+  0%   { background: #ddd8d0; }
+  8%   { background: var(--color-red); }
+  100% { background: var(--color-red); }
 }
 
-/* Ink-wash reveal on description panel */
+/* Ink-wash reveal on description panel — grid stacking prevents height jumps */
 .route-intro__city-content {
-  position: relative;
-  min-height: 6rem;
+  display: grid;
 }
 .route-intro__city-panel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  clip-path: circle(0% at 8% 50%);
+  grid-column: 1;
+  grid-row: 1;
+  clip-path: circle(0% at var(--clip-origin, 50% 50%));
   pointer-events: none;
+  /* transition injected by JS so deactivation stays instant */
 }
 .route-intro__city-panel.is-active {
-  clip-path: circle(150% at 8% 50%);
-  position: relative;
+  clip-path: circle(150% at var(--clip-origin, 50% 50%));
   pointer-events: auto;
-  transition: clip-path 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .route-intro__city-panel p {
   font-size: 1.05rem;
@@ -2168,7 +2165,7 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   }
   .route-intro__city-list::-webkit-scrollbar { display: none; }
   .route-intro__city-item { margin-bottom: 0; min-width: 72px; }
-  .route-intro__city-panel { position: relative; clip-path: none !important; transition: none !important; }
+  .route-intro__city-panel { clip-path: none !important; transition: none !important; }
   .route-intro__city-panel:not(.is-active) { display: none; }
 }
 
