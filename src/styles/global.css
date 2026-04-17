@@ -2123,10 +2123,11 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   border-radius: 50%;
   background: #ddd8d0;
 }
-@keyframes dotActivate {
+@keyframes dotPulse {
   0%   { background: #ddd8d0; }
-  8%   { background: var(--color-red); }
-  100% { background: var(--color-red); }
+  10%  { background: var(--color-red); }
+  75%  { background: var(--color-red); }
+  100% { background: #ddd8d0; }
 }
 
 /* Ink-wash reveal on description panel — grid stacking prevents height jumps */
