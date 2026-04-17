@@ -212,7 +212,7 @@ const tripStructuredData = [
 
 <script>
 (function () {
-  const DURATION = 12000;
+  const DURATION = 8000;
   const INK_MS   = 1800;
   const selector = document.querySelector('.route-intro__selector');
   if (!selector) return;
@@ -231,16 +231,9 @@ const tripStructuredData = [
     // Reset progress bars
     items.forEach((item, i) => {
       item.classList.toggle('is-active', i === index);
-      const dots = Array.from(item.querySelectorAll('.route-intro__dot'));
-      dots.forEach(d => { d.style.animation = 'none'; d.style.animationDelay = '0ms'; });
-      void item.offsetWidth;
-      if (i === index) {
-        const step = DURATION / dots.length;
-        dots.forEach((d, di) => {
-          d.style.animationDelay = `${(dots.length - 1 - di) * step}ms`;
-          d.style.animation = `dotDisappear ${step}ms ease-in-out both`;
-        });
-      }
+      item.querySelectorAll('.route-intro__dot').forEach(d => {
+        d.style.background = i === index ? 'var(--color-red)' : '';
+      });
     });
 
     // Set random origin, inject transition, activate — after a frame so clip snaps to 0 first

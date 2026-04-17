@@ -2123,11 +2123,6 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   border-radius: 50%;
   background: #ddd8d0;
 }
-@keyframes dotDisappear {
-  0%   { background: var(--color-red); }
-  80%  { background: var(--color-red); }
-  100% { background: #ddd8d0; }
-}
 
 /* Ink-wash reveal on description panel — grid stacking prevents height jumps */
 .route-intro__city-content {
