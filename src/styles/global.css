@@ -2123,10 +2123,9 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   border-radius: 50%;
   background: #ddd8d0;
 }
-@keyframes dotPulse {
-  0%   { background: #ddd8d0; }
-  10%  { background: var(--color-red); }
-  75%  { background: var(--color-red); }
+@keyframes dotDisappear {
+  0%   { background: var(--color-red); }
+  80%  { background: var(--color-red); }
   100% { background: #ddd8d0; }
 }
 
@@ -2590,10 +2589,6 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   transition: opacity 0.3s ease;
 }
 
-.landmark-card:hover .landmark-card__base-overlay {
-  opacity: 0;
-}
-
 /* name — always visible at bottom */
 .landmark-card__name-overlay {
   position: absolute;
@@ -2603,10 +2598,6 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   padding: 18px 16px 16px;
   z-index: 3;
   transition: opacity 0.25s ease;
-}
-
-.landmark-card:hover .landmark-card__name-overlay {
-  opacity: 0;
 }
 
 .landmark-card__name {
@@ -2625,7 +2616,7 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   margin: 0;
 }
 
-/* hover: full dark cover */
+/* hover overlay — hidden, kept for mobile fallback */
 .landmark-card__overlay {
   position: absolute;
   inset: 0;
@@ -2634,10 +2625,6 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   z-index: 2;
   pointer-events: none;
   transition: opacity 0.32s ease;
-}
-
-.landmark-card:hover .landmark-card__overlay {
-  opacity: 1;
 }
 
 /* hover: content slides up */
@@ -2656,10 +2643,6 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   transition: opacity 0.32s ease 0.06s, transform 0.32s ease 0.06s;
 }
 
-.landmark-card:hover .landmark-card__body {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 .landmark-card__body-name {
   font-family: var(--font-display);
@@ -2829,9 +2812,4 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   .landmark-card,
   .city-intro-card { height: 300px; }
 
-  /* mobile: show content without hover */
-  .landmark-card__overlay { opacity: 1; }
-  .landmark-card__body { opacity: 1; transform: translateY(0); }
-  .landmark-card__name-overlay { opacity: 0; }
-  .landmark-card__base-overlay { opacity: 0; }
 }

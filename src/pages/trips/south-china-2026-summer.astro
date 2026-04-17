@@ -237,7 +237,10 @@ const tripStructuredData = [
       void item.offsetWidth;
       if (i === index) {
         const step = DURATION / dots.length;
-        dots.forEach((d, di) => { d.style.animationDelay = `${di * step}ms`; d.style.animation = `dotPulse ${step}ms ease-in-out`; });
+        dots.forEach((d, di) => {
+          d.style.animationDelay = `${(dots.length - 1 - di) * step}ms`;
+          d.style.animation = `dotDisappear ${step}ms ease-in-out both`;
+        });
       }
     });
     const panel = panels[index];
