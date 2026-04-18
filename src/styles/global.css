@@ -236,18 +236,18 @@ a { color: inherit; text-decoration: none; }
 /* Trust strip */
 .trust-strip {
   background: #f5f1e9;
-  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+  padding: clamp(2rem, 4vw, 3rem) 0;
   border-bottom: 1px solid #e8e2d9;
 }
 .trust-strip__inner {
-  max-width: 44rem;
+  max-width: 46rem;
   padding: 0 var(--side-pad);
 }
 .trust-strip__text {
-  font-size: clamp(0.9rem, 1.5vw, 1rem);
-  line-height: 1.85;
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+  line-height: 1.9;
   color: #3d3730;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1.1rem;
 }
 .trust-strip__link {
   font-size: 0.85rem;
