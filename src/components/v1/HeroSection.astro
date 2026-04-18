@@ -8,9 +8,10 @@ const { isZh = false } = Astro.props;
   <div class="hero__overlay" aria-hidden="true"></div>
 
   <div class="container hero__content">
-    <p class="hero__eyebrow">{isZh ? 'UofT 探索旅行社团 · 文化系列' : 'UofT Exploration and Travel Club · Culture Series'}</p>
-    <h1 class="hero__title">{isZh ? <>探索中国<br/>2026</> : <>Explore China<br/>2026</>}</h1>
-    <p class="hero__standalone">{isZh ? '不只是旅行，而是真正感受一个截然不同的世界的机会。' : 'Not just a trip, but a chance to feel a world that is genuinely different.'}</p>
+    <p class="hero__eyebrow">{isZh ? 'UofT 探索旅行社团 · 文化系列 · 2026' : 'UofT Exploration and Travel Club · Culture Series · 2026'}</p>
+    <h1 class="hero__title">{isZh ? <>探索<br/>中国</> : <>Explore<br/>China</>}</h1>
+    <p class="hero__tagline">{isZh ? '不只是旅行，而是真正感受一个截然不同的世界的机会。' : 'Not just a trip, but a chance to feel a world that is genuinely different.'}</p>
+    <p class="hero__credits">{isZh ? '由 UofT 探索旅行社团与中国学生项目伙伴联合策划，Travel Club 成员与专业双语导游全程同行。' : "Co-organized by UofT's Exploration & Travel Club and student program partners in China, with Travel Club members joining every route alongside professional bilingual guides."}</p>
     <a href="https://www.instagram.com/camcapysoc" target="_blank" rel="noopener noreferrer" class="hero__prev-link">{isZh ? '查看往期行程 ↗' : 'See Previous Trips ↗'}</a>
   </div>
 
