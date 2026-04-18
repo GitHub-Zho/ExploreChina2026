@@ -16,11 +16,14 @@ const { isZh = false } = Astro.props;
     </p>
     <h1 class="hero__title">{isZh ? <>探索<br/>中国</> : <>Explore<br/>China</>}</h1>
     <p class="hero__tagline">{isZh ? '不只是旅行，而是真正感受一个截然不同的世界的机会。' : 'Not just a trip, but a chance to feel a world that is genuinely different.'}</p>
-    <p class="hero__credits">{isZh ? '由 UofT 探索旅行社团与中国学生项目伙伴联合策划，Travel Club 成员与专业双语导游全程同行。' : "Co-organized by UofT's Exploration & Travel Club and student program partners in China, with Travel Club members joining every route alongside professional bilingual guides."}</p>
     <div class="hero__cta-group">
-      <a href="#itinerary" class="btn--hero-primary">{isZh ? '查看路线' : 'View Routes'}</a>
+      {isZh
+        ? <a href="#itinerary" class="btn--hero-primary">查看路线</a>
+        : <button type="button" id="btn-review-story" class="btn--hero-primary">Review Our Story</button>
+      }
       <a href="https://www.instagram.com/camcapysoc" target="_blank" rel="noopener noreferrer" class="btn--hero-ghost">{isZh ? '往期行程 ↗' : 'Previous Trips ↗'}</a>
     </div>
+    <p class="hero__credits">{isZh ? '由 UofT 探索旅行社团与中国学生项目伙伴联合策划，Travel Club 成员与专业双语导游全程同行。' : "Co-organized with student program partners in China — Travel Club members and professional bilingual guides on every route."}</p>
   </div>
 
   <div class="hero__scroll-hint" aria-hidden="true">

@@ -779,6 +779,9 @@ const homeStructuredData = {
     }, 520);
   }
 
+  /* Expose for external trigger (Review Our Story button) */
+  window.__triggerStory = completeCurtain;
+
   function snapBack() {
     curtain.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     curtain.style.transform  = 'translateX(-100%)';
@@ -1172,6 +1175,30 @@ const homeStructuredData = {
       btn.disabled = false;
       confirmBtn.disabled = false;
     });
+  });
+}());
+
+/* ── Review Our Story button ────────────────────────────── */
+(function () {
+  var btn = document.getElementById('btn-review-story');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var target = document.getElementById('story-section');
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    /* Wait for scroll to finish, then trigger curtain */
+    var triggered = false;
+    function trigger() {
+      if (triggered) return;
+      triggered = true;
+      if (typeof window.__triggerStory === 'function') window.__triggerStory();
+    }
+    if ('onscrollend' in window) {
+      window.addEventListener('scrollend', trigger, { once: true });
+      setTimeout(trigger, 1200); /* fallback */
+    } else {
+      setTimeout(trigger, 900);
+    }
   });
 }());
 </script>
