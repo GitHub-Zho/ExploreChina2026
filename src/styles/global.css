@@ -152,34 +152,56 @@ a { color: inherit; text-decoration: none; }
 }
 .hero__content { position: relative; z-index: 1; color: #fff; }
 .hero__eyebrow {
-  font-size: 0.875rem;
-  letter-spacing: 0.2em;
+  font-size: clamp(0.78rem, 1.3vw, 0.92rem);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  opacity: 0.85;
+  opacity: 0.68;
   margin-bottom: 1rem;
 }
 .hero__title {
   font-family: var(--font-display);
-  font-size: var(--text-hero);
+  font-size: clamp(2.4rem, 6.5vw, 5rem);
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+.hero__body {
+  max-width: 460px;
+}
+.hero__body-text {
+  font-size: clamp(0.82rem, 1.25vw, 0.95rem);
+  line-height: 1.85;
+  opacity: 0.72;
+  margin-bottom: 1.1rem;
+}
+.hero__standalone {
+  font-size: clamp(0.88rem, 1.35vw, 1rem);
+  font-weight: 500;
+  line-height: 1.65;
+  opacity: 0.95;
+  margin-bottom: 1.25rem;
+}
+.hero__credits {
+  font-size: clamp(0.7rem, 1vw, 0.8rem);
+  line-height: 1.7;
+  opacity: 0.45;
   margin-bottom: 1rem;
 }
-.hero__explore {
-  font-size: clamp(1rem, 2.2vw, 1.5rem);
-  font-weight: 300;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  opacity: 0.55;
-  margin-bottom: 1.75rem;
+.hero__prev-link {
+  display: inline-block;
+  font-size: clamp(0.75rem, 1.1vw, 0.85rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.72);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.28);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
 }
-.hero__sub {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  max-width: 480px;
-  opacity: 0.9;
-  line-height: 1.6;
-  margin-bottom: 0;
+.hero__prev-link:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.65);
 }
 .hero__scroll-hint {
   position: absolute;
@@ -366,7 +388,7 @@ a { color: inherit; text-decoration: none; }
 .footer { padding-block: 2rem; background: var(--color-surface); border-top: 1px solid #e5e0d8; color: var(--color-ink-muted); }
 
 @media (max-width: 768px) {
-  .hero__title { font-size: clamp(3rem, 11vw, 4.5rem); }
+  .hero__title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
   .btn--hero-ghost { margin-left: 0; margin-top: .75rem; }
   .carousel { aspect-ratio: 4/3; }
   .navbar--hero:not(.scrolled) .navbar__inner::after {
