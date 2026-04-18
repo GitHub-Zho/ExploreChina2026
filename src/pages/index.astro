@@ -647,6 +647,39 @@ const homeStructuredData = {
         tw.style.backgroundColor = bgColors[pi];
       }
 
+      /* ── Pre-measure page to set vertical center position ── */
+      (function () {
+        poemEl.innerHTML = '';
+        var sectionH = section.clientHeight;
+        var focusEl = null;
+        for (var mi = 0; mi < page.length; mi++) {
+          var midx = page[mi];
+          var ms = sentences[midx];
+          var mp = document.createElement('p');
+          mp.textContent = ms.text;
+          mp.classList.add('poem-line');
+          if (ms.centre) { mp.classList.add('is-hero'); focusEl = mp; }
+          if (midx === sentences.length - 1) { mp.classList.add('is-final'); focusEl = mp; }
+          /* render invisibly for measurement — no transition, no translate */
+          mp.style.cssText = 'opacity:0!important;visibility:hidden!important;transform:none!important;transition:none!important;';
+          poemEl.appendChild(mp);
+        }
+        void poemEl.offsetHeight; /* force layout */
+        var topPx;
+        if (focusEl) {
+          /* center the bold/hero element at viewport middle */
+          topPx = sectionH / 2 - focusEl.offsetTop - focusEl.offsetHeight / 2;
+        } else {
+          /* center the whole block */
+          topPx = (sectionH - poemEl.offsetHeight) / 2;
+        }
+        /* clamp to sane range */
+        topPx = Math.max(sectionH * 0.1, Math.min(sectionH * 0.52, topPx));
+        poemEl.style.top = topPx + 'px';
+        poemEl.innerHTML = '';
+      }());
+      /* ─────────────────────────────────────────────────────── */
+
       for (var li = 0; li < page.length; li++) {
         if (!twRunning) return;
         var idx = page[li];
