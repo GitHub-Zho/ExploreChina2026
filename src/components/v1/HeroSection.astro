@@ -10,23 +10,8 @@ const { isZh = false } = Astro.props;
   <div class="container hero__content">
     <p class="hero__eyebrow">{isZh ? 'UofT 探索旅行社团 · 文化系列' : 'UofT Exploration and Travel Club · Culture Series'}</p>
     <h1 class="hero__title">{isZh ? <>探索中国<br/>2026</> : <>Explore China<br/>2026</>}</h1>
-    <div class="hero__body">
-      {isZh ? (
-        <>
-          <p class="hero__body-text">不止是历史，而是塑造历史的思维与交流方式。不止是食物，而是每道菜背后的故事与起源。不止是行程，而是让一个地方鲜活的日常节奏。</p>
-          <p class="hero__standalone">不只是旅行，而是真正感受一个截然不同的世界的机会。</p>
-          <p class="hero__credits">由 UofT 探索旅行社团与中国学生项目伙伴联合策划，Travel Club 成员与专业双语导游全程同行。</p>
-          <a href="https://www.instagram.com/camcapysoc" target="_blank" rel="noopener noreferrer" class="hero__prev-link">查看往期行程 ↗</a>
-        </>
-      ) : (
-        <>
-          <p class="hero__body-text">Not just history, but the conversations and ways of thinking that shape it. Not just food, but the stories and origins behind every dish. Not just activities, but the daily rhythms that make a place alive.</p>
-          <p class="hero__standalone">Not just a trip, but a chance to feel a world that is genuinely different.</p>
-          <p class="hero__credits">Co-organized by UofT's Exploration & Travel Club and student program partners in China, with Travel Club members joining every route alongside professional bilingual guides.</p>
-          <a href="https://www.instagram.com/camcapysoc" target="_blank" rel="noopener noreferrer" class="hero__prev-link">See Previous Trips ↗</a>
-        </>
-      )}
-    </div>
+    <p class="hero__standalone">{isZh ? '不只是旅行，而是真正感受一个截然不同的世界的机会。' : 'Not just a trip, but a chance to feel a world that is genuinely different.'}</p>
+    <a href="https://www.instagram.com/camcapysoc" target="_blank" rel="noopener noreferrer" class="hero__prev-link">{isZh ? '查看往期行程 ↗' : 'See Previous Trips ↗'}</a>
   </div>
 
   <div class="hero__scroll-hint" aria-hidden="true">
