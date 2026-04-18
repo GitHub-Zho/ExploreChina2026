@@ -1,7 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/v1/HeroSection.astro';
-import DestinationCarousel from '../../components/v1/DestinationCarousel.astro';
 import DestinationGrid from '../../components/v1/DestinationGrid.astro';
 import Faq from '../../components/v1/Faq.astro';
 ---
@@ -15,8 +14,13 @@ import Faq from '../../components/v1/Faq.astro';
   heroNav={true}
 >
   <HeroSection isZh={true} />
-  <DestinationCarousel isZh={true} />
-  <DestinationGrid isZh={true} />
+
+  <section class="trust-strip">
+    <div class="trust-strip__inner">
+      <p class="trust-strip__text">由 UofT 学生策划与带队。小团出行，每条路线均配备专业双语导游。社团活动，无商业加价。</p>
+      <a href="https://www.instagram.com/camcapysoc" target="_blank" rel="noopener noreferrer" class="trust-strip__link">查看我们的过往活动 ↗</a>
+    </div>
+  </section>
 
   <section id="itinerary" class="py-20">
     <div class="container">
@@ -36,6 +40,8 @@ import Faq from '../../components/v1/Faq.astro';
       </div>
     </div>
   </section>
+
+  <DestinationGrid isZh={true} />
 
   <!-- Toast notification -->
   <div id="yunnan-toast" role="alert" aria-live="polite" class="yunnan-toast">

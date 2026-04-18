@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HeroSection from '../components/v1/HeroSection.astro';
-import DestinationCarousel from '../components/v1/DestinationCarousel.astro';
 import DestinationGrid from '../components/v1/DestinationGrid.astro';
 import Faq from '../components/v1/Faq.astro';
 import { tripsMeta } from '../data/trips-meta.ts';
@@ -43,6 +42,13 @@ const homeStructuredData = {
   heroNav={true}
 >
   <HeroSection />
+
+  <section class="trust-strip">
+    <div class="trust-strip__inner">
+      <p class="trust-strip__text">UofT students plan and run every trip. Small groups, professional bilingual guide on every route. No mark-up — this is a club program, not a tour company.</p>
+      <a href="https://www.instagram.com/camcapysoc" target="_blank" rel="noopener noreferrer" class="trust-strip__link">See our previous events ↗</a>
+    </div>
+  </section>
 
   <!-- ═══════════════════════════════════════════════════════════
        STORY SECTION — Version C look + Curtain + Version B Typewriter
@@ -101,17 +107,6 @@ const homeStructuredData = {
     </noscript>
   </section>
 
-  <DestinationCarousel />
-  <DestinationGrid />
-
-  <!-- SEO context — visually subtle, content-rich for search engines -->
-  <section class="section" style="padding: 1.5rem 2rem 0;">
-    <div style="max-width:54rem; margin:0 auto; border-top:1px solid #e8e5e0; padding-top:1.5rem;">
-      <p style="font-size:13px; line-height:1.9; color:#9a9590; margin-bottom:0.6rem;">This is a student-led China travel program designed for people in Canada who want more than a generic tour. It combines city highlights, social energy, practical support, and a route that feels manageable for first-time visitors.</p>
-      <p style="font-size:13px; line-height:1.9; color:#9a9590;">Comparing student trips to China from Canada? See the <a href="/trips/east-china-2026-summer" style="color:#b8524a;">full itinerary</a>, <a href="/handbook" style="color:#b8524a;">participant handbook</a>, and <a href="/about" style="color:#b8524a;">about page</a>.</p>
-    </div>
-  </section>
-
   <section id="itinerary" class="py-20">
     <div class="container">
       <p class="section-eyebrow">Our Routes</p>
@@ -143,6 +138,16 @@ const homeStructuredData = {
           )
         ))}
       </div>
+    </div>
+  </section>
+
+  <DestinationGrid />
+
+  <!-- SEO context -->
+  <section class="section" style="padding: 1.5rem 2rem 0;">
+    <div style="max-width:54rem; margin:0 auto; border-top:1px solid #e8e5e0; padding-top:1.5rem;">
+      <p style="font-size:13px; line-height:1.9; color:#9a9590; margin-bottom:0.6rem;">This is a student-led China travel program designed for people in Canada who want more than a generic tour. It combines city highlights, social energy, practical support, and a route that feels manageable for first-time visitors.</p>
+      <p style="font-size:13px; line-height:1.9; color:#9a9590;">Comparing student trips to China from Canada? See the <a href="/trips/east-china-2026-summer" style="color:#b8524a;">full itinerary</a>, <a href="/handbook" style="color:#b8524a;">participant handbook</a>, and <a href="/about" style="color:#b8524a;">about page</a>.</p>
     </div>
   </section>
 
