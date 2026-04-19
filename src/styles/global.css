@@ -1960,14 +1960,13 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 
 .highlights-strip__stage {
   position: relative;
-  overflow: hidden;
-  transform: translateZ(0);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
 
 .highlights-strip__row {
   display: flex;
+  overflow: hidden;
   margin-bottom: 12px;
 }
 .highlights-strip__row:last-child { margin-bottom: 0; }
@@ -1983,7 +1982,7 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   animation: hs-left 40s linear infinite;
 }
 .highlights-strip__row--2 .highlights-strip__track {
-  animation: hs-right 40s linear infinite;
+  animation: hs-left 45s linear infinite;
 }
 
 /* 3-cycle variant for smaller image sets */
@@ -1999,7 +1998,7 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 @keyframes hs-left-3 { from { transform: translateX(0); }       to { transform: translateX(-33.333%); } }
 @keyframes hs-right-3{ from { transform: translateX(-33.333%); }to { transform: translateX(0); } }
 
-.highlights-strip__stage:hover .highlights-strip__track,
+.highlights-strip__row:hover .highlights-strip__track,
 .highlights-strip__stage.is-paused .highlights-strip__track {
   animation-play-state: paused;
 }

@@ -122,19 +122,10 @@ const tripStructuredData = [
         </div>
       </div>
 
-      <!-- Row 2 → right (images 10–18) -->
+      <!-- Row 2 → left, clones first for seamless hs-left loop -->
       <div class="highlights-strip__row highlights-strip__row--2">
         <div class="highlights-strip__track">
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-shanghai-nightlife.jpg" alt="Shanghai nightlife illuminated building" loading="lazy" /><p class="highlights-strip__caption">Lights, music, and a version of the city that only shows up late</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-hanfu.jpg" alt="Hanfu traditional dress experience" loading="lazy" /><p class="highlights-strip__caption">Fabric, movement, and a different way of occupying the same streets</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-tea-plantation.jpg" alt="Hangzhou tea plantation terraces" loading="lazy" /><p class="highlights-strip__caption">Terraces shaped by hands, weather, and years of repetition</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-high-speed-rail.jpg" alt="China high-speed rail train" loading="lazy" /><p class="highlights-strip__caption">Distance collapsing into a view that never stays the same for long</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-night-market.jpg" alt="Night market food stalls and lanterns" loading="lazy" /><p class="highlights-strip__caption">Heat, smoke, and too many things happening at once to choose easily</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-guardian-statue.jpg" alt="Chinese guardian foo dog statue" loading="lazy" /><p class="highlights-strip__caption">Guardians that have watched centuries pass in silence</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-temple-prayer.jpg" alt="Person praying at incense burner" loading="lazy" /><p class="highlights-strip__caption">Smoke, prayer, and the weight of something people still believe in</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-museum-space.jpg" alt="Person walking through museum interior" loading="lazy" /><p class="highlights-strip__caption">Form, light, and a space that doesn't explain itself</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-soup-dumplings.jpg" alt="Xiaolongbao soup dumplings Shanghai" loading="lazy" /><p class="highlights-strip__caption">Soup dumplings, straight from the steamer</p></div>
-          <!-- clone for seamless loop -->
+          <!-- clones first so hs-left loop is seamless from translateX(0) -->
           <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-shanghai-nightlife.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Lights, music, and a version of the city that only shows up late</p></div>
           <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-hanfu.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Fabric, movement, and a different way of occupying the same streets</p></div>
           <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-tea-plantation.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Terraces shaped by hands, weather, and years of repetition</p></div>
@@ -144,6 +135,16 @@ const tripStructuredData = [
           <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-temple-prayer.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Smoke, prayer, and the weight of something people still believe in</p></div>
           <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-museum-space.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Form, light, and a space that doesn't explain itself</p></div>
           <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-soup-dumplings.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Soup dumplings, straight from the steamer</p></div>
+          <!-- originals -->
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-shanghai-nightlife.jpg" alt="Shanghai nightlife illuminated building" loading="lazy" /><p class="highlights-strip__caption">Lights, music, and a version of the city that only shows up late</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-hanfu.jpg" alt="Hanfu traditional dress experience" loading="lazy" /><p class="highlights-strip__caption">Fabric, movement, and a different way of occupying the same streets</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-tea-plantation.jpg" alt="Hangzhou tea plantation terraces" loading="lazy" /><p class="highlights-strip__caption">Terraces shaped by hands, weather, and years of repetition</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-high-speed-rail.jpg" alt="China high-speed rail train" loading="lazy" /><p class="highlights-strip__caption">Distance collapsing into a view that never stays the same for long</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-night-market.jpg" alt="Night market food stalls and lanterns" loading="lazy" /><p class="highlights-strip__caption">Heat, smoke, and too many things happening at once to choose easily</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-guardian-statue.jpg" alt="Chinese guardian foo dog statue" loading="lazy" /><p class="highlights-strip__caption">Guardians that have watched centuries pass in silence</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-temple-prayer.jpg" alt="Person praying at incense burner" loading="lazy" /><p class="highlights-strip__caption">Smoke, prayer, and the weight of something people still believe in</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-museum-space.jpg" alt="Person walking through museum interior" loading="lazy" /><p class="highlights-strip__caption">Form, light, and a space that doesn't explain itself</p></div>
+          <div class="highlights-strip__card"><img src="/images/highlights/ec-soup-dumplings.jpg" alt="Xiaolongbao soup dumplings Shanghai" loading="lazy" /><p class="highlights-strip__caption">Soup dumplings, straight from the steamer</p></div>
         </div>
       </div>
 
@@ -482,9 +483,6 @@ document.querySelectorAll('[data-day-toggle]').forEach(btn => {
     body.classList.toggle('is-open', !isOpen);
   });
 });
-
-// Force Safari to paint both marquee rows immediately
-document.querySelectorAll('.highlights-strip__row').forEach(row => { void row.offsetHeight; });
 
 // ── Highlights marquee — tap to pause (mobile) ─────────
 document.querySelectorAll('.highlights-strip__stage').forEach(stage => {
