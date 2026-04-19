@@ -2348,30 +2348,12 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   font-size: clamp(0.8rem, 1.15vw, 0.9rem);
   color: #aaa;
   line-height: 1.5;
-  border-bottom: 1px dashed #d0cbc3;
-  display: inline-block;
-  padding-bottom: 0.15rem;
-  transition: color 0.2s, border-color 0.2s;
-  cursor: default;
-}
-.price-breakdown__reveal:hover .price-breakdown__reveal-trigger {
-  color: #4a4540;
-  border-color: #aaa;
+  margin-bottom: 0.75rem;
 }
 .price-breakdown__reveal-body {
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  padding-top: 0;
-  transition: max-height 0.45s ease, opacity 0.3s ease 0.08s, padding-top 0.3s ease;
   font-size: clamp(0.82rem, 1.2vw, 0.92rem);
   line-height: 1.85;
   color: #6b6460;
-}
-.price-breakdown__reveal:hover .price-breakdown__reveal-body {
-  max-height: 500px;
-  opacity: 1;
-  padding-top: 0.85rem;
 }
 .price-breakdown__reveal-body p { margin: 0 0 0.75rem; }
 .price-breakdown__reveal-body strong {
