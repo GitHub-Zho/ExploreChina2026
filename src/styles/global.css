@@ -1976,27 +1976,26 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   gap: 12px;
   flex-shrink: 0;
   padding-right: 12px;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .highlights-strip__row--1 .highlights-strip__track {
   animation: hs-left 40s linear infinite;
 }
 .highlights-strip__row--2 .highlights-strip__track {
-  animation: hs-left 45s linear infinite;
+  animation: hs-right 44s linear infinite;
 }
 
-/* 3-cycle variant for smaller image sets */
-.highlights-strip__row--1.hs-cycle3 .highlights-strip__track {
-  animation-name: hs-left-3;
+@keyframes hs-left {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
-.highlights-strip__row--2.hs-cycle3 .highlights-strip__track {
-  animation-name: hs-right-3;
+@keyframes hs-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
 }
-
-@keyframes hs-left   { from { transform: translateX(0); }       to { transform: translateX(-50%); } }
-@keyframes hs-right  { from { transform: translateX(-50%); }    to { transform: translateX(0); } }
-@keyframes hs-left-3 { from { transform: translateX(0); }       to { transform: translateX(-33.333%); } }
-@keyframes hs-right-3{ from { transform: translateX(-33.333%); }to { transform: translateX(0); } }
 
 .highlights-strip__row:hover .highlights-strip__track,
 .highlights-strip__stage.is-paused .highlights-strip__track {
