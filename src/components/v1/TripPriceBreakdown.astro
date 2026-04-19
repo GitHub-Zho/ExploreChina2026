@@ -9,7 +9,7 @@ const items = [
     noteEn: '4–5★ hotel, shared double room',
     noteZh: '4–5星酒店，双人间',
     amount: 800,
-    pct: 30,
+    pct: 27,
   },
   {
     labelEn: 'Food & dining',
@@ -17,7 +17,7 @@ const items = [
     noteEn: 'Local specialty restaurants daily',
     noteZh: '每日特色餐厅',
     amount: 700,
-    pct: 26,
+    pct: 23,
   },
   {
     labelEn: 'Activities & tickets',
@@ -25,7 +25,7 @@ const items = [
     noteEn: 'Entrance fees + special programming',
     noteZh: '景点门票及特色活动',
     amount: 500,
-    pct: 18,
+    pct: 17,
   },
   {
     labelEn: 'Guide & local transport',
@@ -33,17 +33,26 @@ const items = [
     noteEn: 'Professional guide + daily in-city',
     noteZh: '专业导游及每日市内交通',
     amount: 500,
-    pct: 18,
+    pct: 17,
   },
   {
     labelEn: 'City-to-city transfers',
     labelZh: '城市间交通',
     noteEn: 'High-speed rail & domestic flights',
     noteZh: '高铁及国内航班',
-    amount: 200,
-    pct: 8,
+    amount: 300,
+    pct: 10,
   },
 ];
+
+const programItem = {
+  labelEn: 'Program & co-lead',
+  labelZh: '项目运营及领队',
+  noteEn: 'Club ops + your UofT co-lead on the ground',
+  noteZh: '社团运营 + 在华 UofT 学生领队',
+  amount: 200,
+  pct: 7,
+};
 ---
 
 <section class="price-breakdown">
@@ -62,7 +71,7 @@ const items = [
         }
       </p>
 
-      <!-- Block 2: hover to reveal detail -->
+      <!-- Block 2: question lead-in + explanation -->
       <div class="price-breakdown__reveal">
         <p class="price-breakdown__reveal-trigger">
           {zh ? '为什么是这个价格？' : 'Why does it cost this much?'}
@@ -83,9 +92,6 @@ const items = [
           )}
         </div>
       </div>
-      <p class="price-breakdown__disclaimer">
-        {zh ? '✈ 国际往返机票不含在内' : '✈ International flights not included'}
-      </p>
     </div>
 
     <div class="price-breakdown__bars">
@@ -101,10 +107,27 @@ const items = [
           </div>
         </div>
       ))}
+
+      <!-- Program & co-lead — visually distinct -->
+      <div class="price-bar price-bar--program">
+        <div class="price-bar__labels">
+          <span class="price-bar__name">{zh ? programItem.labelZh : programItem.labelEn}</span>
+          <span class="price-bar__amount">~${programItem.amount}</span>
+        </div>
+        <p class="price-bar__note">{zh ? programItem.noteZh : programItem.noteEn}</p>
+        <div class="price-bar__track">
+          <div class="price-bar__fill price-bar__fill--program" style={`width: ${programItem.pct}%`}></div>
+        </div>
+      </div>
+
       <div class="price-bar__total">
         <span>{zh ? '合计（不含机票）' : 'Total (excl. flights)'}</span>
-        <span>~$2,700</span>
+        <span>~$3,000</span>
       </div>
+
+      <p class="price-breakdown__disclaimer">
+        {zh ? '✈ 国际往返机票不含在内' : '✈ International flights not included'}
+      </p>
     </div>
 
   </div>
