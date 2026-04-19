@@ -54,22 +54,34 @@ const items = [
       <h2 class="price-breakdown__title">
         {zh ? 'CAD $3,000，钱花在了哪里' : 'CAD $3,000 — here\'s where it goes'}
       </h2>
-      <div class="price-breakdown__body">
-        {zh ? (
-          <>
-            <p>你或许能找到同价位、甚至更便宜的中国行程。但我们想做的，不是那种普通的旅行。</p>
-            <p>你要飞到地球另一端。既然来了，就值得认真对待——不只是景点，还有游戏、派对、深夜美食、手工艺体验，以及真正与当地人相处的时间。</p>
-            <p>这些都有成本。但这正是重点所在。</p>
-            <strong>我们希望你离开时带走的是回忆，而不是遗憾。</strong>
-          </>
-        ) : (
-          <>
-            <p>You could find a similar itinerary for the same price. Maybe cheaper. But that kind of trip isn't what we're building.</p>
-            <p>You're flying to the other side of the world. If you're making that trip, make it count — not just the views, but games, parties, local food nights, craft workshops, hanging out with people who actually live there.</p>
-            <p>That costs something. But that's exactly the point.</p>
-            <strong>We designed this so you leave with memories, not regrets.</strong>
-          </>
-        )}
+      <!-- Block 1: short punchy statement, always visible -->
+      <p class="price-breakdown__hook">
+        {zh
+          ? '你要飞到地球另一端——来了，就要认真对待。'
+          : "You're flying to the other side of the world. Make it count."
+        }
+      </p>
+
+      <!-- Block 2: hover to reveal detail -->
+      <div class="price-breakdown__reveal">
+        <p class="price-breakdown__reveal-trigger">
+          {zh ? '为什么是这个价格？' : 'Why does it cost this much?'}
+        </p>
+        <div class="price-breakdown__reveal-body">
+          {zh ? (
+            <>
+              <p>你或许能找到同价位、甚至更便宜的中国行程。但我们想做的，不是那种普通的旅行。</p>
+              <p>不只是景点，还有游戏、派对、深夜美食、手工艺体验，以及真正与当地人相处的时间。这些都有成本。但这正是重点所在。</p>
+              <strong>我们希望你离开时带走的是回忆，而不是遗憾。</strong>
+            </>
+          ) : (
+            <>
+              <p>You could find a similar itinerary for the same price. Maybe cheaper. But that kind of trip isn't what we're building.</p>
+              <p>Not just the views — games, parties, local food nights, craft workshops, time with people who actually live there. That costs something. But that's exactly the point.</p>
+              <strong>We designed this so you leave with memories, not regrets.</strong>
+            </>
+          )}
+        </div>
       </div>
       <p class="price-breakdown__disclaimer">
         {zh ? '✈ 国际往返机票不含在内' : '✈ International flights not included'}

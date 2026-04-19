@@ -2334,17 +2334,50 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   line-height: 1.2;
   margin: 0 0 1.75rem;
 }
-.price-breakdown__body {
-  font-size: clamp(0.9rem, 1.5vw, 1rem);
-  line-height: 1.85;
-  color: #4a4540;
+.price-breakdown__hook {
+  font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+  line-height: 1.7;
+  color: #2a2520;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
 }
-.price-breakdown__body p { margin: 0 0 1rem; }
-.price-breakdown__body strong {
+.price-breakdown__reveal {
+  margin-bottom: 0;
+}
+.price-breakdown__reveal-trigger {
+  font-size: clamp(0.8rem, 1.15vw, 0.9rem);
+  color: #aaa;
+  line-height: 1.5;
+  border-bottom: 1px dashed #d0cbc3;
+  display: inline-block;
+  padding-bottom: 0.15rem;
+  transition: color 0.2s, border-color 0.2s;
+  cursor: default;
+}
+.price-breakdown__reveal:hover .price-breakdown__reveal-trigger {
+  color: #4a4540;
+  border-color: #aaa;
+}
+.price-breakdown__reveal-body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  transition: max-height 0.45s ease, opacity 0.3s ease 0.08s, padding-top 0.3s ease;
+  font-size: clamp(0.82rem, 1.2vw, 0.92rem);
+  line-height: 1.85;
+  color: #6b6460;
+}
+.price-breakdown__reveal:hover .price-breakdown__reveal-body {
+  max-height: 500px;
+  opacity: 1;
+  padding-top: 0.85rem;
+}
+.price-breakdown__reveal-body p { margin: 0 0 0.75rem; }
+.price-breakdown__reveal-body strong {
   display: block;
-  margin-top: 0.25rem;
   font-weight: 700;
-  color: var(--color-ink);
+  color: #2a2520;
 }
 .price-breakdown__disclaimer {
   margin-top: 1.75rem;
