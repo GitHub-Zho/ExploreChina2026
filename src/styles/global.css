@@ -1961,6 +1961,7 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 .highlights-strip__stage {
   position: relative;
   overflow: hidden;
+  transform: translateZ(0);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
@@ -1975,7 +1976,6 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   display: flex;
   gap: 12px;
   flex-shrink: 0;
-  will-change: transform;
   padding-right: 12px;
 }
 

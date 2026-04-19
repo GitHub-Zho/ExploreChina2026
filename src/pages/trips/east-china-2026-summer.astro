@@ -483,6 +483,9 @@ document.querySelectorAll('[data-day-toggle]').forEach(btn => {
   });
 });
 
+// Force Safari to paint both marquee rows immediately
+document.querySelectorAll('.highlights-strip__row').forEach(row => { void row.offsetHeight; });
+
 // ── Highlights marquee — tap to pause (mobile) ─────────
 document.querySelectorAll('.highlights-strip__stage').forEach(stage => {
   stage.addEventListener('click', (e) => {
