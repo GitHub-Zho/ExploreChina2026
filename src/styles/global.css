@@ -1976,30 +1976,7 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   gap: 12px;
   flex-shrink: 0;
   padding-right: 12px;
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.highlights-strip__row--1 .highlights-strip__track {
-  animation: hs-left 40s linear infinite;
-}
-.highlights-strip__row--2 .highlights-strip__track {
-  animation: hs-right 44s linear infinite;
-}
-
-@keyframes hs-left {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
-@keyframes hs-right {
-  from { transform: translate3d(-50%, 0, 0); }
-  to   { transform: translate3d(0, 0, 0); }
-}
-
-.highlights-strip__row:hover .highlights-strip__track,
-.highlights-strip__stage.is-paused .highlights-strip__track {
-  animation-play-state: paused;
+  /* animation driven by JS rAF — no CSS animation here */
 }
 
 .highlights-strip__card {

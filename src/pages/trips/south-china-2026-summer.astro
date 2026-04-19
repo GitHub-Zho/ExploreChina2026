@@ -494,26 +494,60 @@ document.querySelectorAll('.itinerary-day').forEach(day => {
   });
 });
 
-// ── Highlights marquee — tap to pause (mobile) ─────────
-document.querySelectorAll('.highlights-strip__stage').forEach(stage => {
-  stage.addEventListener('click', (e) => {
-    const card = e.target.closest('.highlights-strip__card');
-    const allCards = stage.querySelectorAll('.highlights-strip__card');
-    if (card) {
-      const isActive = card.classList.contains('is-active');
-      allCards.forEach(c => c.classList.remove('is-active'));
-      if (isActive) {
-        stage.classList.remove('is-paused');
-      } else {
-        stage.classList.add('is-paused');
-        card.classList.add('is-active');
+// ── Highlights marquee (JS rAF — works in Safari) ──────
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  document.querySelectorAll('.highlights-strip__stage').forEach(function (stage) {
+    var rows = stage.querySelectorAll('.highlights-strip__row');
+
+    rows.forEach(function (row, i) {
+      var track = row.querySelector('.highlights-strip__track');
+      if (!track) return;
+
+      var originals = track.querySelectorAll('.highlights-strip__card:not([aria-hidden="true"])');
+      if (!originals.length) return;
+      var cardW = originals[0].offsetWidth;
+      var gap = 12;
+      var setWidth = originals.length * (cardW + gap);
+
+      var isRight = (i === 1);
+      var speed = isRight ? 0.45 : 0.55;
+      var pos = isRight ? -setWidth : 0;
+      var paused = false;
+
+      row.addEventListener('mouseenter', function () { paused = true; });
+      row.addEventListener('mouseleave', function () { paused = false; });
+
+      row.addEventListener('click', function (e) {
+        var card = e.target.closest('.highlights-strip__card');
+        var allCards = stage.querySelectorAll('.highlights-strip__card');
+        if (card) {
+          var wasActive = card.classList.contains('is-active');
+          allCards.forEach(function (c) { c.classList.remove('is-active'); });
+          if (!wasActive) { card.classList.add('is-active'); paused = true; }
+          else { paused = false; }
+        } else {
+          allCards.forEach(function (c) { c.classList.remove('is-active'); });
+          paused = false;
+        }
+      });
+
+      track.style.transform = 'translate3d(' + pos + 'px, 0, 0)';
+
+      function tick() {
+        if (!paused) {
+          pos += isRight ? speed : -speed;
+          if (!isRight && pos <= -setWidth) pos += setWidth;
+          if (isRight  && pos >= 0)         pos  = -setWidth;
+          track.style.transform = 'translate3d(' + pos + 'px, 0, 0)';
+        }
+        requestAnimationFrame(tick);
       }
-    } else {
-      stage.classList.remove('is-paused');
-      allCards.forEach(c => c.classList.remove('is-active'));
-    }
+      requestAnimationFrame(tick);
+    });
   });
-});
+}());
 
 // ── Landmark carousels ─────────────────────────────────
 document.querySelectorAll('.landmark-carousel').forEach(carousel => {
