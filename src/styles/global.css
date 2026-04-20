@@ -2450,20 +2450,16 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   padding: clamp(5rem, 9vw, 8rem) 0 clamp(6rem, 10vw, 9rem);
 }
 .hdiff__intro {
-  position: sticky;
-  top: 1.5rem;
-  z-index: 5;
   max-width: 1200px;
   margin: 0 auto clamp(3.5rem, 6vw, 5.5rem);
-  padding: 0 clamp(1.25rem, 4vw, 3rem) 1.25rem;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
   text-align: center;
-  background: #faf8f4;
 }
 .hdiff__eyebrow {
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #aaa;
+  color: #888;
   margin-bottom: 1rem;
 }
 .hdiff__lead {
