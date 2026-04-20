@@ -2,14 +2,15 @@
 const fruits = [
   {
     id: 'people',
-    label: 'Your co-leads actually live there',
+    label: 'A professional tour guide with UofT co-leads who actually live there',
     size: 172,
     left: '5%',
     top: '60px',
     pips: [
-      { text: 'Chinese university students as co-leads', x: 188, y: -62 },
-      { text: 'Know the city the way locals do', x: 196, y: 55 },
-      { text: 'Not a hired guide — someone who lives there', x: 96, y: 158 },
+      { text: 'Your co-lead actually lives there. They know the city the way locals do — that\'s the culture itself.', x: 188, y: -62 },
+      { text: 'A culture adventure with friends.', x: 196, y: 55 },
+      { text: 'Professional bilingual guides throughout — so nothing gets lost.', x: 96, y: 158 },
+      { text: 'Your co-lead grew up here — from how people pay to how they eat, they walk you into the culture from the inside.', x: 110, y: 200 },
     ],
   },
   {
@@ -101,9 +102,10 @@ const fruits = [
   if (!overlay || !title || !pipsWrap || !closeBtn) return;
 
   var positions = [
-    { top: '16%', left: '8%',  rotate: '-2.5deg' },
-    { top: '44%', left: '18%', rotate: '1.5deg'  },
-    { top: '68%', left: '6%',  rotate: '-1deg'   },
+    { top: '10%', left: '6%',  rotate: '-2.5deg' },
+    { top: '32%', left: '18%', rotate: '1.5deg'  },
+    { top: '54%', left: '5%',  rotate: '-1deg'   },
+    { top: '72%', left: '14%', rotate: '2deg'    },
   ];
 
   document.querySelectorAll('.hdiff__fruit').forEach(function (fruit) {
