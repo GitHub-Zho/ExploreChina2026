@@ -2549,12 +2549,12 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   opacity: 0;
   pointer-events: none;
   white-space: normal;
-  max-width: 255px;
+  max-width: 300px;
   text-align: center;
   background: rgba(250, 248, 244, 0.97);
   border: 1px solid rgba(30, 26, 22, 0.1);
-  border-radius: 100px;
-  padding: 0.32rem 0.82rem;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
   font-size: clamp(0.68rem, 0.88vw, 0.76rem);
   color: #2a2520;
   line-height: 1.4;
