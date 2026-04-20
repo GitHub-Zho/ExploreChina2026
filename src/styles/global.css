@@ -2548,8 +2548,7 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   transform: translate(-50%, -50%) scale(0.7);
   opacity: 0;
   pointer-events: none;
-  white-space: normal;
-  max-width: 260px;
+  white-space: nowrap;
   text-align: center;
   background: rgba(250, 248, 244, 0.97);
   border: 1px solid rgba(30, 26, 22, 0.1);
