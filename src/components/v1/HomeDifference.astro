@@ -93,7 +93,33 @@ const fruits = [
 <script>
 (function () {
   var isMobile = window.matchMedia('(max-width: 860px)').matches;
-  if (!isMobile) return;
+
+  if (!isMobile) {
+    // Desktop: click to pin fruit on top; click again or outside to unpin
+    var pinned = null;
+
+    document.querySelectorAll('.hdiff__fruit').forEach(function (fruit) {
+      fruit.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (pinned === fruit) {
+          fruit.classList.remove('is-pinned');
+          pinned = null;
+        } else {
+          if (pinned) pinned.classList.remove('is-pinned');
+          fruit.classList.add('is-pinned');
+          pinned = fruit;
+        }
+      });
+    });
+
+    document.addEventListener('click', function () {
+      if (pinned) { pinned.classList.remove('is-pinned'); pinned = null; }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && pinned) { pinned.classList.remove('is-pinned'); pinned = null; }
+    });
+    return;
+  }
 
   var overlay   = document.getElementById('hdiff-overlay');
   var title     = document.getElementById('hdiff-overlay-title');

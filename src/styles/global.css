@@ -2565,7 +2565,40 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 .hdiff__fruit:hover .hdiff__pip,
 .hdiff__fruit:focus-within .hdiff__pip {
   opacity: 1;
+  pointer-events: auto;
   transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py))) scale(1);
+}
+
+/* Pinned fruit — elevated above siblings, pips stay open */
+.hdiff__fruit.is-pinned {
+  z-index: 10;
+}
+.hdiff__fruit.is-pinned .hdiff__pip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py))) scale(1);
+}
+
+/* Scale pip offsets on narrower desktops so they stay on-screen */
+@media (max-width: 1150px) and (min-width: 861px) {
+  .hdiff__fruit:hover .hdiff__pip,
+  .hdiff__fruit:focus-within .hdiff__pip,
+  .hdiff__fruit.is-pinned .hdiff__pip {
+    transform: translate(
+      calc(-50% + var(--px) * 0.62),
+      calc(-50% + var(--py) * 0.62)
+    ) scale(1);
+  }
+}
+@media (max-width: 960px) and (min-width: 861px) {
+  .hdiff__fruit:hover .hdiff__pip,
+  .hdiff__fruit:focus-within .hdiff__pip,
+  .hdiff__fruit.is-pinned .hdiff__pip {
+    transform: translate(
+      calc(-50% + var(--px) * 0.42),
+      calc(-50% + var(--py) * 0.42)
+    ) scale(1);
+  }
 }
 
 /* ── Mobile layout ── */
