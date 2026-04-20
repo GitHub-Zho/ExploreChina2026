@@ -409,7 +409,7 @@ const homeStructuredData = {
 :global(.poem-line.is-fading) {
   opacity: 0;
   transform: translateY(-6px);
-  transition: opacity 1.4s ease-out, transform 1.4s ease-out;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
 }
 
 /* Progressive color deepening — later lines get darker */
@@ -627,7 +627,7 @@ const homeStructuredData = {
       els[i].classList.remove('is-visible');
       els[i].classList.add('is-fading');
     }
-    await sleep(1400);
+    await sleep(700);
     for (var i = 0; i < els.length; i++) {
       if (els[i].parentNode) els[i].parentNode.removeChild(els[i]);
     }
