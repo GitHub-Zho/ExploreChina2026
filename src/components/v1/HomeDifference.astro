@@ -1,0 +1,147 @@
+---
+const fruits = [
+  {
+    id: 'people',
+    label: 'Your co-leads actually live there',
+    size: 172,
+    left: '5%',
+    top: '60px',
+    pips: [
+      { text: 'Chinese university students as co-leads', x: 188, y: -62 },
+      { text: 'Know the city the way locals do', x: 196, y: 55 },
+      { text: 'Not a hired guide — someone who lives there', x: 96, y: 158 },
+    ],
+  },
+  {
+    id: 'culture',
+    label: 'Every layer of the culture',
+    size: 158,
+    left: '28%',
+    top: '210px',
+    pips: [
+      { text: 'The story behind what you\'re eating', x: -168, y: -90 },
+      { text: 'Where people your age spend their evenings', x: 178, y: -72 },
+      { text: 'The city beyond the tourist map', x: 152, y: 90 },
+    ],
+  },
+  {
+    id: 'live',
+    label: 'Leave knowing how to live here',
+    size: 184,
+    left: '55%',
+    top: '28px',
+    pips: [
+      { text: 'WeChat Pay, Didi, local SIM — sorted', x: -198, y: -68 },
+      { text: 'Navigate a city of millions on your own', x: 188, y: -58 },
+      { text: 'The daily rhythms that make a place real', x: -162, y: 82 },
+    ],
+  },
+  {
+    id: 'memory',
+    label: 'The moments that only happen on the road',
+    size: 162,
+    left: '75%',
+    top: '172px',
+    pips: [
+      { text: 'The Friday night that wasn\'t in the itinerary', x: -182, y: -72 },
+      { text: 'Day one strangers. Years-later friends.', x: -172, y: 72 },
+      { text: 'The kind of memory that doesn\'t fade', x: -72, y: 168 },
+    ],
+  },
+];
+---
+
+<section class="hdiff">
+  <div class="hdiff__intro">
+    <p class="hdiff__eyebrow">What makes this different</p>
+    <p class="hdiff__lead">Not just a trip. A chance to feel a world that is genuinely different.</p>
+  </div>
+
+  <div class="hdiff__stage" id="hdiff-stage">
+    {fruits.map((fruit) => (
+      <div
+        class="hdiff__fruit"
+        data-fruit-id={fruit.id}
+        style={`--fruit-size:${fruit.size}px;--fruit-left:${fruit.left};--fruit-top:${fruit.top};`}
+      >
+        <button class="hdiff__core" aria-label={fruit.label}>
+          <span class="hdiff__core-text">{fruit.label}</span>
+          <span class="hdiff__core-ring" aria-hidden="true"></span>
+        </button>
+        {fruit.pips.map((pip, i) => (
+          <div
+            class="hdiff__pip"
+            aria-hidden="true"
+            style={`--px:${pip.x}px;--py:${pip.y}px;--pip-delay:${i * 0.07}s;`}
+          >
+            {pip.text}
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- Mobile fullscreen overlay -->
+<div class="hdiff__overlay" id="hdiff-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="hdiff__overlay-close" id="hdiff-close" aria-label="Close">✕</button>
+  <p class="hdiff__overlay-title" id="hdiff-overlay-title"></p>
+  <div class="hdiff__overlay-pips" id="hdiff-overlay-pips"></div>
+</div>
+
+<script>
+(function () {
+  var isMobile = window.matchMedia('(max-width: 860px)').matches;
+  if (!isMobile) return;
+
+  var overlay   = document.getElementById('hdiff-overlay');
+  var title     = document.getElementById('hdiff-overlay-title');
+  var pipsWrap  = document.getElementById('hdiff-overlay-pips');
+  var closeBtn  = document.getElementById('hdiff-close');
+  if (!overlay || !title || !pipsWrap || !closeBtn) return;
+
+  var positions = [
+    { top: '16%', left: '8%',  rotate: '-2.5deg' },
+    { top: '44%', left: '18%', rotate: '1.5deg'  },
+    { top: '68%', left: '6%',  rotate: '-1deg'   },
+  ];
+
+  document.querySelectorAll('.hdiff__fruit').forEach(function (fruit) {
+    fruit.querySelector('.hdiff__core')?.addEventListener('click', function () {
+      var labelEl = fruit.querySelector('.hdiff__core-text');
+      var pipEls  = fruit.querySelectorAll('.hdiff__pip');
+      if (!labelEl) return;
+
+      title.textContent = labelEl.textContent || '';
+      pipsWrap.innerHTML = '';
+
+      pipEls.forEach(function (pip, i) {
+        var el = document.createElement('div');
+        el.className = 'hdiff__overlay-pip';
+        el.textContent = pip.textContent || '';
+        var pos = positions[i] || { top: (15 + i * 22) + '%', left: '8%', rotate: '0deg' };
+        el.style.cssText = 'top:' + pos.top + ';left:' + pos.left + ';transform:rotate(' + pos.rotate + ')';
+        pipsWrap.appendChild(el);
+      });
+
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeOverlay() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeOverlay();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeOverlay();
+  });
+}());
+</script>

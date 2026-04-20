@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HeroSection from '../components/v1/HeroSection.astro';
+import HomeDifference from '../components/v1/HomeDifference.astro';
 import DestinationGrid from '../components/v1/DestinationGrid.astro';
 import Faq from '../components/v1/Faq.astro';
 import { tripsMeta } from '../data/trips-meta.ts';
@@ -99,6 +100,8 @@ const homeStructuredData = {
       </div>
     </noscript>
   </section>
+
+  <HomeDifference />
 
   <section id="itinerary" class="py-20">
     <div class="container">
