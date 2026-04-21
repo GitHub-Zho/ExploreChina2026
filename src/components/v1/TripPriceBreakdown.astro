@@ -1,5 +1,5 @@
 ---
-import { EAST_CHINA_PRICE_CAD } from '../../data/trips/east-china';
+import { EAST_CHINA_PRICE_CAD } from '../../data/registry';
 const { lang = 'en' } = Astro.props;
 const zh = lang === 'zh';
 
@@ -25,16 +25,16 @@ const items = [
     labelZh: '活动与门票',
     noteEn: 'Entrance fees + special programming',
     noteZh: '景点门票及特色活动',
-    amount: 300,
-    pct: 13,
+    amount: 400,
+    pct: 17,
   },
   {
     labelEn: 'Guide & local transport',
     labelZh: '导游及市内交通',
     noteEn: 'Professional guide + daily in-city',
     noteZh: '专业导游及每日市内交通',
-    amount: 300,
-    pct: 13,
+    amount: 200,
+    pct: 8,
   },
   {
     labelEn: 'City-to-city transfers',
