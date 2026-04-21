@@ -510,31 +510,4 @@ document.querySelectorAll('[data-day-toggle]').forEach(btn => {
   });
 }());
 
-// ── Landmark carousels ─────────────────────────────────
-document.querySelectorAll('.landmark-carousel').forEach(carousel => {
-  const track = carousel.querySelector('.landmark-carousel__track');
-  const slides = carousel.querySelectorAll('.landmark-carousel__slide');
-  const prevBtn = carousel.querySelector('.landmark-carousel__btn--prev');
-  const nextBtn = carousel.querySelector('.landmark-carousel__btn--next');
-  if (!track || slides.length === 0) return;
-
-  let current = 0;
-  const total = slides.length;
-
-  function goTo(n) {
-    current = Math.max(0, Math.min(n, total - 1));
-    const slideWidth = slides[0].offsetWidth + 16;
-    track.style.transform = `translateX(-${current * slideWidth}px)`;
-  }
-
-  prevBtn?.addEventListener('click', () => goTo(current - 1));
-  nextBtn?.addEventListener('click', () => goTo(current + 1));
-
-  let touchX = 0;
-  carousel.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
-  carousel.addEventListener('touchend', e => {
-    const delta = touchX - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 40) goTo(current + (delta > 0 ? 1 : -1));
-  });
-});
 </script>

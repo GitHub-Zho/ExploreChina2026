@@ -57,30 +57,38 @@ src/
 ├── components/v1/            # Active components (v1 = current)
 │   ├── Navbar.astro          # Fixed nav — minimal/hero/darkNav modes
 │   ├── Footer.astro
-│   ├── HeroSection.astro     # Full-width hero image
+│   ├── HeroSection.astro     # Full-width hero image (homepage)
+│   ├── HomeDifference.astro  # "Fruit" interactive section (homepage)
 │   ├── DestinationGrid.astro # Horizontal scroll gallery (wheel → horizontal JS)
-│   └── Faq.astro             # Homepage FAQ (emotional tone)
+│   ├── Faq.astro             # Homepage FAQ (emotional tone)
+│   ├── TripWhyUs.astro       # NOT JUST/BUT rotator — used on south-china pages only
+│   ├── TripRundown.astro     # "The experience" section — NOT JUST/BUT + Eat/See/Try/Go out
+│   │                           Used on east-china pages. TripWhyUs + Eat columns combined.
+│   └── TripPriceBreakdown.astro  # Price breakdown with bar chart — used on all trip pages
 ├── data/
-│   ├── site.ts               # Trip data, trip FAQ, about content, team members
-│   └── cities.ts             # City section data
+│   ├── site.ts               # Trip FAQ, included/notIncluded, itinerary, city guides, videos
+│   ├── registry.ts           # Trip registry (getTripById)
+│   ├── trips/east-china.ts   # East China itinerary with landmarks
+│   ├── trips/south-china.ts  # South China itinerary (has placeholder images/videos)
+│   └── trips-meta.ts         # All trip metadata inc. Yunnan (status: soon, fields TBD)
 ├── layouts/
 │   └── Layout.astro          # Base layout, SEO meta, structured data
 ├── pages/
-│   ├── index.astro           # Homepage — 1100+ lines, includes story animation
+│   ├── index.astro           # Homepage — story animation + HomeDifference + DestinationGrid
 │   ├── about.astro
 │   ├── handbook.astro
-│   ├── trips/explore-china-2026-summer.astro
-│   ├── success.astro
+│   ├── apply.astro           # Apply form (FormSubmit.co)
+│   ├── trips/
+│   │   ├── east-china-2026-summer.astro   # EN trip page
+│   │   └── south-china-2026-summer.astro  # EN trip page (placeholder images)
 │   └── zh/                   # Chinese mirrors of all pages
 ├── styles/
-│   └── global.css            # Global styles (~1640 lines)
+│   └── global.css            # Global styles (~1650 lines)
 scripts/
 └── quality-gate.mjs          # Pre-build checks
 public/
 └── images/highlights/        # All local images (optimized)
 ```
-
-**Legacy (ignore):** `src/pages/v2/`, `src/components/v3/` — old iterations, not linked.
 
 ---
 
@@ -116,27 +124,38 @@ Runs before every build. Catches `placeholder` as a keyword — patched to skip 
 - **Homepage** (`Faq.astro`): Emotional — "不会中文能来吗?", "安全吗?", etc.
 - **Trip page** (`site.ts`): Practical — pricing, cancellation, dietary, group size
 
+### 8. East China vs South China Accordion
+- **East China** accordion uses `.stop-list` (text only, no images) — landmark-carousel JS removed
+- **South China** accordion still uses `.landmark-carousel` + `.city-intro-card` — keep that CSS and JS
+
+### 9. Font Sizes — Always Responsive
+All font sizes must use `clamp()` or `vw` units. Never fixed `px` values. This caused a recurring layout bug in the past.
+
+### 10. Pip Width (HomeDifference)
+Fruit pips use `position: absolute` + `white-space: pre-line` + `width: max-content`. Never remove `width: max-content` or text collapses to one word per line.
+
 ---
 
 ## Pending Tasks
 
 | Priority | Task | Notes |
 |----------|------|-------|
-| High | Add English trip description copy | Evocative prose for Shanghai/Beijing route — draft exists but not yet in site |
-| High | Yunnan route page | Full itinerary exists in Notion, no web page yet |
+| High | Yunnan route page | No page yet; `trips-meta.ts` has entry with `status: 'soon'` and TBD fields |
 | Medium | About page team photos | Currently uses initial avatars — needs real photos |
-| Low | Handbook content review | Has sections, may need 2026 updates |
+| Medium | South China placeholder content | `src/data/trips/south-china.ts` has placeholder images and one placeholder YouTube URL |
+| Done | ~~English trip description copy~~ | ✅ Route intro section added to east-china page with city prose |
+| Done | ~~Handbook content review~~ | ✅ Comprehensive content in place |
 | Done | ~~FormSubmit.co activation~~ | ✅ Activated |
 
 ---
 
 ## Brand / Design
-- **Colors:** Warm earth tones. Red accent `#b91c1c` (Tailwind `red-700`). Stone/neutral for body text. Near-black for dark sections.
-- **Typography:** System fonts via Tailwind. Story section uses `clamp()` for responsive sizing.
+- **Colors:** Warm earth tones. Red accent `#c8102e`. Stone/neutral for body text. Near-black for dark sections (`#141210`, `#1e1a17`).
+- **Typography:** Playfair Display (display/headings) + Inter (body). Story section and all font sizes use `clamp()` for responsive sizing.
 - **Language:** EN primary, ZH mirror. Jo writes ZH content direction.
 - **Nav:** About page is in all nav locations (desktop, mobile, hero minimal nav, footer). Watch for duplicate links — this was a recurring bug.
 
 ---
 
 ## Handoff Note
-Previously developed using OpenClaw (Claude-based tool). Now continuing in Claude Code / Cowork. Same codebase, same workflow. Context dump from previous session available if needed.
+Previously developed using OpenClaw (Claude-based tool). Now continuing in Claude Code. Same codebase, same workflow.
