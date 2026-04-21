@@ -2849,6 +2849,44 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   max-height: 600px;
 }
 
+.stop-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.stop-list__item {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 0.6rem;
+  row-gap: 0.3rem;
+  align-items: baseline;
+}
+.stop-list__name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #2a2520;
+  grid-column: 1;
+  grid-row: 1;
+}
+.stop-list__zh {
+  font-size: 0.8rem;
+  color: #9a9590;
+  grid-column: 2;
+  grid-row: 1;
+}
+.stop-list__desc {
+  font-size: 0.82rem;
+  color: #6b6560;
+  line-height: 1.6;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin: 0;
+}
+
 .itinerary-day__body-inner {
   /* indent to align with text column (past DAY label + dot) */
   padding: 4px 0 36px calc(72px + 28px + 1px + 28px);

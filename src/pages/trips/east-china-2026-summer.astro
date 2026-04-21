@@ -282,48 +282,16 @@ const tripStructuredData = [
 
           <div class="itinerary-day__body" data-day-body>
             <div class="itinerary-day__body-inner">
-              {d.slides.length > 0 && (
-                <div class="landmark-carousel">
-                  <button class="landmark-carousel__btn landmark-carousel__btn--prev" aria-label="Previous">←</button>
-                  <div class="landmark-carousel__track-wrap">
-                    <div class="landmark-carousel__track">
-                      {d.slides.map((slide) => (
-                        <div class="landmark-carousel__slide">
-                          {slide.type === 'city' ? (
-                            <div class="city-intro-card">
-                              <div class="city-intro-card__image">
-                                <img src={slide.guide.heroImage} alt={slide.guide.heroAlt} loading="lazy" />
-                              </div>
-                              <div class="city-intro-card__content">
-                                <span class="city-intro-card__label">City overview</span>
-                                <h3 class="city-intro-card__city">{slide.guide.city}</h3>
-                                <p class="city-intro-card__desc">{slide.guide.context}</p>
-                              </div>
-                            </div>
-                          ) : (
-                            <div class="landmark-card">
-                              <div class="landmark-card__visual">
-                                <img src={slide.lm.image} alt={slide.lm.name} loading="lazy" />
-                              </div>
-                              <div class="landmark-card__base-overlay"></div>
-                              <div class="landmark-card__name-overlay">
-                                <p class="landmark-card__name">{slide.lm.name}</p>
-                                <p class="landmark-card__name-zh">{slide.lm.nameZh}</p>
-                              </div>
-                              <div class="landmark-card__overlay"></div>
-                              <div class="landmark-card__body">
-                                <p class="landmark-card__body-name">{slide.lm.name}</p>
-                                <p class="landmark-card__body-name-zh">{slide.lm.nameZh}</p>
-                                <p class="landmark-card__background">{slide.lm.background}</p>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <button class="landmark-carousel__btn landmark-carousel__btn--next" aria-label="Next">→</button>
-                </div>
+              {d.slides.filter(s => s.type === 'landmark').length > 0 && (
+                <ul class="stop-list">
+                  {d.slides.filter(s => s.type === 'landmark').map((slide) => (
+                    <li class="stop-list__item">
+                      <span class="stop-list__name">{(slide as LandmarkSlide).lm.name}</span>
+                      <span class="stop-list__zh">{(slide as LandmarkSlide).lm.nameZh}</span>
+                      <p class="stop-list__desc">{(slide as LandmarkSlide).lm.background.match(/[^.!?]+[.!?]+/g)?.slice(0,2).join(' ') ?? (slide as LandmarkSlide).lm.background}</p>
+                    </li>
+                  ))}
+                </ul>
               )}
             </div>
           </div>
