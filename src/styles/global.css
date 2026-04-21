@@ -2441,11 +2441,11 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   margin-top: 0.25rem;
 }
 .price-bar--program .price-bar__name {
-  color: var(--color-ink);
-  font-weight: 600;
+  color: var(--color-ink-muted);
+  font-weight: 400;
 }
 .price-bar--program .price-bar__amount {
-  color: var(--color-ink);
+  color: var(--color-ink-muted);
 }
 .price-bar__total {
   display: flex;
