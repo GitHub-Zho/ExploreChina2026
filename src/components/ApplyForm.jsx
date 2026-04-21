@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { EAST_CHINA_PRICE_CAD } from "../data/trips/east-china";
-const SOUTH_CHINA_PRICE_CAD = 2598;
+import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD } from "../data/registry";
 
 const TRIP_SCHEDULE = [
   {

@@ -1,4 +1,4 @@
-import { EAST_CHINA_PRICE_CAD } from './trips/east-china';
+import { EAST_CHINA_PRICE_CAD } from './registry';
 
 export const site = {
   name: 'Explore China',

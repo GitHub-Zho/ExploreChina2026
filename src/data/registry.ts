@@ -1,5 +1,8 @@
 import { southChinaItinerary, southChinaCityGuides } from './trips/south-china';
-import { eastChinaItinerary, eastChinaCityGuides, EAST_CHINA_PRICE_CAD } from './trips/east-china';
+import { eastChinaItinerary, eastChinaCityGuides } from './trips/east-china';
+
+export const EAST_CHINA_PRICE_CAD = 2398;
+export const SOUTH_CHINA_PRICE_CAD = 2598;
 
 export interface TripDate {
   label: string;
@@ -149,7 +152,7 @@ export const TRIPS: Trip[] = [
     taglineZh:
       '海边的南洋气息、两千年潮州文明、中国建城速度最快的城市，还有那片说不清属于哪里的维多利亚港。',
     duration: '10 days',
-    price: 'CAD $2,598',
+    price: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
     status: 'open',
     summary:
       "A coastal and urban South China route — Xiamen's sea-worn colonial lanes, Chaoshan's ancient Teochew rituals, Shenzhen's speed-built ambition, and Hong Kong's layered East-West intensity. Four cities, four completely different registers of what China can be.",
@@ -157,8 +160,8 @@ export const TRIPS: Trip[] = [
       '从厦门的闽南海岸气息、潮汕沉淀千年的茶道与古城，到深圳的速度与创意，再到香港的东西交融——这条路线带你见证中国南方最多元的四种面貌。',
     departureWindow: 'Summer 2026 (dates to be confirmed)',
     departureWindowZh: '2026年夏季（具体日期待确认）',
-    priceCad: 'CAD $2,598 per person (excluding international flights)',
-    priceCadZh: 'CAD $2,598 / 人（不含国际机票）',
+    priceCad: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
+    priceCadZh: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()} / 人（不含国际机票）`,
     groupSize: 'Max 20 participants',
     groupSizeZh: '最多 20 人',
     applicationDeadline: 'May 31, 2026',
