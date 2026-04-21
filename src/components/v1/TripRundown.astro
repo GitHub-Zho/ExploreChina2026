@@ -2,6 +2,18 @@
 const { lang = 'en' } = Astro.props;
 const zh = lang === 'zh';
 
+const rotatorItems = zh ? [
+  { what: '历史',   desc: '塑造历史的思维与交流方式' },
+  { what: '食物',   desc: '每道菜背后的故事与起源' },
+  { what: '行程',   desc: '让一个地方鲜活的日常节奏' },
+  { what: '旅行',   desc: '真正感受一个截然不同的世界的机会' },
+] : [
+  { what: 'history',    desc: 'the conversations and ways of thinking that shape it' },
+  { what: 'food',       desc: 'the stories and origins behind every dish' },
+  { what: 'activities', desc: 'the daily rhythms that make a place alive' },
+  { what: 'a trip',     desc: 'a chance to feel a world that is genuinely different' },
+];
+
 const columns = zh ? [
   {
     cat: '吃',
@@ -88,7 +100,7 @@ const columns = zh ? [
     tagline: 'Things you can only do here.',
     items: [
       'High-speed rail — 350 km/h',
-      'EV showroom crawl — every brand you\'ve never heard of',
+      "EV showroom crawl — every brand you've never heard of",
       'Tea ceremony',
       'Hand tie-dye (zha ran)',
       'Hanfu dress-up',
@@ -113,7 +125,32 @@ const columns = zh ? [
 
 <section class="trip-rundown">
   <div class="trip-rundown__inner">
-    <p class="trip-rundown__eyebrow">{zh ? '行程亮点' : 'What\'s on the trip'}</p>
+
+    <div class="trip-rundown__header">
+      <p class="trip-rundown__eyebrow">{zh ? '旅程体验' : 'The experience'}</p>
+      <h2 class="trip-rundown__title">
+        {zh ? '十天，你会经历这些' : 'Ten days. Here\'s what\'s in them.'}
+      </h2>
+      <div class="trip-rundown__nj" aria-live="polite">
+        <div class="trip-rundown__nj-row">
+          <span class="trip-rundown__nj-label">{zh ? '不只是' : 'NOT JUST'}</span>
+          <div class="trip-rundown__nj-swap trip-rundown__nj-swap--big">
+            {rotatorItems.map((item, i) => (
+              <span class={`trip-rundown__nj-item${i === 0 ? ' is-active' : ''}`}>{item.what}</span>
+            ))}
+          </div>
+        </div>
+        <div class="trip-rundown__nj-row trip-rundown__nj-row--but">
+          <span class="trip-rundown__nj-label">{zh ? '而是' : 'BUT'}</span>
+          <div class="trip-rundown__nj-swap trip-rundown__nj-swap--small">
+            {rotatorItems.map((item, i) => (
+              <span class={`trip-rundown__nj-item${i === 0 ? ' is-active' : ''}`}>{item.desc}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="trip-rundown__grid">
       {columns.map((col) => (
         <div class="trip-rundown__col">
@@ -129,5 +166,22 @@ const columns = zh ? [
         </div>
       ))}
     </div>
+
   </div>
 </section>
+
+<script>
+(function () {
+  var bigItems   = Array.from(document.querySelectorAll('.trip-rundown__nj-swap--big .trip-rundown__nj-item'));
+  var smallItems = Array.from(document.querySelectorAll('.trip-rundown__nj-swap--small .trip-rundown__nj-item'));
+  if (!bigItems.length || !smallItems.length) return;
+  var current = 0;
+  setInterval(function () {
+    bigItems[current].classList.remove('is-active');
+    smallItems[current].classList.remove('is-active');
+    current = (current + 1) % bigItems.length;
+    bigItems[current].classList.add('is-active');
+    smallItems[current].classList.add('is-active');
+  }, 3200);
+}());
+</script>

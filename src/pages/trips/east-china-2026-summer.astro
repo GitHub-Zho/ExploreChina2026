@@ -1,7 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getTripById } from '../../data/registry';
-import TripWhyUs from '../../components/v1/TripWhyUs.astro';
 import TripRundown from '../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../components/v1/TripPriceBreakdown.astro';
 import {
@@ -258,8 +257,6 @@ const tripStructuredData = [
   activate(0);
 })();
 </script>
-
-  <TripWhyUs lang="en" />
 
   <TripRundown lang="en" />
 
