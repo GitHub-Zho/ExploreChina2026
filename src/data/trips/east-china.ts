@@ -329,6 +329,13 @@ export const eastChinaItinerary = [
     planZh: '通过馆藏、运河步行和更安静的城市夜景，体验与上海完全不同的江南气质。',
     landmarks: [
       {
+        name: 'Suzhou Museum',
+        nameZh: '苏州博物馆',
+        image: '/images/highlights/top-suzhou-museum.jpg',
+        background: `Suzhou Museum was designed by architect I.M. Pei — a Suzhou native — and opened in 2006 as his self-described gift to his hometown. The building blends traditional Jiangnan elements (whitewashed walls, dark roof tiles, geometric water features) with modernist precision, creating a structure that feels both ancient and completely contemporary. The collection spans ceramics, calligraphy, and ancient Suzhou crafts across dynasties; the building itself is widely considered the highlight.`,
+        backgroundZh: `苏州博物馆由建筑师贝聿铭——苏州人——设计，于2006年开馆，是他亲口称之为"给故乡的礼物"的作品。建筑将江南传统元素（粉墙黛瓦、几何水景）与现代主义精准结合，营造出既古典又极具当代感的空间。馆藏涵盖历代陶瓷、书法与苏州传统工艺；建筑本身往往被认为是最值得看的展品。`,
+      },
+      {
         name: 'Pingjiang Road',
         nameZh: '平江路',
         image: '/images/places/suzhou-pingjiang-2.jpg',
@@ -462,6 +469,13 @@ export const eastChinaItinerary = [
         image: '/images/places/beijing-forbidden-city-1.jpg',
         background: `The Forbidden City was the imperial palace of the Ming and Qing dynasties, constructed between 1406 and 1420 under the Yongle Emperor. At 720,000 square metres with 980 surviving buildings, it is the largest collection of preserved ancient wooden structures in the world. For nearly 500 years — from 1420 to 1912 — no commoner was permitted to enter without imperial summons; the complex was entirely sealed from the city around it. It housed 24 emperors across two dynasties. The name derives from the Forbidden Purple City: a reference to the Purple Star in Chinese astronomy, representing the celestial abode of the supreme deity, around which all stars revolve.`,
         backgroundZh: `故宫是明清两代的皇家宫殿，由明成祖朱棣于1406至1420年间下令修建。建筑群占地72万平方米，现存980座建筑，是世界上规模最大的古代木结构建筑群。自1420年至1912年近五百年间，未经皇帝召见的平民一律不得入内——宫城与周围城市之间形成了绝对的隔断。两朝共24位皇帝在此居住。名称源自"紫禁城"：紫，取自中国天文学中紫微星——天帝居所，众星环绕其运行。`,
+      },
+      {
+        name: 'Summer Palace',
+        nameZh: '颐和园',
+        image: '/images/highlights/top-beijing-summer-palace.jpg',
+        background: `The Summer Palace is Beijing's largest imperial garden at 2.9 square kilometres, with Kunming Lake covering three-quarters of its area. Originally built in the 18th century as an imperial retreat, it was expanded by Empress Dowager Cixi in the late 19th century using funds earmarked for the navy — a decision that became one of the most scrutinised in Qing history. Longevity Hill, the 728-metre Long Corridor painted with over 14,000 scenes, and the Marble Boat are its signature landmarks. It is the closest thing Beijing has to a classical Chinese garden at full imperial scale.`,
+        backgroundZh: `颐和园是北京最大的皇家园林，总面积2.9平方公里，其中昆明湖占四分之三。最初建于18世纪，作为皇家避暑胜地，后由慈禧太后在19世纪末用海军经费大规模扩建，这一决策成为清史上争议最大的事件之一。万寿山、绘有14000余幅彩画的728米长廊与石舫是其标志性景观，也是北京最接近完整皇家规制的古典园林。`,
       },
       {
         name: 'Temple of Heaven',

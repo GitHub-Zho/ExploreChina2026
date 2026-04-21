@@ -108,16 +108,13 @@ const programItem = {
         </div>
       ))}
 
-      <!-- Program & co-lead — visually distinct -->
+      <!-- Program & co-lead — text only, no bar -->
       <div class="price-bar price-bar--program">
         <div class="price-bar__labels">
           <span class="price-bar__name">{zh ? programItem.labelZh : programItem.labelEn}</span>
           <span class="price-bar__amount">~${programItem.amount}</span>
         </div>
         <p class="price-bar__note">{zh ? programItem.noteZh : programItem.noteEn}</p>
-        <div class="price-bar__track">
-          <div class="price-bar__fill price-bar__fill--program" style={`width: ${programItem.pct}%`}></div>
-        </div>
       </div>
 
       <div class="price-bar__total">

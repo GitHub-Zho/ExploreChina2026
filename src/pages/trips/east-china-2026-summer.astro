@@ -287,7 +287,6 @@ const tripStructuredData = [
                   {d.slides.filter(s => s.type === 'landmark').map((slide) => (
                     <li class="stop-list__item">
                       <span class="stop-list__name">{(slide as LandmarkSlide).lm.name}</span>
-                      <span class="stop-list__zh">{(slide as LandmarkSlide).lm.nameZh}</span>
                       <p class="stop-list__desc">{(slide as LandmarkSlide).lm.background.match(/[^.!?]+[.!?]+/g)?.slice(0,2).join(' ') ?? (slide as LandmarkSlide).lm.background}</p>
                     </li>
                   ))}

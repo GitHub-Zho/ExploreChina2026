@@ -2328,15 +2328,15 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 }
 .price-breakdown__title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
   font-weight: 700;
   color: var(--color-ink);
   line-height: 1.2;
   margin: 0 0 1.75rem;
 }
 .price-breakdown__hook {
-  font-size: clamp(0.92rem, 1.4vw, 1.05rem);
-  line-height: 1.7;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.75;
   color: #2a2520;
   margin-bottom: 1.5rem;
   font-weight: 500;
@@ -2345,14 +2345,14 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   margin-bottom: 0;
 }
 .price-breakdown__reveal-trigger {
-  font-size: clamp(0.8rem, 1.15vw, 0.9rem);
-  color: #aaa;
+  font-size: clamp(0.9rem, 1.3vw, 1rem);
+  color: #888;
   line-height: 1.5;
   margin-bottom: 0.75rem;
 }
 .price-breakdown__reveal-body {
-  font-size: clamp(0.82rem, 1.2vw, 0.92rem);
-  line-height: 1.85;
+  font-size: clamp(0.88rem, 1.3vw, 1rem);
+  line-height: 1.9;
   color: #6b6460;
 }
 .price-breakdown__reveal-body p { margin: 0 0 0.75rem; }
@@ -2403,14 +2403,11 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   margin-top: 0.25rem;
 }
 .price-bar--program .price-bar__name {
-  color: #888;
-  font-weight: 500;
+  color: var(--color-ink);
+  font-weight: 600;
 }
 .price-bar--program .price-bar__amount {
-  color: #999;
-}
-.price-bar__fill--program {
-  background: #d4b8b0;
+  color: var(--color-ink);
 }
 .price-bar__total {
   display: flex;
