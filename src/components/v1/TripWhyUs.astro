@@ -20,66 +20,27 @@ const rotatorItems = zh ? [
     <div class="why-us__header">
       <p class="why-us__eyebrow">{zh ? '为什么选我们' : 'Why this trip'}</p>
       <h2 class="why-us__title">
-        {zh ? '让这趟旅程不一样的，是这些' : "What actually makes this different."}
+        {zh ? '不只是另一趟中国行' : "Not just another China trip."}
       </h2>
 
       <div class="why-us__nj-block" aria-live="polite">
-        <!-- Row 1: NOT JUST + rotating big word -->
         <div class="why-us__nj-row">
           <span class="why-us__nj-label">{zh ? '不只是' : 'NOT JUST'}</span>
           <div class="why-us__nj-swap why-us__nj-swap--big">
             {rotatorItems.map((item, i) => (
-              <span class={`why-us__nj-item${i === 0 ? ' is-active' : ''}`} data-nj-idx={i}>{item.what}</span>
+              <span class={`why-us__nj-item${i === 0 ? ' is-active' : ''}`}>{item.what}</span>
             ))}
           </div>
         </div>
-        <!-- Row 2: BUT + rotating description -->
         <div class="why-us__nj-row why-us__nj-row--but">
           <span class="why-us__nj-label">{zh ? '而是' : 'BUT'}</span>
           <div class="why-us__nj-swap why-us__nj-swap--small">
             {rotatorItems.map((item, i) => (
-              <span class={`why-us__nj-item${i === 0 ? ' is-active' : ''}`} data-nj-idx={i}>{item.desc}</span>
+              <span class={`why-us__nj-item${i === 0 ? ' is-active' : ''}`}>{item.desc}</span>
             ))}
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="why-us__cards">
-
-      <div class="why-us__card">
-        <h3 class="why-us__card-title">
-          {zh ? '学生领队，全程同行' : 'Student-led, every step'}
-        </h3>
-        <p class="why-us__card-body">
-          {zh
-            ? '除了专业导游，来自当地高校的中国学生联合领队全程陪同——他们真正生活在这里，知道去哪吃、夜晚去哪玩、如何像本地人一样穿梭其中。'
-            : 'Beyond a professional guide, Chinese university students join as co-leads throughout — people who actually live there, know where to eat, what to do after dark, and how to move through the city like a local.'}
-        </p>
-      </div>
-
-      <div class="why-us__card">
-        <h3 class="why-us__card-title">
-          {zh ? '不只是景点' : 'Built for real experiences'}
-        </h3>
-        <p class="why-us__card-body">
-          {zh
-            ? '派对、市集、特色夜宵、手工艺体验、展览……行程设计的目的是让你真正走进当地生活，而不只是隔着镜头拍照。'
-            : 'Parties, pop-up markets, local food nights, craft workshops, exhibitions — the schedule is built so you step into daily life, not just photograph it from the outside.'}
-        </p>
-      </div>
-
-      <div class="why-us__card">
-        <h3 class="why-us__card-title">
-          {zh ? '所有细节提前搞定' : 'Zero logistics on your end'}
-        </h3>
-        <p class="why-us__card-body">
-          {zh
-            ? 'VPN、移动支付、本地 SIM 卡、城市间交通——全部提前安排好。你只需要出现，其余的我们来处理。'
-            : 'VPN, mobile payments, local SIM, transport between cities — sorted before you land. You show up, we handle the rest.'}
-        </p>
-      </div>
-
     </div>
   </div>
 </section>
