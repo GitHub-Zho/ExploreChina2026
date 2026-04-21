@@ -308,8 +308,8 @@ export const eastChinaCityGuides = [
 
 export const eastChinaItinerary = [
   {
-    day: 'Day 1',
-    dayZh: '第1天',
+    day: 'Day 0 / 1',
+    dayZh: '第0/1天',
     city: 'Shanghai',
     cityZh: '上海',
     title: 'Land, rest, and hot spring',
