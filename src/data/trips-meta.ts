@@ -7,7 +7,7 @@
 
 import { currentTrip } from './site';
 import { southChinaTrip } from './south-china';
-import { EAST_CHINA_PRICE_CAD } from './trips/east-china';
+import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD } from './registry';
 
 export type TripStatus = 'open' | 'soon';
 
@@ -32,6 +32,12 @@ export interface TripMeta {
   departure: string;
   departureZh: string;
   price: string;
+  // Cultural identity fields
+  sealChar: string;
+  arcTitle: string;
+  arcTitleZh: string;
+  culturalFocus: string;
+  culturalFocusZh: string;
 }
 
 export const tripsMeta: TripMeta[] = [
@@ -48,9 +54,9 @@ export const tripsMeta: TripMeta[] = [
     imageAlt: 'Suzhou canal watertown',
     imageAltZh: '苏州运河古镇',
     description:
-      'Canal towns, ancient gardens, West Lake, and the Forbidden City. Four cities in ten days — the most complete first-time China experience.',
+      "A route through the spine of mainstream Chinese civilization. Imperial Beijing, classical gardens of Suzhou and Hangzhou, and Shanghai rewriting itself every ten years. This is the China that shows up in most books and most heads — but the version most books get wrong is the scale. Everything is bigger, louder, and stranger than you expected.",
     descriptionZh:
-      '运河古镇、江南园林、西湖、故宫——十天四城，最完整的初次中国体验。',
+      '中国主流文明的中轴线：帝都北京、江南园林、改写自身的现代上海。这是出现在大多数书里的中国——但书里永远没写清楚的，是它的尺度。一切都比你想象的更宏大、更喧嚣、也更奇异。',
     duration: '10 Days',
     durationZh: '10 天',
     cities: '4 Cities',
@@ -58,6 +64,11 @@ export const tripsMeta: TripMeta[] = [
     departure: 'Summer 2026',
     departureZh: '2026 年暑期',
     price: `CAD ~$${EAST_CHINA_PRICE_CAD.toLocaleString()}`,
+    sealChar: '都',
+    arcTitle: 'The Dynastic Arc',
+    arcTitleZh: '都 · 帝都弧线',
+    culturalFocus: '皇权 · 文人审美 · 江南园林 · 当代都市张力',
+    culturalFocusZh: '皇权 · 文人审美 · 江南园林 · 当代都市张力',
   },
   {
     id: 'south-china',
@@ -65,23 +76,28 @@ export const tripsMeta: TripMeta[] = [
     hrefZh: '/zh/trips/south-china-2026-summer',
     title: southChinaTrip.title,     // ← south-china.ts
     titleZh: southChinaTrip.titleZh, // ← south-china.ts
-    subtitle: 'Xiamen · Chaoshan · Shenzhen · Hong Kong',
-    subtitleZh: '厦门 · 潮汕 · 深圳 · 香港',
+    subtitle: 'Xiamen · Quanzhou · Chaoshan · Shenzhen',
+    subtitleZh: '厦门 · 泉州 · 潮汕 · 深圳',
     status: 'open',
-    image: '/images/places/hongkong-hero-1.jpg',
-    imageAlt: 'Hong Kong harbour skyline',
-    imageAltZh: '香港维多利亚港夜景',
+    image: '/images/places/xiamen-hero-1.jpg',
+    imageAlt: 'Xiamen Gulangyu Island coastal view',
+    imageAltZh: '厦门鼓浪屿海岸风光',
     description:
-      'Coastal nostalgia, ancient Teochew civilization, China\'s fastest-growing city, and a harbour skyline that belongs to no easy category. Ten days through four very different Chinas.',
+      "This is the coast Chinatowns came from. Quanzhou was once the world's busiest port. Chaozhou kept tea ceremony and ancestral rituals intact for a thousand years. Xiamen faces the sea its emigrants crossed. Shenzhen built itself in forty years on the same shoreline. If you know anyone Chinese outside of China, their family probably left through here.",
     descriptionZh:
-      '海边的南洋气息、两千年潮州文明、中国建城速度最快的城市，还有那片说不清属于哪里的维多利亚港。十天，四座截然不同的中国城市。',
+      '这是世界各地唐人街的出发地。泉州曾是全球最繁忙的港口。潮州将功夫茶与祭祖礼仪完整保存了千年。厦门望着祖先渡过的那片海。深圳在同一片海岸线上，四十年建起了一座新城。如果你认识任何一个海外华人，他们的家族很可能从这里出发。',
     duration: '10 Days',
     durationZh: '10 天',
     cities: '4 Cities',
     citiesZh: '4 座城市',
     departure: 'Summer 2026',
     departureZh: '2026 年暑期',
-    price: 'CAD ~$2,598',
+    price: `CAD ~$${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
+    sealChar: '侨',
+    arcTitle: 'The Diaspora Coast',
+    arcTitleZh: '侨 · 离散海岸',
+    culturalFocus: '妈祖信仰 · 功夫茶 · 宗祠族群 · 下南洋历史',
+    culturalFocusZh: '妈祖信仰 · 功夫茶 · 宗祠族群 · 下南洋历史',
   },
   {
     // Yunnan has no data file yet — name managed here until one is created
@@ -97,9 +113,9 @@ export const tripsMeta: TripMeta[] = [
     imageAlt: 'Yunnan mountain landscape',
     imageAltZh: '云南山地风光',
     description:
-      'Ancient towns, minority cultures, rice terraces, and mountain landscapes. A route through one of China\'s most visually distinct provinces.',
+      "The other China. Ethnic minority cultures, mountain towns older than most dynasties, and landscapes that never fully belonged to any single empire. After ten days here, you stop thinking of 'China' as one thing.",
     descriptionZh:
-      '古镇、少数民族文化、梯田与山地风光——中国视觉感最强烈的省份之一。',
+      '另一个中国。少数民族文化、比大多数朝代更古老的山地古镇，以及从未完全归属于任何帝国的自然景观。在这里待过十天，你会停止把"中国"当成一件事情来理解。',
     duration: '10 Days',
     durationZh: '10 天',
     cities: '4 Cities',
@@ -107,5 +123,10 @@ export const tripsMeta: TripMeta[] = [
     departure: 'TBD',
     departureZh: '待定',
     price: 'TBD',
+    sealChar: '山',
+    arcTitle: 'Mountain & Frontier',
+    arcTitleZh: '山 · 边疆之路',
+    culturalFocus: '白族 · 纳西族 · 茶马古道 · 高原自然',
+    culturalFocusZh: '白族 · 纳西族 · 茶马古道 · 高原自然',
   },
 ];

@@ -11,8 +11,8 @@ import { tripsMeta } from '../../../data/trips-meta.ts';
   alternateHref="/trips"
   alternateLabel="English"
 >
-  <section style="padding: var(--section-gap) 0 clamp(2rem,5vw,4rem);">
-    <div class="container" style="text-align:center;">
+  <section class="trips-header">
+    <div class="container">
       <p class="section-eyebrow">我们的线路</p>
       <h1 class="section-title">所有行程</h1>
       <p class="section-sub" style="text-align:center;">
@@ -22,83 +22,98 @@ import { tripsMeta } from '../../../data/trips-meta.ts';
   </section>
 
   <section class="trips-list">
-    <div class="container">
+    <div class="container trips-stack">
 
-      {tripsMeta.map((trip) => (
+      {tripsMeta.map((trip, i) => (
         trip.status === 'open' ? (
-          <a href={trip.hrefZh} class="trip-listing-card">
-            <div class="trip-listing-card__img">
-              {trip.image && <img src={trip.image} alt={trip.imageAltZh} loading="lazy" />}
+          <a href={trip.hrefZh} class="tlc" style={`animation-delay: ${i * 0.1}s`}>
+            <div class="tlc__img">
+              {trip.image
+                ? <img src={trip.image} alt={trip.imageAltZh} loading="lazy" />
+                : <div class="tlc__img-empty"><span>{trip.sealChar}</span></div>
+              }
             </div>
-            <div class="trip-listing-card__body">
-              <div class="trip-listing-card__top">
-                <div>
-                  <h2 class="trip-listing-card__title">{trip.titleZh}</h2>
-                  <p class="trip-listing-card__subtitle">{trip.subtitleZh}</p>
+            <div class="tlc__body">
+              <div class="tlc__meta">
+                <div class="tlc__meta-left">
+                  <span class="tlc__arc">{trip.arcTitleZh}</span>
+                  <span class="tlc__badge tlc__badge--open">开放报名</span>
                 </div>
-                <span class="trip-badge trip-badge--open">开放报名</span>
+                <div class="tlc__seal" aria-hidden="true">{trip.sealChar}</div>
               </div>
-              <p class="trip-listing-card__desc">{trip.descriptionZh}</p>
-              <div class="trip-listing-card__stats">
-                <div class="trip-listing-card__stat">
-                  <span class="trip-listing-card__stat-label">天数</span>
-                  <span class="trip-listing-card__stat-value">{trip.durationZh}</span>
+
+              <h2 class="tlc__title">{trip.titleZh}</h2>
+              <p class="tlc__route">{trip.subtitleZh}</p>
+              <p class="tlc__focus">{trip.culturalFocusZh}</p>
+              <p class="tlc__desc">{trip.descriptionZh}</p>
+
+              <div class="tlc__stats">
+                <div class="tlc__stat">
+                  <span class="tlc__stat-label">天数</span>
+                  <span class="tlc__stat-value">{trip.durationZh}</span>
                 </div>
-                <div class="trip-listing-card__stat">
-                  <span class="trip-listing-card__stat-label">城市</span>
-                  <span class="trip-listing-card__stat-value">{trip.citiesZh}</span>
+                <div class="tlc__stat">
+                  <span class="tlc__stat-label">城市</span>
+                  <span class="tlc__stat-value">{trip.citiesZh}</span>
                 </div>
-                <div class="trip-listing-card__stat">
-                  <span class="trip-listing-card__stat-label">出发</span>
-                  <span class="trip-listing-card__stat-value">{trip.departureZh}</span>
+                <div class="tlc__stat">
+                  <span class="tlc__stat-label">出发</span>
+                  <span class="tlc__stat-value">{trip.departureZh}</span>
                 </div>
-                <div class="trip-listing-card__stat">
-                  <span class="trip-listing-card__stat-label">费用</span>
-                  <span class="trip-listing-card__stat-value trip-listing-card__stat-value--price">{trip.price}</span>
+                <div class="tlc__stat">
+                  <span class="tlc__stat-label">费用</span>
+                  <span class="tlc__stat-value tlc__stat-value--price">{trip.price}</span>
                 </div>
               </div>
-              <div class="trip-listing-card__footer">
-                <span class="trip-cta">查看行程 →</span>
+
+              <div class="tlc__footer">
+                <span class="tlc__cta">查看行程 →</span>
               </div>
             </div>
           </a>
         ) : (
-          <div class="trip-listing-card trip-listing-card--soon">
-            <div class="trip-listing-card__img">
+          <div class="tlc tlc--soon" style={`animation-delay: ${i * 0.1}s`}>
+            <div class="tlc__img">
               {trip.image
                 ? <img src={trip.image} alt={trip.imageAltZh} loading="lazy" />
-                : <div class="trip-listing-card__img-placeholder"></div>
+                : <div class="tlc__img-empty"><span>{trip.sealChar}</span></div>
               }
             </div>
-            <div class="trip-listing-card__body">
-              <div class="trip-listing-card__top">
-                <div>
-                  <h2 class="trip-listing-card__title">{trip.titleZh}</h2>
-                  <p class="trip-listing-card__subtitle">{trip.subtitleZh}</p>
+            <div class="tlc__body">
+              <div class="tlc__meta">
+                <div class="tlc__meta-left">
+                  <span class="tlc__arc">{trip.arcTitleZh}</span>
+                  <span class="tlc__badge tlc__badge--soon">即将开放</span>
                 </div>
-                <span class="trip-badge trip-badge--soon">即将开放</span>
+                <div class="tlc__seal" aria-hidden="true">{trip.sealChar}</div>
               </div>
-              <p class="trip-listing-card__desc">{trip.descriptionZh}</p>
-              <div class="trip-listing-card__stats">
-                <div class="trip-listing-card__stat">
-                  <span class="trip-listing-card__stat-label">天数</span>
-                  <span class="trip-listing-card__stat-value">{trip.durationZh}</span>
+
+              <h2 class="tlc__title">{trip.titleZh}</h2>
+              <p class="tlc__route">{trip.subtitleZh}</p>
+              <p class="tlc__focus">{trip.culturalFocusZh}</p>
+              <p class="tlc__desc">{trip.descriptionZh}</p>
+
+              <div class="tlc__stats">
+                <div class="tlc__stat">
+                  <span class="tlc__stat-label">天数</span>
+                  <span class="tlc__stat-value">{trip.durationZh}</span>
                 </div>
-                <div class="trip-listing-card__stat">
-                  <span class="trip-listing-card__stat-label">城市</span>
-                  <span class="trip-listing-card__stat-value">{trip.citiesZh}</span>
+                <div class="tlc__stat">
+                  <span class="tlc__stat-label">城市</span>
+                  <span class="tlc__stat-value">{trip.citiesZh}</span>
                 </div>
-                <div class="trip-listing-card__stat">
-                  <span class="trip-listing-card__stat-label">出发</span>
-                  <span class="trip-listing-card__stat-value">{trip.departureZh}</span>
+                <div class="tlc__stat">
+                  <span class="tlc__stat-label">出发</span>
+                  <span class="tlc__stat-value">{trip.departureZh}</span>
                 </div>
-                <div class="trip-listing-card__stat">
-                  <span class="trip-listing-card__stat-label">费用</span>
-                  <span class="trip-listing-card__stat-value">{trip.price}</span>
+                <div class="tlc__stat">
+                  <span class="tlc__stat-label">费用</span>
+                  <span class="tlc__stat-value">{trip.price}</span>
                 </div>
               </div>
-              <div class="trip-listing-card__footer">
-                <span style="color:#a8a29e; font-size:0.875rem;">详情即将公布</span>
+
+              <div class="tlc__footer">
+                <span class="tlc__coming-soon-note">详情即将公布</span>
               </div>
             </div>
           </div>
@@ -110,13 +125,199 @@ import { tripsMeta } from '../../../data/trips-meta.ts';
 </Layout>
 
 <style>
-.trip-listing-card--soon {
-  opacity: 0.72;
-  cursor: default;
+.trips-header {
+  padding: var(--section-gap) 0 clamp(2rem, 5vw, 4rem);
+  text-align: center;
 }
-.trip-listing-card__img-placeholder {
-  width: 100%;
-  height: 100%;
-  background: #e7e5e0;
+
+.trips-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: #e5e0d8;
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* ── Card ── */
+.tlc {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  min-height: 360px;
+  background: var(--color-surface);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+  text-decoration: none;
+  color: inherit;
+}
+a.tlc:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.12); z-index: 1; }
+.tlc--soon { opacity: 0.72; cursor: default; }
+
+/* ── Image ── */
+.tlc__img {
+  position: relative;
+  overflow: hidden;
+}
+.tlc__img img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center;
+  transition: transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+a.tlc:hover .tlc__img img { transform: scale(1.05); }
+.tlc__img-empty {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #e8dfc8 0%, #cfc2a4 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.tlc__img-empty span {
+  font-family: 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
+  font-size: clamp(4rem, 8vw, 8rem);
+  color: rgba(180,140,80,0.3);
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ── Body ── */
+.tlc__body {
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* ── Meta row: arc title + seal ── */
+.tlc__meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.tlc__meta-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.tlc__arc {
+  font-size: clamp(0.58rem, 0.9vw, 0.68rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-red);
+}
+.tlc__badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  font-size: clamp(0.55rem, 0.85vw, 0.62rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  width: fit-content;
+}
+.tlc__badge--open { background: var(--color-red); }
+.tlc__badge--soon { background: var(--color-gold); }
+
+/* ── Seal chop ── */
+.tlc__seal {
+  width: clamp(3rem, 4.5vw, 3.8rem);
+  height: clamp(3rem, 4.5vw, 3.8rem);
+  border: 2px solid var(--color-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  color: var(--color-red);
+  font-family: 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: background 0.25s, color 0.25s;
+  line-height: 1;
+}
+a.tlc:hover .tlc__seal {
+  background: var(--color-red);
+  color: #fff;
+}
+
+/* ── Main title ── */
+.tlc__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+/* ── City route ── */
+.tlc__route {
+  font-size: clamp(0.62rem, 0.95vw, 0.72rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  margin: -0.25rem 0 0;
+}
+
+/* ── Cultural focus ── */
+.tlc__focus {
+  font-size: clamp(0.72rem, 1.1vw, 0.82rem);
+  color: var(--color-gold);
+  font-style: italic;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+/* ── Description ── */
+.tlc__desc {
+  color: var(--color-ink-muted);
+  line-height: 1.78;
+  font-size: clamp(0.82rem, 1.3vw, 0.93rem);
+  max-width: 52ch;
+  margin: 0;
+}
+
+/* ── Stats ── */
+.tlc__stats {
+  display: flex;
+  gap: clamp(1rem, 2.5vw, 2.25rem);
+  flex-wrap: wrap;
+  padding-top: 1.1rem;
+  border-top: 1px solid #ece8e1;
+  margin-top: 0.25rem;
+}
+.tlc__stat { display: flex; flex-direction: column; gap: 0.2rem; }
+.tlc__stat-label {
+  font-size: clamp(0.58rem, 0.85vw, 0.65rem);
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--color-ink-muted);
+}
+.tlc__stat-value { font-size: clamp(0.82rem, 1.2vw, 0.9rem); font-weight: 600; }
+.tlc__stat-value--price {
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  color: var(--color-red);
+}
+
+/* ── Footer ── */
+.tlc__footer { display: flex; align-items: center; gap: 1rem; }
+.tlc__cta {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  background: var(--color-red); color: #fff;
+  padding: 0.65rem 1.5rem;
+  font-size: clamp(0.68rem, 1vw, 0.78rem);
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  border: 2px solid var(--color-red);
+  transition: background 0.2s, border-color 0.2s;
+}
+a.tlc:hover .tlc__cta { background: var(--color-red-dark); border-color: var(--color-red-dark); }
+.tlc__coming-soon-note { color: #a8a29e; font-size: clamp(0.78rem, 1.1vw, 0.875rem); }
+
+/* ── Mobile ── */
+@media (max-width: 700px) {
+  .tlc { grid-template-columns: 1fr; grid-template-rows: 240px auto; min-height: auto; }
+  .tlc__desc { max-width: none; }
+  .tlc__body { gap: 0.85rem; }
 }
 </style>
