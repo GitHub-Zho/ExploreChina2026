@@ -3,6 +3,8 @@
 // Cities: Shanghai · Suzhou · Hangzhou · Beijing
 //
 // Metadata lives in: src/data/registry.ts
+
+export const EAST_CHINA_PRICE_CAD = 2398;
 // ─────────────────────────────────────────────────────────────
 
 export const eastChinaCityGuides = [

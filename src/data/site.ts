@@ -1,3 +1,5 @@
+import { EAST_CHINA_PRICE_CAD } from './trips/east-china';
+
 export const site = {
   name: 'Explore China',
   nameZh: '探索中国',
@@ -18,8 +20,8 @@ export const currentTrip = {
   duration: '10 days',
   durationZh: '10天',
   route: ['Shanghai', 'Suzhou', 'Hangzhou', 'Beijing'],
-  priceCad: 'CAD $2,398 per person (excluding international flights)',
-  priceCadZh: 'CAD $2,398 / 人（不含国际机票）',
+  priceCad: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
+  priceCadZh: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} / 人（不含国际机票）`,
   departureWindow: 'July 2026 (final date to be confirmed)',
   departureWindowZh: '2026年7月（具体日期待确认）',
   applicationDeadline: 'May 31, 2026',
@@ -181,7 +183,7 @@ export const handbookPrep = {
 /* Trip page FAQ — practical details for people who are already interested */
 export const faq = [
   {
-    q: 'What exactly does CAD $3,000 cover?',
+    q: `What exactly does CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} cover?`,
     a: '10 nights of accommodation, all transport between cities within China, group activities, and full organizer support. International flights, travel insurance, and personal spending (food beyond group meals, souvenirs, etc.) are not included. We send a detailed breakdown after your application is confirmed.',
   },
   {
@@ -208,7 +210,7 @@ export const faq = [
 
 export const faqZh = [
   {
-    q: 'CAD $3,000 具体包含什么？',
+    q: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} 具体包含什么？`,
     a: '10晚住宿、中国境内城市间所有交通、团体活动和全程组织支持。国际机票、旅行保险和个人花销（团餐以外的餐饮、纪念品等）不包含。确认报名后我们会发详细费用清单。',
   },
   {

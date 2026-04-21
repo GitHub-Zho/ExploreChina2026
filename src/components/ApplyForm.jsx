@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { EAST_CHINA_PRICE_CAD } from "../data/trips/east-china";
+const SOUTH_CHINA_PRICE_CAD = 2598;
 
 const TRIP_SCHEDULE = [
   {
@@ -8,7 +10,7 @@ const TRIP_SCHEDULE = [
     dates: "Jun 8 – Jun 18",
     arrive: "Shanghai",
     depart: "Beijing → Toronto",
-    price: "$3,000",
+    price: `$${EAST_CHINA_PRICE_CAD.toLocaleString()}`,
     color: "#C47A32",
     month: "June",
   },
@@ -31,7 +33,7 @@ const TRIP_SCHEDULE = [
     dates: "Jul 8 – Jul 18",
     arrive: "Shanghai",
     depart: "Beijing → Toronto",
-    price: "$3,000",
+    price: `$${EAST_CHINA_PRICE_CAD.toLocaleString()}`,
     color: "#C47A32",
     month: "July",
   },
@@ -427,7 +429,7 @@ export default function ExplorechinaForm() {
             <strong>About international flights (not included in trip price):</strong> A Toronto ↔ China round-trip is typically $1,600–$2,000 CAD, though this may be higher depending on fuel surcharges and booking timing. We recommend booking early.
           </p>
           <p style={{ fontSize: 11, color: "var(--color-text-tertiary, #999)", lineHeight: 1.5 }}>
-            Classic Route: $3,000 &nbsp;·&nbsp; South China Route: $2,598 &nbsp;·&nbsp; Combo (same month): $5,998
+            Classic Route: ${EAST_CHINA_PRICE_CAD.toLocaleString()} &nbsp;·&nbsp; South China Route: ${SOUTH_CHINA_PRICE_CAD.toLocaleString()} &nbsp;·&nbsp; Combo (same month): ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD).toLocaleString()}
           </p>
         </div>
 

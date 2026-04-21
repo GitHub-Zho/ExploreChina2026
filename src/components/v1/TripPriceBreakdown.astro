@@ -1,4 +1,5 @@
 ---
+import { EAST_CHINA_PRICE_CAD } from '../../data/trips/east-china';
 const { lang = 'en' } = Astro.props;
 const zh = lang === 'zh';
 
@@ -61,7 +62,7 @@ const programItem = {
     <div class="price-breakdown__copy">
       <p class="price-breakdown__eyebrow">{zh ? '关于价格' : 'About the price'}</p>
       <h2 class="price-breakdown__title">
-        {zh ? 'CAD $2,398，钱花在了哪里' : 'CAD $2,398 — here\'s where it goes'}
+        {zh ? `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()}，钱花在了哪里` : `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} — here's where it goes`}
       </h2>
       <!-- Block 1: short punchy statement, always visible -->
       <p class="price-breakdown__hook">
@@ -115,7 +116,7 @@ const programItem = {
 
       <div class="price-bar__total">
         <span>{zh ? '合计（不含机票）' : 'Total (excl. flights)'}</span>
-        <span>~$2,398</span>
+        <span>~${EAST_CHINA_PRICE_CAD.toLocaleString()}</span>
       </div>
 
       <p class="price-breakdown__disclaimer">

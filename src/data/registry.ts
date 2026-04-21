@@ -1,5 +1,5 @@
 import { southChinaItinerary, southChinaCityGuides } from './trips/south-china';
-import { eastChinaItinerary, eastChinaCityGuides } from './trips/east-china';
+import { eastChinaItinerary, eastChinaCityGuides, EAST_CHINA_PRICE_CAD } from './trips/east-china';
 
 export interface TripDate {
   label: string;
@@ -62,7 +62,7 @@ export const TRIPS: Trip[] = [
     tagline: 'Canal towns, ancient gardens, West Lake, and the Forbidden City.',
     taglineZh: '运河古镇、江南园林、西湖、故宫。',
     duration: '10 days',
-    price: 'CAD $3,000',
+    price: `CAD $${EAST_CHINA_PRICE_CAD}`,
     status: 'open',
     summary:
       'A structured, student-friendly China route blending city icons, food culture, local atmosphere, and practical support from arrival to departure.',
@@ -70,8 +70,8 @@ export const TRIPS: Trip[] = [
       '这是一条为学生与年轻旅行者设计的中国深度线路：把城市地标、本地生活感、同龄社交交流与清晰可靠的执行支持结合在一起。',
     departureWindow: 'July 2026 (final date to be confirmed)',
     departureWindowZh: '2026年7月（具体日期待确认）',
-    priceCad: 'CAD $2,398 per person (excluding international flights)',
-    priceCadZh: 'CAD $2,398 / 人（不含国际机票）',
+    priceCad: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
+    priceCadZh: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} / 人（不含国际机票）`,
     groupSize: 'Max 20 participants',
     groupSizeZh: '最多 20 人',
     applicationDeadline: 'May 31, 2026',

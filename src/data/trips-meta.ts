@@ -7,6 +7,7 @@
 
 import { currentTrip } from './site';
 import { southChinaTrip } from './south-china';
+import { EAST_CHINA_PRICE_CAD } from './trips/east-china';
 
 export type TripStatus = 'open' | 'soon';
 
@@ -56,7 +57,7 @@ export const tripsMeta: TripMeta[] = [
     citiesZh: '4 座城市',
     departure: 'Summer 2026',
     departureZh: '2026 年暑期',
-    price: 'CAD ~$3,000',
+    price: `CAD ~$${EAST_CHINA_PRICE_CAD.toLocaleString()}`,
   },
   {
     id: 'south-china',
