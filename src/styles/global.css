@@ -2253,23 +2253,52 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   max-width: 640px;
   margin: 0 0 1.75rem;
 }
-.why-us__rotator {
-  display: grid;
-  max-width: 580px;
-  margin-bottom: 2.5rem;
+.why-us__nj-block {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
-.why-us__rotator-item {
+.why-us__nj-row {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+.why-us__nj-row--but {
+  margin-top: 0.5rem;
+}
+.why-us__nj-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+  width: clamp(3.5rem, 6vw, 5rem);
+  flex-shrink: 0;
+}
+.why-us__nj-swap {
+  display: grid;
+  flex: 1;
+}
+.why-us__nj-item {
   grid-area: 1 / 1;
-  font-size: clamp(0.875rem, 1.4vw, 1rem);
-  line-height: 1.8;
-  color: rgba(255,255,255,0.75);
-  font-style: italic;
-  margin: 0;
   opacity: 0;
   transition: opacity 0.7s ease;
 }
-.why-us__rotator-item.is-active {
+.why-us__nj-item.is-active {
   opacity: 1;
+}
+.why-us__nj-swap--big .why-us__nj-item {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  font-style: italic;
+  color: #fff;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.why-us__nj-swap--small .why-us__nj-item {
+  font-size: clamp(0.88rem, 1.5vw, 1.05rem);
+  font-style: italic;
+  color: rgba(255,255,255,0.48);
+  line-height: 1.65;
+  max-width: 520px;
 }
 .why-us__cards {
   display: grid;
@@ -2279,14 +2308,6 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
 .why-us__card {
   border-top: 1px solid rgba(255,255,255,0.1);
   padding-top: 1.75rem;
-}
-.why-us__num {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  color: var(--color-red, #c8102e);
-  margin-bottom: 1rem;
 }
 .why-us__card-title {
   font-family: var(--font-display);
