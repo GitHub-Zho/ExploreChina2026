@@ -122,7 +122,7 @@ Runs before every build. Catches `placeholder` as a keyword — patched to skip 
 
 | Priority | Task | Notes |
 |----------|------|-------|
-| High | Add English trip description copy | Evocative prose for Shanghai/Beijing route — draft exists but not yet in site |
+| Done | ~~Add English trip description copy~~ | ✅ route-intro prose is live in east-china-2026-summer.astro |
 | High | Yunnan route page | Full itinerary exists in Notion, no web page yet |
 | Medium | About page team photos | Currently uses initial avatars — needs real photos |
 | Low | Handbook content review | Has sections, may need 2026 updates |
