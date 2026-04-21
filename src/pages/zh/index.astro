@@ -28,9 +28,9 @@ import { tripsMeta } from '../../data/trips-meta.ts';
                 {trip.image && <img src={trip.image} alt={trip.imageAltZh} loading="lazy" />}
               </div>
               <div class="home-trip-card__body">
-                <p class="home-trip-card__subtitle">{trip.subtitleZh}</p>
+                <p class="home-trip-card__arc">{trip.arcTitleZh}</p>
                 <h3 class="home-trip-card__title">{trip.titleZh}</h3>
-                <p class="home-trip-card__desc">{trip.descriptionZh}</p>
+                <p class="home-trip-card__focus">{trip.culturalFocusZh}</p>
                 <span class="home-trip-card__cta">查看行程 →</span>
               </div>
             </a>
@@ -38,9 +38,9 @@ import { tripsMeta } from '../../data/trips-meta.ts';
             <div class="home-trip-card home-trip-card--soon">
               <div class="home-trip-card__img home-trip-card__img--placeholder"></div>
               <div class="home-trip-card__body">
-                <p class="home-trip-card__subtitle">{trip.subtitleZh}</p>
+                <p class="home-trip-card__arc">{trip.arcTitleZh}</p>
                 <h3 class="home-trip-card__title">{trip.titleZh}</h3>
-                <p class="home-trip-card__desc">{trip.descriptionZh}</p>
+                <p class="home-trip-card__focus">{trip.culturalFocusZh}</p>
                 <span class="home-trip-card__cta home-trip-card__cta--soon">即将推出</span>
               </div>
             </div>

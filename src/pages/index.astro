@@ -115,9 +115,9 @@ const homeStructuredData = {
                 {trip.image && <img src={trip.image} alt={trip.imageAlt} loading="lazy" />}
               </div>
               <div class="home-trip-card__body">
-                <p class="home-trip-card__subtitle">{trip.subtitle}</p>
+                <p class="home-trip-card__arc">{trip.arcTitle}</p>
                 <h3 class="home-trip-card__title">{trip.title}</h3>
-                <p class="home-trip-card__desc">{trip.description}</p>
+                <p class="home-trip-card__focus">{trip.culturalFocus}</p>
                 <span class="home-trip-card__cta">View itinerary →</span>
               </div>
             </a>
@@ -125,9 +125,9 @@ const homeStructuredData = {
             <div class="home-trip-card home-trip-card--soon">
               <div class="home-trip-card__img home-trip-card__img--placeholder"></div>
               <div class="home-trip-card__body">
-                <p class="home-trip-card__subtitle">{trip.subtitle}</p>
+                <p class="home-trip-card__arc">{trip.arcTitle}</p>
                 <h3 class="home-trip-card__title">{trip.title}</h3>
-                <p class="home-trip-card__desc">{trip.description}</p>
+                <p class="home-trip-card__focus">{trip.culturalFocus}</p>
                 <span class="home-trip-card__cta home-trip-card__cta--soon">Coming soon</span>
               </div>
             </div>

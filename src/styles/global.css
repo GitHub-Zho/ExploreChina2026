@@ -1761,28 +1761,30 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   flex-direction: column;
   flex: 1;
 }
-.home-trip-card__subtitle {
-  font-size: 0.7rem;
+.home-trip-card__arc {
+  font-size: clamp(0.58rem, 0.88vw, 0.66rem);
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-red);
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.3rem;
 }
 .home-trip-card__title {
   font-family: var(--font-display);
   font-size: clamp(1.1rem, 2vw, 1.3rem);
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
   color: var(--color-ink);
 }
-.home-trip-card__desc {
-  font-size: 0.85rem;
-  color: var(--color-ink-muted);
-  line-height: 1.65;
+.home-trip-card__focus {
+  font-size: clamp(0.7rem, 1.05vw, 0.78rem);
+  color: var(--color-gold);
+  font-style: italic;
+  font-family: var(--font-display);
+  line-height: 1.6;
   flex: 1;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 }
 .home-trip-card__cta {
   font-size: 0.8rem;

@@ -67,7 +67,7 @@ export const tripsMeta: TripMeta[] = [
     sealChar: '都',
     arcTitle: 'The Dynastic Arc',
     arcTitleZh: '都 · 帝都弧线',
-    culturalFocus: '皇权 · 文人审美 · 江南园林 · 当代都市张力',
+    culturalFocus: 'Imperial Authority · Literati Aesthetics · Classical Gardens · Urban Dynamism',
     culturalFocusZh: '皇权 · 文人审美 · 江南园林 · 当代都市张力',
   },
   {
@@ -96,7 +96,7 @@ export const tripsMeta: TripMeta[] = [
     sealChar: '侨',
     arcTitle: 'The Diaspora Coast',
     arcTitleZh: '侨 · 离散海岸',
-    culturalFocus: '妈祖信仰 · 功夫茶 · 宗祠族群 · 下南洋历史',
+    culturalFocus: 'Mazu Maritime Faith · Gongfu Tea · Ancestral Clan Halls · Maritime Diaspora',
     culturalFocusZh: '妈祖信仰 · 功夫茶 · 宗祠族群 · 下南洋历史',
   },
   {
@@ -126,7 +126,7 @@ export const tripsMeta: TripMeta[] = [
     sealChar: '山',
     arcTitle: 'Mountain & Frontier',
     arcTitleZh: '山 · 边疆之路',
-    culturalFocus: '白族 · 纳西族 · 茶马古道 · 高原自然',
+    culturalFocus: 'Bai Ethnic Culture · Naxi Heritage · Tea Horse Road · Alpine Landscapes',
     culturalFocusZh: '白族 · 纳西族 · 茶马古道 · 高原自然',
   },
 ];
