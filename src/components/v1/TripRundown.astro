@@ -132,7 +132,7 @@ const columns = zh ? [
         {zh ? '十天，你会经历这些' : 'Ten days. Here\'s what\'s in them.'}
       </h2>
       <div class="trip-rundown__nj" aria-live="polite">
-        <div class="trip-rundown__nj-row">
+        <div class="trip-rundown__nj-pair">
           <span class="trip-rundown__nj-label">{zh ? '不只是' : 'NOT JUST'}</span>
           <div class="trip-rundown__nj-swap trip-rundown__nj-swap--big">
             {rotatorItems.map((item, i) => (
@@ -140,7 +140,7 @@ const columns = zh ? [
             ))}
           </div>
         </div>
-        <div class="trip-rundown__nj-row trip-rundown__nj-row--but">
+        <div class="trip-rundown__nj-pair trip-rundown__nj-pair--but">
           <span class="trip-rundown__nj-label">{zh ? '而是' : 'BUT'}</span>
           <div class="trip-rundown__nj-swap trip-rundown__nj-swap--small">
             {rotatorItems.map((item, i) => (
@@ -182,6 +182,6 @@ const columns = zh ? [
     current = (current + 1) % bigItems.length;
     bigItems[current].classList.add('is-active');
     smallItems[current].classList.add('is-active');
-  }, 3200);
+  }, 5000);
 }());
 </script>
