@@ -2435,17 +2435,13 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   border-radius: 3px;
   transition: width 0.6s ease;
 }
-.price-bar--program {
-  border-top: 1px dashed #ddd8ce;
-  padding-top: 1rem;
-  margin-top: 0.25rem;
-}
-.price-bar--program .price-bar__name {
+.price-bar__program-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.82rem;
   color: var(--color-ink-muted);
-  font-weight: 400;
-}
-.price-bar--program .price-bar__amount {
-  color: var(--color-ink-muted);
+  padding: 0.35rem 0;
 }
 .price-bar__total {
   display: flex;

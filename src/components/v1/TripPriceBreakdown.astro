@@ -108,12 +108,9 @@ const programItem = {
         </div>
       ))}
 
-      <!-- Program & co-lead — text only, no bar -->
-      <div class="price-bar price-bar--program">
-        <div class="price-bar__labels">
-          <span class="price-bar__name">{zh ? programItem.labelZh : programItem.labelEn}</span>
-          <span class="price-bar__amount">(~${programItem.amount})</span>
-        </div>
+      <div class="price-bar__program-row">
+        <span>{zh ? programItem.labelZh : programItem.labelEn}</span>
+        <span>(~${programItem.amount})</span>
       </div>
 
       <div class="price-bar__total">
