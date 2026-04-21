@@ -10,20 +10,20 @@ const zh = lang === 'zh';
       <h2 class="why-us__title">
         {zh ? '三件值得知道的事' : "Three things worth knowing before you sign up."}
       </h2>
-      <div class="why-us__notjust">
+      <div class="why-us__rotator" aria-live="polite">
         {zh ? (
           <>
-            <p>不止是历史，而是塑造历史的思维与交流方式。</p>
-            <p>不止是食物，而是每道菜背后的故事与起源。</p>
-            <p>不止是行程，而是让一个地方鲜活的日常节奏。</p>
-            <p class="why-us__notjust-close">不只是旅行，而是真正感受一个截然不同的世界的机会。</p>
+            <p class="why-us__rotator-item">不止是历史，而是塑造历史的思维与交流方式。</p>
+            <p class="why-us__rotator-item">不止是食物，而是每道菜背后的故事与起源。</p>
+            <p class="why-us__rotator-item">不止是行程，而是让一个地方鲜活的日常节奏。</p>
+            <p class="why-us__rotator-item">不只是旅行，而是真正感受一个截然不同的世界的机会。</p>
           </>
         ) : (
           <>
-            <p>Not just history, but the conversations and ways of thinking that shape it.</p>
-            <p>Not just food, but the stories and origins behind every dish.</p>
-            <p>Not just activities, but the daily rhythms that make a place alive.</p>
-            <p class="why-us__notjust-close">Not just a trip, but a chance to feel a world that is genuinely different.</p>
+            <p class="why-us__rotator-item">Not just history, but the conversations and ways of thinking that shape it.</p>
+            <p class="why-us__rotator-item">Not just food, but the stories and origins behind every dish.</p>
+            <p class="why-us__rotator-item">Not just activities, but the daily rhythms that make a place alive.</p>
+            <p class="why-us__rotator-item">Not just a trip, but a chance to feel a world that is genuinely different.</p>
           </>
         )}
       </div>
@@ -69,3 +69,17 @@ const zh = lang === 'zh';
     </div>
   </div>
 </section>
+
+<script>
+(function () {
+  var items = Array.from(document.querySelectorAll('.why-us__rotator-item'));
+  if (!items.length) return;
+  var current = 0;
+  items[0].classList.add('is-active');
+  setInterval(function () {
+    items[current].classList.remove('is-active');
+    current = (current + 1) % items.length;
+    items[current].classList.add('is-active');
+  }, 3200);
+}());
+</script>

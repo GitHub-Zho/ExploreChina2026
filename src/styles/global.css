@@ -2253,20 +2253,23 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   max-width: 640px;
   margin: 0 0 1.75rem;
 }
-.why-us__notjust {
+.why-us__rotator {
+  display: grid;
   max-width: 580px;
   margin-bottom: 2.5rem;
 }
-.why-us__notjust p {
+.why-us__rotator-item {
+  grid-area: 1 / 1;
   font-size: clamp(0.875rem, 1.4vw, 1rem);
   line-height: 1.8;
-  color: rgba(255,255,255,0.58);
-  margin-bottom: 0.25rem;
+  color: rgba(255,255,255,0.75);
+  font-style: italic;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
 }
-.why-us__notjust-close {
-  color: rgba(255,255,255,0.88) !important;
-  font-weight: 500;
-  margin-top: 0.75rem !important;
+.why-us__rotator-item.is-active {
+  opacity: 1;
 }
 .why-us__cards {
   display: grid;
