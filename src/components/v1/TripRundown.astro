@@ -1,0 +1,133 @@
+---
+const { lang = 'en' } = Astro.props;
+const zh = lang === 'zh';
+
+const columns = zh ? [
+  {
+    cat: '吃',
+    bg: '吃',
+    tagline: '光美食就值这趟旅程',
+    items: [
+      '北京烤鸭',
+      '小笼包',
+      '炸酱面',
+      '深夜火锅',
+      '夜市小吃',
+    ],
+    more: '更多等你发现',
+  },
+  {
+    cat: '看',
+    bg: '看',
+    tagline: '那些真的值得来看的地方',
+    items: [
+      '长城（全天）',
+      '故宫',
+      '外滩夜景',
+      '西湖（杭州）',
+      '苏州古典园林',
+    ],
+    more: '更多因路线而异',
+  },
+  {
+    cat: '玩',
+    bg: '玩',
+    tagline: '只有在这里才能体验的事',
+    items: [
+      '高铁（时速350公里）',
+      '试驾中国新能源车',
+      '茶道体验',
+      '扎染手工艺',
+      '汉服穿着',
+      '中医问诊',
+    ],
+    more: '更多待定',
+  },
+  {
+    cat: '夜场',
+    bg: '夜',
+    tagline: '你回去之后还会聊的那些',
+    items: [
+      '夜市夜游',
+      '结束派对',
+      '城市自由日',
+      '学生交流之夜',
+    ],
+    more: '更多等大家一起决定',
+  },
+] : [
+  {
+    cat: 'Eat',
+    bg: 'E',
+    tagline: 'The food alone is worth the trip.',
+    items: [
+      'Peking duck',
+      'Xiaolongbao',
+      'Zhajiang noodles',
+      'Hot pot — late night',
+      'Night market snacks',
+    ],
+    more: 'More along the way',
+  },
+  {
+    cat: 'See',
+    bg: 'S',
+    tagline: 'The places that live up to the photos.',
+    items: [
+      'Great Wall — full day',
+      'Forbidden City',
+      'The Bund at night',
+      'West Lake, Hangzhou',
+      'Classical gardens, Suzhou',
+    ],
+    more: 'More depending on route',
+  },
+  {
+    cat: 'Try',
+    bg: 'T',
+    tagline: 'Things you can only do here.',
+    items: [
+      'High-speed rail — 350 km/h',
+      'Test-drive a Chinese EV',
+      'Tea ceremony',
+      'Hand tie-dye (zha ran)',
+      'Hanfu dress-up',
+      'TCM consultation',
+    ],
+    more: 'More to be announced',
+  },
+  {
+    cat: 'Go out',
+    bg: 'G',
+    tagline: "The parts you'll actually talk about after.",
+    items: [
+      'Night market runs',
+      'Closing party',
+      'Free city days',
+      'Student exchange nights',
+    ],
+    more: "More depending on what the group finds",
+  },
+];
+---
+
+<section class="trip-rundown">
+  <div class="trip-rundown__inner">
+    <p class="trip-rundown__eyebrow">{zh ? '行程亮点' : 'What\'s on the trip'}</p>
+    <div class="trip-rundown__grid">
+      {columns.map((col) => (
+        <div class="trip-rundown__col">
+          <span class="trip-rundown__bg-word" aria-hidden="true">{col.bg}</span>
+          <h3 class="trip-rundown__cat">{col.cat}</h3>
+          <p class="trip-rundown__tagline">{col.tagline}</p>
+          <ul class="trip-rundown__list">
+            {col.items.map(item => (
+              <li class="trip-rundown__item">{item}</li>
+            ))}
+            <li class="trip-rundown__item trip-rundown__item--more">{col.more}</li>
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
