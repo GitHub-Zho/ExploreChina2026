@@ -26,7 +26,7 @@ import { tripsMeta } from '../../data/trips-meta.ts';
 
       {tripsMeta.map((trip, i) => (
         trip.status === 'open' ? (
-          <a href={trip.href} class="tlc" style={`animation-delay: ${i * 0.1}s`}>
+          <a href={trip.href} class="tlc">
             <div class="tlc__img">
               {trip.image
                 ? <img src={trip.image} alt={trip.imageAlt} loading="lazy" />
@@ -60,19 +60,19 @@ import { tripsMeta } from '../../data/trips-meta.ts';
                   <span class="tlc__stat-label">Departure</span>
                   <span class="tlc__stat-value">{trip.departure}</span>
                 </div>
-                <div class="tlc__stat">
-                  <span class="tlc__stat-label">From</span>
-                  <span class="tlc__stat-value tlc__stat-value--price">{trip.price}</span>
-                </div>
               </div>
 
               <div class="tlc__footer">
+                <div class="tlc__price-block">
+                  <span class="tlc__price">{trip.price}</span>
+                  <span class="tlc__price-note">per person · excl. flights</span>
+                </div>
                 <span class="tlc__cta">View Itinerary →</span>
               </div>
             </div>
           </a>
         ) : (
-          <div class="tlc tlc--soon" style={`animation-delay: ${i * 0.1}s`}>
+          <div class="tlc tlc--soon">
             <div class="tlc__img">
               {trip.image
                 ? <img src={trip.image} alt={trip.imageAlt} loading="lazy" />
@@ -106,13 +106,13 @@ import { tripsMeta } from '../../data/trips-meta.ts';
                   <span class="tlc__stat-label">Departure</span>
                   <span class="tlc__stat-value">{trip.departure}</span>
                 </div>
-                <div class="tlc__stat">
-                  <span class="tlc__stat-label">Price</span>
-                  <span class="tlc__stat-value">{trip.price}</span>
-                </div>
               </div>
 
               <div class="tlc__footer">
+                <div class="tlc__price-block">
+                  <span class="tlc__price tlc__price--pending">{trip.price}</span>
+                  <span class="tlc__price-note">price to be confirmed</span>
+                </div>
                 <span class="tlc__coming-soon-note">Details coming soon</span>
               </div>
             </div>
@@ -142,7 +142,7 @@ import { tripsMeta } from '../../data/trips-meta.ts';
 .tlc {
   display: grid;
   grid-template-columns: 40% 1fr;
-  min-height: 360px;
+  min-height: 380px;
   background: var(--color-surface);
   position: relative;
   overflow: hidden;
@@ -154,10 +154,7 @@ a.tlc:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.12); z-index: 1; }
 .tlc--soon { opacity: 0.72; cursor: default; }
 
 /* ── Image ── */
-.tlc__img {
-  position: relative;
-  overflow: hidden;
-}
+.tlc__img { position: relative; overflow: hidden; }
 .tlc__img img {
   width: 100%; height: 100%; object-fit: cover; object-position: center;
   transition: transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94);
@@ -171,7 +168,7 @@ a.tlc:hover .tlc__img img { transform: scale(1.05); }
 .tlc__img-empty span {
   font-family: 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
   font-size: clamp(4rem, 8vw, 8rem);
-  color: rgba(180,140,80,0.3);
+  color: rgba(180,140,80,0.28);
   font-weight: 700;
   line-height: 1;
 }
@@ -182,10 +179,10 @@ a.tlc:hover .tlc__img img { transform: scale(1.05); }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.9rem;
 }
 
-/* ── Meta row: arc title + seal ── */
+/* ── Meta row: arc title + badge left, seal right ── */
 .tlc__meta {
   display: flex;
   align-items: flex-start;
@@ -195,19 +192,19 @@ a.tlc:hover .tlc__img img { transform: scale(1.05); }
 .tlc__meta-left {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 .tlc__arc {
   font-size: clamp(0.58rem, 0.9vw, 0.68rem);
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-red);
 }
 .tlc__badge {
   display: inline-block;
-  padding: 0.2rem 0.65rem;
-  font-size: clamp(0.55rem, 0.85vw, 0.62rem);
+  padding: 0.18rem 0.6rem;
+  font-size: clamp(0.52rem, 0.82vw, 0.6rem);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -218,7 +215,7 @@ a.tlc:hover .tlc__img img { transform: scale(1.05); }
 .tlc__badge--open { background: var(--color-red); }
 .tlc__badge--soon { background: var(--color-gold); }
 
-/* ── Seal chop ── */
+/* ── Seal chop — floods red on hover ── */
 .tlc__seal {
   width: clamp(3rem, 4.5vw, 3.8rem);
   height: clamp(3rem, 4.5vw, 3.8rem);
@@ -239,7 +236,7 @@ a.tlc:hover .tlc__seal {
   color: #fff;
 }
 
-/* ── Main title ── */
+/* ── Title ── */
 .tlc__title {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.8vw, 2.2rem);
@@ -251,14 +248,14 @@ a.tlc:hover .tlc__seal {
 
 /* ── City route ── */
 .tlc__route {
-  font-size: clamp(0.62rem, 0.95vw, 0.72rem);
+  font-size: clamp(0.6rem, 0.9vw, 0.7rem);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-ink-muted);
-  margin: -0.25rem 0 0;
+  margin: -0.1rem 0 0;
 }
 
-/* ── Cultural focus ── */
+/* ── Cultural focus (gold italic) ── */
 .tlc__focus {
   font-size: clamp(0.72rem, 1.1vw, 0.82rem);
   color: var(--color-gold);
@@ -272,52 +269,79 @@ a.tlc:hover .tlc__seal {
 .tlc__desc {
   color: var(--color-ink-muted);
   line-height: 1.78;
-  font-size: clamp(0.82rem, 1.3vw, 0.93rem);
-  max-width: 52ch;
+  font-size: clamp(0.82rem, 1.25vw, 0.92rem);
+  max-width: 54ch;
   margin: 0;
 }
 
-/* ── Stats ── */
+/* ── Stats (Duration · Cities · Departure) ── */
 .tlc__stats {
   display: flex;
-  gap: clamp(1rem, 2.5vw, 2.25rem);
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
   flex-wrap: wrap;
-  padding-top: 1.1rem;
+  padding-top: 1rem;
   border-top: 1px solid #ece8e1;
-  margin-top: 0.25rem;
 }
 .tlc__stat { display: flex; flex-direction: column; gap: 0.2rem; }
 .tlc__stat-label {
-  font-size: clamp(0.58rem, 0.85vw, 0.65rem);
+  font-size: clamp(0.55rem, 0.82vw, 0.63rem);
   text-transform: uppercase;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.14em;
   color: var(--color-ink-muted);
 }
-.tlc__stat-value { font-size: clamp(0.82rem, 1.2vw, 0.9rem); font-weight: 600; }
-.tlc__stat-value--price {
-  font-family: var(--font-display);
-  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
-  color: var(--color-red);
-}
+.tlc__stat-value { font-size: clamp(0.8rem, 1.2vw, 0.88rem); font-weight: 600; }
 
-/* ── Footer ── */
-.tlc__footer { display: flex; align-items: center; gap: 1rem; }
+/* ── Footer: price (prominent) + CTA ── */
+.tlc__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  border-top: 1px solid #ece8e1;
+}
+.tlc__price-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.tlc__price {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 700;
+  color: var(--color-red);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.tlc__price--pending { color: var(--color-ink-muted); }
+.tlc__price-note {
+  font-size: clamp(0.55rem, 0.82vw, 0.63rem);
+  color: var(--color-ink-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
 .tlc__cta {
   display: inline-flex; align-items: center; gap: 0.35rem;
   background: var(--color-red); color: #fff;
   padding: 0.65rem 1.5rem;
-  font-size: clamp(0.68rem, 1vw, 0.78rem);
+  font-size: clamp(0.65rem, 0.95vw, 0.76rem);
   font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
   border: 2px solid var(--color-red);
   transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
 }
 a.tlc:hover .tlc__cta { background: var(--color-red-dark); border-color: var(--color-red-dark); }
-.tlc__coming-soon-note { color: #a8a29e; font-size: clamp(0.78rem, 1.1vw, 0.875rem); }
+.tlc__coming-soon-note {
+  color: #a8a29e;
+  font-size: clamp(0.75rem, 1.1vw, 0.85rem);
+}
 
 /* ── Mobile ── */
 @media (max-width: 700px) {
   .tlc { grid-template-columns: 1fr; grid-template-rows: 240px auto; min-height: auto; }
   .tlc__desc { max-width: none; }
-  .tlc__body { gap: 0.85rem; }
+  .tlc__body { gap: 0.8rem; }
+  .tlc__footer { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }
 </style>
