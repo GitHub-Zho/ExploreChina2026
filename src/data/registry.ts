@@ -2,7 +2,7 @@ import { southChinaItinerary, southChinaCityGuides } from './trips/south-china';
 import { eastChinaItinerary, eastChinaCityGuides } from './trips/east-china';
 
 export const EAST_CHINA_PRICE_CAD = 2398;
-export const SOUTH_CHINA_PRICE_CAD = 1698;
+export const SOUTH_CHINA_PRICE_CAD = 1688;
 
 export const POLICY = {
   depositPct: 30,
