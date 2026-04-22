@@ -50,9 +50,9 @@ export const tripsMeta: TripMeta[] = [
     subtitle: 'Shanghai · Suzhou · Hangzhou · Beijing',
     subtitleZh: '上海 · 苏州 · 杭州 · 北京',
     status: 'open',
-    image: '/images/places/xiamen-hero-1.jpg',
-    imageAlt: 'Xiamen Gulangyu Island coastal view',
-    imageAltZh: '厦门鼓浪屿海岸风光',
+    image: '/images/highlights/forbidden-city.jpg',
+    imageAlt: 'Forbidden City, Beijing',
+    imageAltZh: '北京故宫',
     description:
       "A route through the spine of mainstream Chinese civilization. This is the China that shows up in most books and most heads — but the version most books get wrong is the scale. Everything is bigger, louder, and stranger than you expected.",
     descriptionZh:
