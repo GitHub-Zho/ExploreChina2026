@@ -50,9 +50,9 @@ export const tripsMeta: TripMeta[] = [
     subtitle: 'Shanghai · Suzhou · Hangzhou · Beijing',
     subtitleZh: '上海 · 苏州 · 杭州 · 北京',
     status: 'open',
-    image: '/images/highlights/suzhou-canal.jpg',
-    imageAlt: 'Suzhou canal watertown',
-    imageAltZh: '苏州运河古镇',
+    image: '/images/places/xiamen-hero-1.jpg',
+    imageAlt: 'Xiamen Gulangyu Island coastal view',
+    imageAltZh: '厦门鼓浪屿海岸风光',
     description:
       "A route through the spine of mainstream Chinese civilization. This is the China that shows up in most books and most heads — but the version most books get wrong is the scale. Everything is bigger, louder, and stranger than you expected.",
     descriptionZh:
@@ -79,9 +79,9 @@ export const tripsMeta: TripMeta[] = [
     subtitle: 'Xiamen · Quanzhou · Chaoshan · Shenzhen',
     subtitleZh: '厦门 · 泉州 · 潮汕 · 深圳',
     status: 'open',
-    image: '/images/places/xiamen-hero-1.jpg',
-    imageAlt: 'Xiamen Gulangyu Island coastal view',
-    imageAltZh: '厦门鼓浪屿海岸风光',
+    image: '/images/places/south-china-tower-forest.jpg',
+    imageAlt: 'Quanzhou East Pagoda rising above city trees',
+    imageAltZh: '泉州东塔俯瞰城市',
     description:
       "This is the coast Chinatowns came from. If you know anyone Chinese outside of China, their family probably left through here.",
     descriptionZh:

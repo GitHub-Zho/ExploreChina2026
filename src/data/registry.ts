@@ -154,7 +154,7 @@ export const TRIPS: Trip[] = [
       '从厦门的闽南海岸气息、潮汕沉淀千年的茶道与古城，到深圳的速度与创意，再到香港的东西交融——这条路线带你见证中国南方最多元的四种面貌。',
     routeName: 'Xiamen → Quanzhou → Chaoshan → Shenzhen',
     routeNameZh: '厦门 → 泉州 → 潮汕 → 深圳',
-    heroImage: '/images/places/xiamen-hero-1.jpg',
+    heroImage: '/images/places/south-china-tower-forest.jpg',
     tagline:
       "Coastal nostalgia, ancient Teochew civilization, China's fastest-growing city, and a harbour skyline that belongs to no easy category.",
     taglineZh:
