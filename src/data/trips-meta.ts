@@ -109,9 +109,9 @@ export const tripsMeta: TripMeta[] = [
     subtitle: 'Kunming · Lijiang · Dali · Kunming',
     subtitleZh: '昆明 · 丽江 · 大理 · 昆明',
     status: 'soon',
-    image: '',
-    imageAlt: 'Yunnan mountain landscape',
-    imageAltZh: '云南山地风光',
+    image: '/images/places/yunnan-horses-mountain.jpg',
+    imageAlt: 'Horses and riders on a mountain ridge in Yunnan',
+    imageAltZh: '云南山脊上的骑手与马队',
     description:
       "The other China. Ethnic minority cultures, mountain towns older than most dynasties, and landscapes that never fully belonged to any single empire. After ten days here, you stop thinking of 'China' as one thing.",
     descriptionZh:
