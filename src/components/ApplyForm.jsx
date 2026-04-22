@@ -1,51 +1,50 @@
 import { useState, useEffect } from "react";
+import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD, POLICY } from "../data/registry";
 
 const TRIP_SCHEDULE = [
   {
     id: "classic-jun",
     route: "Classic Route",
     cities: "Shanghai → Suzhou → Hangzhou → Beijing",
-    dates: "Jun 8 – Jun 18",
+    dates: "Jun 8 – Jun 17",
     arrive: "Shanghai",
     depart: "Beijing → Toronto",
-    price: "$3,000",
+    price: `$${EAST_CHINA_PRICE_CAD.toLocaleString()}`,
     color: "#C47A32",
     month: "June",
   },
   {
     id: "south-jun",
     route: "South China Route",
-    cities: "Xiamen → Chaoshan → Shenzhen → Hong Kong",
-    dates: "Jun 20 – Jun 30",
+    cities: "Xiamen → Quanzhou → Chaoshan → Shenzhen",
+    dates: "Jun 20 – Jun 29",
     arrive: "Xiamen",
-    depart: "Hong Kong / Shenzhen",
-    price: "$2,598",
+    depart: "Shenzhen / Hong Kong",
+    price: `$${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
     color: "#2E8B57",
     month: "June",
-    comingSoon: true,
   },
   {
     id: "classic-jul",
     route: "Classic Route",
     cities: "Shanghai → Suzhou → Hangzhou → Beijing",
-    dates: "Jul 8 – Jul 18",
+    dates: "Jul 8 – Jul 17",
     arrive: "Shanghai",
     depart: "Beijing → Toronto",
-    price: "$3,000",
+    price: `$${EAST_CHINA_PRICE_CAD.toLocaleString()}`,
     color: "#C47A32",
     month: "July",
   },
   {
     id: "south-jul",
     route: "South China Route",
-    cities: "Xiamen → Chaoshan → Shenzhen → Hong Kong",
-    dates: "Jul 20 – Jul 30",
+    cities: "Xiamen → Quanzhou → Chaoshan → Shenzhen",
+    dates: "Jul 20 – Jul 29",
     arrive: "Xiamen",
-    depart: "Hong Kong / Shenzhen",
-    price: "$2,598",
+    depart: "Shenzhen / Hong Kong",
+    price: `$${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
     color: "#2E8B57",
     month: "July",
-    comingSoon: true,
   },
 ];
 
@@ -404,10 +403,10 @@ export default function ExplorechinaForm() {
               <div style={{ padding: "14px 16px", background: "rgba(123,198,126,0.08)", border: "1px solid rgba(123,198,126,0.25)", borderRadius: 10, marginBottom: 14 }}>
                 <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary, #1a1a1a)", marginBottom: 6 }}>Combo selected — {startDate} to {endDate} (~22 days)</p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
-                  <strong>Combo price: $5,998 CAD</strong> (vs $5,598 separately — the difference covers your transition logistics between trips).
+                  <strong>Combo price: ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 400).toLocaleString()} CAD</strong> (vs ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD).toLocaleString()} separately — the $400 difference covers your transition logistics between trips).
                 </p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
-                  <strong>We'll book your Beijing → Xiamen transition flight</strong> (~$200 CAD, included in the combo price). Hotel and transport during the 2-day gap between trips are also covered — you just enjoy the ride.
+                  <strong>We'll book your Beijing → Xiamen transition flight</strong> (~$400 CAD, included in the combo price). Hotel and transport during the 2-day gap between trips are also covered — you just enjoy the ride.
                 </p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6 }}>
                   <strong>One round-trip flight from Toronto, 22 days in China.</strong> Way better value than two separate trips.
@@ -427,7 +426,7 @@ export default function ExplorechinaForm() {
             <strong>About international flights (not included in trip price):</strong> A Toronto ↔ China round-trip is typically $1,600–$2,000 CAD, though this may be higher depending on fuel surcharges and booking timing. We recommend booking early.
           </p>
           <p style={{ fontSize: 11, color: "var(--color-text-tertiary, #999)", lineHeight: 1.5 }}>
-            Classic Route: $3,000 &nbsp;·&nbsp; South China Route: $2,598 &nbsp;·&nbsp; Combo (same month): $5,998
+            Classic Route: ${EAST_CHINA_PRICE_CAD.toLocaleString()} &nbsp;·&nbsp; South China Route: ${SOUTH_CHINA_PRICE_CAD.toLocaleString()} &nbsp;·&nbsp; Combo (same month): ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD).toLocaleString()}
           </p>
         </div>
 
@@ -751,15 +750,16 @@ export default function ExplorechinaForm() {
 
         if (hasJunCombo || hasJulCombo) {
           const month = hasJunCombo ? "June" : "July";
-          items.push({ label: `Combo — Classic + South China (${month})`, price: 5998 });
-          total += 5998;
+          const comboPrice = EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 400;
+          items.push({ label: `Combo — Classic + South China (${month})`, price: comboPrice });
+          total += comboPrice;
           const remainingTrips = form.trips.filter(id =>
             hasJunCombo ? !["classic-jun","south-jun"].includes(id) : !["classic-jul","south-jul"].includes(id)
           );
           remainingTrips.forEach(id => {
             const t = TRIP_SCHEDULE.find(s => s.id === id);
             if (t) {
-              const p = t.route.includes("Classic") ? 3000 : 2598;
+              const p = t.route.includes("Classic") ? EAST_CHINA_PRICE_CAD : SOUTH_CHINA_PRICE_CAD;
               items.push({ label: `${t.route} (${t.dates})`, price: p });
               total += p;
             }
@@ -768,7 +768,7 @@ export default function ExplorechinaForm() {
           form.trips.forEach(id => {
             const t = TRIP_SCHEDULE.find(s => s.id === id);
             if (t) {
-              const p = t.route.includes("Classic") ? 3000 : 2598;
+              const p = t.route.includes("Classic") ? EAST_CHINA_PRICE_CAD : SOUTH_CHINA_PRICE_CAD;
               items.push({ label: `${t.route} (${t.dates})`, price: p });
               total += p;
             }
@@ -783,7 +783,7 @@ export default function ExplorechinaForm() {
           items.push({ label: "Customized trip souvenir (UTETC member — free)", price: 0 });
         }
 
-        const deposit = Math.round(total * 0.3);
+        const deposit = Math.round(total * POLICY.depositPct / 100);
 
         return (
           <div style={sectionStyle}>
@@ -805,7 +805,7 @@ export default function ExplorechinaForm() {
             </div>
 
             <div style={{ marginTop: 8, fontSize: 11, color: "var(--color-text-tertiary, #999)", lineHeight: 1.5 }}>
-              Deposit to secure your spot: <strong>CAD ${deposit.toLocaleString()}</strong> (30% of total) · Balance due 45 days before departure
+              Deposit to secure your spot: <strong>CAD ${deposit.toLocaleString()}</strong> ({POLICY.depositPct}% of total) · Balance due {POLICY.balanceDueNote}
             </div>
           </div>
         );
@@ -834,29 +834,25 @@ export default function ExplorechinaForm() {
           <div style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.7 }}>
             <div style={{ display: "flex", gap: 8, marginBottom: 4 }}>
               <span style={{ color: "#C47A32", fontWeight: 600, flexShrink: 0 }}>Deposit:</span>
-              <span>30% of your total trip cost, due upon confirmation to secure your spot.</span>
+              <span>{POLICY.depositPct}% of your total trip cost, due upon confirmation to secure your spot.</span>
             </div>
             <div style={{ display: "flex", gap: 8, marginBottom: 4 }}>
               <span style={{ color: "#C47A32", fontWeight: 600, flexShrink: 0 }}>Balance:</span>
-              <span>Remaining 70% due no later than 45 days before departure.</span>
+              <span>Remaining {100 - POLICY.depositPct}% due no later than {POLICY.balanceDueNote}.</span>
             </div>
           </div>
           <div style={{ borderTop: "1px solid var(--color-border-tertiary, rgba(0,0,0,0.08))", marginTop: 10, paddingTop: 10, fontSize: 12, color: "var(--color-text-secondary, #666)", lineHeight: 1.7 }}>
             <div style={{ display: "flex", gap: 8, marginBottom: 3 }}>
-              <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 110 }}>60+ days before:</span>
-              <span>Full refund minus deposit</span>
+              <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 130 }}>Before {POLICY.refundDeadline}:</span>
+              <span>{POLICY.refundBeforeDeadline}</span>
             </div>
             <div style={{ display: "flex", gap: 8, marginBottom: 3 }}>
-              <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 110 }}>45–60 days:</span>
-              <span>50% refund (deposit non-refundable)</span>
-            </div>
-            <div style={{ display: "flex", gap: 8, marginBottom: 3 }}>
-              <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 110 }}>Under 45 days:</span>
-              <span>No refund — but you may transfer your spot to another participant</span>
+              <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 130 }}>After {POLICY.refundDeadline}:</span>
+              <span>{POLICY.refundAfterDeadline}</span>
             </div>
           </div>
           <div style={noteStyle}>
-            We understand plans change. If something comes up, reach out as early as possible and we'll do our best to work with you.
+            If you find a replacement participant, a full refund is available at any time. We understand plans change — reach out as early as possible and we'll do our best to work with you.
           </div>
         </div>
       </div>

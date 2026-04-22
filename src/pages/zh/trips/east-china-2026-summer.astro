@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { getTripById } from '../../../data/registry';
-import TripWhyUs from '../../../components/v1/TripWhyUs.astro';
+import TripRundown from '../../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../../components/v1/TripPriceBreakdown.astro';
 import {
   faqZh,
@@ -227,7 +227,7 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
 })();
 </script>
 
-  <TripWhyUs lang="zh" />
+  <TripRundown lang="zh" />
 
   <TripPriceBreakdown lang="zh" />
 

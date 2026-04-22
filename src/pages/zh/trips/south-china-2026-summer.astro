@@ -1,8 +1,9 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { getTripById } from '../../../data/registry';
-import TripWhyUs from '../../../components/v1/TripWhyUs.astro';
+import TripRundown from '../../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../../components/v1/TripPriceBreakdown.astro';
+import { SOUTH_CHINA_PRICE_CAD } from '../../../data/registry';
 import {
   southChinaItinerary,
   southChinaCityGuides,
@@ -43,7 +44,7 @@ const tripStructuredData = [
     '@type': 'TouristTrip',
     name: trip.titleZh,
     description:
-      '探索中国华南线路——10天走访厦门、潮汕、深圳与香港，文化深度、海岸气息与东西交融的城市张力。',
+      '探索中国华南线路——10天走访厦门、泉州、潮汕与深圳，海上丝路、妈祖信仰、功夫茶文化与中国速度最快的新兴城市。',
     itinerary: itinerary.map((day) => `${day.dayZh}: ${day.cityZh} - ${day.titleZh}`),
     touristType: '来自加拿大的在校学生与年轻旅行者',
   },
@@ -59,7 +60,7 @@ const tripStructuredData = [
 ---
 <Layout
   title={`${trip.titleZh} · 探索中国 2026`}
-  description="探索中国华南线路——10天走访厦门、潮汕、深圳与香港，文化深度、海岸气息与东西交融的城市张力。"
+  description="探索中国华南线路——10天走访厦门、泉州、潮汕与深圳，海上丝路、妈祖信仰、功夫茶文化与中国速度最快的新兴城市。"
   lang="zh"
   alternateHref="/trips/south-china-2026-summer"
   alternateLabel="English"
@@ -70,8 +71,8 @@ const tripStructuredData = [
 
   <div class="trip-hero">
     <img
-      src="https://images.unsplash.com/photo-1506812574058-fc75fa93fead?auto=format&fit=crop&w=1600&q=80"
-      alt="厦门海岸黄昏"
+      src="/images/places/xiamen-hero-1.jpg"
+      alt="厦门鼓浪屿海岸风光"
       class="trip-hero__img"
     />
     <div class="trip-hero__overlay">
@@ -166,7 +167,7 @@ const tripStructuredData = [
 
     <div class="route-intro__body">
       <p>
-        华南线路穿越的，是大多数旅行者从未抵达的那个中国：厦门的海风与闽南离散情结、潮汕沉积千年的潮州文明、深圳用三十年造出来的城市雄心，还有香港——那个东方与西方不再只是比喻、而是真实地化为街道、食档与生活方式的地方。
+        华南线路穿越的，是世界各地唐人街的出发地：厦门的海风与闽南离散情结、泉州——曾经的全球第一大港——妈祖庙与古清真寺并肩而立的地方、潮汕沉积千年的潮州文明，以及深圳，四十年在同一片海岸线上建起了一座一千七百万人的城市。
       </p>
     </div>
 
@@ -177,15 +178,15 @@ const tripStructuredData = [
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="1">
-          <span class="route-intro__city-name">潮汕</span>
+          <span class="route-intro__city-name">泉州</span>
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="2">
-          <span class="route-intro__city-name">深圳</span>
+          <span class="route-intro__city-name">潮汕</span>
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="3">
-          <span class="route-intro__city-name">香港</span>
+          <span class="route-intro__city-name">深圳</span>
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
       </div>
@@ -194,19 +195,19 @@ const tripStructuredData = [
           <p>海比城市先到。你先闻到它——盐味、雨气，还有一丝来自巷子尽头庙宇的香烟。鼓浪屿的路窄得不够车过，于是你听见了一切：二楼窗户里的钢琴音阶，自行车经过的声音，有人的阿嬷在和水果摊吵架。节奏在这里不一样，你第一个下午就能感觉到。</p>
         </div>
         <div class="route-intro__city-panel" data-panel="1">
-          <p>潮汕按功夫茶的速度运转。在这里，喝茶不是旅游项目，是人们说话的方式。主人会在杯子见底前续满；拒绝意味着你要走了。坐够久，对话会找到自己的节奏。晚饭桌上的牛肉今天早上还在田里，面条两个小时前刚手工做好。一切都比你以为的更靠近它的来处。</p>
+          <p>马可·波罗说这里是他见过最好的港口，那是十三世纪。唐代清真寺还在。宋代寺庙的香火还在续。街边的石刻上有阿拉伯文、泰米尔文和汉字并排——因为这曾是全世界都要经过的港口，它留下了所有人的痕迹。从温哥华到新加坡，建起唐人街的那批离乡者，就是从这样的码头出发的。</p>
         </div>
         <div class="route-intro__city-panel" data-panel="2">
-          <p>深圳用体量宣告自己。楼很高，很新，毫不道歉。这座城市45岁，它知道。没有怀旧，只有能量：电子市场里清晨八点就来取货的工程师，旧厂房里长出来的艺术区，从四面八方来的年轻人，还在摸索这地方究竟是什么。</p>
+          <p>潮汕按功夫茶的速度运转。在这里，喝茶不是旅游项目，是人们说话的方式。主人会在杯子见底前续满；拒绝意味着你要走了。坐够久，对话会找到自己的节奏。晚饭桌上的牛肉今天早上还在田里，面条两个小时前刚手工做好。一切都比你以为的更靠近它的来处。</p>
         </div>
         <div class="route-intro__city-panel" data-panel="3">
-          <p>香港靠密度运转。叮叮车在三种文字的招牌之间慢慢穿行。天星小轮几乎不要钱，十分钟，给你港湾两岸的完整全景。清晨菜市场的鱼还在动。入夜，一万扇窗的灯光把港湾染成金色。这座城市真实，密实，完全是它自己。</p>
+          <p>深圳用体量宣告自己。楼很高，很新，毫不道歉。这座城市45岁，它知道。没有怀旧，只有能量：电子市场里清晨八点就来取货的工程师，旧厂房里长出来的艺术区，从四面八方来的年轻人，还在摸索这地方究竟是什么。</p>
         </div>
       </div>
     </div>
 
     <p class="route-intro__colophon">
-      10天 &nbsp;·&nbsp; 厦门 · 潮汕 · 深圳 · 香港
+      10天 &nbsp;·&nbsp; 厦门 · 泉州 · 潮汕 · 深圳
     </p>
   </div>
 </section>
@@ -249,9 +250,9 @@ const tripStructuredData = [
 })();
 </script>
 
-  <TripWhyUs lang="zh" />
+  <TripRundown lang="zh" route="south" />
 
-  <TripPriceBreakdown lang="zh" />
+  <TripPriceBreakdown lang="zh" route="south" price={SOUTH_CHINA_PRICE_CAD} />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">十天行程一览</h2>
@@ -276,58 +277,15 @@ const tripStructuredData = [
 
             <div class="itinerary-day__body" data-day-body>
               <div class="itinerary-day__body-inner">
-                {d.slides.length > 0 && (
-                  <div class="landmark-carousel">
-                    <button class="landmark-carousel__btn landmark-carousel__btn--prev" aria-label="上一张">←</button>
-                    <div class="landmark-carousel__track-wrap">
-                      <div class="landmark-carousel__track">
-
-                        {d.slides.map((slide) => (
-                          <div class="landmark-carousel__slide">
-                            {slide.type === 'city' ? (
-                              <div class="city-intro-card">
-                                <div class="city-intro-card__image">
-                                  <img
-                                    src={slide.guide.heroImage}
-                                    alt={slide.guide.heroAlt}
-                                    loading="lazy"
-                                  />
-                                </div>
-                                <div class="city-intro-card__content">
-                                  <span class="city-intro-card__label">城市概览</span>
-                                  <h3 class="city-intro-card__city">{slide.guide.cityZh}</h3>
-                                  <p class="city-intro-card__desc">{slide.guide.contextZh}</p>
-                                </div>
-                              </div>
-                            ) : (
-                              <div class="landmark-card">
-                                <div class="landmark-card__visual">
-                                  <img
-                                    src={slide.lm.image}
-                                    alt={slide.lm.nameZh}
-                                    loading="lazy"
-                                  />
-                                </div>
-                                <div class="landmark-card__base-overlay"></div>
-                                <div class="landmark-card__name-overlay">
-                                  <p class="landmark-card__name">{slide.lm.nameZh}</p>
-                                  <p class="landmark-card__name-zh">{slide.lm.name}</p>
-                                </div>
-                                <div class="landmark-card__overlay"></div>
-                                <div class="landmark-card__body">
-                                  <p class="landmark-card__body-name">{slide.lm.nameZh}</p>
-                                  <p class="landmark-card__body-name-zh">{slide.lm.name}</p>
-                                  <p class="landmark-card__background">{slide.lm.backgroundZh ?? slide.lm.background}</p>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        ))}
-
-                      </div>
-                    </div>
-                    <button class="landmark-carousel__btn landmark-carousel__btn--next" aria-label="下一张">→</button>
-                  </div>
+                {d.slides.filter((s: DaySlideZh) => s.type === 'landmark').length > 0 && (
+                  <ul class="stop-list">
+                    {d.slides.filter((s: DaySlideZh) => s.type === 'landmark').map((slide: DaySlideZh) => (
+                      <li class="stop-list__item">
+                        <span class="stop-list__name">{(slide as LandmarkSlideZh).lm.nameZh}</span>
+                        <p class="stop-list__desc">{((slide as LandmarkSlideZh).lm.backgroundZh ?? (slide as LandmarkSlideZh).lm.background).match(/[^。！？.!?]+[。！？.!?]+/g)?.slice(0,2).join('') ?? (slide as LandmarkSlideZh).lm.backgroundZh}</p>
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
             </div>
@@ -411,8 +369,11 @@ const tripStructuredData = [
     <div class="container" style="text-align:center; padding-top:0; padding-bottom:0;">
       <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">报名</p>
       <h2 class="section-title" style="color:#fff; margin-bottom:1rem;">准备好出发了吗？</h2>
-      <p style="color:rgba(255,255,255,0.72); font-size:clamp(0.95rem,2vw,1.05rem); line-height:1.75; max-width:460px; margin:0 auto 2rem;">
+      <p style="color:rgba(255,255,255,0.72); font-size:clamp(0.95rem,2vw,1.05rem); line-height:1.75; max-width:460px; margin:0 auto 1.25rem;">
         告诉我们一些关于你的信息，以及你感兴趣的行程——我们将在5个工作日内回复。
+      </p>
+      <p style="color:rgba(255,255,255,0.55); font-size:clamp(0.8rem,1.6vw,0.875rem); line-height:1.7; max-width:420px; margin:0 auto 2rem;">
+        行程在深圳结束——但第10天，参与者也可以选择从香港国际机场离境（约45分钟车程）。报名时告知我们你的偏好即可。
       </p>
       <a href="/apply"
         style="display:inline-block; background:var(--color-red,#c8102e); color:#fff; padding:0.9rem 2.5rem; font-size:0.875rem; font-weight:600; letter-spacing:0.08em; text-decoration:none; text-transform:uppercase; transition:background 0.2s;"
@@ -507,31 +468,4 @@ document.querySelectorAll('.highlights-strip__stage').forEach(stage => {
   });
 });
 
-// ── Landmark carousels ─────────────────────────────────
-document.querySelectorAll('.landmark-carousel').forEach(carousel => {
-  const track = carousel.querySelector('.landmark-carousel__track');
-  const slides = carousel.querySelectorAll('.landmark-carousel__slide');
-  const prevBtn = carousel.querySelector('.landmark-carousel__btn--prev');
-  const nextBtn = carousel.querySelector('.landmark-carousel__btn--next');
-  if (!track || slides.length === 0) return;
-
-  let current = 0;
-  const total = slides.length;
-
-  function goTo(n) {
-    current = Math.max(0, Math.min(n, total - 1));
-    const slideWidth = slides[0].offsetWidth + 12;
-    track.style.transform = `translateX(-${current * slideWidth}px)`;
-  }
-
-  prevBtn?.addEventListener('click', () => goTo(current - 1));
-  nextBtn?.addEventListener('click', () => goTo(current + 1));
-
-  let touchX = 0;
-  carousel.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
-  carousel.addEventListener('touchend', e => {
-    const delta = touchX - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 40) goTo(current + (delta > 0 ? 1 : -1));
-  });
-});
 </script>

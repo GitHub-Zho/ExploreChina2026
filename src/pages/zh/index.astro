@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/v1/HeroSection.astro';
 import DestinationGrid from '../../components/v1/DestinationGrid.astro';
 import Faq from '../../components/v1/Faq.astro';
+import { tripsMeta } from '../../data/trips-meta.ts';
 ---
 <Layout
   title="探索中国｜加拿大学生项目"
@@ -17,31 +18,41 @@ import Faq from '../../components/v1/Faq.astro';
 
   <section id="itinerary" class="py-20">
     <div class="container">
-      <p class="section-eyebrow">行程</p>
-      <h2 class="section-title">10天路线概览</h2>
-      <div class="grid md:grid-cols-2 gap-8 mt-8">
-        <a href="/zh/trips/east-china-2026-summer" class="block bg-white p-6 border border-stone-200 hover:border-red-300 hover:shadow-md transition-all group">
-          <h3 class="text-2xl font-semibold mb-2 group-hover:text-red-700 transition-colors">北京 10天行程</h3>
-          <p class="text-stone-600 leading-7">长城、故宫、学生交流活动与结营社交夜。深度走进中国首都的完整体验。</p>
-          <span class="inline-block mt-4 text-red-700 font-medium text-sm">查看行程 →</span>
-        </a>
-        <button type="button" id="yunnan-card" class="text-left bg-white p-6 border border-stone-200 hover:border-amber-300 hover:shadow-md transition-all cursor-pointer w-full">
-          <h3 class="text-2xl font-semibold mb-2">云南 10天行程</h3>
-          <p class="text-stone-600 leading-7">古镇、少数民族文化、梯田与山地风光。穿越中国视觉最独特的省份之一。</p>
-          <span class="inline-block mt-4 text-stone-400 font-medium text-sm">即将推出 →</span>
-        </button>
+      <p class="section-eyebrow">我们的线路</p>
+      <h2 class="section-title">选择你的中国</h2>
+      <div class="home-trip-grid mt-8">
+        {tripsMeta.map((trip) => (
+          trip.status === 'open' ? (
+            <a href={trip.hrefZh} class="home-trip-card">
+              <div class="home-trip-card__img">
+                {trip.image && <img src={trip.image} alt={trip.imageAltZh} loading="lazy" />}
+              </div>
+              <div class="home-trip-card__body">
+                <p class="home-trip-card__arc">{trip.arcTitleZh}</p>
+                <h3 class="home-trip-card__title">{trip.titleZh}</h3>
+                <p class="home-trip-card__focus">{trip.culturalFocusZh}</p>
+                <span class="home-trip-card__cta">查看行程 →</span>
+              </div>
+            </a>
+          ) : (
+            <div class="home-trip-card home-trip-card--soon">
+              <div class="home-trip-card__img home-trip-card__img--placeholder"></div>
+              <div class="home-trip-card__body">
+                <p class="home-trip-card__arc">{trip.arcTitleZh}</p>
+                <h3 class="home-trip-card__title">{trip.titleZh}</h3>
+                <p class="home-trip-card__focus">{trip.culturalFocusZh}</p>
+                <span class="home-trip-card__cta home-trip-card__cta--soon">即将推出</span>
+              </div>
+            </div>
+          )
+        ))}
       </div>
     </div>
   </section>
 
   <DestinationGrid isZh={true} />
 
-  <!-- Toast notification -->
-  <div id="yunnan-toast" role="alert" aria-live="polite" class="yunnan-toast">
-    该行程正在筹备中，敬请期待！
-  </div>
-
-  <Faq isZh={true} />
+<Faq isZh={true} />
 
   <section id="apply" class="py-20">
     <div class="container">

@@ -3,6 +3,7 @@
 // Cities: Shanghai · Suzhou · Hangzhou · Beijing
 //
 // Metadata lives in: src/data/registry.ts
+
 // ─────────────────────────────────────────────────────────────
 
 export const eastChinaCityGuides = [
@@ -308,14 +309,14 @@ export const eastChinaCityGuides = [
 
 export const eastChinaItinerary = [
   {
-    day: 'Day 1',
-    dayZh: '第1天',
+    day: 'Day 0 / 1',
+    dayZh: '第0/1天',
     city: 'Shanghai',
     cityZh: '上海',
-    title: 'Arrival, reset, and first setup',
-    titleZh: '抵达、调整与基础设置',
-    plan: 'Arrival support, hotel check-in, SIM/payment/transit setup, followed by an all-in-one urban relaxation experience \u2014 hot springs and fresh seasonal fruits to reset after long-haul travel.',
-    planZh: '完成抵达、入住、SIM/支付/交通设置，并给长途飞行后的身体和节奏一点恢复空间。',
+    title: 'Land, rest, and hot spring',
+    titleZh: '落地、休息与泡汤',
+    plan: 'Arrival support, hotel check-in, SIM/payment/transit setup — then unwind with a hot spring to shake off the long-haul flight.',
+    planZh: '完成抵达、入住、SIM/支付/交通设置，然后泡温泉放松，好好从长途飞行中缓过来。',
     landmarks: [],
   },
   {
@@ -328,6 +329,13 @@ export const eastChinaItinerary = [
     plan: 'Suzhou museum and Jiangnan atmosphere, with canal-side walking and a softer evening city rhythm before return.',
     planZh: '通过馆藏、运河步行和更安静的城市夜景，体验与上海完全不同的江南气质。',
     landmarks: [
+      {
+        name: 'Suzhou Museum',
+        nameZh: '苏州博物馆',
+        image: '/images/highlights/top-suzhou-museum.jpg',
+        background: `Suzhou Museum was designed by architect I.M. Pei — a Suzhou native — and opened in 2006 as his self-described gift to his hometown. The building blends traditional Jiangnan elements (whitewashed walls, dark roof tiles, geometric water features) with modernist precision, creating a structure that feels both ancient and completely contemporary. The collection spans ceramics, calligraphy, and ancient Suzhou crafts across dynasties; the building itself is widely considered the highlight.`,
+        backgroundZh: `苏州博物馆由建筑师贝聿铭——苏州人——设计，于2006年开馆，是他亲口称之为"给故乡的礼物"的作品。建筑将江南传统元素（粉墙黛瓦、几何水景）与现代主义精准结合，营造出既古典又极具当代感的空间。馆藏涵盖历代陶瓷、书法与苏州传统工艺；建筑本身往往被认为是最值得看的展品。`,
+      },
       {
         name: 'Pingjiang Road',
         nameZh: '平江路',
@@ -464,6 +472,13 @@ export const eastChinaItinerary = [
         backgroundZh: `故宫是明清两代的皇家宫殿，由明成祖朱棣于1406至1420年间下令修建。建筑群占地72万平方米，现存980座建筑，是世界上规模最大的古代木结构建筑群。自1420年至1912年近五百年间，未经皇帝召见的平民一律不得入内——宫城与周围城市之间形成了绝对的隔断。两朝共24位皇帝在此居住。名称源自"紫禁城"：紫，取自中国天文学中紫微星——天帝居所，众星环绕其运行。`,
       },
       {
+        name: 'Summer Palace',
+        nameZh: '颐和园',
+        image: '/images/highlights/top-beijing-summer-palace.jpg',
+        background: `The Summer Palace is Beijing's largest imperial garden at 2.9 square kilometres, with Kunming Lake covering three-quarters of its area. Originally built in the 18th century as an imperial retreat, it was expanded by Empress Dowager Cixi in the late 19th century using funds earmarked for the navy — a decision that became one of the most scrutinised in Qing history. Longevity Hill, the 728-metre Long Corridor painted with over 14,000 scenes, and the Marble Boat are its signature landmarks. It is the closest thing Beijing has to a classical Chinese garden at full imperial scale.`,
+        backgroundZh: `颐和园是北京最大的皇家园林，总面积2.9平方公里，其中昆明湖占四分之三。最初建于18世纪，作为皇家避暑胜地，后由慈禧太后在19世纪末用海军经费大规模扩建，这一决策成为清史上争议最大的事件之一。万寿山、绘有14000余幅彩画的728米长廊与石舫是其标志性景观，也是北京最接近完整皇家规制的古典园林。`,
+      },
+      {
         name: 'Temple of Heaven',
         nameZh: '天坛',
         image: '/images/places/beijing-temple-heaven-1.jpg',
@@ -496,8 +511,8 @@ export const eastChinaItinerary = [
     dayZh: '第10天',
     city: 'Beijing',
     cityZh: '北京',
-    title: 'Departure support',
-    titleZh: '离境支持',
+    title: 'Half-day city explore and departure',
+    titleZh: '半日城市漫游与离境',
     plan: 'Departure coordination, airport support, and a clean outbound finish.',
     planZh: '完成离境协调与机场支持，让整个旅程有一个清晰、不慌乱的收尾。',
     landmarks: [],

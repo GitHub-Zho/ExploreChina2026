@@ -1,3 +1,5 @@
+import { EAST_CHINA_PRICE_CAD, POLICY } from './registry';
+
 export const site = {
   name: 'Explore China',
   nameZh: '探索中国',
@@ -18,8 +20,8 @@ export const currentTrip = {
   duration: '10 days',
   durationZh: '10天',
   route: ['Shanghai', 'Suzhou', 'Hangzhou', 'Beijing'],
-  priceCad: 'CAD $3,000 per person (excluding international flights)',
-  priceCadZh: 'CAD $3,000 / 人（不含国际机票）',
+  priceCad: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
+  priceCadZh: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} / 人（不含国际机票）`,
   departureWindow: 'July 2026 (final date to be confirmed)',
   departureWindowZh: '2026年7月（具体日期待确认）',
   applicationDeadline: 'May 31, 2026',
@@ -181,12 +183,8 @@ export const handbookPrep = {
 /* Trip page FAQ — practical details for people who are already interested */
 export const faq = [
   {
-    q: 'What exactly does CAD $3,000 cover?',
+    q: `What exactly does CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} cover?`,
     a: '10 nights of accommodation, all transport between cities within China, group activities, and full organizer support. International flights, travel insurance, and personal spending (food beyond group meals, souvenirs, etc.) are not included. We send a detailed breakdown after your application is confirmed.',
-  },
-  {
-    q: 'Are there student discounts?',
-    a: 'Yes — if you\'re applying through one of our partner university clubs (such as organizations at Cambridge, UofT, or other affiliated schools), you may be eligible for a group discount. Mention your school and club affiliation in your application and we\'ll confirm.',
   },
   {
     q: 'How physically demanding is the route?',
@@ -202,18 +200,14 @@ export const faq = [
   },
   {
     q: 'What if I need to cancel after paying?',
-    a: 'We get it — plans change. Cancellation terms depend on timing. The earlier you let us know, the more flexible we can be. Full refund policy is shared in writing before any deposit is collected.',
+    a: `We get it — plans change. A ${POLICY.depositPct}% deposit is required to hold your spot, with the balance due ${POLICY.balanceDueNote}. If you cancel before ${POLICY.refundDeadline}: ${POLICY.refundBeforeDeadline}. After that point: ${POLICY.refundAfterDeadline} is returned. If you find a replacement participant, a full refund is available at any time.`,
   },
 ];
 
 export const faqZh = [
   {
-    q: 'CAD $3,000 具体包含什么？',
+    q: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} 具体包含什么？`,
     a: '10晚住宿、中国境内城市间所有交通、团体活动和全程组织支持。国际机票、旅行保险和个人花销（团餐以外的餐饮、纪念品等）不包含。确认报名后我们会发详细费用清单。',
-  },
-  {
-    q: '学生有优惠吗？',
-    a: '有——如果你通过我们合作的大学社团报名（比如 Cambridge、UofT 等学校的相关组织），可能享受团体优惠。报名时注明你的学校和社团，我们会确认。',
   },
   {
     q: '行程对体力要求高吗？',
@@ -229,7 +223,7 @@ export const faqZh = [
   },
   {
     q: '付款后需要取消怎么办？',
-    a: '我们理解计划会变。取消条款取决于时间——越早越灵活。完整退款政策会在收取任何订金之前以书面形式说明。',
+    a: `我们理解计划会变。需预付${POLICY.depositPct}%定金锁定名额，余款在${POLICY.balanceDueNoteZh}前结清。${POLICY.refundDeadlineZh}前取消：${POLICY.refundBeforeDeadlineZh}。此后取消：退还${POLICY.refundAfterDeadlineZh}。如能找到替换参与者，可在任何时间申请全额退款。`,
   },
 ];
 

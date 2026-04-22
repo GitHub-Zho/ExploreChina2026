@@ -79,6 +79,9 @@ const jsonLd = JSON.stringify(
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={pageDescription} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang={lang === 'zh' ? 'en' : 'zh-CN'} href={alternateUrl} />
     <link rel="alternate" hreflang={lang === 'zh' ? 'zh-CN' : 'en'} href={canonicalUrl} />

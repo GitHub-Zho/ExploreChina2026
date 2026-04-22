@@ -2,6 +2,7 @@
 // South China Route — Trip Data
 // Cities: Xiamen → Chaoshan → Shenzhen → Hong Kong
 // ─────────────────────────────────────────────────────────────
+import { POLICY } from './registry';
 
 // ─────────────────────────────────────
 // PART A: Trip metadata
@@ -110,6 +111,10 @@ export const southChinaFaq = [
     q: 'When do I need to apply by?',
     a: 'Applications close May 31, 2026. We review for fit and follow up within 5 business days. Given the limited group size, we recommend applying early. A deposit holds your spot; the balance is due closer to departure.',
   },
+  {
+    q: 'What if I need to cancel after paying?',
+    a: `A ${POLICY.depositPct}% deposit is required to hold your spot, with the balance due ${POLICY.balanceDueNote}. If you cancel before ${POLICY.refundDeadline}: ${POLICY.refundBeforeDeadline}. After that point: ${POLICY.refundAfterDeadline} is returned. If you find a replacement participant, a full refund is available at any time.`,
+  },
 ];
 
 export const southChinaFaqZh = [
@@ -144,6 +149,10 @@ export const southChinaFaqZh = [
   {
     q: '报名截止时间是什么时候？',
     a: '报名截止2026年5月31日。我们将在5个工作日内回复。由于名额有限，建议尽早报名。交押金即可锁定名额，余款在出发前结清。',
+  },
+  {
+    q: '付款后需要取消怎么办？',
+    a: `需预付${POLICY.depositPct}%定金锁定名额，余款在${POLICY.balanceDueNoteZh}前结清。${POLICY.refundDeadlineZh}前取消：${POLICY.refundBeforeDeadlineZh}。此后取消：退还${POLICY.refundAfterDeadlineZh}。如能找到替换参与者，可在任何时间申请全额退款。`,
   },
 ];
 

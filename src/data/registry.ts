@@ -1,6 +1,21 @@
 import { southChinaItinerary, southChinaCityGuides } from './trips/south-china';
 import { eastChinaItinerary, eastChinaCityGuides } from './trips/east-china';
 
+export const EAST_CHINA_PRICE_CAD = 2398;
+export const SOUTH_CHINA_PRICE_CAD = 1600;
+
+export const POLICY = {
+  depositPct: 30,
+  balanceDueNote: '1 month before departure',
+  balanceDueNoteZh: '出发前一个月',
+  refundBeforeDeadline: 'Full refund minus deposit',
+  refundBeforeDeadlineZh: '全额退款（定金不退）',
+  refundAfterDeadline: '30% of total trip cost',
+  refundAfterDeadlineZh: '退还总费用的30%',
+  refundDeadline: '30 days before departure',
+  refundDeadlineZh: '出发前30天',
+} as const;
+
 export interface TripDate {
   label: string;
   labelZh: string;
@@ -62,27 +77,23 @@ export const TRIPS: Trip[] = [
     tagline: 'Canal towns, ancient gardens, West Lake, and the Forbidden City.',
     taglineZh: '运河古镇、江南园林、西湖、故宫。',
     duration: '10 days',
-    price: 'CAD $3,000',
+    price: `CAD $${EAST_CHINA_PRICE_CAD}`,
     status: 'open',
     summary:
-      'A structured, student-friendly China route blending city icons, food culture, local atmosphere, and practical support from arrival to departure.',
+      'Imperial Beijing, classical gardens of Suzhou and Hangzhou, and Shanghai rewriting itself every ten years.',
     summaryZh:
-      '这是一条为学生与年轻旅行者设计的中国深度线路：把城市地标、本地生活感、同龄社交交流与清晰可靠的执行支持结合在一起。',
-    departureWindow: 'July 2026 (final date to be confirmed)',
-    departureWindowZh: '2026年7月（具体日期待确认）',
-    priceCad: 'CAD $3,000 per person (excluding international flights)',
-    priceCadZh: 'CAD $3,000 / 人（不含国际机票）',
+      '帝都北京、江南园林、改写自身的现代上海。',
+    departureWindow: 'Jun 8 & Jul 8, 2026',
+    departureWindowZh: '2026年6月8日 / 7月8日',
+    priceCad: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
+    priceCadZh: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} / 人（不含国际机票）`,
     groupSize: 'Max 20 participants',
     groupSizeZh: '最多 20 人',
     applicationDeadline: 'May 31, 2026',
     applicationDeadlineZh: '2026年5月31日',
     dates: [
-      {
-        label: 'July 2026 (final date to be confirmed)',
-        labelZh: '2026年7月（具体日期待确认）',
-        start: '',
-        end: '',
-      },
+      { label: 'Jun 8 – Jun 17, 2026', labelZh: '2026年6月8日 – 6月17日', start: '2026-06-08', end: '2026-06-17' },
+      { label: 'Jul 8 – Jul 17, 2026',  labelZh: '2026年7月8日 – 7月17日',  start: '2026-07-08', end: '2026-07-17' },
     ],
     highlights: [
       'Airport arrival support + first-day China essentials setup',
@@ -141,35 +152,31 @@ export const TRIPS: Trip[] = [
       "A coastal and urban South China route — Xiamen's sea-worn colonial lanes, Chaoshan's ancient Teochew rituals, Shenzhen's speed-built ambition, and Hong Kong's layered East-West intensity. Four cities, four completely different registers of what China can be.",
     subtitleZh:
       '从厦门的闽南海岸气息、潮汕沉淀千年的茶道与古城，到深圳的速度与创意，再到香港的东西交融——这条路线带你见证中国南方最多元的四种面貌。',
-    routeName: 'Xiamen → Chaoshan → Shenzhen → Hong Kong',
-    routeNameZh: '厦门 → 潮汕 → 深圳 → 香港',
+    routeName: 'Xiamen → Quanzhou → Chaoshan → Shenzhen',
+    routeNameZh: '厦门 → 泉州 → 潮汕 → 深圳',
     heroImage: '/images/places/xiamen-hero-1.jpg',
     tagline:
       "Coastal nostalgia, ancient Teochew civilization, China's fastest-growing city, and a harbour skyline that belongs to no easy category.",
     taglineZh:
       '海边的南洋气息、两千年潮州文明、中国建城速度最快的城市，还有那片说不清属于哪里的维多利亚港。',
     duration: '10 days',
-    price: 'CAD $2,598',
+    price: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
     status: 'open',
     summary:
-      "A coastal and urban South China route — Xiamen's sea-worn colonial lanes, Chaoshan's ancient Teochew rituals, Shenzhen's speed-built ambition, and Hong Kong's layered East-West intensity. Four cities, four completely different registers of what China can be.",
+      "Quanzhou was once the world's busiest port. Chaozhou kept tea ceremony and ancestral rituals intact for a thousand years. Xiamen faces the sea its emigrants crossed. Shenzhen built itself in forty years on the same shoreline.",
     summaryZh:
-      '从厦门的闽南海岸气息、潮汕沉淀千年的茶道与古城，到深圳的速度与创意，再到香港的东西交融——这条路线带你见证中国南方最多元的四种面貌。',
-    departureWindow: 'Summer 2026 (dates to be confirmed)',
-    departureWindowZh: '2026年夏季（具体日期待确认）',
-    priceCad: 'CAD $2,598 per person (excluding international flights)',
-    priceCadZh: 'CAD $2,598 / 人（不含国际机票）',
+      '泉州曾是全球最繁忙的港口。潮州将功夫茶与祭祖礼仪完整保存了千年。厦门望着祖先渡过的那片海。深圳在同一片海岸线上，四十年建起了一座新城。',
+    departureWindow: 'Jun 20 & Jul 20, 2026',
+    departureWindowZh: '2026年6月20日 / 7月20日',
+    priceCad: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
+    priceCadZh: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()} / 人（不含国际机票）`,
     groupSize: 'Max 20 participants',
     groupSizeZh: '最多 20 人',
     applicationDeadline: 'May 31, 2026',
     applicationDeadlineZh: '2026年5月31日',
     dates: [
-      {
-        label: 'Summer 2026 (dates to be confirmed)',
-        labelZh: '2026年夏季（具体日期待确认）',
-        start: '',
-        end: '',
-      },
+      { label: 'Jun 20 – Jun 29, 2026', labelZh: '2026年6月20日 – 6月29日', start: '2026-06-20', end: '2026-06-29' },
+      { label: 'Jul 20 – Jul 29, 2026',  labelZh: '2026年7月20日 – 7月29日',  start: '2026-07-20', end: '2026-07-29' },
     ],
     // ⚠ No highlights array existed in south-china.ts — using subtitle points as placeholder
     highlights: [

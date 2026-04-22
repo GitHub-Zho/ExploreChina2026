@@ -1,8 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getTripById } from '../../data/registry';
-import TripWhyUs from '../../components/v1/TripWhyUs.astro';
+import TripRundown from '../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../components/v1/TripPriceBreakdown.astro';
+import { SOUTH_CHINA_PRICE_CAD } from '../../data/registry';
 import {
   southChinaItinerary,
   southChinaCityGuides,
@@ -43,7 +44,7 @@ const tripStructuredData = [
     '@type': 'TouristTrip',
     name: trip.title,
     description:
-      'A 10-day student travel route through Xiamen, Chaoshan, Shenzhen and Hong Kong — cultural depth, coastal energy, and East-meets-West intensity.',
+      'A 10-day student travel route through Xiamen, Quanzhou, Chaoshan and Shenzhen — diaspora coast, Mazu maritime faith, Gongfu tea, and China\'s fastest-built city.',
     itinerary: itinerary.map((day) => `${day.day}: ${day.city} - ${day.title}`),
     touristType: 'Students and young travelers from Canada',
   },
@@ -59,7 +60,7 @@ const tripStructuredData = [
 ---
 <Layout
   title={`${trip.title} · Explore China 2026`}
-  description="A 10-day student travel route through Xiamen, Chaoshan, Shenzhen and Hong Kong — cultural depth, coastal energy, and East-meets-West intensity."
+  description="A 10-day student travel route through Xiamen, Quanzhou, Chaoshan and Shenzhen — diaspora coast, Mazu maritime faith, Gongfu tea, and China's fastest-built city."
   lang="en"
   alternateHref="/zh/trips/south-china-2026-summer"
   alternateLabel="中文"
@@ -70,8 +71,8 @@ const tripStructuredData = [
 
   <div class="trip-hero">
     <img
-      src="https://images.unsplash.com/photo-1506812574058-fc75fa93fead?auto=format&fit=crop&w=1600&q=80"
-      alt="Xiamen coastal view at dusk"
+      src="/images/places/xiamen-hero-1.jpg"
+      alt="Xiamen Gulangyu Island coastal view"
       class="trip-hero__img"
     />
     <div class="trip-hero__overlay">
@@ -166,11 +167,11 @@ const tripStructuredData = [
 
     <div class="route-intro__body">
       <p>
-        The South China Route moves through a register of the country that most travelers miss:
-        Xiamen's colonial sea air and diaspora nostalgia, the ancient Teochew civilization of
-        Chaoshan, Shenzhen's speed-built ambition, and finally Hong Kong — the place where East
-        and West stopped being a metaphor and became actual streets, food stalls, and a way of
-        moving through the world.
+        The South China Route moves through the coast that the world's Chinatowns came from.
+        Xiamen's sea-worn lanes and diaspora nostalgia, Quanzhou — once the world's busiest
+        port — where Mazu temples and stone mosques stand on the same street, Chaoshan's
+        ancient Teochew civilization still running on tea and beef and thousand-year-old rituals,
+        and Shenzhen: forty years old, seventeen million people, still figuring out what it is.
       </p>
     </div>
 
@@ -181,15 +182,15 @@ const tripStructuredData = [
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="1">
-          <span class="route-intro__city-name">Chaoshan</span>
+          <span class="route-intro__city-name">Quanzhou</span>
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="2">
-          <span class="route-intro__city-name">Shenzhen</span>
+          <span class="route-intro__city-name">Chaoshan</span>
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="3">
-          <span class="route-intro__city-name">Hong Kong</span>
+          <span class="route-intro__city-name">Shenzhen</span>
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
       </div>
@@ -198,19 +199,19 @@ const tripStructuredData = [
           <p>The sea arrives before the city does. You smell it first — salt and rain and something faintly sweet that turns out to be incense from the temple at the end of the lane. On Gulangyu the streets are too narrow for cars, which means you hear everything: piano scales from a second-floor window, the clatter of a bicycle, someone's grandmother arguing with a fruit seller. The pace is different here. You will notice it by the end of the first afternoon.</p>
         </div>
         <div class="route-intro__city-panel" data-panel="1">
-          <p>Chaoshan moves at the speed of tea. A session here is not a tourist activity — it's how people talk. Your host will fill the tiny cup before it empties; refusing means you want to leave. Sit long enough and the conversation finds its own rhythm. The beef at dinner was in a paddock this morning. The noodles were made by hand two hours ago. Everything is closer to its source than you expect.</p>
+          <p>Marco Polo called this harbour the finest he had ever seen. That was the thirteenth century. The Tang dynasty mosque still stands. The Song dynasty temple still holds its incense smoke. In the side streets you find stone carvings in Arabic and Tamil alongside Chinese characters — because this was the port the whole world passed through, and it kept the marks. The diaspora that built Chinatowns from Vancouver to Singapore started leaving from docks like these.</p>
         </div>
         <div class="route-intro__city-panel" data-panel="2">
-          <p>Shenzhen announces itself through scale. The buildings are enormous and new and completely unapologetic about it. There is no nostalgia here — the city is 45 years old and knows it. What you find instead is energy: the electronics market where engineers source components at 8am, the art district that appeared in a former factory compound, the young residents who came from everywhere else and are still figuring out what kind of place this is.</p>
+          <p>Chaoshan moves at the speed of tea. A session here is not a tourist activity — it's how people talk. Your host will fill the tiny cup before it empties; refusing means you want to leave. Sit long enough and the conversation finds its own rhythm. The beef at dinner was in a paddock this morning. The noodles were made by hand two hours ago. Everything is closer to its source than you expect.</p>
         </div>
         <div class="route-intro__city-panel" data-panel="3">
-          <p>Hong Kong runs on compression. The trams move slowly through streets packed tight with signage in three scripts. The Star Ferry costs almost nothing and takes ten minutes and gives you the full sweep of the harbour in both directions. In the wet market at dawn the fish are still moving. In the evening the light from ten thousand windows turns the harbour gold. The city is dense and real and entirely itself.</p>
+          <p>Shenzhen announces itself through scale. The buildings are enormous and new and completely unapologetic about it. There is no nostalgia here — the city is 45 years old and knows it. What you find instead is energy: the electronics market where engineers source components at 8am, the art district that appeared in a former factory compound, the young residents who came from everywhere else and are still figuring out what kind of place this is.</p>
         </div>
       </div>
     </div>
 
     <p class="route-intro__colophon">
-      10 days &nbsp;·&nbsp; Xiamen · Chaoshan · Shenzhen · Hong Kong
+      10 days &nbsp;·&nbsp; Xiamen · Quanzhou · Chaoshan · Shenzhen
     </p>
   </div>
 </section>
@@ -256,9 +257,9 @@ const tripStructuredData = [
 })();
 </script>
 
-  <TripWhyUs lang="en" />
+  <TripRundown lang="en" route="south" />
 
-  <TripPriceBreakdown lang="en" />
+  <TripPriceBreakdown lang="en" route="south" price={SOUTH_CHINA_PRICE_CAD} />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">10-day route at a glance</h2>
@@ -283,58 +284,15 @@ const tripStructuredData = [
 
             <div class="itinerary-day__body" data-day-body>
               <div class="itinerary-day__body-inner">
-                {d.slides.length > 0 && (
-                  <div class="landmark-carousel">
-                    <button class="landmark-carousel__btn landmark-carousel__btn--prev" aria-label="Previous">←</button>
-                    <div class="landmark-carousel__track-wrap">
-                      <div class="landmark-carousel__track">
-
-                        {d.slides.map((slide) => (
-                          <div class="landmark-carousel__slide">
-                            {slide.type === 'city' ? (
-                              <div class="city-intro-card">
-                                <div class="city-intro-card__image">
-                                  <img
-                                    src={slide.guide.heroImage}
-                                    alt={slide.guide.heroAlt}
-                                    loading="lazy"
-                                  />
-                                </div>
-                                <div class="city-intro-card__content">
-                                  <span class="city-intro-card__label">City overview</span>
-                                  <h3 class="city-intro-card__city">{slide.guide.city}</h3>
-                                  <p class="city-intro-card__desc">{slide.guide.context}</p>
-                                </div>
-                              </div>
-                            ) : (
-                              <div class="landmark-card">
-                                <div class="landmark-card__visual">
-                                  <img
-                                    src={slide.lm.image}
-                                    alt={slide.lm.name}
-                                    loading="lazy"
-                                  />
-                                </div>
-                                <div class="landmark-card__base-overlay"></div>
-                                <div class="landmark-card__name-overlay">
-                                  <p class="landmark-card__name">{slide.lm.name}</p>
-                                  <p class="landmark-card__name-zh">{slide.lm.nameZh}</p>
-                                </div>
-                                <div class="landmark-card__overlay"></div>
-                                <div class="landmark-card__body">
-                                  <p class="landmark-card__body-name">{slide.lm.name}</p>
-                                  <p class="landmark-card__body-name-zh">{slide.lm.nameZh}</p>
-                                  <p class="landmark-card__background">{slide.lm.background}</p>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        ))}
-
-                      </div>
-                    </div>
-                    <button class="landmark-carousel__btn landmark-carousel__btn--next" aria-label="Next">→</button>
-                  </div>
+                {d.slides.filter((s: DaySlide) => s.type === 'landmark').length > 0 && (
+                  <ul class="stop-list">
+                    {d.slides.filter((s: DaySlide) => s.type === 'landmark').map((slide: DaySlide) => (
+                      <li class="stop-list__item">
+                        <span class="stop-list__name">{(slide as LandmarkSlide).lm.name}</span>
+                        <p class="stop-list__desc">{(slide as LandmarkSlide).lm.background.match(/[^.!?]+[.!?]+/g)?.slice(0,2).join(' ') ?? (slide as LandmarkSlide).lm.background}</p>
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
             </div>
@@ -419,8 +377,11 @@ const tripStructuredData = [
     <div class="container" style="text-align:center; padding-top:0; padding-bottom:0;">
       <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Apply</p>
       <h2 class="section-title" style="color:#fff; margin-bottom:1rem;">Ready to go?</h2>
-      <p style="color:rgba(255,255,255,0.72); font-size:clamp(0.95rem,2vw,1.05rem); line-height:1.75; max-width:460px; margin:0 auto 2rem;">
+      <p style="color:rgba(255,255,255,0.72); font-size:clamp(0.95rem,2vw,1.05rem); line-height:1.75; max-width:460px; margin:0 auto 1.25rem;">
         Tell us about yourself and which trip you're interested in — we'll follow up within 5 business days.
+      </p>
+      <p style="color:rgba(255,255,255,0.55); font-size:clamp(0.8rem,1.6vw,0.875rem); line-height:1.7; max-width:420px; margin:0 auto 2rem;">
+        The route ends in Shenzhen — but on Day 10, participants can also depart from Hong Kong International Airport (45 min away). Let us know your preference when you apply.
       </p>
       <a href="/apply"
         style="display:inline-block; background:var(--color-red,#c8102e); color:#fff; padding:0.9rem 2.5rem; font-size:0.875rem; font-weight:600; letter-spacing:0.08em; text-decoration:none; text-transform:uppercase; transition:background 0.2s;"
@@ -549,31 +510,4 @@ document.querySelectorAll('.itinerary-day').forEach(day => {
   });
 }());
 
-// ── Landmark carousels ─────────────────────────────────
-document.querySelectorAll('.landmark-carousel').forEach(carousel => {
-  const track = carousel.querySelector('.landmark-carousel__track');
-  const slides = carousel.querySelectorAll('.landmark-carousel__slide');
-  const prevBtn = carousel.querySelector('.landmark-carousel__btn--prev');
-  const nextBtn = carousel.querySelector('.landmark-carousel__btn--next');
-  if (!track || slides.length === 0) return;
-
-  let current = 0;
-  const total = slides.length;
-
-  function goTo(n) {
-    current = Math.max(0, Math.min(n, total - 1));
-    const slideWidth = slides[0].offsetWidth + 12;
-    track.style.transform = `translateX(-${current * slideWidth}px)`;
-  }
-
-  prevBtn?.addEventListener('click', () => goTo(current - 1));
-  nextBtn?.addEventListener('click', () => goTo(current + 1));
-
-  let touchX = 0;
-  carousel.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
-  carousel.addEventListener('touchend', e => {
-    const delta = touchX - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 40) goTo(current + (delta > 0 ? 1 : -1));
-  });
-});
 </script>

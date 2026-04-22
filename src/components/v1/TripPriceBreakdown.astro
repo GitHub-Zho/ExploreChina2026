@@ -1,58 +1,25 @@
 ---
-const { lang = 'en' } = Astro.props;
+import { EAST_CHINA_PRICE_CAD } from '../../data/registry';
+const { lang = 'en', route = 'east', price = EAST_CHINA_PRICE_CAD } = Astro.props;
 const zh = lang === 'zh';
 
-const items = [
-  {
-    labelEn: 'Accommodation',
-    labelZh: '住宿',
-    noteEn: '4–5★ hotel, shared double room',
-    noteZh: '4–5星酒店，双人间',
-    amount: 800,
-    pct: 27,
-  },
-  {
-    labelEn: 'Food & dining',
-    labelZh: '餐饮',
-    noteEn: 'Local specialty restaurants daily',
-    noteZh: '每日特色餐厅',
-    amount: 700,
-    pct: 23,
-  },
-  {
-    labelEn: 'Activities & tickets',
-    labelZh: '活动与门票',
-    noteEn: 'Entrance fees + special programming',
-    noteZh: '景点门票及特色活动',
-    amount: 500,
-    pct: 17,
-  },
-  {
-    labelEn: 'Guide & local transport',
-    labelZh: '导游及市内交通',
-    noteEn: 'Professional guide + daily in-city',
-    noteZh: '专业导游及每日市内交通',
-    amount: 500,
-    pct: 17,
-  },
-  {
-    labelEn: 'City-to-city transfers',
-    labelZh: '城市间交通',
-    noteEn: 'High-speed rail & domestic flights',
-    noteZh: '高铁及国内航班',
-    amount: 300,
-    pct: 10,
-  },
+const eastItems = [
+  { labelEn: 'Accommodation',       labelZh: '住宿',       noteEn: '4–5★ hotel, shared double room',        noteZh: '4–5星酒店，双人间',        amount: 700, pct: 29 },
+  { labelEn: 'Food & dining',        labelZh: '餐饮',       noteEn: 'Local specialty restaurants daily',      noteZh: '每日特色餐厅',             amount: 600, pct: 25 },
+  { labelEn: 'Activities & tickets', labelZh: '活动与门票', noteEn: 'Entrance fees + special programming',    noteZh: '景点门票及特色活动',       amount: 400, pct: 17 },
+  { labelEn: 'Guide & local transport', labelZh: '导游及市内交通', noteEn: 'Professional guide + daily in-city', noteZh: '专业导游及每日市内交通', amount: 200, pct: 8  },
+  { labelEn: 'City-to-city transfers',  labelZh: '城市间交通',    noteEn: 'High-speed rail & domestic flights', noteZh: '高铁及国内航班',         amount: 300, pct: 12 },
 ];
 
-const programItem = {
-  labelEn: 'Program & co-lead',
-  labelZh: '项目运营及领队',
-  noteEn: 'Club ops + your UofT co-lead on the ground',
-  noteZh: '社团运营 + 在华 UofT 学生领队',
-  amount: 200,
-  pct: 7,
-};
+const southItems = [
+  { labelEn: 'Accommodation',       labelZh: '住宿',       noteEn: '4–5★ hotel, shared double room',        noteZh: '4–5星酒店，双人间',        amount: 600, pct: 33 },
+  { labelEn: 'Food & dining',        labelZh: '餐饮',       noteEn: 'Local specialty restaurants daily',      noteZh: '每日特色餐厅',             amount: 400, pct: 22 },
+  { labelEn: 'Activities & tickets', labelZh: '活动与门票', noteEn: 'Entrance fees + special programming',    noteZh: '景点门票及特色活动',       amount: 200, pct: 13 },
+  { labelEn: 'Guide & local transport', labelZh: '导游及市内交通', noteEn: 'Professional guide + daily in-city', noteZh: '专业导游及每日市内交通', amount: 200, pct: 13 },
+  { labelEn: 'City-to-city transfers',  labelZh: '城市间交通',    noteEn: 'High-speed rail & coastal trains',   noteZh: '高铁及沿海列车',          amount: 200, pct: 13 },
+];
+
+const items = route === 'south' ? southItems : eastItems;
 ---
 
 <section class="price-breakdown">
@@ -61,9 +28,8 @@ const programItem = {
     <div class="price-breakdown__copy">
       <p class="price-breakdown__eyebrow">{zh ? '关于价格' : 'About the price'}</p>
       <h2 class="price-breakdown__title">
-        {zh ? 'CAD $3,000，钱花在了哪里' : 'CAD $3,000 — here\'s where it goes'}
+        {zh ? `CAD $${price.toLocaleString()}，钱花在了哪里` : `CAD $${price.toLocaleString()} — here's where it goes`}
       </h2>
-      <!-- Block 1: short punchy statement, always visible -->
       <p class="price-breakdown__hook">
         {zh
           ? '你要飞到地球另一端——来了，就要认真对待。'
@@ -71,7 +37,6 @@ const programItem = {
         }
       </p>
 
-      <!-- Block 2: question lead-in + explanation -->
       <div class="price-breakdown__reveal">
         <p class="price-breakdown__reveal-trigger">
           {zh ? '为什么是这个价格？' : 'Why does it cost this much?'}
@@ -108,21 +73,9 @@ const programItem = {
         </div>
       ))}
 
-      <!-- Program & co-lead — visually distinct -->
-      <div class="price-bar price-bar--program">
-        <div class="price-bar__labels">
-          <span class="price-bar__name">{zh ? programItem.labelZh : programItem.labelEn}</span>
-          <span class="price-bar__amount">~${programItem.amount}</span>
-        </div>
-        <p class="price-bar__note">{zh ? programItem.noteZh : programItem.noteEn}</p>
-        <div class="price-bar__track">
-          <div class="price-bar__fill price-bar__fill--program" style={`width: ${programItem.pct}%`}></div>
-        </div>
-      </div>
-
       <div class="price-bar__total">
         <span>{zh ? '合计（不含机票）' : 'Total (excl. flights)'}</span>
-        <span>~$3,000</span>
+        <span>~${price.toLocaleString()}</span>
       </div>
 
       <p class="price-breakdown__disclaimer">
