@@ -125,14 +125,37 @@ Runs before every build. Catches `placeholder` as a keyword — patched to skip 
 - **Trip page** (`site.ts`): Practical — pricing, cancellation, dietary, group size
 
 ### 8. East China vs South China Accordion
-- **East China** accordion uses `.stop-list` (text only, no images) — landmark-carousel JS removed
-- **South China** accordion still uses `.landmark-carousel` + `.city-intro-card` — keep that CSS and JS
+- **Both** accordions now use `.stop-list` (text only) — landmark-carousel JS removed from both pages
+- The `.landmark-carousel` CSS still exists in global.css but is no longer used on trip pages
 
 ### 9. Font Sizes — Always Responsive
 All font sizes must use `clamp()` or `vw` units. Never fixed `px` values. This caused a recurring layout bug in the past.
 
 ### 10. Pip Width (HomeDifference)
 Fruit pips use `position: absolute` + `white-space: pre-line` + `width: max-content`. Never remove `width: max-content` or text collapses to one word per line.
+
+### 11. Data Architecture — Single Source of Truth
+**Before writing any value inline, ask: does this belong in a data file?**
+
+Any value that appears in more than one place, or that could change, lives in a data file — not hardcoded in a component or page.
+
+**Data hierarchy:**
+- `src/data/registry.ts` — canonical trip data: title, price constants (`EAST_CHINA_PRICE_CAD`, `SOUTH_CHINA_PRICE_CAD`), route names, dates, summaries. Import these everywhere — apply form, trip pages, metadata.
+- `src/data/trips-meta.ts` — card-facing data for listing pages and homepage: description snippets, seal characters, arc titles, cultural focus lines. References registry constants for price.
+- `src/data/trips/*.ts` — detailed itinerary, city guides, FAQ, included/not-included per route.
+- `src/components/` — components import from data files; never hardcode trip-specific strings, prices, dates, or route names.
+
+**Checklist before hardcoding a value:**
+1. Does this value appear on more than one page or component? → data file
+2. Could it change (price, date, city name, route)? → data file
+3. Is it part of a trip's identity? → registry or trips-meta
+4. Is it a constant used in calculations (price math, combo pricing)? → named export in registry.ts
+
+**Common violations to avoid:**
+- Hardcoded prices in forms — use `EAST_CHINA_PRICE_CAD` / `SOUTH_CHINA_PRICE_CAD`
+- Hardcoded route city strings — use `trip.routeName` from registry
+- Hardcoded departure dates — use `trip.departureWindow` or `trip.dates[]`
+- Page-level descriptions duplicated across EN and ZH pages — share from trips-meta or registry
 
 ---
 

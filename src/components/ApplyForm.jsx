@@ -6,7 +6,7 @@ const TRIP_SCHEDULE = [
     id: "classic-jun",
     route: "Classic Route",
     cities: "Shanghai → Suzhou → Hangzhou → Beijing",
-    dates: "Jun 8 – Jun 18",
+    dates: "Jun 8 – Jun 17",
     arrive: "Shanghai",
     depart: "Beijing → Toronto",
     price: `$${EAST_CHINA_PRICE_CAD.toLocaleString()}`,
@@ -16,20 +16,19 @@ const TRIP_SCHEDULE = [
   {
     id: "south-jun",
     route: "South China Route",
-    cities: "Xiamen → Chaoshan → Shenzhen → Hong Kong",
-    dates: "Jun 20 – Jun 30",
+    cities: "Xiamen → Quanzhou → Chaoshan → Shenzhen",
+    dates: "Jun 20 – Jun 29",
     arrive: "Xiamen",
-    depart: "Hong Kong / Shenzhen",
-    price: "$2,598",
+    depart: "Shenzhen → Toronto",
+    price: `$${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
     color: "#2E8B57",
     month: "June",
-    comingSoon: true,
   },
   {
     id: "classic-jul",
     route: "Classic Route",
     cities: "Shanghai → Suzhou → Hangzhou → Beijing",
-    dates: "Jul 8 – Jul 18",
+    dates: "Jul 8 – Jul 17",
     arrive: "Shanghai",
     depart: "Beijing → Toronto",
     price: `$${EAST_CHINA_PRICE_CAD.toLocaleString()}`,
@@ -39,14 +38,13 @@ const TRIP_SCHEDULE = [
   {
     id: "south-jul",
     route: "South China Route",
-    cities: "Xiamen → Chaoshan → Shenzhen → Hong Kong",
-    dates: "Jul 20 – Jul 30",
+    cities: "Xiamen → Quanzhou → Chaoshan → Shenzhen",
+    dates: "Jul 20 – Jul 29",
     arrive: "Xiamen",
-    depart: "Hong Kong / Shenzhen",
-    price: "$2,598",
+    depart: "Shenzhen → Toronto",
+    price: `$${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
     color: "#2E8B57",
     month: "July",
-    comingSoon: true,
   },
 ];
 
@@ -405,7 +403,7 @@ export default function ExplorechinaForm() {
               <div style={{ padding: "14px 16px", background: "rgba(123,198,126,0.08)", border: "1px solid rgba(123,198,126,0.25)", borderRadius: 10, marginBottom: 14 }}>
                 <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary, #1a1a1a)", marginBottom: 6 }}>Combo selected — {startDate} to {endDate} (~22 days)</p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
-                  <strong>Combo price: $5,998 CAD</strong> (vs $5,598 separately — the difference covers your transition logistics between trips).
+                  <strong>Combo price: ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 200).toLocaleString()} CAD</strong> (vs ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD).toLocaleString()} separately — the $200 difference covers your transition logistics between trips).
                 </p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
                   <strong>We'll book your Beijing → Xiamen transition flight</strong> (~$200 CAD, included in the combo price). Hotel and transport during the 2-day gap between trips are also covered — you just enjoy the ride.
@@ -752,15 +750,16 @@ export default function ExplorechinaForm() {
 
         if (hasJunCombo || hasJulCombo) {
           const month = hasJunCombo ? "June" : "July";
-          items.push({ label: `Combo — Classic + South China (${month})`, price: 5998 });
-          total += 5998;
+          const comboPrice = EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 200;
+          items.push({ label: `Combo — Classic + South China (${month})`, price: comboPrice });
+          total += comboPrice;
           const remainingTrips = form.trips.filter(id =>
             hasJunCombo ? !["classic-jun","south-jun"].includes(id) : !["classic-jul","south-jul"].includes(id)
           );
           remainingTrips.forEach(id => {
             const t = TRIP_SCHEDULE.find(s => s.id === id);
             if (t) {
-              const p = t.route.includes("Classic") ? 3000 : 2598;
+              const p = t.route.includes("Classic") ? EAST_CHINA_PRICE_CAD : SOUTH_CHINA_PRICE_CAD;
               items.push({ label: `${t.route} (${t.dates})`, price: p });
               total += p;
             }
@@ -769,7 +768,7 @@ export default function ExplorechinaForm() {
           form.trips.forEach(id => {
             const t = TRIP_SCHEDULE.find(s => s.id === id);
             if (t) {
-              const p = t.route.includes("Classic") ? 3000 : 2598;
+              const p = t.route.includes("Classic") ? EAST_CHINA_PRICE_CAD : SOUTH_CHINA_PRICE_CAD;
               items.push({ label: `${t.route} (${t.dates})`, price: p });
               total += p;
             }
