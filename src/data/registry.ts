@@ -68,9 +68,9 @@ export const TRIPS: Trip[] = [
     price: `CAD $${EAST_CHINA_PRICE_CAD}`,
     status: 'open',
     summary:
-      'A structured, student-friendly China route blending city icons, food culture, local atmosphere, and practical support from arrival to departure.',
+      'Imperial Beijing, classical gardens of Suzhou and Hangzhou, and Shanghai rewriting itself every ten years.',
     summaryZh:
-      '这是一条为学生与年轻旅行者设计的中国深度线路：把城市地标、本地生活感、同龄社交交流与清晰可靠的执行支持结合在一起。',
+      '帝都北京、江南园林、改写自身的现代上海。',
     departureWindow: 'July 2026 (final date to be confirmed)',
     departureWindowZh: '2026年7月（具体日期待确认）',
     priceCad: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
@@ -155,9 +155,9 @@ export const TRIPS: Trip[] = [
     price: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
     status: 'open',
     summary:
-      "A coastal and urban South China route — Xiamen's sea-worn colonial lanes, Chaoshan's ancient Teochew rituals, Shenzhen's speed-built ambition, and Hong Kong's layered East-West intensity. Four cities, four completely different registers of what China can be.",
+      "Quanzhou was once the world's busiest port. Chaozhou kept tea ceremony and ancestral rituals intact for a thousand years. Xiamen faces the sea its emigrants crossed. Shenzhen built itself in forty years on the same shoreline.",
     summaryZh:
-      '从厦门的闽南海岸气息、潮汕沉淀千年的茶道与古城，到深圳的速度与创意，再到香港的东西交融——这条路线带你见证中国南方最多元的四种面貌。',
+      '泉州曾是全球最繁忙的港口。潮州将功夫茶与祭祖礼仪完整保存了千年。厦门望着祖先渡过的那片海。深圳在同一片海岸线上，四十年建起了一座新城。',
     departureWindow: 'Summer 2026 (dates to be confirmed)',
     departureWindowZh: '2026年夏季（具体日期待确认）',
     priceCad: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,

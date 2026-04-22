@@ -54,9 +54,9 @@ export const tripsMeta: TripMeta[] = [
     imageAlt: 'Suzhou canal watertown',
     imageAltZh: '苏州运河古镇',
     description:
-      "A route through the spine of mainstream Chinese civilization. Imperial Beijing, classical gardens of Suzhou and Hangzhou, and Shanghai rewriting itself every ten years. This is the China that shows up in most books and most heads — but the version most books get wrong is the scale. Everything is bigger, louder, and stranger than you expected.",
+      "A route through the spine of mainstream Chinese civilization. This is the China that shows up in most books and most heads — but the version most books get wrong is the scale. Everything is bigger, louder, and stranger than you expected.",
     descriptionZh:
-      '中国主流文明的中轴线：帝都北京、江南园林、改写自身的现代上海。这是出现在大多数书里的中国——但书里永远没写清楚的，是它的尺度。一切都比你想象的更宏大、更喧嚣、也更奇异。',
+      '中国主流文明的中轴线。这是出现在大多数书里的中国——但书里永远没写清楚的，是它的尺度。一切都比你想象的更宏大、更喧嚣、也更奇异。',
     duration: '10 Days',
     durationZh: '10 天',
     cities: '4 Cities',
@@ -83,9 +83,9 @@ export const tripsMeta: TripMeta[] = [
     imageAlt: 'Xiamen Gulangyu Island coastal view',
     imageAltZh: '厦门鼓浪屿海岸风光',
     description:
-      "This is the coast Chinatowns came from. Quanzhou was once the world's busiest port. Chaozhou kept tea ceremony and ancestral rituals intact for a thousand years. Xiamen faces the sea its emigrants crossed. Shenzhen built itself in forty years on the same shoreline. If you know anyone Chinese outside of China, their family probably left through here.",
+      "This is the coast Chinatowns came from. If you know anyone Chinese outside of China, their family probably left through here.",
     descriptionZh:
-      '这是世界各地唐人街的出发地。泉州曾是全球最繁忙的港口。潮州将功夫茶与祭祖礼仪完整保存了千年。厦门望着祖先渡过的那片海。深圳在同一片海岸线上，四十年建起了一座新城。如果你认识任何一个海外华人，他们的家族很可能从这里出发。',
+      '这是世界各地唐人街的出发地。如果你认识任何一个海外华人，他们的家族很可能从这里出发。',
     duration: '10 Days',
     durationZh: '10 天',
     cities: '4 Cities',
