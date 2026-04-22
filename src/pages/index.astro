@@ -123,7 +123,9 @@ const homeStructuredData = {
             </a>
           ) : (
             <div class="home-trip-card home-trip-card--soon">
-              <div class="home-trip-card__img home-trip-card__img--placeholder"></div>
+              <div class={`home-trip-card__img${trip.image ? '' : ' home-trip-card__img--placeholder'}`}>
+                {trip.image && <img src={trip.image} alt={trip.imageAlt} loading="lazy" />}
+              </div>
               <div class="home-trip-card__body">
                 <p class="home-trip-card__arc">{trip.arcTitle}</p>
                 <h3 class="home-trip-card__title">{trip.title}</h3>
