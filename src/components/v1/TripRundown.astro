@@ -1,6 +1,7 @@
 ---
-const { lang = 'en' } = Astro.props;
+const { lang = 'en', route = 'east' } = Astro.props;
 const zh = lang === 'zh';
+const isSouth = route === 'south';
 
 const rotatorItems = zh ? [
   { what: '历史',   desc: '塑造历史的思维与交流方式' },
@@ -14,113 +15,133 @@ const rotatorItems = zh ? [
   { what: 'a trip',     desc: 'a chance to feel a world that is genuinely different' },
 ];
 
-const columns = zh ? [
+const eastColumnsZh = [
   {
     cat: '吃',
     bg: '吃',
     tagline: '光美食就值这趟旅程',
-    items: [
-      '北京烤鸭',
-      '小笼包',
-      '炸酱面',
-      '深夜火锅',
-      '夜市小吃',
-    ],
+    items: ['北京烤鸭', '小笼包', '炸酱面', '深夜火锅', '夜市小吃'],
     more: '更多等你发现',
   },
   {
     cat: '看',
     bg: '看',
     tagline: '那些真的值得来看的地方',
-    items: [
-      '长城（全天）',
-      '故宫',
-      '外滩夜景',
-      '西湖（杭州）',
-      '苏州古典园林',
-    ],
+    items: ['长城（全天）', '故宫', '外滩夜景', '西湖（杭州）', '苏州古典园林'],
     more: '更多因路线而异',
   },
   {
     cat: '玩',
     bg: '玩',
     tagline: '只有在这里才能体验的事',
-    items: [
-      '高铁（时速350公里）',
-      '逛电车展厅——一堆你从没听过的国产品牌',
-      '茶道体验',
-      '扎染手工艺',
-      '汉服穿着',
-      '中医体验（正骨、针灸——如果你敢的话）',
-    ],
+    items: ['高铁（时速350公里）', '逛电车展厅——一堆你从没听过的国产品牌', '茶道体验', '扎染手工艺', '汉服穿着', '中医体验（正骨、针灸——如果你敢的话）'],
     more: '更多待定',
   },
   {
     cat: '夜场',
     bg: '夜',
     tagline: '你回去之后还会聊的那些',
-    items: [
-      '夜市夜游',
-      '结束派对',
-      '城市自由日',
-      '学生交流之夜',
-    ],
+    items: ['夜市夜游', '结束派对', '城市自由日', '学生交流之夜'],
     more: '更多等大家一起决定',
   },
-] : [
+];
+
+const eastColumnsEn = [
   {
     cat: 'Eat',
     bg: 'E',
     tagline: 'The food alone is worth the trip.',
-    items: [
-      'Peking duck',
-      'Xiaolongbao',
-      'Zhajiang noodles',
-      'Hot pot — late night',
-      'Night market snacks',
-    ],
+    items: ['Peking duck', 'Xiaolongbao', 'Zhajiang noodles', 'Hot pot — late night', 'Night market snacks'],
     more: 'More along the way',
   },
   {
     cat: 'See',
     bg: 'S',
     tagline: 'The places that live up to the photos.',
-    items: [
-      'Great Wall — full day',
-      'Forbidden City',
-      'The Bund at night',
-      'West Lake, Hangzhou',
-      'Classical gardens, Suzhou',
-    ],
+    items: ['Great Wall — full day', 'Forbidden City', 'The Bund at night', 'West Lake, Hangzhou', 'Classical gardens, Suzhou'],
     more: 'More depending on route',
   },
   {
     cat: 'Try',
     bg: 'T',
     tagline: 'Things you can only do here.',
-    items: [
-      'High-speed rail — 350 km/h',
-      "EV showroom crawl — every brand you've never heard of",
-      'Tea ceremony',
-      'Hand tie-dye (zha ran)',
-      'Hanfu dress-up',
-      'TCM — bone-setting & acupuncture if you dare',
-    ],
+    items: ['High-speed rail — 350 km/h', "EV showroom crawl — every brand you've never heard of", 'Tea ceremony', 'Hand tie-dye (zha ran)', 'Hanfu dress-up', 'TCM — bone-setting & acupuncture if you dare'],
     more: 'More to be announced',
   },
   {
     cat: 'Go out',
     bg: 'G',
     tagline: "The parts you'll actually talk about after.",
-    items: [
-      'Night market runs',
-      'Closing party',
-      'Free city days',
-      'Student exchange nights',
-    ],
+    items: ['Night market runs', 'Closing party', 'Free city days', 'Student exchange nights'],
     more: "More depending on what the group finds",
   },
 ];
+
+const southColumnsZh = [
+  {
+    cat: '吃',
+    bg: '吃',
+    tagline: '这条路线的食物，本身就是目的地',
+    items: ['潮汕牛肉火锅（现切现涮）', '功夫茶——喝的是仪式，不是茶', '厦门沙茶面', '海蛎煎', '潮州手打牛肉丸'],
+    more: '更多等你发现',
+  },
+  {
+    cat: '看',
+    bg: '看',
+    tagline: '那些真的值得来看的地方',
+    items: ['鼓浪屿——无车小岛，13国领事馆旧址', '泉州开元寺（唐代）', '潮州广济桥与古城', '深圳天际线与大芬油画村', '妈祖天后宫'],
+    more: '更多因路线而异',
+  },
+  {
+    cat: '玩',
+    bg: '玩',
+    tagline: '只有在这里才能体验的事',
+    items: ['功夫茶道完整体验', '泉州海上丝绸之路博物馆', '宗祠参访与族谱寻根', '福建土楼（客家圆楼）', '高铁沿海路段'],
+    more: '更多待定',
+  },
+  {
+    cat: '夜场',
+    bg: '夜',
+    tagline: '你回去之后还会聊的那些',
+    items: ['厦门中山路夜游', '深圳夜生活', '城市自由日', '结营之夜'],
+    more: '更多等大家一起决定',
+  },
+];
+
+const southColumnsEn = [
+  {
+    cat: 'Eat',
+    bg: 'E',
+    tagline: "The food on this route is the destination.",
+    items: ['Chaoshan beef hotpot — fresh-cut, clear broth', 'Gongfu tea — ritual, not a drink', 'Xiamen shacha noodles', 'Oyster omelette', 'Hand-pounded Teochew beef balls'],
+    more: 'More along the way',
+  },
+  {
+    cat: 'See',
+    bg: 'S',
+    tagline: 'The places that live up to the photos.',
+    items: ['Gulangyu Island — no cars, 13 former consulates', 'Kaiyuan Temple, Quanzhou (Tang dynasty)', 'Chaozhou Ancient City & Guangji Bridge', 'Shenzhen skyline & Dafen Oil Painting Village', 'Mazu Temple'],
+    more: 'More depending on route',
+  },
+  {
+    cat: 'Try',
+    bg: 'T',
+    tagline: 'Things you can only do here.',
+    items: ['Gongfu tea ceremony — the full session', 'Quanzhou Maritime Silk Road Museum', 'Ancestral clan hall visit', 'Fujian Tulou (Hakka roundhouse)', 'Coastal high-speed rail leg'],
+    more: 'More to be announced',
+  },
+  {
+    cat: 'Go out',
+    bg: 'G',
+    tagline: "The parts you'll actually talk about after.",
+    items: ['Xiamen Zhongshan Road at night', 'Shenzhen nightlife', 'Free city days', 'Closing night'],
+    more: "More depending on what the group finds",
+  },
+];
+
+const columns = zh
+  ? (isSouth ? southColumnsZh : eastColumnsZh)
+  : (isSouth ? southColumnsEn : eastColumnsEn);
 ---
 
 <section class="trip-rundown">

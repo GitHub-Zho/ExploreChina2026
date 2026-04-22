@@ -1,8 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getTripById } from '../../data/registry';
-import TripWhyUs from '../../components/v1/TripWhyUs.astro';
+import TripRundown from '../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../components/v1/TripPriceBreakdown.astro';
+import { SOUTH_CHINA_PRICE_CAD } from '../../data/registry';
 import {
   southChinaItinerary,
   southChinaCityGuides,
@@ -43,7 +44,7 @@ const tripStructuredData = [
     '@type': 'TouristTrip',
     name: trip.title,
     description:
-      'A 10-day student travel route through Xiamen, Chaoshan, Shenzhen and Hong Kong — cultural depth, coastal energy, and East-meets-West intensity.',
+      'A 10-day student travel route through Xiamen, Quanzhou, Chaoshan and Shenzhen — diaspora coast, Mazu maritime faith, Gongfu tea, and China\'s fastest-built city.',
     itinerary: itinerary.map((day) => `${day.day}: ${day.city} - ${day.title}`),
     touristType: 'Students and young travelers from Canada',
   },
@@ -59,7 +60,7 @@ const tripStructuredData = [
 ---
 <Layout
   title={`${trip.title} · Explore China 2026`}
-  description="A 10-day student travel route through Xiamen, Chaoshan, Shenzhen and Hong Kong — cultural depth, coastal energy, and East-meets-West intensity."
+  description="A 10-day student travel route through Xiamen, Quanzhou, Chaoshan and Shenzhen — diaspora coast, Mazu maritime faith, Gongfu tea, and China's fastest-built city."
   lang="en"
   alternateHref="/zh/trips/south-china-2026-summer"
   alternateLabel="中文"
@@ -70,8 +71,8 @@ const tripStructuredData = [
 
   <div class="trip-hero">
     <img
-      src="https://images.unsplash.com/photo-1506812574058-fc75fa93fead?auto=format&fit=crop&w=1600&q=80"
-      alt="Xiamen coastal view at dusk"
+      src="/images/places/xiamen-hero-1.jpg"
+      alt="Xiamen Gulangyu Island coastal view"
       class="trip-hero__img"
     />
     <div class="trip-hero__overlay">
@@ -166,11 +167,11 @@ const tripStructuredData = [
 
     <div class="route-intro__body">
       <p>
-        The South China Route moves through a register of the country that most travelers miss:
-        Xiamen's colonial sea air and diaspora nostalgia, the ancient Teochew civilization of
-        Chaoshan, Shenzhen's speed-built ambition, and finally Hong Kong — the place where East
-        and West stopped being a metaphor and became actual streets, food stalls, and a way of
-        moving through the world.
+        The South China Route moves through the coast that the world's Chinatowns came from.
+        Xiamen's sea-worn lanes and diaspora nostalgia, Quanzhou — once the world's busiest
+        port — where Mazu temples and stone mosques stand on the same street, Chaoshan's
+        ancient Teochew civilization still running on tea and beef and thousand-year-old rituals,
+        and Shenzhen: forty years old, seventeen million people, still figuring out what it is.
       </p>
     </div>
 
@@ -181,15 +182,15 @@ const tripStructuredData = [
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="1">
-          <span class="route-intro__city-name">Chaoshan</span>
+          <span class="route-intro__city-name">Quanzhou</span>
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="2">
-          <span class="route-intro__city-name">Shenzhen</span>
+          <span class="route-intro__city-name">Chaoshan</span>
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
         <button class="route-intro__city-item" data-city="3">
-          <span class="route-intro__city-name">Hong Kong</span>
+          <span class="route-intro__city-name">Shenzhen</span>
           <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
         </button>
       </div>
@@ -198,19 +199,19 @@ const tripStructuredData = [
           <p>The sea arrives before the city does. You smell it first — salt and rain and something faintly sweet that turns out to be incense from the temple at the end of the lane. On Gulangyu the streets are too narrow for cars, which means you hear everything: piano scales from a second-floor window, the clatter of a bicycle, someone's grandmother arguing with a fruit seller. The pace is different here. You will notice it by the end of the first afternoon.</p>
         </div>
         <div class="route-intro__city-panel" data-panel="1">
-          <p>Chaoshan moves at the speed of tea. A session here is not a tourist activity — it's how people talk. Your host will fill the tiny cup before it empties; refusing means you want to leave. Sit long enough and the conversation finds its own rhythm. The beef at dinner was in a paddock this morning. The noodles were made by hand two hours ago. Everything is closer to its source than you expect.</p>
+          <p>Marco Polo called this harbour the finest he had ever seen. That was the thirteenth century. The Tang dynasty mosque still stands. The Song dynasty temple still holds its incense smoke. In the side streets you find stone carvings in Arabic and Tamil alongside Chinese characters — because this was the port the whole world passed through, and it kept the marks. The diaspora that built Chinatowns from Vancouver to Singapore started leaving from docks like these.</p>
         </div>
         <div class="route-intro__city-panel" data-panel="2">
-          <p>Shenzhen announces itself through scale. The buildings are enormous and new and completely unapologetic about it. There is no nostalgia here — the city is 45 years old and knows it. What you find instead is energy: the electronics market where engineers source components at 8am, the art district that appeared in a former factory compound, the young residents who came from everywhere else and are still figuring out what kind of place this is.</p>
+          <p>Chaoshan moves at the speed of tea. A session here is not a tourist activity — it's how people talk. Your host will fill the tiny cup before it empties; refusing means you want to leave. Sit long enough and the conversation finds its own rhythm. The beef at dinner was in a paddock this morning. The noodles were made by hand two hours ago. Everything is closer to its source than you expect.</p>
         </div>
         <div class="route-intro__city-panel" data-panel="3">
-          <p>Hong Kong runs on compression. The trams move slowly through streets packed tight with signage in three scripts. The Star Ferry costs almost nothing and takes ten minutes and gives you the full sweep of the harbour in both directions. In the wet market at dawn the fish are still moving. In the evening the light from ten thousand windows turns the harbour gold. The city is dense and real and entirely itself.</p>
+          <p>Shenzhen announces itself through scale. The buildings are enormous and new and completely unapologetic about it. There is no nostalgia here — the city is 45 years old and knows it. What you find instead is energy: the electronics market where engineers source components at 8am, the art district that appeared in a former factory compound, the young residents who came from everywhere else and are still figuring out what kind of place this is.</p>
         </div>
       </div>
     </div>
 
     <p class="route-intro__colophon">
-      10 days &nbsp;·&nbsp; Xiamen · Chaoshan · Shenzhen · Hong Kong
+      10 days &nbsp;·&nbsp; Xiamen · Quanzhou · Chaoshan · Shenzhen
     </p>
   </div>
 </section>
@@ -256,9 +257,9 @@ const tripStructuredData = [
 })();
 </script>
 
-  <TripWhyUs lang="en" />
+  <TripRundown lang="en" route="south" />
 
-  <TripPriceBreakdown lang="en" />
+  <TripPriceBreakdown lang="en" price={SOUTH_CHINA_PRICE_CAD} />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">10-day route at a glance</h2>
