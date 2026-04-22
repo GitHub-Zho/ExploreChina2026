@@ -71,8 +71,8 @@ export const TRIPS: Trip[] = [
       'Imperial Beijing, classical gardens of Suzhou and Hangzhou, and Shanghai rewriting itself every ten years.',
     summaryZh:
       '帝都北京、江南园林、改写自身的现代上海。',
-    departureWindow: 'July 2026 (final date to be confirmed)',
-    departureWindowZh: '2026年7月（具体日期待确认）',
+    departureWindow: 'Jun 8 & Jul 8, 2026',
+    departureWindowZh: '2026年6月8日 / 7月8日',
     priceCad: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
     priceCadZh: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} / 人（不含国际机票）`,
     groupSize: 'Max 20 participants',
@@ -80,12 +80,8 @@ export const TRIPS: Trip[] = [
     applicationDeadline: 'May 31, 2026',
     applicationDeadlineZh: '2026年5月31日',
     dates: [
-      {
-        label: 'July 2026 (final date to be confirmed)',
-        labelZh: '2026年7月（具体日期待确认）',
-        start: '',
-        end: '',
-      },
+      { label: 'Jun 8 – Jun 17, 2026', labelZh: '2026年6月8日 – 6月17日', start: '2026-06-08', end: '2026-06-17' },
+      { label: 'Jul 8 – Jul 17, 2026',  labelZh: '2026年7月8日 – 7月17日',  start: '2026-07-08', end: '2026-07-17' },
     ],
     highlights: [
       'Airport arrival support + first-day China essentials setup',
@@ -158,8 +154,8 @@ export const TRIPS: Trip[] = [
       "Quanzhou was once the world's busiest port. Chaozhou kept tea ceremony and ancestral rituals intact for a thousand years. Xiamen faces the sea its emigrants crossed. Shenzhen built itself in forty years on the same shoreline.",
     summaryZh:
       '泉州曾是全球最繁忙的港口。潮州将功夫茶与祭祖礼仪完整保存了千年。厦门望着祖先渡过的那片海。深圳在同一片海岸线上，四十年建起了一座新城。',
-    departureWindow: 'Summer 2026 (dates to be confirmed)',
-    departureWindowZh: '2026年夏季（具体日期待确认）',
+    departureWindow: 'Jun 20 & Jul 20, 2026',
+    departureWindowZh: '2026年6月20日 / 7月20日',
     priceCad: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
     priceCadZh: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()} / 人（不含国际机票）`,
     groupSize: 'Max 20 participants',
@@ -167,12 +163,8 @@ export const TRIPS: Trip[] = [
     applicationDeadline: 'May 31, 2026',
     applicationDeadlineZh: '2026年5月31日',
     dates: [
-      {
-        label: 'Summer 2026 (dates to be confirmed)',
-        labelZh: '2026年夏季（具体日期待确认）',
-        start: '',
-        end: '',
-      },
+      { label: 'Jun 20 – Jun 29, 2026', labelZh: '2026年6月20日 – 6月29日', start: '2026-06-20', end: '2026-06-29' },
+      { label: 'Jul 20 – Jul 29, 2026',  labelZh: '2026年7月20日 – 7月29日',  start: '2026-07-20', end: '2026-07-29' },
     ],
     // ⚠ No highlights array existed in south-china.ts — using subtitle points as placeholder
     highlights: [
