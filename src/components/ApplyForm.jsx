@@ -70,7 +70,7 @@ const HEARD_FROM = [
   "Other",
 ];
 
-const WHATSAPP_LINK = "https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK";
+const WHATSAPP_LINK = "https://chat.whatsapp.com/LRSahRadDrjCErYY7TMpnw?mode=hqctcli";
 
 const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxYWq3BSE7VNXmqdzoEDh_pKj8rcbYmV_WDrtxIDz9cEICevUKH7qLI-8X5H7iMrK9b_w/exec";
 
