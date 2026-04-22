@@ -172,22 +172,25 @@ export default function ExplorechinaForm() {
   const [form, setForm] = useState({
     fullName: "", preferredName: "", email: "", phone: "",
     university: "", program: "", yearOfStudy: "",
+    gender: "",
     nationality: "", canadianPassport: "",
     trips: [], unsureTiming: false, availableFrom: "", availableTo: "",
     heardFrom: "", heardFromOther: "",
     motivation: "",
     roomPreference: "", roommateRequest: "", roommateGender: "",
+    snoring: "",
     dietaryType: "", dietaryOther: "", allergies: "",
     medicalConditions: "",
     emergencyName: "", emergencyPhone: "", emergencyRelation: "",
     passportValid: "", traveledChina: "",
     travelInsurance: "",
-    utetcMember: "", customSouvenir: "", joinedWhatsapp: "",
+    utetcMember: "", wantsToJoinUtetc: false, customSouvenir: "", joinedWhatsapp: "",
     friendsApplied: "",
     interests: [], dreamCities: "", nervous: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [souvenirSpotsLeft, setSouvenirSpotsLeft] = useState(14);
 
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" && window.innerWidth < 480
@@ -234,6 +237,7 @@ export default function ExplorechinaForm() {
         });
       }
       setSubmitted(true);
+      setSouvenirSpotsLeft(prev => Math.max(0, prev - 1));
     } catch (e) {
       alert("Something went wrong. Please try again.");
     }
@@ -301,6 +305,17 @@ export default function ExplorechinaForm() {
         <div style={fieldWrap}>
           <label style={labelStyle}>Year of study</label>
           <input style={inputStyle} placeholder="e.g. 2nd year, graduating 2027" value={form.yearOfStudy} onChange={e => update("yearOfStudy", e.target.value)} />
+        </div>
+
+        <div style={fieldWrap}>
+          <label style={labelStyle}>Gender</label>
+          <div style={checkGroup}>
+            {["Male", "Female", "Non-binary", "Prefer not to say"].map(v => (
+              <label key={v} style={{ ...checkLabel, background: form.gender === v ? "rgba(196,122,50,0.08)" : undefined, borderColor: form.gender === v ? "#C47A32" : undefined }}>
+                <input type="radio" name="gender" checked={form.gender === v} onChange={() => update("gender", v)} style={{ display: "none" }} /> {v}
+              </label>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -517,6 +532,20 @@ export default function ExplorechinaForm() {
           </div>
         </div>
 
+        {form.roomPreference === "Shared twin room (default, included)" && (
+          <div style={fieldWrap}>
+            <label style={labelStyle}>Do you snore?</label>
+            <div style={checkGroup}>
+              {["No", "Sometimes", "Yes", "Not sure"].map(v => (
+                <label key={v} style={{ ...checkLabel, background: form.snoring === v ? "rgba(196,122,50,0.08)" : undefined, borderColor: form.snoring === v ? "#C47A32" : undefined }}>
+                  <input type="radio" name="snoring" checked={form.snoring === v} onChange={() => update("snoring", v)} style={{ display: "none" }} /> {v}
+                </label>
+              ))}
+            </div>
+            <div style={noteStyle}>Helps us pair roommates more thoughtfully.</div>
+          </div>
+        )}
+
         <div style={fieldWrap}>
           <label style={labelStyle}>Roommate request (optional)</label>
           <input style={inputStyle} placeholder="Name of a friend you'd like to room with, or leave blank for random" value={form.roommateRequest} onChange={e => update("roommateRequest", e.target.value)} />
@@ -657,14 +686,34 @@ export default function ExplorechinaForm() {
               </label>
             ))}
           </div>
+          {form.utetcMember === "No, but I'm interested in joining" && (
+            <div style={{ marginTop: 10, padding: "10px 14px", background: "rgba(196,122,50,0.06)", border: "1px solid rgba(196,122,50,0.15)", borderRadius: 10 }}>
+              <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.55, marginBottom: 8 }}>
+                UTETC membership is <strong>CAD $15</strong> — get access to member events, priority trip registration, and exclusive perks.
+              </p>
+              <label style={{ ...radioLabel, fontSize: 12 }}>
+                <input type="checkbox" checked={form.wantsToJoinUtetc} onChange={e => update("wantsToJoinUtetc", e.target.checked)} />
+                Register as a UTETC member (+CAD $15)
+              </label>
+            </div>
+          )}
         </div>
 
         <div style={fieldWrap}>
-          <label style={labelStyle}>Would you like a customized trip souvenir?</label>
+          <label style={labelStyle}>Customized trip souvenir</label>
+          <div style={{ marginBottom: 10, padding: "8px 14px", background: "rgba(123,198,126,0.08)", border: "1px solid rgba(123,198,126,0.25)", borderRadius: 10 }}>
+            <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.5 }}>
+              <strong>First 15 applicants get a free customized souvenir</strong> —{" "}
+              {souvenirSpotsLeft > 0
+                ? <span style={{ color: "#2E8B57", fontWeight: 600 }}>{souvenirSpotsLeft} spot{souvenirSpotsLeft !== 1 ? "s" : ""} remaining</span>
+                : <span style={{ color: "#999" }}>No spots left</span>
+              }
+            </p>
+          </div>
           {form.utetcMember === "Yes, I'm a UTETC member" ? (
-            <div style={{ marginTop: 4, padding: "10px 14px", background: "rgba(123,198,126,0.08)", border: "1px solid rgba(123,198,126,0.25)", borderRadius: 10 }}>
+            <div style={{ padding: "8px 14px", background: "rgba(123,198,126,0.06)", border: "1px solid rgba(123,198,126,0.2)", borderRadius: 10 }}>
               <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.5 }}>
-                As a UTETC member, you get a <strong>free customized souvenir</strong> included with your trip!
+                As a UTETC member, your souvenir is <strong>included for free</strong>!
               </p>
             </div>
           ) : (
@@ -775,6 +824,10 @@ export default function ExplorechinaForm() {
           });
         }
 
+        if (form.utetcMember === "No, but I'm interested in joining" && form.wantsToJoinUtetc) {
+          items.push({ label: "UTETC membership registration", price: 15 });
+          total += 15;
+        }
         if (!isUtetc && wantsSouvenir) {
           items.push({ label: "Customized trip souvenir", price: 50 });
           total += 50;
@@ -818,8 +871,14 @@ export default function ExplorechinaForm() {
 
         <div style={{ padding: "12px 14px", background: "rgba(196,122,50,0.06)", border: "1px solid rgba(196,122,50,0.15)", borderRadius: 10, marginBottom: 12 }}>
           <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
-            <strong>Payment is processed through UTETC (UofT Exploration & Travel Club)</strong>, our official partner club. Payment details will be shared once your application is confirmed.
+            <strong>Payment is processed through UTETC (UofT Exploration & Travel Club) official account.</strong>
           </p>
+          <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 6 }}>
+            E-transfer to:
+          </p>
+          <div style={{ padding: "8px 12px", background: "var(--color-background-primary, #fff)", border: "1px solid var(--color-border-tertiary, rgba(0,0,0,0.1))", borderRadius: 8, fontFamily: "'Space Mono', monospace", fontSize: 13, fontWeight: 600, color: "var(--color-text-primary, #1a1a1a)", marginBottom: 10 }}>
+            uoft.travelclub@gmail.ca
+          </div>
           <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
             When making your payment, please include in the notes/memo:
           </p>
