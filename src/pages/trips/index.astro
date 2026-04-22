@@ -142,7 +142,7 @@ import { tripsMeta } from '../../data/trips-meta.ts';
 .tlc {
   display: grid;
   grid-template-columns: 40% 1fr;
-  min-height: 380px;
+  height: clamp(360px, 42vw, 460px);
   background: var(--color-surface);
   position: relative;
   overflow: hidden;
@@ -180,6 +180,7 @@ a.tlc:hover .tlc__img img { transform: scale(1.05); }
   flex-direction: column;
   justify-content: center;
   gap: 0.9rem;
+  overflow: hidden;
 }
 
 /* ── Meta row: arc title + badge left, seal right ── */

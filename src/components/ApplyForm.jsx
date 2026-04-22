@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD } from "../data/registry";
+import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD, POLICY } from "../data/registry";
 
 const TRIP_SCHEDULE = [
   {
@@ -19,7 +19,7 @@ const TRIP_SCHEDULE = [
     cities: "Xiamen → Quanzhou → Chaoshan → Shenzhen",
     dates: "Jun 20 – Jun 29",
     arrive: "Xiamen",
-    depart: "Shenzhen → Toronto",
+    depart: "Shenzhen / Hong Kong",
     price: `$${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
     color: "#2E8B57",
     month: "June",
@@ -41,7 +41,7 @@ const TRIP_SCHEDULE = [
     cities: "Xiamen → Quanzhou → Chaoshan → Shenzhen",
     dates: "Jul 20 – Jul 29",
     arrive: "Xiamen",
-    depart: "Shenzhen → Toronto",
+    depart: "Shenzhen / Hong Kong",
     price: `$${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
     color: "#2E8B57",
     month: "July",
@@ -403,10 +403,10 @@ export default function ExplorechinaForm() {
               <div style={{ padding: "14px 16px", background: "rgba(123,198,126,0.08)", border: "1px solid rgba(123,198,126,0.25)", borderRadius: 10, marginBottom: 14 }}>
                 <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary, #1a1a1a)", marginBottom: 6 }}>Combo selected — {startDate} to {endDate} (~22 days)</p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
-                  <strong>Combo price: ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 200).toLocaleString()} CAD</strong> (vs ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD).toLocaleString()} separately — the $200 difference covers your transition logistics between trips).
+                  <strong>Combo price: ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 400).toLocaleString()} CAD</strong> (vs ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD).toLocaleString()} separately — the $400 difference covers your transition logistics between trips).
                 </p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
-                  <strong>We'll book your Beijing → Xiamen transition flight</strong> (~$200 CAD, included in the combo price). Hotel and transport during the 2-day gap between trips are also covered — you just enjoy the ride.
+                  <strong>We'll book your Beijing → Xiamen transition flight</strong> (~$400 CAD, included in the combo price). Hotel and transport during the 2-day gap between trips are also covered — you just enjoy the ride.
                 </p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6 }}>
                   <strong>One round-trip flight from Toronto, 22 days in China.</strong> Way better value than two separate trips.
@@ -750,7 +750,7 @@ export default function ExplorechinaForm() {
 
         if (hasJunCombo || hasJulCombo) {
           const month = hasJunCombo ? "June" : "July";
-          const comboPrice = EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 200;
+          const comboPrice = EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 400;
           items.push({ label: `Combo — Classic + South China (${month})`, price: comboPrice });
           total += comboPrice;
           const remainingTrips = form.trips.filter(id =>
@@ -783,7 +783,7 @@ export default function ExplorechinaForm() {
           items.push({ label: "Customized trip souvenir (UTETC member — free)", price: 0 });
         }
 
-        const deposit = Math.round(total * 0.3);
+        const deposit = Math.round(total * POLICY.depositPct / 100);
 
         return (
           <div style={sectionStyle}>
@@ -805,7 +805,7 @@ export default function ExplorechinaForm() {
             </div>
 
             <div style={{ marginTop: 8, fontSize: 11, color: "var(--color-text-tertiary, #999)", lineHeight: 1.5 }}>
-              Deposit to secure your spot: <strong>CAD ${deposit.toLocaleString()}</strong> (30% of total) · Balance due 45 days before departure
+              Deposit to secure your spot: <strong>CAD ${deposit.toLocaleString()}</strong> ({POLICY.depositPct}% of total) · Balance due {POLICY.balanceDueNote}
             </div>
           </div>
         );
@@ -834,29 +834,25 @@ export default function ExplorechinaForm() {
           <div style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.7 }}>
             <div style={{ display: "flex", gap: 8, marginBottom: 4 }}>
               <span style={{ color: "#C47A32", fontWeight: 600, flexShrink: 0 }}>Deposit:</span>
-              <span>30% of your total trip cost, due upon confirmation to secure your spot.</span>
+              <span>{POLICY.depositPct}% of your total trip cost, due upon confirmation to secure your spot.</span>
             </div>
             <div style={{ display: "flex", gap: 8, marginBottom: 4 }}>
               <span style={{ color: "#C47A32", fontWeight: 600, flexShrink: 0 }}>Balance:</span>
-              <span>Remaining 70% due no later than 45 days before departure.</span>
+              <span>Remaining {100 - POLICY.depositPct}% due no later than {POLICY.balanceDueNote}.</span>
             </div>
           </div>
           <div style={{ borderTop: "1px solid var(--color-border-tertiary, rgba(0,0,0,0.08))", marginTop: 10, paddingTop: 10, fontSize: 12, color: "var(--color-text-secondary, #666)", lineHeight: 1.7 }}>
             <div style={{ display: "flex", gap: 8, marginBottom: 3 }}>
-              <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 110 }}>60+ days before:</span>
-              <span>Full refund minus deposit</span>
+              <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 130 }}>Before {POLICY.refundDeadline}:</span>
+              <span>{POLICY.refundBeforeDeadline}</span>
             </div>
             <div style={{ display: "flex", gap: 8, marginBottom: 3 }}>
-              <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 110 }}>45–60 days:</span>
-              <span>50% refund (deposit non-refundable)</span>
-            </div>
-            <div style={{ display: "flex", gap: 8, marginBottom: 3 }}>
-              <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 110 }}>Under 45 days:</span>
-              <span>No refund — but you may transfer your spot to another participant</span>
+              <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 130 }}>After {POLICY.refundDeadline}:</span>
+              <span>{POLICY.refundAfterDeadline}</span>
             </div>
           </div>
           <div style={noteStyle}>
-            We understand plans change. If something comes up, reach out as early as possible and we'll do our best to work with you.
+            If you find a replacement participant, a full refund is available at any time. We understand plans change — reach out as early as possible and we'll do our best to work with you.
           </div>
         </div>
       </div>

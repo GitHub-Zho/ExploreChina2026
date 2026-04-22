@@ -4,6 +4,18 @@ import { eastChinaItinerary, eastChinaCityGuides } from './trips/east-china';
 export const EAST_CHINA_PRICE_CAD = 2398;
 export const SOUTH_CHINA_PRICE_CAD = 1600;
 
+export const POLICY = {
+  depositPct: 30,
+  balanceDueNote: '1 month before departure',
+  balanceDueNoteZh: '出发前一个月',
+  refundBeforeDeadline: 'Full refund minus deposit',
+  refundBeforeDeadlineZh: '全额退款（定金不退）',
+  refundAfterDeadline: '30% of total trip cost',
+  refundAfterDeadlineZh: '退还总费用的30%',
+  refundDeadline: '30 days before departure',
+  refundDeadlineZh: '出发前30天',
+} as const;
+
 export interface TripDate {
   label: string;
   labelZh: string;
