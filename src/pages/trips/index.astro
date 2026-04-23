@@ -22,7 +22,7 @@ import { tripsMeta } from '../../data/trips-meta.ts';
   </section>
 
   <section class="trips-list">
-    <div class="container trips-stack">
+    <div class="trips-stack">
 
       {tripsMeta.map((trip, i) => (
         trip.status === 'open' ? (
@@ -136,13 +136,16 @@ import { tripsMeta } from '../../data/trips-meta.ts';
   gap: 1px;
   background: #e5e0d8;
   padding-bottom: clamp(3rem, 6vw, 5rem);
+  max-width: 1500px;
+  margin-inline: auto;
+  width: 100%;
 }
 
 /* ── Card ── */
 .tlc {
   display: grid;
   grid-template-columns: 40% 1fr;
-  height: clamp(360px, 42vw, 460px);
+  min-height: clamp(320px, 36vw, 420px);
   background: var(--color-surface);
   position: relative;
   overflow: hidden;
@@ -180,7 +183,6 @@ a.tlc:hover .tlc__img img { transform: scale(1.05); }
   flex-direction: column;
   justify-content: flex-start;
   gap: 0.75rem;
-  overflow: hidden;
 }
 
 /* ── Meta row: arc title + badge left, seal right ── */
@@ -282,6 +284,7 @@ a.tlc:hover .tlc__seal {
   flex-wrap: wrap;
   padding-top: 1rem;
   border-top: 1px solid #ece8e1;
+  margin-top: auto;
 }
 .tlc__stat { display: flex; flex-direction: column; gap: 0.2rem; }
 .tlc__stat-label {
@@ -299,9 +302,7 @@ a.tlc:hover .tlc__seal {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  padding-top: 1rem;
-  border-top: 1px solid #ece8e1;
-  margin-top: auto;
+  padding-top: 0.75rem;
 }
 .tlc__price-block {
   display: flex;
@@ -339,11 +340,26 @@ a.tlc:hover .tlc__cta { background: var(--color-red-dark); border-color: var(--c
   font-size: clamp(0.75rem, 1.1vw, 0.85rem);
 }
 
-/* ── Mobile ── */
-@media (max-width: 700px) {
-  .tlc { grid-template-columns: 1fr; grid-template-rows: 240px auto; height: auto; }
+/* ── Stacked layout (mobile + narrow desktop) ── */
+@media (max-width: 900px) {
+  .tlc { grid-template-columns: 1fr; grid-template-rows: 240px auto; min-height: 0; }
   .tlc__desc { max-width: none; }
   .tlc__body { gap: 0.8rem; }
   .tlc__footer { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }
 </style>
+
+<script>
+(function () {
+  function equalizeCards() {
+    var cards = Array.from(document.querySelectorAll('.tlc'));
+    if (!cards.length) return;
+    cards.forEach(function (c) { c.style.height = ''; });
+    if (window.innerWidth <= 900) return;
+    var maxH = Math.max.apply(null, cards.map(function (c) { return c.offsetHeight; }));
+    cards.forEach(function (c) { c.style.height = maxH + 'px'; });
+  }
+  equalizeCards();
+  window.addEventListener('resize', equalizeCards);
+}());
+</script>
