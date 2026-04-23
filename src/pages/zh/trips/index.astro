@@ -337,8 +337,8 @@ a.tlc:hover .tlc__cta { background: var(--color-red-dark); border-color: var(--c
   font-size: clamp(0.75rem, 1.1vw, 0.85rem);
 }
 
-/* ── Mobile ── */
-@media (max-width: 700px) {
+/* ── Stacked layout (mobile + narrow desktop) ── */
+@media (max-width: 900px) {
   .tlc { grid-template-columns: 1fr; grid-template-rows: 240px auto; min-height: 0; }
   .tlc__desc { max-width: none; }
   .tlc__body { gap: 0.8rem; }
@@ -352,7 +352,7 @@ a.tlc:hover .tlc__cta { background: var(--color-red-dark); border-color: var(--c
     var cards = Array.from(document.querySelectorAll('.tlc'));
     if (!cards.length) return;
     cards.forEach(function (c) { c.style.height = ''; });
-    if (window.innerWidth <= 700) return;
+    if (window.innerWidth <= 900) return;
     var maxH = Math.max.apply(null, cards.map(function (c) { return c.offsetHeight; }));
     cards.forEach(function (c) { c.style.height = maxH + 'px'; });
   }
