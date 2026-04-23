@@ -22,7 +22,7 @@ import { tripsMeta } from '../../data/trips-meta.ts';
   </section>
 
   <section class="trips-list">
-    <div class="container trips-stack">
+    <div class="trips-stack">
 
       {tripsMeta.map((trip, i) => (
         trip.status === 'open' ? (
@@ -136,6 +136,9 @@ import { tripsMeta } from '../../data/trips-meta.ts';
   gap: 1px;
   background: #e5e0d8;
   padding-bottom: clamp(3rem, 6vw, 5rem);
+  max-width: 1500px;
+  margin-inline: auto;
+  width: 100%;
 }
 
 /* ── Card ── */
