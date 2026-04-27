@@ -3,28 +3,6 @@ import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD, POLICY } from "../data/reg
 
 const TRIP_SCHEDULE = [
   {
-    id: "classic-jun",
-    route: "Classic Route",
-    cities: "Shanghai → Suzhou → Hangzhou → Beijing",
-    dates: "Jun 8 – Jun 17",
-    arrive: "Shanghai",
-    depart: "Beijing → Toronto",
-    price: `$${EAST_CHINA_PRICE_CAD.toLocaleString()}`,
-    color: "#C47A32",
-    month: "June",
-  },
-  {
-    id: "south-jun",
-    route: "South China Route",
-    cities: "Xiamen → Quanzhou → Chaoshan → Shenzhen",
-    dates: "Jun 20 – Jun 29",
-    arrive: "Xiamen",
-    depart: "Shenzhen / Hong Kong",
-    price: `$${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
-    color: "#2E8B57",
-    month: "June",
-  },
-  {
     id: "classic-jul",
     route: "Classic Route",
     cities: "Shanghai → Suzhou → Hangzhou → Beijing",
@@ -190,7 +168,6 @@ export default function ExplorechinaForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [souvenirSpotsLeft, setSouvenirSpotsLeft] = useState(14);
 
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" && window.innerWidth < 480
@@ -237,7 +214,6 @@ export default function ExplorechinaForm() {
         });
       }
       setSubmitted(true);
-      setSouvenirSpotsLeft(prev => Math.max(0, prev - 1));
     } catch (e) {
       alert("Something went wrong. Please try again.");
     }
@@ -367,11 +343,10 @@ export default function ExplorechinaForm() {
         <div style={sectionTitle}>Which trips are you interested in?<span style={required}>*</span></div>
         <div style={sectionSub}>Select all that you'd like to join — you can pick more than one</div>
 
-        {["June", "July"].map(month => (
-          <div key={month} style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, color: "var(--color-text-secondary, #666)", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>{month} 2026</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {TRIP_SCHEDULE.filter(t => t.month === month).map(trip => {
+        <div style={{ marginBottom: 16 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "var(--color-text-secondary, #666)", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>July 2026</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {TRIP_SCHEDULE.map(trip => {
                 const selected = form.trips.includes(trip.id);
                 return (
                   <label key={trip.id} style={{
@@ -402,21 +377,16 @@ export default function ExplorechinaForm() {
                     </div>
                   </label>
                 );
-              })}
-            </div>
+            })}
           </div>
-        ))}
+        </div>
 
         {!form.unsureTiming && form.trips.length >= 2 && (() => {
-          const hasJunCombo = form.trips.includes("classic-jun") && form.trips.includes("south-jun");
           const hasJulCombo = form.trips.includes("classic-jul") && form.trips.includes("south-jul");
-          if (hasJunCombo || hasJulCombo) {
-            const month = hasJunCombo ? "June" : "July";
-            const startDate = hasJunCombo ? "Jun 8" : "Jul 8";
-            const endDate = hasJunCombo ? "Jun 30" : "Jul 30";
+          if (hasJulCombo) {
             return (
               <div style={{ padding: "14px 16px", background: "rgba(123,198,126,0.08)", border: "1px solid rgba(123,198,126,0.25)", borderRadius: 10, marginBottom: 14 }}>
-                <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary, #1a1a1a)", marginBottom: 6 }}>Combo selected — {startDate} to {endDate} (~22 days)</p>
+                <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary, #1a1a1a)", marginBottom: 6 }}>Combo selected — Jul 8 to Jul 30 (~22 days)</p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
                   <strong>Combo price: ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 400).toLocaleString()} CAD</strong> (vs ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD).toLocaleString()} separately — the $400 difference covers your transition logistics between trips).
                 </p>
@@ -701,15 +671,6 @@ export default function ExplorechinaForm() {
 
         <div style={fieldWrap}>
           <label style={labelStyle}>Customized trip souvenir</label>
-          <div style={{ marginBottom: 10, padding: "8px 14px", background: "rgba(123,198,126,0.08)", border: "1px solid rgba(123,198,126,0.25)", borderRadius: 10 }}>
-            <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.5 }}>
-              <strong>First 15 applicants get a free customized souvenir</strong> —{" "}
-              {souvenirSpotsLeft > 0
-                ? <span style={{ color: "#2E8B57", fontWeight: 600 }}>{souvenirSpotsLeft} spot{souvenirSpotsLeft !== 1 ? "s" : ""} remaining</span>
-                : <span style={{ color: "#999" }}>No spots left</span>
-              }
-            </p>
-          </div>
           {form.utetcMember === "Yes, I'm a UTETC member" ? (
             <div style={{ padding: "8px 14px", background: "rgba(123,198,126,0.06)", border: "1px solid rgba(123,198,126,0.2)", borderRadius: 10 }}>
               <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.5 }}>
@@ -791,28 +752,15 @@ export default function ExplorechinaForm() {
       {!form.unsureTiming && form.trips.length > 0 && (() => {
         const isUtetc = form.utetcMember === "Yes, I'm a UTETC member";
         const wantsSouvenir = form.customSouvenir === "Yes, I'd like one! (CAD $50)";
-        const hasJunCombo = form.trips.includes("classic-jun") && form.trips.includes("south-jun");
         const hasJulCombo = form.trips.includes("classic-jul") && form.trips.includes("south-jul");
 
         let items = [];
         let total = 0;
 
-        if (hasJunCombo || hasJulCombo) {
-          const month = hasJunCombo ? "June" : "July";
+        if (hasJulCombo) {
           const comboPrice = EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 400;
-          items.push({ label: `Combo — Classic + South China (${month})`, price: comboPrice });
+          items.push({ label: "Combo — Classic + South China (July)", price: comboPrice });
           total += comboPrice;
-          const remainingTrips = form.trips.filter(id =>
-            hasJunCombo ? !["classic-jun","south-jun"].includes(id) : !["classic-jul","south-jul"].includes(id)
-          );
-          remainingTrips.forEach(id => {
-            const t = TRIP_SCHEDULE.find(s => s.id === id);
-            if (t) {
-              const p = t.route.includes("Classic") ? EAST_CHINA_PRICE_CAD : SOUTH_CHINA_PRICE_CAD;
-              items.push({ label: `${t.route} (${t.dates})`, price: p });
-              total += p;
-            }
-          });
         } else {
           form.trips.forEach(id => {
             const t = TRIP_SCHEDULE.find(s => s.id === id);
