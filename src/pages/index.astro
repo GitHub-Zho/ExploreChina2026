@@ -44,6 +44,44 @@ const homeStructuredData = {
 >
   <HeroSection />
 
+  <HomeDifference cta={{ href: "https://www.instagram.com/camcapysoc", text: "See what's the trip like ↗" }} />
+
+  <section id="itinerary" class="py-20">
+    <div class="container">
+      <p class="section-eyebrow">Our Routes</p>
+      <h2 class="section-title">Choose Your China</h2>
+      <div class="home-trip-grid mt-8">
+        {tripsMeta.map((trip) => (
+          trip.status === 'open' ? (
+            <a href={trip.href} class="home-trip-card">
+              <div class="home-trip-card__img">
+                {trip.image && <img src={trip.image} alt={trip.imageAlt} loading="lazy" />}
+              </div>
+              <div class="home-trip-card__body">
+                <p class="home-trip-card__arc">{trip.arcTitle}</p>
+                <h3 class="home-trip-card__title">{trip.title}</h3>
+                <p class="home-trip-card__focus">{trip.culturalFocus}</p>
+                <span class="home-trip-card__cta">View itinerary →</span>
+              </div>
+            </a>
+          ) : (
+            <div class="home-trip-card home-trip-card--soon">
+              <div class={`home-trip-card__img${trip.image ? '' : ' home-trip-card__img--placeholder'}`}>
+                {trip.image && <img src={trip.image} alt={trip.imageAlt} loading="lazy" />}
+              </div>
+              <div class="home-trip-card__body">
+                <p class="home-trip-card__arc">{trip.arcTitle}</p>
+                <h3 class="home-trip-card__title">{trip.title}</h3>
+                <p class="home-trip-card__focus">{trip.culturalFocus}</p>
+                <span class="home-trip-card__cta home-trip-card__cta--soon">Coming soon</span>
+              </div>
+            </div>
+          )
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════════════════════════════════════════════════════
        STORY SECTION — Version C look + Curtain + Version B Typewriter
   ════════════════════════════════════════════════════════════ -->
@@ -99,44 +137,6 @@ const homeStructuredData = {
         <p class="story-c-closer">Now we're in Canada. Your turn.</p>
       </div>
     </noscript>
-  </section>
-
-  <HomeDifference />
-
-  <section id="itinerary" class="py-20">
-    <div class="container">
-      <p class="section-eyebrow">Our Routes</p>
-      <h2 class="section-title">Choose Your China</h2>
-      <div class="home-trip-grid mt-8">
-        {tripsMeta.map((trip) => (
-          trip.status === 'open' ? (
-            <a href={trip.href} class="home-trip-card">
-              <div class="home-trip-card__img">
-                {trip.image && <img src={trip.image} alt={trip.imageAlt} loading="lazy" />}
-              </div>
-              <div class="home-trip-card__body">
-                <p class="home-trip-card__arc">{trip.arcTitle}</p>
-                <h3 class="home-trip-card__title">{trip.title}</h3>
-                <p class="home-trip-card__focus">{trip.culturalFocus}</p>
-                <span class="home-trip-card__cta">View itinerary →</span>
-              </div>
-            </a>
-          ) : (
-            <div class="home-trip-card home-trip-card--soon">
-              <div class={`home-trip-card__img${trip.image ? '' : ' home-trip-card__img--placeholder'}`}>
-                {trip.image && <img src={trip.image} alt={trip.imageAlt} loading="lazy" />}
-              </div>
-              <div class="home-trip-card__body">
-                <p class="home-trip-card__arc">{trip.arcTitle}</p>
-                <h3 class="home-trip-card__title">{trip.title}</h3>
-                <p class="home-trip-card__focus">{trip.culturalFocus}</p>
-                <span class="home-trip-card__cta home-trip-card__cta--soon">Coming soon</span>
-              </div>
-            </div>
-          )
-        ))}
-      </div>
-    </div>
   </section>
 
   <DestinationGrid />

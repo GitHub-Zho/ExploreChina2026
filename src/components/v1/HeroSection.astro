@@ -22,7 +22,9 @@ const { isZh = false } = Astro.props;
         ? <a href="#itinerary" class="btn--hero-primary">查看路线</a>
         : null
       }
-      <a href="https://www.instagram.com/camcapysoc" target="_blank" rel="noopener noreferrer" class={isZh ? 'btn--hero-ghost' : 'btn--hero-primary'}>{isZh ? '往期行程 ↗' : "See Our Previous Trip ↗"}</a>
+      {isZh && (
+        <a href="https://www.instagram.com/camcapysoc" target="_blank" rel="noopener noreferrer" class="btn--hero-ghost">往期行程 ↗</a>
+      )}
     </div>
   </div>
 

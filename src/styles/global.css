@@ -2624,6 +2624,27 @@ a.home-trip-card:hover .home-trip-card__img img { transform: scale(1.04); }
   max-width: 75vw;
 }
 
+/* HomeDifference CTA button */
+.hdiff__cta {
+  text-align: center;
+  padding: 2.5rem 0 1rem;
+}
+.hdiff__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--color-red);
+  color: #fff;
+  padding: 0.8rem 2rem;
+  font-size: clamp(0.72rem, 1.1vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+.hdiff__cta-btn:hover { background: var(--color-red-dark, #a00d24); }
+
 /* Route Apply section */
 .route-apply {
   background: #111;
