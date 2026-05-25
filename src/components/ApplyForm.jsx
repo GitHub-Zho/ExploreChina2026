@@ -870,17 +870,17 @@ export default function ExplorechinaForm() {
         <div style={sectionSub}>Learn about the trip, the club, and our partners</div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <a href="https://www.explorechina.ca" target="_blank" rel="noopener noreferrer" style={{
+          <a href="https://www.instagram.com/journeytrip_explorechina/" target="_blank" rel="noopener noreferrer" style={{
             display: "flex", alignItems: "center", justifyContent: "space-between",
             padding: "12px 14px", borderRadius: 10,
             border: "1px solid rgba(0,0,0,0.08)", background: "var(--color-background-primary, #fff)",
             textDecoration: "none", color: "var(--color-text-primary, #1a1a1a)",
           }}>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 600 }}>Explore China 2026</div>
+              <div style={{ fontSize: 13, fontWeight: 600 }}>ExploreChina</div>
               <div style={{ fontSize: 11, color: "var(--color-text-tertiary, #999)", marginTop: 1 }}>Student Travel Program from Canada</div>
             </div>
-            <span style={{ fontSize: 12, color: "#C47A32", fontWeight: 600 }}>explorechina.ca →</span>
+            <span style={{ fontSize: 12, color: "#C47A32", fontWeight: 600 }}>Instagram →</span>
           </a>
 
           <a href="https://www.instagram.com/utetc" target="_blank" rel="noopener noreferrer" style={{
@@ -893,7 +893,7 @@ export default function ExplorechinaForm() {
               <div style={{ fontSize: 13, fontWeight: 600 }}>UTETC</div>
               <div style={{ fontSize: 11, color: "var(--color-text-tertiary, #999)", marginTop: 1 }}>UofT Exploration & Travel Club</div>
             </div>
-            <span style={{ fontSize: 12, color: "#E1306C", fontWeight: 600 }}>Instagram →</span>
+            <span style={{ fontSize: 12, color: "#E1306C", fontWeight: 600 }}>Partner →</span>
           </a>
 
           <a href="https://www.instagram.com/camcapysoc/" target="_blank" rel="noopener noreferrer" style={{
@@ -904,9 +904,9 @@ export default function ExplorechinaForm() {
           }}>
             <div>
               <div style={{ fontSize: 13, fontWeight: 600 }}>CamCapy</div>
-              <div style={{ fontSize: 11, color: "var(--color-text-tertiary, #999)", marginTop: 1 }}>Partner community</div>
+              <div style={{ fontSize: 11, color: "var(--color-text-tertiary, #999)", marginTop: 1 }}>Cambridge student community</div>
             </div>
-            <span style={{ fontSize: 12, color: "#E1306C", fontWeight: 600 }}>Instagram →</span>
+            <span style={{ fontSize: 12, color: "#E1306C", fontWeight: 600 }}>Partner →</span>
           </a>
         </div>
       </div>

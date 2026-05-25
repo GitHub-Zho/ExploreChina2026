@@ -1,4 +1,5 @@
 ---
+const { cta = null } = Astro.props;
 const fruits = [
   {
     id: 'people',
@@ -81,6 +82,12 @@ const fruits = [
       </div>
     ))}
   </div>
+
+  {cta && (
+    <div class="hdiff__cta">
+      <a href={cta.href} target="_blank" rel="noopener noreferrer" class="hdiff__cta-btn">{cta.text}</a>
+    </div>
+  )}
 </section>
 
 <!-- Mobile fullscreen overlay -->

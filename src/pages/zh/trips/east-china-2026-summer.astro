@@ -61,7 +61,22 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
         <div class="trip-strip__fact"><span class="trip-strip__label">路线</span><span class="trip-strip__val">{trip.routeNameZh}</span></div>
         <div class="trip-strip__fact"><span class="trip-strip__label">出发</span><span class="trip-strip__val">{trip.departureWindowZh}</span></div>
         <div class="trip-strip__fact"><span class="trip-strip__label">价格</span><span class="trip-strip__val trip-strip__val--price">{trip.priceCadZh}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">人数</span><span class="trip-strip__val">{trip.groupSizeZh}</span></div>
+        <div class="trip-strip__fact">
+          <span class="trip-strip__label">人数</span>
+          <span class="trip-strip__val">
+            {trip.groupSizeZh}
+            <span class="grp-tip">
+              <span class="grp-tip__icon" tabindex="0" aria-label="补充说明">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                  <circle cx="4.5" cy="4.5" r="4"/>
+                  <line x1="4.5" y1="4" x2="4.5" y2="6.5"/>
+                  <circle cx="4.5" cy="2.5" r="0.4" fill="currentColor" stroke="none"/>
+                </svg>
+              </span>
+              <span class="grp-tip__text">每项活动无需跟团——随时可以自由离开，按自己的节奏探索城市。</span>
+            </span>
+          </span>
+        </div>
         <div class="trip-strip__fact"><span class="trip-strip__label">截止</span><span class="trip-strip__val">{trip.applicationDeadlineZh}</span></div>
       </div>
       <div class="trip-strip__actions">
