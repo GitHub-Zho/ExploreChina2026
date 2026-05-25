@@ -4,19 +4,19 @@ const { lang = 'en', route = 'east', price = EAST_CHINA_PRICE_CAD } = Astro.prop
 const zh = lang === 'zh';
 
 const eastItems = [
-  { labelEn: 'Accommodation',       labelZh: '住宿',       noteEn: '4–5★ hotel, shared double room',        noteZh: '4–5星酒店，双人间',        amount: 700, pct: 29 },
-  { labelEn: 'Food & dining',        labelZh: '餐饮',       noteEn: 'Local specialty restaurants daily',      noteZh: '每日特色餐厅',             amount: 600, pct: 25 },
-  { labelEn: 'Activities & tickets', labelZh: '活动与门票', noteEn: 'Entrance fees + special programming',    noteZh: '景点门票及特色活动',       amount: 300, pct: 15 },
-  { labelEn: 'Guide & local transport', labelZh: '导游及市内交通', noteEn: 'Professional guide + daily in-city', noteZh: '专业导游及每日市内交通', amount: 150, pct: 8  },
-  { labelEn: 'City-to-city transfers',  labelZh: '城市间交通',    noteEn: 'High-speed rail & domestic flights', noteZh: '高铁及国内航班',         amount: 250, pct: 13 },
+  { labelEn: 'Accommodation',       labelZh: '住宿',       noteEn: '4–5★ hotel, shared double room',        noteZh: '4–5星酒店，双人间',        amount: 800, pct: 32 },
+  { labelEn: 'Food & dining',        labelZh: '餐饮',       noteEn: 'Local specialty restaurants daily',      noteZh: '每日特色餐厅',             amount: 650, pct: 26 },
+  { labelEn: 'Activities & tickets', labelZh: '活动与门票', noteEn: 'Entrance fees + special programming',    noteZh: '景点门票及特色活动',       amount: 400, pct: 16 },
+  { labelEn: 'Guide & local transport', labelZh: '导游及市内交通', noteEn: 'Professional guide + daily in-city', noteZh: '专业导游及每日市内交通', amount: 200, pct: 8  },
+  { labelEn: 'City-to-city transfers',  labelZh: '城市间交通',    noteEn: 'High-speed rail & domestic flights', noteZh: '高铁及国内航班',         amount: 350, pct: 14 },
 ];
 
 const southItems = [
-  { labelEn: 'Accommodation',       labelZh: '住宿',       noteEn: '4–5★ hotel, shared double room',        noteZh: '4–5星酒店，双人间',        amount: 600, pct: 35 },
-  { labelEn: 'Food & dining',        labelZh: '餐饮',       noteEn: 'Local specialty restaurants daily',      noteZh: '每日特色餐厅',             amount: 500, pct: 29 },
-  { labelEn: 'Activities & tickets', labelZh: '活动与门票', noteEn: 'Entrance fees + special programming',    noteZh: '景点门票及特色活动',       amount: 200, pct: 12 },
-  { labelEn: 'Guide & local transport', labelZh: '导游及市内交通', noteEn: 'Professional guide + daily in-city', noteZh: '专业导游及每日市内交通', amount: 150, pct: 9  },
-  { labelEn: 'City-to-city transfers',  labelZh: '城市间交通',    noteEn: 'High-speed rail & coastal trains',   noteZh: '高铁及沿海列车',          amount: 150, pct: 9  },
+  { labelEn: 'Accommodation',       labelZh: '住宿',       noteEn: '4–5★ hotel, shared double room',        noteZh: '4–5星酒店，双人间',        amount: 620, pct: 37 },
+  { labelEn: 'Food & dining',        labelZh: '餐饮',       noteEn: 'Local specialty restaurants daily',      noteZh: '每日特色餐厅',             amount: 520, pct: 31 },
+  { labelEn: 'Activities & tickets', labelZh: '活动与门票', noteEn: 'Entrance fees + special programming',    noteZh: '景点门票及特色活动',       amount: 220, pct: 13 },
+  { labelEn: 'Guide & local transport', labelZh: '导游及市内交通', noteEn: 'Professional guide + daily in-city', noteZh: '专业导游及每日市内交通', amount: 160, pct: 9  },
+  { labelEn: 'City-to-city transfers',  labelZh: '城市间交通',    noteEn: 'High-speed rail & coastal trains',   noteZh: '高铁及沿海列车',          amount: 160, pct: 9  },
 ];
 
 const items = route === 'south' ? southItems : eastItems;
