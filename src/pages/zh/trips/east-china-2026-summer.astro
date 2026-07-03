@@ -223,66 +223,15 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
 
             <div class="itinerary-day__body" data-day-body>
               <div class="itinerary-day__body-inner">
-                {d.slides.length > 0 && (
-                  <div class="landmark-carousel" data-carousel>
-                    <div class="landmark-carousel__track-wrap">
-                      <div class="landmark-carousel__track" data-carousel-track>
-
-                        {d.slides.map((slide) => (
-                          <div class="landmark-carousel__slide">
-                            {slide.type === 'city' ? (
-                              <div class="city-intro-card">
-                                <div class="city-intro-card__image">
-                                  <img
-                                    src={slide.guide.heroImage}
-                                    alt={slide.guide.heroAlt}
-                                    loading="lazy"
-                                  />
-                                </div>
-                                <div class="city-intro-card__content">
-                                  <span class="city-intro-card__label">城市概览</span>
-                                  <h3 class="city-intro-card__city">{slide.guide.cityZh}</h3>
-                                  <p class="city-intro-card__desc">{slide.guide.contextZh}</p>
-                                </div>
-                              </div>
-                            ) : (
-                              <div class="landmark-card">
-                                <div class="landmark-card__visual">
-                                  <img
-                                    src={slide.lm.image}
-                                    alt={slide.lm.nameZh}
-                                    loading="lazy"
-                                  />
-                                </div>
-                                <div class="landmark-card__base-overlay"></div>
-                                <div class="landmark-card__name-overlay">
-                                  <p class="landmark-card__name">{slide.lm.nameZh}</p>
-                                  <p class="landmark-card__name-zh">{slide.lm.name}</p>
-                                </div>
-                                <div class="landmark-card__overlay"></div>
-                                <div class="landmark-card__body">
-                                  <p class="landmark-card__body-name">{slide.lm.nameZh}</p>
-                                  <p class="landmark-card__body-name-zh">{slide.lm.name}</p>
-                                  <p class="landmark-card__background">{slide.lm.backgroundZh ?? slide.lm.background}</p>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        ))}
-
-                      </div>
-                    </div>
-
-                    {d.slides.length > 1 && (
-                      <div class="landmark-carousel__dots" style="margin-top:0.5rem;">
-                        {d.slides.map((_slide, i) => (
-                          <span class={`landmark-carousel__dot${i === 0 ? ' is-active' : ''}`} data-carousel-dot></span>
-                        ))}
-                      </div>
-                    )}
-                    <button class="landmark-carousel__btn landmark-carousel__btn--prev" data-carousel-prev aria-label="上一张">←</button>
-                    <button class="landmark-carousel__btn landmark-carousel__btn--next" data-carousel-next aria-label="下一张">→</button>
-                  </div>
+                {d.slides.filter((s: DaySlidEC) => s.type === 'landmark').length > 0 && (
+                  <ul class="stop-list">
+                    {d.slides.filter((s: DaySlidEC) => s.type === 'landmark').map((slide: DaySlidEC) => (
+                      <li class="stop-list__item">
+                        <span class="stop-list__name">{(slide as LandmarkSlidEC).lm.nameZh}</span>
+                        <p class="stop-list__desc">{((slide as LandmarkSlidEC).lm.backgroundZh ?? (slide as LandmarkSlidEC).lm.background).match(/[^。！？.!?]+[。！？.!?]+/g)?.slice(0,2).join('') ?? (slide as LandmarkSlidEC).lm.backgroundZh}</p>
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
             </div>
@@ -459,37 +408,4 @@ document.querySelectorAll('.highlights-strip__stage').forEach(stage => {
   });
 });
 
-// ── Landmark carousels ─────────────────────────────────
-document.querySelectorAll('[data-carousel]').forEach(carousel => {
-  const track = carousel.querySelector('[data-carousel-track]');
-  const slides = carousel.querySelectorAll('.landmark-carousel__slide');
-  const prevBtn = carousel.querySelector('[data-carousel-prev]');
-  const nextBtn = carousel.querySelector('[data-carousel-next]');
-  const dots = carousel.querySelectorAll('[data-carousel-dot]');
-  if (!track || slides.length === 0) return;
-
-  let idx = 0;
-  const total = slides.length;
-  const slideWidth = 88;
-
-  function goTo(n) {
-    idx = Math.max(0, Math.min(n, total - 1));
-    track.style.transform = `translateX(-${idx * slideWidth}%)`;
-    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
-    if (prevBtn) prevBtn.disabled = idx === 0;
-    if (nextBtn) nextBtn.disabled = idx === total - 1;
-  }
-
-  prevBtn?.addEventListener('click', () => goTo(idx - 1));
-  nextBtn?.addEventListener('click', () => goTo(idx + 1));
-
-  let touchX = 0;
-  carousel.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
-  carousel.addEventListener('touchend', e => {
-    const delta = touchX - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 40) goTo(idx + (delta > 0 ? 1 : -1));
-  });
-
-  goTo(0);
-});
 </script>
