@@ -131,6 +131,15 @@ git push origin test    # preview: explore-china-site-git-test-…vercel.app
 git checkout main && git merge test --no-edit && git push origin main
 ```
 
+## Engineering playbook
+
+**[docs/WEB-ENGINEERING-PLAYBOOK.md](docs/WEB-ENGINEERING-PLAYBOOK.md)** (中文)
+is the standing guide for any model/developer doing work like this — data
+architecture principles, the baseline-diff refactoring methodology, quality-gate
+design, and the full SEO + GEO checklists, all with worked examples from this
+repo. Read it before large changes here; copy it as the starting point for
+new website projects.
+
 ## Content debt / known intentional quirks
 
 - ApplyForm is English-only (also at `/zh/apply`); translating its ~900

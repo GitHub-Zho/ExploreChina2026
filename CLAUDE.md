@@ -51,6 +51,11 @@ git push origin main          # triggers production deploy
 
 ---
 
+## Before Large Changes
+Read **docs/WEB-ENGINEERING-PLAYBOOK.md** — architecture principles, the
+baseline-diff refactoring methodology, and SEO/GEO checklists with worked
+examples from this repo. The execution rules in its final section are binding.
+
 ## Data Architecture — Single Source of Truth (READ THIS FIRST)
 
 Every trip fact lives in exactly ONE file. Pages are templates and must never
