@@ -44,7 +44,8 @@ export interface ItineraryDay {
 export interface ExploreSpot {
   title: string;
   titleZh: string;
-  image: string;
+  /** Optional — some text-only spots (e.g. snack/tea stops) have no image. */
+  image?: string;
   description: string;
   descriptionZh: string;
 }

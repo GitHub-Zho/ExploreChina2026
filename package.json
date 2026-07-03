@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "quality": "node scripts/quality-gate.mjs",
-    "build": "npm run quality && astro build",
+    "check": "astro check",
+    "build": "npm run quality && npm run check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -16,5 +17,9 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwindcss": "^3.4.19"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^5.9.3"
   }
 }

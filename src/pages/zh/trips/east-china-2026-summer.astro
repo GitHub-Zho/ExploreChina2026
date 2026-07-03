@@ -162,16 +162,18 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
   const INK_MS   = 1800;
   const selector = document.querySelector('.route-intro__selector');
   if (!selector) return;
-  const items  = Array.from(selector.querySelectorAll('.route-intro__city-item'));
-  const panels = Array.from(selector.querySelectorAll('.route-intro__city-panel'));
-  let current = 0, timer = null, paused = false;
-  function rnd(min, max) { return (Math.random() * (max - min) + min).toFixed(1) + '%'; }
-  function activate(index) {
+  const items  = Array.from(selector.querySelectorAll<HTMLElement>('.route-intro__city-item'));
+  const panels = Array.from(selector.querySelectorAll<HTMLElement>('.route-intro__city-panel'));
+  let current = 0;
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  let paused = false;
+  function rnd(min: number, max: number) { return (Math.random() * (max - min) + min).toFixed(1) + '%'; }
+  function activate(index: number) {
     current = index;
     panels.forEach(p => { p.style.transition = 'none'; p.classList.remove('is-active'); });
     items.forEach((item, i) => {
       item.classList.toggle('is-active', i === index);
-      item.querySelectorAll('.route-intro__dot').forEach(d => {
+      item.querySelectorAll<HTMLElement>('.route-intro__dot').forEach(d => {
         d.style.background = i === index ? 'var(--color-red)' : '';
       });
     });
@@ -181,11 +183,11 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
       panel.style.transition = `clip-path ${INK_MS}ms cubic-bezier(0.16, 1, 0.3, 1)`;
       panel.classList.add('is-active');
     });
-    clearTimeout(timer);
+    clearTimeout(timer!);
     if (!paused) timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
   }
   items.forEach((item, i) => item.addEventListener('click', () => { paused = false; activate(i); }));
-  selector.addEventListener('mouseenter', () => { paused = true; clearTimeout(timer); });
+  selector.addEventListener('mouseenter', () => { paused = true; clearTimeout(timer!); });
   selector.addEventListener('mouseleave', () => {
     paused = false;
     timer = setTimeout(() => activate((current + 1) % items.length), DURATION);
@@ -196,7 +198,7 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
 
   <TripRundown lang="zh" />
 
-  <TripPriceBreakdown lang="zh" price={trip.priceCad} items={trip.priceBreakdown} />
+  <TripPriceBreakdown lang="zh" price={trip.priceCad!} items={trip.priceBreakdown!} />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">十天行程一览</h2>

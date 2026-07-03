@@ -352,7 +352,7 @@ a.tlc:hover .tlc__cta { background: var(--color-red-dark); border-color: var(--c
 <script>
 (function () {
   function equalizeCards() {
-    var cards = Array.from(document.querySelectorAll('.tlc'));
+    var cards = Array.from(document.querySelectorAll<HTMLElement>('.tlc'));
     if (!cards.length) return;
     cards.forEach(function (c) { c.style.height = ''; });
     if (window.innerWidth <= 900) return;
