@@ -1,4 +1,13 @@
+# Explore China — www.explorechina.ca
+# All crawlers welcome, including AI/answer-engine crawlers
+# (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, etc.):
+# being cited by AI assistants is part of our marketing strategy.
+# Do NOT add per-bot Disallow rules without a business decision.
+
 User-agent: *
 Allow: /
 
 Sitemap: https://www.explorechina.ca/sitemap.xml
+
+# AI-readable site summary (Generative Engine Optimization):
+# https://www.explorechina.ca/llms.txt

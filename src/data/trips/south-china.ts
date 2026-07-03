@@ -789,6 +789,8 @@ export const southChinaTrip: Trip = {
     color: '#2E8B57',
   },
   seo: {
+    title: 'Xiamen to Shenzhen: South China Student Trip 2026 | Explore China',
+    titleZh: '厦门·泉州·潮汕·深圳 华南学生旅行 2026 | 探索中国',
     description: "A 10-day student travel route through Xiamen, Quanzhou, Chaoshan and Shenzhen — diaspora coast, Mazu maritime faith, Gongfu tea, and China's fastest-built city.",
     descriptionZh: '探索中国华南线路——10天走访厦门、泉州、潮汕与深圳，海上丝路、妈祖信仰、功夫茶文化与中国速度最快的新兴城市。',
   },

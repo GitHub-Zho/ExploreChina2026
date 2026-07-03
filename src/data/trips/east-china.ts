@@ -819,6 +819,8 @@ export const eastChinaTrip: Trip = {
     color: '#C47A32',
   },
   seo: {
+    title: 'Shanghai to Beijing: 10-Day China Student Trip 2026 | Explore China',
+    titleZh: '上海·苏州·杭州·北京 10天学生旅行 2026 | 探索中国',
     description: `2026 summer student trip to China from Canada. 10-day route: Shanghai, Suzhou, Hangzhou, Beijing. Includes accommodation, transport, cultural activities. ~CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()}.`,
     descriptionZh: '2026 年学生带队中国夏季行程，从加拿大出发，10 天走访上海、苏州、杭州与北京。',
   },

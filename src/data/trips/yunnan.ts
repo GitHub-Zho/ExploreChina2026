@@ -85,6 +85,8 @@ export const yunnanTrip: Trip = {
   },
   form: null,
   seo: {
+    title: 'Yunnan Student Trip 2026: Kunming, Lijiang, Dali (Coming Soon) | Explore China',
+    titleZh: '云南学生旅行 2026：昆明·丽江·大理（即将上线）| 探索中国',
     description: 'Yunnan student travel route — Kunming, Lijiang, Dali. Coming soon.',
     descriptionZh: '云南学生旅行线路——昆明、丽江、大理。即将上线。',
   },

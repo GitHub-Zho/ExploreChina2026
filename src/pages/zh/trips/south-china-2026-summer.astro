@@ -4,6 +4,7 @@ import { getTripById } from '../../../data/registry';
 import TripRundown from '../../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../../components/v1/TripPriceBreakdown.astro';
 import type { CityGuide, Landmark } from '../../../data/types';
+import { tripJsonLd } from '../../../data/seo';
 
 const trip = getTripById('south-china-2026-summer')!;
 const { itinerary, cityGuides } = trip;
@@ -29,34 +30,16 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
   return { ...d, isFirstCityDay, slides };
 });
 
-const tripStructuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'TouristTrip',
-    name: trip.titleZh,
-    description:
-      '探索中国华南线路——10天走访厦门、泉州、潮汕与深圳，海上丝路、妈祖信仰、功夫茶文化与中国速度最快的新兴城市。',
-    itinerary: itinerary.map((day) => `${day.dayZh}: ${day.cityZh} - ${day.titleZh}`),
-    touristType: '来自加拿大的在校学生与年轻旅行者',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: '首页', item: 'https://www.explorechina.ca/' },
-      { '@type': 'ListItem', position: 2, name: '华南线路', item: 'https://www.explorechina.ca/zh/trips/south-china-2026-summer' },
-    ],
-  },
-];
 ---
 <Layout
-  title={`${trip.titleZh} · 探索中国 2026`}
+  title={trip.seo.titleZh}
   description={trip.seo.descriptionZh}
   lang="zh"
   alternateHref="/trips/south-china-2026-summer"
   alternateLabel="English"
   canonical="/zh/trips/south-china-2026-summer"
-  structuredData={tripStructuredData}
+  ogImage={trip.heroImage}
+  structuredData={tripJsonLd(trip, 'zh')}
   darkNav={true}
 >
 

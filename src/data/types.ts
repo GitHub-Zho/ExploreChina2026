@@ -168,6 +168,10 @@ export interface TripFormMeta {
 }
 
 export interface TripSeo {
+  /** <title> for the EN page — lead with search keywords (route, "student
+   *  trip", year), brand last. Keep ≤ ~62 chars so Google doesn't truncate. */
+  title: string;
+  titleZh: string;
   /** <meta name="description"> for the EN page. */
   description: string;
   /** <meta name="description"> for the ZH page. */

@@ -4,6 +4,7 @@ import { getTripById } from '../../../data/registry';
 import TripRundown from '../../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../../components/v1/TripPriceBreakdown.astro';
 import type { CityGuide, Landmark } from '../../../data/types';
+import { tripJsonLd } from '../../../data/seo';
 
 const trip = getTripById('east-china-2026-summer')!;
 const { itinerary, cityGuides } = trip;
@@ -30,12 +31,14 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
 });
 ---
 <Layout
-  title={trip.titleZh}
+  title={trip.seo.titleZh}
   description={trip.seo.descriptionZh}
   lang="zh"
   alternateHref="/trips/east-china-2026-summer"
   alternateLabel="EN"
   canonical="/zh/trips/east-china-2026-summer"
+  ogImage={trip.heroImage}
+  structuredData={tripJsonLd(trip, 'zh')}
   darkNav={true}
 >
 

@@ -130,6 +130,7 @@ for (const f of files.filter(f => !f.includes(`${sep}data${sep}`) && /\.(astro|j
 // Every src/pages/X.astro must have src/pages/zh/X.astro.
 const PARITY_EXCEPTIONS = new Set([
   'sitemap.xml.ts', // language-neutral
+  'llms.txt.ts',    // language-neutral (links both language trees)
 ]);
 const enPages = walk(PAGES, /\.(astro|ts)$/).filter(
   p => !relative(PAGES, p).startsWith('zh' + sep)

@@ -4,6 +4,7 @@ import { getTripById } from '../../data/registry';
 import TripRundown from '../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../components/v1/TripPriceBreakdown.astro';
 import type { CityGuide, Landmark } from '../../data/types';
+import { tripJsonLd } from '../../data/seo';
 
 const trip = getTripById('south-china-2026-summer')!;
 const { itinerary, cityGuides } = trip;
@@ -30,34 +31,16 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
   return { ...d, isFirstCityDay, slides };
 });
 
-const tripStructuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'TouristTrip',
-    name: trip.title,
-    description:
-      'A 10-day student travel route through Xiamen, Quanzhou, Chaoshan and Shenzhen — diaspora coast, Mazu maritime faith, Gongfu tea, and China\'s fastest-built city.',
-    itinerary: itinerary.map((day) => `${day.day}: ${day.city} - ${day.title}`),
-    touristType: 'Students and young travelers from Canada',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.explorechina.ca/' },
-      { '@type': 'ListItem', position: 2, name: 'South China Route', item: 'https://www.explorechina.ca/trips/south-china-2026-summer' },
-    ],
-  },
-];
 ---
 <Layout
-  title={`${trip.title} · Explore China 2026`}
+  title={trip.seo.title}
   description={trip.seo.description}
   lang="en"
   alternateHref="/zh/trips/south-china-2026-summer"
   alternateLabel="中文"
   canonical="/trips/south-china-2026-summer"
-  structuredData={tripStructuredData}
+  ogImage={trip.heroImage}
+  structuredData={tripJsonLd(trip, 'en')}
   darkNav={true}
 >
 
