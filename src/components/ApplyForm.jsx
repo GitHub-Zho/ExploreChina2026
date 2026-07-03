@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD, POLICY } from "../data/registry";
+// Import from the constants leaf module, NOT the registry: the registry pulls
+// in every trip's full content, which would bloat this client island's bundle.
+// Trip-derived schedule data arrives as a prop from apply.astro (server-side).
+import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD, POLICY } from "../data/constants";
 
 const TRIP_SCHEDULE = [
   {

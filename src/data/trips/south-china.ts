@@ -1,11 +1,19 @@
 // ─────────────────────────────────────────────────────────────
-// South China Route — Itinerary & City Guide Data
-// Cities: Xiamen → Chaoshan → Shenzhen → Hong Kong
+// South China Route — the single source of truth for this trip.
+// Cities: Xiamen → Quanzhou → Chaoshan → Shenzhen (+ optional HK departure)
 //
-// Metadata lives in: src/data/registry.ts
+// Everything the site knows about this trip lives here.
+// The registry (src/data/registry.ts) re-exports it; pages and
+// the apply form consume it from there.
+//
+// NOTE: highlightStrip.en and .zh intentionally hold DIFFERENT
+// card sets — the ZH page ships its own selection (incl. remote
+// Unsplash images). Do not "sync" them without a content decision.
 // ─────────────────────────────────────────────────────────────
+import type { Trip, CityGuide, ItineraryDay } from '../types';
+import { SOUTH_CHINA_PRICE_CAD, POLICY } from '../constants';
 
-export const southChinaItinerary = [
+export const southChinaItinerary: ItineraryDay[] = [
   {
     day: 'Day 1', dayZh: '第1天',
     city: 'Xiamen', cityZh: '厦门',
@@ -224,7 +232,7 @@ export const southChinaItinerary = [
 // PART C: City guides
 // ─────────────────────────────────────
 
-export const southChinaCityGuides = [
+export const southChinaCityGuides: CityGuide[] = [
   {
     city: 'Xiamen',
     cityZh: '厦门',
@@ -478,3 +486,310 @@ export const southChinaCityGuides = [
 // ─────────────────────────────────────
 // PART D: Included / Not Included
 // ─────────────────────────────────────
+
+// ─────────────────────────────────────────────────────────────
+// The assembled Trip object — the only export consumers need.
+// ─────────────────────────────────────────────────────────────
+
+export const southChinaTrip: Trip = {
+  kind: 'trip',
+  id: 'south-china-2026-summer',
+  url: '/trips/south-china-2026-summer',
+  urlZh: '/zh/trips/south-china-2026-summer',
+  title: 'Nanyang & Beyond',
+  titleZh: '只此南洋',
+  subtitle:
+    "A coastal and urban South China route — Xiamen's sea-worn colonial lanes, Chaoshan's ancient Teochew rituals, Shenzhen's speed-built ambition, and Hong Kong's layered East-West intensity. Four cities, four completely different registers of what China can be.",
+  subtitleZh:
+    '从厦门的闽南海岸气息、潮汕沉淀千年的茶道与古城，到深圳的速度与创意，再到香港的东西交融——这条路线带你见证中国南方最多元的四种面貌。',
+  routeName: 'Xiamen → Quanzhou → Chaoshan → Shenzhen',
+  routeNameZh: '厦门 → 泉州 → 潮汕 → 深圳',
+  status: 'open',
+  heroImage: '/images/places/south-china-tower-forest.jpg',
+  heroImageAlt: 'Quanzhou East Pagoda above city trees',
+  heroImageAltZh: '泉州东塔俯瞰城市',
+  tagline:
+    "Coastal nostalgia, ancient Teochew civilization, China's fastest-growing city, and a harbour skyline that belongs to no easy category.",
+  taglineZh:
+    '海边的南洋气息、两千年潮州文明、中国建城速度最快的城市，还有那片说不清属于哪里的维多利亚港。',
+  duration: '10 days',
+  durationZh: '10天',
+  priceCad: SOUTH_CHINA_PRICE_CAD,
+  priceDisplay: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
+  priceDisplayZh: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()} / 人（不含国际机票）`,
+  groupSize: 'Max 20 participants',
+  groupSizeZh: '最多 20 人',
+  departureWindow: 'Jul 20, 2026',
+  departureWindowZh: '2026年7月20日',
+  applicationDeadline: 'May 31, 2026',
+  applicationDeadlineZh: '2026年5月31日',
+  summary:
+    "Quanzhou was once the world's busiest port. Chaozhou kept tea ceremony and ancestral rituals intact for a thousand years. Xiamen faces the sea its emigrants crossed. Shenzhen built itself in forty years on the same shoreline.",
+  summaryZh:
+    '泉州曾是全球最繁忙的港口。潮州将功夫茶与祭祖礼仪完整保存了千年。厦门望着祖先渡过的那片海。深圳在同一片海岸线上，四十年建起了一座新城。',
+  dates: [
+    { label: 'Jul 20 – Jul 29, 2026', labelZh: '2026年7月20日 – 7月29日', start: '2026-07-20', end: '2026-07-29' },
+  ],
+  highlights: [
+    "Xiamen's colonial Gulangyu Island — 13 former consulates, no cars",
+    'Ancient Chaozhou city and Gongfu tea ceremony',
+    'Shantou, the original Teochew diaspora port city',
+    'Shenzhen — from fishing village to global tech hub in 40 years',
+    "Hong Kong harbour skyline and East-West urban intensity",
+  ],
+  highlightsZh: [
+    '厦门鼓浪屿——13国领事馆旧址，无机动车小岛',
+    '潮州古城与功夫茶道',
+    '汕头——最初的潮汕移民出洋港口城市',
+    '深圳——40年从渔村到全球科技中心',
+    '香港维多利亚港与东西交融的城市张力',
+  ],
+  includes: [
+    '4–5 star hotel accommodation in a shared twin-room setup',
+    'In-China transportation for the full route (trains, ferries, border crossing logistics)',
+    'Core attraction tickets and selected group experiences',
+    'Hong Kong–Shenzhen border crossing coordination and briefing',
+    'Organizer coordination and on-the-ground support throughout',
+    'Language support during logistics-heavy and key cultural moments',
+    'Pre-departure setup guide for payments, SIM, and arrival readiness',
+    'Group WhatsApp and pre-trip orientation call',
+  ],
+  includesZh: [
+    '4–5星酒店住宿（默认双人间）',
+    '全程境内交通（高铁、轮渡、深港过境物流协调）',
+    '核心景点门票与指定团体活动',
+    '深港过境协调与行前说明',
+    '全程组织协调与在地执行支持',
+    '在关键物流与文化场景中的语言支持',
+    '报名确认后的支付、网络与入境准备指南',
+    '团队WhatsApp群与行前说明会',
+  ],
+  excludes: [
+    'International flights to Xiamen and from Hong Kong',
+    'Hong Kong hotel (nights in HK are not included — participants arrange independently or we can assist)',
+    'Travel insurance and personal medical expenses',
+    'Visa-related costs if policy changes before departure',
+    'Optional room upgrades, personal shopping, and nightlife spending',
+  ],
+  excludesZh: [
+    '往返国际机票（进出厦门/香港）',
+    '香港住宿（港方住宿需自行安排，可提供建议）',
+    '旅行保险与个人医疗支出',
+    '如政策变化产生的签证相关费用',
+    '单房升级、个人购物与娱乐消费',
+  ],
+  faq: [
+    {
+      q: 'Do Canadians need a visa for this route?',
+      a: "As of 2024, Canadians can enter mainland China visa-free for up to 15 days. The route spends approximately 6 days in mainland China (Xiamen, Chaoshan, Shenzhen) and 2 days in Hong Kong, which has its own visa-free access for Canadians (90 days). We will send a full visa briefing document after you register.",
+    },
+    {
+      q: 'How does the Shenzhen–Hong Kong border crossing work?',
+      a: 'The most convenient crossing is the high-speed rail from Shenzhen North to West Kowloon (19 minutes, CNY 85–95). We handle group coordination for the crossing, including briefing on what to carry and customs expectations. You will need your passport — not just your travel document.',
+    },
+    {
+      q: `What's included in the CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()}?`,
+      a: 'The price covers hotels for the mainland China portion of the route (Xiamen, Chaoshan, Shenzhen), all in-China transportation, core attraction tickets, and organizer support throughout. Hong Kong accommodation is arranged independently — we provide vetted recommendations.',
+    },
+    {
+      q: 'Is Chaoshan accessible for non-Chinese speakers?',
+      a: "Chaozhou and Shantou are off the usual tourist trail, which means English is less common than in Xiamen or Hong Kong. This is part of what makes the visit genuine. We provide language support for all key logistics — ordering, transport, check-in — and the experience is entirely doable.",
+    },
+    {
+      q: 'How physically demanding is the route?',
+      a: "Moderate. Expect 10,000–15,000 steps on active days, including some uneven heritage-site surfaces in Chaozhou. Gulangyu Island involves walking on hilly lanes. There are natural rest days and free time built into the schedule. No hiking gear required.",
+    },
+    {
+      q: 'Can I handle dietary restrictions on this route?',
+      a: "Yes. Fujian, Guangdong, and Hong Kong food cultures are all highly varied and accommodate most needs. Vegetarian options are readily available in Buddhist temple areas (South Putuo, Kaiyuan Temple). Halal options exist in larger cities. Let us know your requirements after registering and we will prepare accordingly.",
+    },
+    {
+      q: 'What is the group size and who else will be on this trip?',
+      a: 'Maximum 20 participants. Our groups typically include students from Canadian universities and recent graduates, mostly in their 20s, based across Canada. Many participants are heritage Chinese Canadians visiting ancestral regions for the first time — the Chaoshan leg resonates especially.',
+    },
+    {
+      q: 'When do I need to apply by?',
+      a: 'Applications close May 31, 2026. We review for fit and follow up within 5 business days. Given the limited group size, we recommend applying early. A deposit holds your spot; the balance is due closer to departure.',
+    },
+    {
+      q: 'What if I need to cancel after paying?',
+      a: `A ${POLICY.depositPct}% deposit is required to hold your spot, with the balance due ${POLICY.balanceDueNote}. If you cancel before ${POLICY.refundDeadline}: ${POLICY.refundBeforeDeadline}. After that point: ${POLICY.refundAfterDeadline} is returned. If you find a replacement participant, a full refund is available at any time.`,
+    },
+  ],
+  faqZh: [
+    {
+      q: '加拿大公民参加此行程需要签证吗？',
+      a: '截至2024年，加拿大公民可免签进入中国大陆，停留最长15天。本路线在大陆（厦门、潮汕、深圳）约停留6天，香港（加拿大公民可免签90天）约2天，均在免签范围内。报名确认后我们将发送完整的签证说明文件。',
+    },
+    {
+      q: '深圳到香港如何过境？',
+      a: '最便捷的方式是乘高铁从深圳北站到西九龙站，全程约19分钟，票价约人民币85-95元。我们负责团队过境的全程协调，包括行李要求与海关注意事项说明。过境须持护照，不能仅凭其他旅行证件。',
+    },
+    {
+      q: `CAD $${SOUTH_CHINA_PRICE_CAD.toLocaleString()}包含哪些内容？`,
+      a: '价格涵盖大陆段（厦门、潮汕、深圳）住宿、全程境内交通、核心景点门票以及全程组织协调。香港住宿需自行安排，我们会提供经过筛选的酒店推荐。',
+    },
+    {
+      q: '不会中文，去潮汕没问题吗？',
+      a: '潮州和汕头不在常规旅游线路上，英语普及率低于厦门或香港——这正是这一段体验真实的原因之一。我们为所有关键环节（点餐、交通、入住）提供语言支持，整个行程完全可以顺利完成。',
+    },
+    {
+      q: '行程的体力要求如何？',
+      a: '中等强度。活动日步行量约1-1.5万步，潮州古城部分路段路面不平整。鼓浪屿需在坡路上步行。行程内安排了自由活动日和休整时间，无需携带登山装备。',
+    },
+    {
+      q: '有饮食限制可以吗？',
+      a: '没问题。闽南、广东和香港饮食文化多样，能够满足大多数需求。素食选择在佛教场所附近（南普陀寺、开元寺）尤为丰富，大城市有清真餐厅。报名后请告知饮食需求，我们会提前做好安排。',
+    },
+    {
+      q: '团队规模如何？同行者是什么背景？',
+      a: '最多20人。参与者通常为加拿大各高校在读学生和应届毕业生，大多二十多岁，来自加拿大各地。许多参与者是华裔加拿大人，将首次踏访祖籍地——潮汕段对他们而言往往意义深远。',
+    },
+    {
+      q: '报名截止时间是什么时候？',
+      a: '报名截止2026年5月31日。我们将在5个工作日内回复。由于名额有限，建议尽早报名。交押金即可锁定名额，余款在出发前结清。',
+    },
+    {
+      q: '付款后需要取消怎么办？',
+      a: `需预付${POLICY.depositPct}%定金锁定名额，余款在${POLICY.balanceDueNoteZh}前结清。${POLICY.refundDeadlineZh}前取消：${POLICY.refundBeforeDeadlineZh}。此后取消：退还${POLICY.refundAfterDeadlineZh}。如能找到替换参与者，可在任何时间申请全额退款。`,
+    },
+  ],
+  // Xiamen video slot intentionally removed (was a broken PLACEHOLDER URL rendering
+  // on the live page). To add one back: append a Video entry with a real YouTube URL.
+  videos: [
+    {
+      title: "Shenzhen: The Silicon Valley of Hardware",
+      titleZh: '深圳：中国的未来之城',
+      creator: 'WIRED UK',
+      url: 'https://www.youtube.com/watch?v=SGJ5cZnoodY',
+      note: 'The clearest explanation of how Shenzhen went from fishing village to megacity in 40 years — essential context before you arrive.',
+      noteZh: '最清晰的深圳崛起叙事：40年从渔村到超级城市的完整逻辑——抵达前必看的背景知识。',
+    },
+    {
+      title: 'How 156 years of British rule shaped Hong Kong',
+      titleZh: '香港：地球上独一无二的地方',
+      creator: 'Vox / Johnny Harris',
+      url: 'https://www.youtube.com/watch?v=StW7oGSR_Mg',
+      note: "A deep-dive into Hong Kong's identity — what makes it genuinely different from both mainland China and the West, and why that matters.",
+      noteZh: '深度解析香港的身份认同——是什么让它真正有别于中国大陆与西方世界，以及这种差异的意义。',
+    },
+  ],
+  itinerary: southChinaItinerary,
+  cityGuides: southChinaCityGuides,
+  highlightStrip: {
+    en: [
+      [
+        { src: '/images/places/south-china-tower-forest.jpg', alt: 'Quanzhou East Pagoda rising above city trees', caption: 'A Song Dynasty pagoda that outlasted every empire that built around it' },
+        { src: '/images/places/south-china-aerial-clock-tower.jpg', alt: 'Xiamen Zhongshan Road clock tower at dusk', caption: 'Zhongshan Road at dusk — colonial grid still running on foot traffic' },
+        { src: '/images/highlights/xiamen-shacha-noodles-top.jpg', alt: 'Xiamen shacha noodles', caption: 'A bowl of peanut broth that Xiamen calls its own' },
+        { src: '/images/places/south-china-building-red.jpg', alt: 'Southern Fujian temple with curved red-tile roof', caption: 'The oldest temples in southern Fujian still draw worshippers every morning' },
+        { src: '/images/places/south-china-city-hilltop.jpg', alt: 'Xiamen coastal skyline panorama from the hills', caption: 'The city that kept facing the sea it sent its emigrants across' },
+        { src: '/images/places/south-china-temple-statue.jpg', alt: 'Mazu goddess statue above colourful temple rooftops', caption: 'Mazu watches over the coast she has protected for a thousand years' },
+        { src: '/images/places/south-china-shenzhen-night.jpg', alt: 'Tencent headquarters towers lit up at night in Shenzhen', caption: 'Shenzhen after midnight — a city that built itself in forty years on this shoreline' },
+        { src: '/images/places/south-china-food-dimsum.jpg', alt: 'Rows of bamboo steamers filled with Cantonese dim sum', caption: 'Cantonese dim sum — a table of steamers that keeps arriving until you say stop' },
+        { src: '/images/places/south-china-food-bowls.jpg', alt: 'Oysters, clams and abalone on a coastal seafood table', caption: 'Oysters, clams, abalone — pulled from water you can still see from the table' },
+      ],
+      [
+        { src: '/images/places/south-china-food-bowls.jpg', alt: 'Oysters, clams and abalone on a coastal seafood table', caption: 'Oysters, clams, abalone — pulled from water you can still see from the table' },
+        { src: '/images/places/south-china-food-dimsum.jpg', alt: 'Rows of bamboo steamers filled with Cantonese dim sum', caption: 'Cantonese dim sum — a table of steamers that keeps arriving until you say stop' },
+        { src: '/images/places/south-china-shenzhen-night.jpg', alt: 'Tencent headquarters towers lit up at night in Shenzhen', caption: 'Shenzhen after midnight — a city that built itself in forty years on this shoreline' },
+        { src: '/images/places/south-china-temple-statue.jpg', alt: 'Mazu goddess statue above colourful temple rooftops', caption: 'Mazu watches over the coast she has protected for a thousand years' },
+        { src: '/images/places/south-china-city-hilltop.jpg', alt: 'Xiamen coastal skyline panorama from the hills', caption: 'The city that kept facing the sea it sent its emigrants across' },
+        { src: '/images/places/south-china-building-red.jpg', alt: 'Southern Fujian temple with curved red-tile roof', caption: 'The oldest temples in southern Fujian still draw worshippers every morning' },
+        { src: '/images/highlights/xiamen-shacha-noodles-top.jpg', alt: 'Xiamen shacha noodles', caption: 'A bowl of peanut broth that Xiamen calls its own' },
+        { src: '/images/places/south-china-aerial-clock-tower.jpg', alt: 'Xiamen Zhongshan Road clock tower at dusk', caption: 'Zhongshan Road at dusk — colonial grid still running on foot traffic' },
+        { src: '/images/places/south-china-tower-forest.jpg', alt: 'Quanzhou East Pagoda rising above city trees', caption: 'A Song Dynasty pagoda that outlasted every empire that built around it' },
+      ],
+    ],
+    zh: [
+      [
+        { src: 'https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80', alt: '鼓浪屿殖民建筑', caption: '十三国领事馆驻扎过的海岛，岛上没有汽车' },
+        { src: '/images/highlights/xiamen-shacha-noodles-top.jpg', alt: '厦门沙茶面', caption: '厦门人的一碗沙茶面——花生与香料的秘方' },
+        { src: '/images/places/chaoshan-paifang-street-1.jpg', alt: '潮州牌坊街古石牌楼', caption: '潮汕从未让现代化改变的那条牌坊街' },
+        { src: 'https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80', alt: '潮汕牛肉火锅', caption: '刚从市场送来的鲜牛肉，涮进清汤里' },
+        { src: 'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80', alt: '深圳现代天际线', caption: '三十年前的渔村，如今住着一千七百万人' },
+        { src: 'https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80', alt: '香港维多利亚港天星小轮', caption: '十一分钟的渡轮，两座截然不同的城市' },
+      ],
+      [
+        { src: 'https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80', alt: '香港维多利亚港天星小轮', caption: '十一分钟的渡轮，两座截然不同的城市' },
+        { src: 'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80', alt: '深圳现代天际线', caption: '三十年前的渔村，如今住着一千七百万人' },
+        { src: 'https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80', alt: '潮汕牛肉火锅', caption: '刚从市场送来的鲜牛肉，涮进清汤里' },
+        { src: '/images/places/chaoshan-paifang-street-1.jpg', alt: '潮州牌坊街古石牌楼', caption: '潮汕从未让现代化改变的那条牌坊街' },
+        { src: '/images/highlights/xiamen-shacha-noodles-top.jpg', alt: '厦门沙茶面', caption: '厦门人的一碗沙茶面——花生与香料的秘方' },
+        { src: 'https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80', alt: '鼓浪屿殖民建筑', caption: '十三国领事馆驻扎过的海岛，岛上没有汽车' },
+      ],
+    ],
+  },
+  routeIntro: {
+    headline: 'Four cities. Four different Chinas.',
+    headlineZh: '四座城市。四种截然不同的中国。',
+    body: "The South China Route moves through the coast that the world's Chinatowns came from. Xiamen's sea-worn lanes and diaspora nostalgia, Quanzhou — once the world's busiest port — where Mazu temples and stone mosques stand on the same street, Chaoshan's ancient Teochew civilization still running on tea and beef and thousand-year-old rituals, and Shenzhen: forty years old, seventeen million people, still figuring out what it is.",
+    bodyZh: '华南线路穿越的，是世界各地唐人街的出发地：厦门的海风与闽南离散情结、泉州——曾经的全球第一大港——妈祖庙与古清真寺并肩而立的地方、潮汕沉积千年的潮州文明，以及深圳，四十年在同一片海岸线上建起了一座一千七百万人的城市。',
+    colophonHtml: '10 days &nbsp;&middot;&nbsp; Xiamen &middot; Quanzhou &middot; Chaoshan &middot; Shenzhen',
+    colophonHtmlZh: '10天 &nbsp;&middot;&nbsp; 厦门 &middot; 泉州 &middot; 潮汕 &middot; 深圳',
+    panels: [
+      {
+        city: 'Xiamen',
+        cityZh: '厦门',
+        prose: "The sea arrives before the city does. You smell it first — salt and rain and something faintly sweet that turns out to be incense from the temple at the end of the lane. On Gulangyu the streets are too narrow for cars, which means you hear everything: piano scales from a second-floor window, the clatter of a bicycle, someone's grandmother arguing with a fruit seller. The pace is different here. You will notice it by the end of the first afternoon.",
+        proseZh: '海比城市先到。你先闻到它——盐味、雨气，还有一丝来自巷子尽头庙宇的香烟。鼓浪屿的路窄得不够车过，于是你听见了一切：二楼窗户里的钢琴音阶，自行车经过的声音，有人的阿嬷在和水果摊吵架。节奏在这里不一样，你第一个下午就能感觉到。',
+      },
+      {
+        city: 'Quanzhou',
+        cityZh: '泉州',
+        prose: 'Marco Polo called this harbour the finest he had ever seen. That was the thirteenth century. The Tang dynasty mosque still stands. The Song dynasty temple still holds its incense smoke. In the side streets you find stone carvings in Arabic and Tamil alongside Chinese characters — because this was the port the whole world passed through, and it kept the marks. The diaspora that built Chinatowns from Vancouver to Singapore started leaving from docks like these.',
+        proseZh: '马可·波罗说这里是他见过最好的港口，那是十三世纪。唐代清真寺还在。宋代寺庙的香火还在续。街边的石刻上有阿拉伯文、泰米尔文和汉字并排——因为这曾是全世界都要经过的港口，它留下了所有人的痕迹。从温哥华到新加坡，建起唐人街的那批离乡者，就是从这样的码头出发的。',
+      },
+      {
+        city: 'Chaoshan',
+        cityZh: '潮汕',
+        prose: "Chaoshan moves at the speed of tea. A session here is not a tourist activity — it's how people talk. Your host will fill the tiny cup before it empties; refusing means you want to leave. Sit long enough and the conversation finds its own rhythm. The beef at dinner was in a paddock this morning. The noodles were made by hand two hours ago. Everything is closer to its source than you expect.",
+        proseZh: '潮汕按功夫茶的速度运转。在这里，喝茶不是旅游项目，是人们说话的方式。主人会在杯子见底前续满；拒绝意味着你要走了。坐够久，对话会找到自己的节奏。晚饭桌上的牛肉今天早上还在田里，面条两个小时前刚手工做好。一切都比你以为的更靠近它的来处。',
+      },
+      {
+        city: 'Shenzhen',
+        cityZh: '深圳',
+        prose: 'Shenzhen announces itself through scale. The buildings are enormous and new and completely unapologetic about it. There is no nostalgia here — the city is 45 years old and knows it. What you find instead is energy: the electronics market where engineers source components at 8am, the art district that appeared in a former factory compound, the young residents who came from everywhere else and are still figuring out what kind of place this is.',
+        proseZh: '深圳用体量宣告自己。楼很高，很新，毫不道歉。这座城市45岁，它知道。没有怀旧，只有能量：电子市场里清晨八点就来取货的工程师，旧厂房里长出来的艺术区，从四面八方来的年轻人，还在摸索这地方究竟是什么。',
+      },
+    ],
+  },
+  priceBreakdown: [
+    { label: 'Accommodation', labelZh: '住宿', noteHtml: '<strong>4–5★ hotel</strong>, shared double room', noteHtmlZh: '<strong>4–5星酒店</strong>，双人间', pct: 37 },
+    { label: 'Food & dining', labelZh: '餐饮', noteHtml: 'Local specialty restaurants daily', noteHtmlZh: '每日特色餐厅', pct: 31 },
+    { label: 'Activities & tickets', labelZh: '活动与门票', noteHtml: 'Entrance fees + special programming', noteHtmlZh: '景点门票及特色活动', pct: 13 },
+    { label: 'Guide & local transport', labelZh: '导游及市内交通', noteHtml: 'Professional guide + daily in-city', noteHtmlZh: '专业导游及每日市内交通', pct: 9 },
+    { label: 'City-to-city transfers', labelZh: '城市间交通', noteHtml: 'High-speed rail & coastal trains', noteHtmlZh: '高铁及沿海列车', pct: 9 },
+  ],
+  card: {
+    subtitle: 'Xiamen · Quanzhou · Chaoshan · Shenzhen',
+    subtitleZh: '厦门 · 泉州 · 潮汕 · 深圳',
+    image: '/images/places/south-china-tower-forest.jpg',
+    imageAlt: 'Quanzhou East Pagoda rising above city trees',
+    imageAltZh: '泉州东塔俯瞰城市',
+    description:
+      "This is the coast Chinatowns came from. If you know anyone Chinese outside of China, their family probably left through here.",
+    descriptionZh:
+      '这是世界各地唐人街的出发地。如果你认识任何一个海外华人，他们的家族很可能从这里出发。',
+    duration: '10 Days',
+    durationZh: '10 天',
+    cities: '4 Cities',
+    citiesZh: '4 座城市',
+    sealChar: '侨',
+    arcTitle: 'The Diaspora Coast',
+    arcTitleZh: '侨 · 离散海岸',
+    culturalFocus: 'Mazu Maritime Faith · Gongfu Tea · Ancestral Clan Halls · Maritime Diaspora',
+    culturalFocusZh: '妈祖信仰 · 功夫茶 · 宗祠族群 · 下南洋历史',
+  },
+  form: {
+    scheduleId: 'south-jul',
+    formLabel: 'South China Route',
+    arrive: 'Xiamen',
+    depart: 'Shenzhen / Hong Kong',
+    color: '#2E8B57',
+  },
+  seo: {
+    description: "A 10-day student travel route through Xiamen, Quanzhou, Chaoshan and Shenzhen — diaspora coast, Mazu maritime faith, Gongfu tea, and China's fastest-built city.",
+    descriptionZh: '探索中国华南线路——10天走访厦门、泉州、潮汕与深圳，海上丝路、妈祖信仰、功夫茶文化与中国速度最快的新兴城市。',
+  },
+};

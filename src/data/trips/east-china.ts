@@ -1,12 +1,18 @@
 // ─────────────────────────────────────────────────────────────
-// East China Route — Itinerary & City Guide Data
+// East China Route — the single source of truth for this trip.
 // Cities: Shanghai · Suzhou · Hangzhou · Beijing
 //
-// Metadata lives in: src/data/registry.ts
-
+// Everything the site knows about this trip lives here:
+// meta, dates, price display, highlights, includes/excludes,
+// FAQ, videos, itinerary, city guides, page marquee cards,
+// route-intro prose, price breakdown, card fields, form fields.
+// The registry (src/data/registry.ts) re-exports it; pages and
+// the apply form consume it from there.
 // ─────────────────────────────────────────────────────────────
+import type { Trip, CityGuide, ItineraryDay } from '../types';
+import { EAST_CHINA_PRICE_CAD, POLICY } from '../constants';
 
-export const eastChinaCityGuides = [
+export const eastChinaCityGuides: CityGuide[] = [
   {
     city: 'Shanghai',
     cityZh: '上海',
@@ -307,7 +313,7 @@ export const eastChinaCityGuides = [
   },
 ];
 
-export const eastChinaItinerary = [
+export const eastChinaItinerary: ItineraryDay[] = [
   {
     day: 'Day 0 / 1',
     dayZh: '第0/1天',
@@ -518,3 +524,302 @@ export const eastChinaItinerary = [
     landmarks: [],
   },
 ];
+
+// ─────────────────────────────────────────────────────────────
+// The assembled Trip object — the only export consumers need.
+// ─────────────────────────────────────────────────────────────
+
+export const eastChinaTrip: Trip = {
+  kind: 'trip',
+  id: 'east-china-2026-summer',
+  url: '/trips/east-china-2026-summer',
+  urlZh: '/zh/trips/east-china-2026-summer',
+  title: 'Old Souls, New Lights',
+  titleZh: '古韵今潮',
+  subtitle:
+    'A structured, student-friendly China route blending city icons, food culture, local atmosphere, and practical support from arrival to departure.',
+  subtitleZh:
+    '这是一条为学生与年轻旅行者设计的中国深度线路：把城市地标、本地生活感、同龄社交交流与清晰可靠的执行支持结合在一起。',
+  routeName: 'Shanghai → Suzhou → Hangzhou → Beijing',
+  routeNameZh: '上海 → 苏州 → 杭州 → 北京',
+  status: 'open',
+  heroImage: '/images/highlights/forbidden-city.jpg',
+  heroImageAlt: 'Forbidden City, Beijing',
+  heroImageAltZh: '北京故宫鸟瞰',
+  tagline: 'Canal towns, ancient gardens, West Lake, and the Forbidden City.',
+  taglineZh: '运河古镇、江南园林、西湖、故宫。',
+  duration: '10 days',
+  durationZh: '10天',
+  priceCad: EAST_CHINA_PRICE_CAD,
+  priceDisplay: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} per person (excluding international flights)`,
+  priceDisplayZh: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} / 人（不含国际机票）`,
+  groupSize: 'Max 20 participants',
+  groupSizeZh: '最多 20 人',
+  departureWindow: 'Jul 8, 2026',
+  departureWindowZh: '2026年7月8日',
+  applicationDeadline: 'May 31, 2026',
+  applicationDeadlineZh: '2026年5月31日',
+  summary:
+    'Imperial Beijing, classical gardens of Suzhou and Hangzhou, and Shanghai rewriting itself every ten years.',
+  summaryZh:
+    '帝都北京、江南园林、改写自身的现代上海。',
+  dates: [
+    { label: 'Jul 8 – Jul 17, 2026', labelZh: '2026年7月8日 – 7月17日', start: '2026-07-08', end: '2026-07-17' },
+  ],
+  highlights: [
+    'Airport arrival support + first-day China essentials setup',
+    'A balanced route from iconic landmarks to local student exchange',
+    'Clear structure with guided blocks plus flexible city time',
+    'Practical support for SIM, payments, navigation, and transition days',
+    'A closing social night that makes the route feel shared, not transactional',
+  ],
+  highlightsZh: [
+    '抵达支持 + 入境后基础设置帮助',
+    '地标行程与本地学生交流结合，不只是打卡',
+    '结构清晰，同时保留可控的自由探索时间',
+    '支付、网络、导航、转场等实际问题都有支持',
+    '以结营社交夜收束，让旅程更像一段共享记忆',
+  ],
+  includes: [
+    '4–5 star hotel accommodation in a shared twin-room setup',
+    'In-China transportation according to the finalized itinerary',
+    'Core attraction tickets and selected group activities',
+    'Organizer coordination before departure and on the ground',
+    'Language support during logistics-heavy and key cultural moments',
+    'A post-registration setup guide for payments, SIM, and arrival readiness',
+  ],
+  includesZh: [
+    '4–5星酒店住宿（默认双人间）',
+    '按最终行程执行的境内交通',
+    '核心景点门票与指定团体活动',
+    '出发前与在地执行期间的组织协调支持',
+    '在关键物流与文化场景中的语言支持',
+    '报名确认后的支付、网络与入境准备指南',
+  ],
+  excludes: [
+    'International flights to and from China',
+    'Visa-related costs if policy changes before departure',
+    'Travel insurance and personal medical expenses',
+    'Optional room upgrades, shopping, and personal nightlife spending',
+    'Meals or add-ons outside the stated group plan',
+  ],
+  excludesZh: [
+    '往返中国的国际机票',
+    '如政策变化产生的签证相关费用',
+    '旅行保险与个人医疗支出',
+    '单房升级、购物及个人夜生活消费',
+    '团体计划之外的餐饮与个人加项',
+  ],
+  faq: [
+    {
+      q: `What exactly does CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} cover?`,
+      a: '10 nights of accommodation, all transport between cities within China, group activities, and full organizer support. International flights, travel insurance, and personal spending (food beyond group meals, souvenirs, etc.) are not included. We send a detailed breakdown after your application is confirmed.',
+    },
+    {
+      q: 'How physically demanding is the route?',
+      a: 'You should be comfortable walking 10,000–15,000 steps on active days. That said, big landmark days alternate with lighter afternoons, free-wander time, and recovery days after city transfers. Nobody gets dragged anywhere.',
+    },
+    {
+      q: 'What about food allergies or dietary restrictions?',
+      a: "Tell us early and we plan around it. China's food scene is enormous — vegetarian, halal, gluten-free, and other options exist in every city on the route. Some are easier than others, but we always have a backup plan and a food guide.",
+    },
+    {
+      q: "What's the group size?",
+      a: 'We keep it between 15–25 people. Small enough that everyone knows each other by name. Large enough that you can find your own crowd within the group.',
+    },
+    {
+      q: 'What if I need to cancel after paying?',
+      a: `We get it — plans change. A ${POLICY.depositPct}% deposit is required to hold your spot, with the balance due ${POLICY.balanceDueNote}. If you cancel before ${POLICY.refundDeadline}: ${POLICY.refundBeforeDeadline}. After that point: ${POLICY.refundAfterDeadline} is returned. If you find a replacement participant, a full refund is available at any time.`,
+    },
+  ],
+  faqZh: [
+    {
+      q: `CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()} 具体包含什么？`,
+      a: '10晚住宿、中国境内城市间所有交通、团体活动和全程组织支持。国际机票、旅行保险和个人花销（团餐以外的餐饮、纪念品等）不包含。确认报名后我们会发详细费用清单。',
+    },
+    {
+      q: '行程对体力要求高吗？',
+      a: '活跃日大概走 10,000–15,000 步。但重点景点日和轻松时间交替安排，城市转场后有恢复日。不会被拖着走。',
+    },
+    {
+      q: '有食物过敏或饮食限制怎么办？',
+      a: '提前告诉我们就好。中国的餐饮选择非常丰富——路线上每座城市都能找到素食、清真、无麸质等方案。出发前我们也会提供饮食指南。',
+    },
+    {
+      q: '团队有多少人？',
+      a: '我们控制在 15–25 人之间。小到每个人都能记住彼此的名字，大到你能在群体里找到自己最合拍的人。',
+    },
+    {
+      q: '付款后需要取消怎么办？',
+      a: `我们理解计划会变。需预付${POLICY.depositPct}%定金锁定名额，余款在${POLICY.balanceDueNoteZh}前结清。${POLICY.refundDeadlineZh}前取消：${POLICY.refundBeforeDeadlineZh}。此后取消：退还${POLICY.refundAfterDeadlineZh}。如能找到替换参与者，可在任何时间申请全额退款。`,
+    },
+  ],
+  videos: [
+    {
+      title: 'China Made Me Question Who I Am',
+      titleZh: '中国让我开始质疑自己',
+      creator: 'Alex Cisse',
+      url: 'https://www.youtube.com/watch?v=a5O_PaVQJrw',
+      note: 'A personal story about identity and belonging — what it feels like to be truly out of your comfort zone.',
+      noteZh: '一个关于身份认同与归属感的真实故事——走出舒适圈的真实感受。',
+    },
+    {
+      title: 'We Visited Unbelievable Places in China (that actually exist)',
+      titleZh: '我们去了中国那些难以置信的地方',
+      creator: 'Kara and Nate',
+      url: 'https://www.youtube.com/watch?v=9cQZVzrmddg',
+      note: 'Five jaw-dropping destinations across China — a taste of how diverse the country really is.',
+      noteZh: '五个令人惊叹的中国目的地——感受这个国家有多丰富多元。',
+    },
+    {
+      title: "The WORLD Won't Believe CHINA Looks Like This",
+      titleZh: '世界不会相信中国竟然长这样',
+      creator: 'On Tour With Dridgers',
+      url: 'https://www.youtube.com/watch?v=3Hgsazml114',
+      note: 'China through fresh eyes — landscapes and cities that challenge every stereotype.',
+      noteZh: '用全新视角看中国——颠覆刻板印象的风景与城市。',
+    },
+    {
+      title: "SHOCKED in CHINA'S ROMANTIC MEGACITY You've NEVER Heard Of",
+      titleZh: '震撼！你从未听说过的中国浪漫大都市',
+      creator: 'Sun Kissed Bucket List',
+      url: 'https://www.youtube.com/watch?v=3NPSp_N6KaI',
+      note: 'Discovering a lesser-known Chinese megacity — proof that the best experiences are off the beaten path.',
+      noteZh: '发现一座鲜为人知的中国大都市——最好的体验往往在主流之外。',
+    },
+    {
+      title: 'SHOCKED by this crazy city in China (FIRST TIME IN CHONGQING)',
+      titleZh: '第一次去重庆，被这座魔幻城市震撼了',
+      creator: 'JetLag Warriors',
+      url: 'https://www.youtube.com/watch?v=BnTHXUJpD6w',
+      note: 'First-timer reactions to Chongqing — the cyberpunk mountain city that defies gravity.',
+      noteZh: '第一次来重庆的真实反应——这座赛博朋克山城颠覆想象。',
+    },
+  ],
+  itinerary: eastChinaItinerary,
+  cityGuides: eastChinaCityGuides,
+  highlightStrip: {
+    en: [
+      [
+        { src: '/images/highlights/ec-bund.jpg', alt: 'Shanghai Bund skyline at night', caption: 'A waterfront that rewrote the skyline and never looked back' },
+        { src: '/images/highlights/ec-suzhou-garden.jpg', alt: 'Suzhou classical garden', caption: 'Where every rock, pond, and gate was placed with intention' },
+        { src: '/images/highlights/ec-forbidden-city.jpg', alt: 'Forbidden City Beijing', caption: 'A city within walls, built for emperors and time itself' },
+        { src: '/images/highlights/ec-pingjiang-canal.jpg', alt: 'Suzhou Pingjiang Road canal at night', caption: 'Canal streets where time slows to a quiet rhythm' },
+        { src: '/images/highlights/ec-west-lake.jpg', alt: 'West Lake Hangzhou', caption: 'Lake light, willow shade, and a calm that settles before you do' },
+        { src: '/images/highlights/ec-lingyin-temple.jpg', alt: 'Lingyin Temple Hangzhou', caption: 'Stillness held in stone, incense, and hillside air' },
+        { src: '/images/highlights/ec-summer-palace.jpg', alt: 'Summer Palace Beijing', caption: 'Painted beams stretching further than you expect, step after step' },
+        { src: '/images/highlights/ec-great-wall.jpg', alt: 'Great Wall of China in fog', caption: 'Ridges, wind, and a line that disappears before it finishes' },
+        { src: '/images/highlights/ec-shanghai-coffee.jpg', alt: 'Shanghai coffee street scene', caption: 'Side streets where the city pauses before the next corner' },
+      ],
+      [
+        { src: '/images/highlights/ec-shanghai-nightlife.jpg', alt: 'Shanghai nightlife illuminated building', caption: 'Lights, music, and a version of the city that only shows up late' },
+        { src: '/images/highlights/ec-hanfu.jpg', alt: 'Hanfu traditional dress experience', caption: 'Fabric, movement, and a different way of occupying the same streets' },
+        { src: '/images/highlights/ec-tea-plantation.jpg', alt: 'Hangzhou tea plantation terraces', caption: 'Terraces shaped by hands, weather, and years of repetition' },
+        { src: '/images/highlights/ec-high-speed-rail.jpg', alt: 'China high-speed rail train', caption: 'Distance collapsing into a view that never stays the same for long' },
+        { src: '/images/highlights/ec-night-market.jpg', alt: 'Night market food stalls and lanterns', caption: 'Heat, smoke, and too many things happening at once to choose easily' },
+        { src: '/images/highlights/ec-guardian-statue.jpg', alt: 'Chinese guardian foo dog statue', caption: 'Guardians that have watched centuries pass in silence' },
+        { src: '/images/highlights/ec-temple-prayer.jpg', alt: 'Person praying at incense burner', caption: 'Smoke, prayer, and the weight of something people still believe in' },
+        { src: '/images/highlights/ec-museum-space.jpg', alt: 'Person walking through museum interior', caption: "Form, light, and a space that doesn't explain itself" },
+        { src: '/images/highlights/ec-soup-dumplings.jpg', alt: 'Xiaolongbao soup dumplings Shanghai', caption: 'Soup dumplings, straight from the steamer' },
+      ],
+    ],
+    zh: [
+      [
+        { src: '/images/highlights/ec-bund.jpg', alt: '上海外滩夜景', caption: '改写了天际线的外滩，今日依旧气势不减' },
+        { src: '/images/highlights/ec-suzhou-garden.jpg', alt: '苏州古典园林', caption: '每一块石、每一方水，都有人用心放置' },
+        { src: '/images/highlights/ec-forbidden-city.jpg', alt: '北京故宫', caption: '城墙之内的城，为帝王和时间而建' },
+        { src: '/images/highlights/ec-pingjiang-canal.jpg', alt: '苏州平江路夜晚运河', caption: '时间在这条水街里慢了下来' },
+        { src: '/images/highlights/ec-west-lake.jpg', alt: '杭州西湖', caption: '湖光、柳影，以及一种先于你落定的宁静' },
+        { src: '/images/highlights/ec-lingyin-temple.jpg', alt: '杭州灵隐寺', caption: '石刻、香烟与山间空气共同承载的静谧' },
+        { src: '/images/highlights/ec-summer-palace.jpg', alt: '北京颐和园', caption: '彩绘廊柱，一步接一步延伸得比你想象的更远' },
+        { src: '/images/highlights/ec-great-wall.jpg', alt: '雾中长城', caption: '山脊、风声，以及一道消失于视野之外的边界' },
+        { src: '/images/highlights/ec-shanghai-coffee.jpg', alt: '上海咖啡街巷', caption: '城市在这些小巷里放慢脚步，等着你转过下一个弯' },
+      ],
+      [
+        { src: '/images/highlights/ec-shanghai-nightlife.jpg', alt: '上海夜生活灯光', caption: '灯光、音乐，以及这座城市只在深夜才展示的那面' },
+        { src: '/images/highlights/ec-hanfu.jpg', alt: '汉服体验', caption: '布料、动作，以及穿越同一街道的另一种方式' },
+        { src: '/images/highlights/ec-tea-plantation.jpg', alt: '杭州茶园梯田', caption: '由双手、天气与年复一年的重复塑造出的梯田' },
+        { src: '/images/highlights/ec-high-speed-rail.jpg', alt: '中国高铁', caption: '距离折叠进一道不断变化的窗外风景' },
+        { src: '/images/highlights/ec-night-market.jpg', alt: '夜市食摊与灯笼', caption: '热气、炊烟，以及多到让你难以抉择的诱惑' },
+        { src: '/images/highlights/ec-guardian-statue.jpg', alt: '中国石兽雕像', caption: '守望了数个世纪，沉默至今' },
+        { src: '/images/highlights/ec-temple-prayer.jpg', alt: '寺庙前祈祷', caption: '烟雾、祈祷，以及人们仍在相信的某种重量' },
+        { src: '/images/highlights/ec-museum-space.jpg', alt: '博物馆空间', caption: '形式、光线，以及一个无需解释自己的空间' },
+        { src: '/images/highlights/ec-soup-dumplings.jpg', alt: '上海小笼包', caption: '刚出笼的小笼包' },
+      ],
+    ],
+  },
+  routeIntro: {
+    headline: 'This is our signature route — and it might look like every other China itinerary at first glance.',
+    headlineZh: '「这是我们的招牌路线——乍一看可能和所有其他中国行程没什么两样。」',
+    body: "Shanghai, Suzhou, Hangzhou, Beijing. The same four names you'll find on a dozen tour packages. But the way Paris has a thousand tours and only a few that make you fall in love with it — the cities aren't what make a trip unforgettable. It's how you move through them, who you're with, and the moments no brochure ever mentions.",
+    bodyZh: '上海、苏州、杭州、北京。你在无数旅游套餐上都能看到这四个名字。但就像巴黎有一千种游法，只有少数几种会让你真正爱上它——让一段旅程难忘的，从来不是城市本身，而是你怎么走过它、和谁一起走，以及那些任何宣传册都不会提到的瞬间。',
+    pivot: 'This is that version of China.',
+    pivotZh: '这就是那个版本的中国。',
+    colophonHtml: '10 days &nbsp;&middot;&nbsp; 4 cities &nbsp;&middot;&nbsp; Zero planning<br>All you need is curiosity and a half-empty suitcase.',
+    colophonHtmlZh: '十天 &nbsp;&middot;&nbsp; 四座城 &nbsp;&middot;&nbsp; 一群对的人',
+    panels: [
+      {
+        city: 'Shanghai',
+        cityZh: '上海',
+        prose: 'Shanghai moves like a city that has not decided whether it is finished yet. The Bund is all colonial stone and river fog in the morning; the towers across the water are all glass and light after dark. In between is the French Concession — plane trees lining the sidewalks, a lane house converted to a coffee shop, the smell of rain on stone. You will eat something here that you cannot explain precisely and will think about for weeks afterward.',
+        proseZh: '上海是一座还没决定自己是否建完的城市。外滩的清晨是石材与江雾；对岸的高楼入夜之后是玻璃与灯光。中间是法租界——梧桐树夹道，石库门弄堂改成了咖啡馆，石板路上有雨水的气息。你会在这里吃到一样无法准确描述的东西，然后在之后很多个星期里还会想起它。',
+      },
+      {
+        city: 'Suzhou',
+        cityZh: '苏州',
+        prose: 'The classical gardens of Suzhou were designed to produce a specific feeling: the sense that you have stepped sideways into a different relationship with time. Water moves through them slowly. The framing of rocks and plants through windows is deliberate — each view is composed. Outside the gardens, the canal streets are narrow and wet-stone and still residential. Old women hang laundry over the water. The canal is working infrastructure, not scenery.',
+        proseZh: '苏州的古典园林是为了制造一种特定的感受而建造的：让你觉得自己侧身走进了另一种和时间的关系。水在其中流动得很慢。山石与花木透过窗框的取景是刻意为之的——每一个视角都是构图。园林外面，河道边的小巷窄而湿润，还有人在住。老妇人在水面上晾衣服。运河是生活设施，不是景色。',
+      },
+      {
+        city: 'Hangzhou',
+        cityZh: '杭州',
+        prose: 'West Lake is better at dawn than at any other time — before the tour boats, when the mist is still on the water and the Su Causeway is quiet enough that you can hear the birds. The tea fields above the city are a different kind of quiet: geometric and green and smelling of fresh leaf. In the afternoon the light on the lake is gold. The Song dynasty poets wrote about this and were not exaggerating.',
+        proseZh: '西湖在清晨最好——游船还没出来，水面还有薄雾，苏堤上安静到可以听见鸟叫。湖上方的茶园是另一种安静：整齐的、绿的、带着新叶气味的。下午湖光是金色的。宋朝的诗人写过这些，并没有夸张。',
+      },
+      {
+        city: 'Beijing',
+        cityZh: '北京',
+        prose: 'Beijing is a city that knows it is the capital. The scale is intentional — the long avenues, the monumental squares, the Forbidden City which is large enough that you cannot see across it. But what stays with you is the hutongs: the lanes behind the drum tower where old Beijing still exists at the pace it always had, where the smell of coal smoke mixes with cooking and someone\'s radio is playing Peking opera from a window two floors up.',
+        proseZh: '北京是一座知道自己是首都的城市。那个规模是刻意的——宽阔的大道、纪念碑式的广场、大到看不到对面的故宫。但你会记住的是胡同：鼓楼后面的那些小巷，北京旧有的生活节奏还在那里，煤烟味混着炒菜声，某个二楼的窗户里有人在听京剧。',
+      },
+    ],
+  },
+  priceBreakdown: [
+    { label: 'Accommodation', labelZh: '住宿', noteHtml: '<strong>4–5★ hotel</strong>, shared double room', noteHtmlZh: '<strong>4–5星酒店</strong>，双人间', pct: 32 },
+    { label: 'Food & dining', labelZh: '餐饮', noteHtml: 'Local specialty restaurants daily', noteHtmlZh: '每日特色餐厅', pct: 26 },
+    { label: 'Activities & tickets', labelZh: '活动与门票', noteHtml: 'Entrance fees + special programming', noteHtmlZh: '景点门票及特色活动', pct: 16 },
+    { label: 'Guide & local transport', labelZh: '导游及市内交通', noteHtml: 'Professional guide + daily in-city', noteHtmlZh: '专业导游及每日市内交通', pct: 8 },
+    { label: 'City-to-city transfers', labelZh: '城市间交通', noteHtml: 'High-speed rail & domestic flights', noteHtmlZh: '高铁及国内航班', pct: 14 },
+  ],
+  card: {
+    subtitle: 'Shanghai · Suzhou · Hangzhou · Beijing',
+    subtitleZh: '上海 · 苏州 · 杭州 · 北京',
+    image: '/images/highlights/forbidden-city.jpg',
+    imageAlt: 'Forbidden City, Beijing',
+    imageAltZh: '北京故宫',
+    description:
+      "A route through the spine of mainstream Chinese civilization. This is the China that shows up in most books and most heads — but the version most books get wrong is the scale. Everything is bigger, louder, and stranger than you expected.",
+    descriptionZh:
+      '中国主流文明的中轴线。这是出现在大多数书里的中国——但书里永远没写清楚的，是它的尺度。一切都比你想象的更宏大、更喧嚣、也更奇异。',
+    duration: '10 Days',
+    durationZh: '10 天',
+    cities: '4 Cities',
+    citiesZh: '4 座城市',
+    sealChar: '都',
+    arcTitle: 'The Dynastic Arc',
+    arcTitleZh: '都 · 帝都弧线',
+    culturalFocus: 'Imperial Authority · Literati Aesthetics · Classical Gardens · Urban Dynamism',
+    culturalFocusZh: '皇权 · 文人审美 · 江南园林 · 当代都市张力',
+  },
+  form: {
+    scheduleId: 'classic-jul',
+    formLabel: 'Classic Route',
+    arrive: 'Shanghai',
+    depart: 'Beijing → Toronto',
+    color: '#C47A32',
+  },
+  seo: {
+    description: `2026 summer student trip to China from Canada. 10-day route: Shanghai, Suzhou, Hangzhou, Beijing. Includes accommodation, transport, cultural activities. ~CAD $${EAST_CHINA_PRICE_CAD.toLocaleString()}.`,
+    descriptionZh: '2026 年学生带队中国夏季行程，从加拿大出发，10 天走访上海、苏州、杭州与北京。',
+  },
+};

@@ -3,30 +3,28 @@ import Layout from '../../layouts/Layout.astro';
 import { getTripById } from '../../data/registry';
 import TripRundown from '../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../components/v1/TripPriceBreakdown.astro';
-import {
-  faq,
-  included,
-  notIncluded,
-  cityGuides,
-  itinerary,
-  recommendedVideos,
-} from '../../data/site';
+import type { CityGuide, Landmark } from '../../data/types';
 
 const trip = getTripById('east-china-2026-summer')!;
+const { itinerary, cityGuides } = trip;
+const faq = trip.faq;
+const included = trip.includes;
+const notIncluded = trip.excludes;
+const recommendedVideos = trip.videos;
+const routeIntro = trip.routeIntro!;
+const stripRows = trip.highlightStrip!.en;
 
-// Pre-compute slides for each day in the frontmatter (TypeScript safe)
-type LandmarkItem = { name: string; nameZh: string; image: string; background: string; backgroundZh: string };
-type CitySlide = { type: 'city'; guide: typeof cityGuides[0] };
-type LandmarkSlide = { type: 'landmark'; lm: LandmarkItem };
+// Pre-compute slides for each day in the frontmatter
+type CitySlide = { type: 'city'; guide: CityGuide };
+type LandmarkSlide = { type: 'landmark'; lm: Landmark };
 type DaySlide = CitySlide | LandmarkSlide;
 
 const itineraryWithSlides = itinerary.map((d, idx) => {
   const isFirstCityDay = idx === 0 || itinerary[idx - 1].city !== d.city;
   const cityGuide = cityGuides.find(g => g.city === d.city);
-  const landmarks: LandmarkItem[] = (d as any).landmarks ?? [];
   const slides: DaySlide[] = [
     ...(isFirstCityDay && cityGuide ? [{ type: 'city' as const, guide: cityGuide }] : []),
-    ...landmarks.map(lm => ({ type: 'landmark' as const, lm })),
+    ...d.landmarks.map(lm => ({ type: 'landmark' as const, lm })),
   ];
   return { ...d, isFirstCityDay, slides };
 });
@@ -53,7 +51,7 @@ const tripStructuredData = [
 ---
 <Layout
   title={trip.title}
-  description="2026 summer student trip to China from Canada. 10-day route: Shanghai, Suzhou, Hangzhou, Beijing. Includes accommodation, transport, cultural activities. ~CAD $2,398."
+  description={trip.seo.description}
   lang="en"
   alternateHref="/zh/trips/east-china-2026-summer"
   alternateLabel="中文"
@@ -64,8 +62,8 @@ const tripStructuredData = [
 
   <div class="trip-hero">
     <img
-      src="/images/highlights/forbidden-city.jpg"
-      alt="Forbidden City, Beijing"
+      src={trip.heroImage}
+      alt={trip.heroImageAlt}
       class="trip-hero__img"
     />
     <div class="trip-hero__overlay">
@@ -79,7 +77,7 @@ const tripStructuredData = [
       <div class="trip-strip__facts">
         <div class="trip-strip__fact"><span class="trip-strip__label">Route</span><span class="trip-strip__val">{trip.routeName}</span></div>
         <div class="trip-strip__fact"><span class="trip-strip__label">Departure</span><span class="trip-strip__val">{trip.departureWindow}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">Price</span><span class="trip-strip__val trip-strip__val--price">{trip.priceCad}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">Price</span><span class="trip-strip__val trip-strip__val--price">{trip.priceDisplay}</span></div>
         <div class="trip-strip__fact">
           <span class="trip-strip__label">Group</span>
           <span class="trip-strip__val">
@@ -115,50 +113,26 @@ const tripStructuredData = [
       <!-- Row 1 → left (images 1–9) -->
       <div class="highlights-strip__row highlights-strip__row--1">
         <div class="highlights-strip__track">
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-bund.jpg" alt="Shanghai Bund skyline at night" loading="lazy" /><p class="highlights-strip__caption">A waterfront that rewrote the skyline and never looked back</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-suzhou-garden.jpg" alt="Suzhou classical garden" loading="lazy" /><p class="highlights-strip__caption">Where every rock, pond, and gate was placed with intention</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-forbidden-city.jpg" alt="Forbidden City Beijing" loading="lazy" /><p class="highlights-strip__caption">A city within walls, built for emperors and time itself</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-pingjiang-canal.jpg" alt="Suzhou Pingjiang Road canal at night" loading="lazy" /><p class="highlights-strip__caption">Canal streets where time slows to a quiet rhythm</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-west-lake.jpg" alt="West Lake Hangzhou" loading="lazy" /><p class="highlights-strip__caption">Lake light, willow shade, and a calm that settles before you do</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-lingyin-temple.jpg" alt="Lingyin Temple Hangzhou" loading="lazy" /><p class="highlights-strip__caption">Stillness held in stone, incense, and hillside air</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-summer-palace.jpg" alt="Summer Palace Beijing" loading="lazy" /><p class="highlights-strip__caption">Painted beams stretching further than you expect, step after step</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-great-wall.jpg" alt="Great Wall of China in fog" loading="lazy" /><p class="highlights-strip__caption">Ridges, wind, and a line that disappears before it finishes</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-shanghai-coffee.jpg" alt="Shanghai coffee street scene" loading="lazy" /><p class="highlights-strip__caption">Side streets where the city pauses before the next corner</p></div>
+          {stripRows[0].map(h => (
+            <div class="highlights-strip__card"><img src={h.src} alt={h.alt} loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
           <!-- clone for seamless loop -->
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-bund.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">A waterfront that rewrote the skyline and never looked back</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-suzhou-garden.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Where every rock, pond, and gate was placed with intention</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-forbidden-city.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">A city within walls, built for emperors and time itself</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-pingjiang-canal.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Canal streets where time slows to a quiet rhythm</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-west-lake.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Lake light, willow shade, and a calm that settles before you do</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-lingyin-temple.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Stillness held in stone, incense, and hillside air</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-summer-palace.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Painted beams stretching further than you expect, step after step</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-great-wall.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Ridges, wind, and a line that disappears before it finishes</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-shanghai-coffee.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Side streets where the city pauses before the next corner</p></div>
+          {stripRows[0].map(h => (
+            <div class="highlights-strip__card" aria-hidden="true"><img src={h.src} alt="" loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
         </div>
       </div>
 
       <!-- Row 2 → right (images 10–18) -->
       <div class="highlights-strip__row highlights-strip__row--2">
         <div class="highlights-strip__track">
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-shanghai-nightlife.jpg" alt="Shanghai nightlife illuminated building" loading="lazy" /><p class="highlights-strip__caption">Lights, music, and a version of the city that only shows up late</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-hanfu.jpg" alt="Hanfu traditional dress experience" loading="lazy" /><p class="highlights-strip__caption">Fabric, movement, and a different way of occupying the same streets</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-tea-plantation.jpg" alt="Hangzhou tea plantation terraces" loading="lazy" /><p class="highlights-strip__caption">Terraces shaped by hands, weather, and years of repetition</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-high-speed-rail.jpg" alt="China high-speed rail train" loading="lazy" /><p class="highlights-strip__caption">Distance collapsing into a view that never stays the same for long</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-night-market.jpg" alt="Night market food stalls and lanterns" loading="lazy" /><p class="highlights-strip__caption">Heat, smoke, and too many things happening at once to choose easily</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-guardian-statue.jpg" alt="Chinese guardian foo dog statue" loading="lazy" /><p class="highlights-strip__caption">Guardians that have watched centuries pass in silence</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-temple-prayer.jpg" alt="Person praying at incense burner" loading="lazy" /><p class="highlights-strip__caption">Smoke, prayer, and the weight of something people still believe in</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-museum-space.jpg" alt="Person walking through museum interior" loading="lazy" /><p class="highlights-strip__caption">Form, light, and a space that doesn't explain itself</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-soup-dumplings.jpg" alt="Xiaolongbao soup dumplings Shanghai" loading="lazy" /><p class="highlights-strip__caption">Soup dumplings, straight from the steamer</p></div>
+          {stripRows[1].map(h => (
+            <div class="highlights-strip__card"><img src={h.src} alt={h.alt} loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
           <!-- clone for seamless loop -->
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-shanghai-nightlife.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Lights, music, and a version of the city that only shows up late</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-hanfu.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Fabric, movement, and a different way of occupying the same streets</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-tea-plantation.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Terraces shaped by hands, weather, and years of repetition</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-high-speed-rail.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Distance collapsing into a view that never stays the same for long</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-night-market.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Heat, smoke, and too many things happening at once to choose easily</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-guardian-statue.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Guardians that have watched centuries pass in silence</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-temple-prayer.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Smoke, prayer, and the weight of something people still believe in</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-museum-space.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Form, light, and a space that doesn't explain itself</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-soup-dumplings.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">Soup dumplings, straight from the steamer</p></div>
+          {stripRows[1].map(h => (
+            <div class="highlights-strip__card" aria-hidden="true"><img src={h.src} alt="" loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
         </div>
       </div>
 
@@ -170,58 +144,35 @@ const tripStructuredData = [
     <div class="route-intro__rule"></div>
 
     <p class="route-intro__headline">
-      This is our signature route — and it might look like every other China itinerary at first glance.
+      {routeIntro.headline}
     </p>
 
     <div class="route-intro__body">
       <p>
-        Shanghai, Suzhou, Hangzhou, Beijing. The same four names you'll find on a dozen tour packages.
-        But the way Paris has a thousand tours and only a few that make you fall in love with it —
-        the cities aren't what make a trip unforgettable. It's how you move through them, who you're with,
-        and the moments no brochure ever mentions.
+        {routeIntro.body}
       </p>
-      <span class="route-intro__pivot">This is that version of China.</span>
+      <span class="route-intro__pivot">{routeIntro.pivot}</span>
     </div>
 
     <div class="route-intro__selector">
       <div class="route-intro__city-list">
-        <button class="route-intro__city-item" data-city="0">
-          <span class="route-intro__city-name">Shanghai</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="1">
-          <span class="route-intro__city-name">Suzhou</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="2">
-          <span class="route-intro__city-name">Hangzhou</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="3">
-          <span class="route-intro__city-name">Beijing</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
+        {routeIntro.panels.map((p, i) => (
+          <button class="route-intro__city-item" data-city={i}>
+            <span class="route-intro__city-name">{p.city}</span>
+            <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
+          </button>
+        ))}
       </div>
       <div class="route-intro__city-content">
-        <div class="route-intro__city-panel" data-panel="0">
-          <p>Shanghai moves like a city that has not decided whether it is finished yet. The Bund is all colonial stone and river fog in the morning; the towers across the water are all glass and light after dark. In between is the French Concession — plane trees lining the sidewalks, a lane house converted to a coffee shop, the smell of rain on stone. You will eat something here that you cannot explain precisely and will think about for weeks afterward.</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="1">
-          <p>The classical gardens of Suzhou were designed to produce a specific feeling: the sense that you have stepped sideways into a different relationship with time. Water moves through them slowly. The framing of rocks and plants through windows is deliberate — each view is composed. Outside the gardens, the canal streets are narrow and wet-stone and still residential. Old women hang laundry over the water. The canal is working infrastructure, not scenery.</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="2">
-          <p>West Lake is better at dawn than at any other time — before the tour boats, when the mist is still on the water and the Su Causeway is quiet enough that you can hear the birds. The tea fields above the city are a different kind of quiet: geometric and green and smelling of fresh leaf. In the afternoon the light on the lake is gold. The Song dynasty poets wrote about this and were not exaggerating.</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="3">
-          <p>Beijing is a city that knows it is the capital. The scale is intentional — the long avenues, the monumental squares, the Forbidden City which is large enough that you cannot see across it. But what stays with you is the hutongs: the lanes behind the drum tower where old Beijing still exists at the pace it always had, where the smell of coal smoke mixes with cooking and someone's radio is playing Peking opera from a window two floors up.</p>
-        </div>
+        {routeIntro.panels.map((p, i) => (
+          <div class="route-intro__city-panel" data-panel={i}>
+            <p>{p.prose}</p>
+          </div>
+        ))}
       </div>
     </div>
 
-    <p class="route-intro__colophon">
-      10 days &nbsp;·&nbsp; 4 cities &nbsp;·&nbsp; Zero planning<br>
-      All you need is curiosity and a half-empty suitcase.
-    </p>
+    <p class="route-intro__colophon" set:html={routeIntro.colophonHtml}></p>
   </div>
 </section>
 
@@ -275,7 +226,7 @@ const tripStructuredData = [
 
   <TripRundown lang="en" />
 
-  <TripPriceBreakdown lang="en" />
+  <TripPriceBreakdown lang="en" price={trip.priceCad} items={trip.priceBreakdown} />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">10-day route at a glance</h2>

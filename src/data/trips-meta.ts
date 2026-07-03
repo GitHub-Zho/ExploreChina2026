@@ -1,13 +1,11 @@
-// Single source of truth for trip card data.
-// Used by: src/pages/trips/index.astro, src/pages/zh/trips/index.astro,
-//          and the homepage itinerary section (src/pages/index.astro).
-//
-// Route names (title/titleZh) are imported from the canonical trip data files
-// so changing a name in site.ts or south-china.ts updates everywhere at once.
+// TRANSITIONAL FILE — being replaced by the `tripsMeta` projection
+// in src/data/registry.ts (Phase 3 of the data refactor deletes this).
+// Titles now come from the canonical trip objects via the registry.
 
-import { currentTrip } from './site';
-import { southChinaTrip } from './south-china';
-import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD } from './registry';
+import { getTripById, EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD } from './registry';
+
+const eastChina = getTripById('east-china-2026-summer')!;
+const southChina = getTripById('south-china-2026-summer')!;
 
 export type TripStatus = 'open' | 'soon';
 
@@ -45,8 +43,8 @@ export const tripsMeta: TripMeta[] = [
     id: 'east-china',
     href: '/trips/east-china-2026-summer',
     hrefZh: '/zh/trips/east-china-2026-summer',
-    title: currentTrip.title,        // ← site.ts
-    titleZh: currentTrip.titleZh,    // ← site.ts
+    title: eastChina.title,
+    titleZh: eastChina.titleZh,
     subtitle: 'Shanghai · Suzhou · Hangzhou · Beijing',
     subtitleZh: '上海 · 苏州 · 杭州 · 北京',
     status: 'open',
@@ -74,8 +72,8 @@ export const tripsMeta: TripMeta[] = [
     id: 'south-china',
     href: '/trips/south-china-2026-summer',
     hrefZh: '/zh/trips/south-china-2026-summer',
-    title: southChinaTrip.title,     // ← south-china.ts
-    titleZh: southChinaTrip.titleZh, // ← south-china.ts
+    title: southChina.title,
+    titleZh: southChina.titleZh,
     subtitle: 'Xiamen · Quanzhou · Chaoshan · Shenzhen',
     subtitleZh: '厦门 · 泉州 · 潮汕 · 深圳',
     status: 'open',

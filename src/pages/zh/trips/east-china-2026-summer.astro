@@ -3,37 +3,35 @@ import Layout from '../../../layouts/Layout.astro';
 import { getTripById } from '../../../data/registry';
 import TripRundown from '../../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../../components/v1/TripPriceBreakdown.astro';
-import {
-  faqZh,
-  includedZh,
-  notIncludedZh,
-  cityGuides,
-  itinerary,
-  recommendedVideos,
-} from '../../../data/site';
+import type { CityGuide, Landmark } from '../../../data/types';
 
 const trip = getTripById('east-china-2026-summer')!;
+const { itinerary, cityGuides } = trip;
+const faqZh = trip.faqZh;
+const includedZh = trip.includesZh;
+const notIncludedZh = trip.excludesZh;
+const recommendedVideos = trip.videos;
+const routeIntro = trip.routeIntro!;
+const stripRows = trip.highlightStrip!.zh;
 
 // Pre-compute slides for each day in the frontmatter
-type LandmarkItemEC = { name: string; nameZh: string; image: string; background: string; backgroundZh: string };
-type CitySlidEC = { type: 'city'; guide: typeof cityGuides[0] };
-type LandmarkSlidEC = { type: 'landmark'; lm: LandmarkItemEC };
+type CitySlidEC = { type: 'city'; guide: CityGuide };
+type LandmarkSlidEC = { type: 'landmark'; lm: Landmark };
 type DaySlidEC = CitySlidEC | LandmarkSlidEC;
 
 const itineraryWithSlides = itinerary.map((d, idx) => {
   const isFirstCityDay = idx === 0 || itinerary[idx - 1].city !== d.city;
   const cityGuide = cityGuides.find(g => g.city === d.city);
-  const landmarks: LandmarkItemEC[] = (d as any).landmarks ?? [];
   const slides: DaySlidEC[] = [
     ...(isFirstCityDay && cityGuide ? [{ type: 'city' as const, guide: cityGuide }] : []),
-    ...landmarks.map(lm => ({ type: 'landmark' as const, lm })),
+    ...d.landmarks.map(lm => ({ type: 'landmark' as const, lm })),
   ];
   return { ...d, isFirstCityDay, slides };
 });
 ---
 <Layout
   title={trip.titleZh}
-  description="2026 年学生带队中国夏季行程，从加拿大出发，10 天走访上海、苏州、杭州与北京。"
+  description={trip.seo.descriptionZh}
   lang="zh"
   alternateHref="/trips/east-china-2026-summer"
   alternateLabel="EN"
@@ -44,8 +42,8 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
   <!-- Hero Banner -->
   <div class="trip-hero">
     <img
-      src="/images/highlights/forbidden-city.jpg"
-      alt="北京故宫鸟瞰"
+      src={trip.heroImage}
+      alt={trip.heroImageAltZh}
       class="trip-hero__img"
     />
     <div class="trip-hero__overlay">
@@ -60,7 +58,7 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
       <div class="trip-strip__facts">
         <div class="trip-strip__fact"><span class="trip-strip__label">路线</span><span class="trip-strip__val">{trip.routeNameZh}</span></div>
         <div class="trip-strip__fact"><span class="trip-strip__label">出发</span><span class="trip-strip__val">{trip.departureWindowZh}</span></div>
-        <div class="trip-strip__fact"><span class="trip-strip__label">价格</span><span class="trip-strip__val trip-strip__val--price">{trip.priceCadZh}</span></div>
+        <div class="trip-strip__fact"><span class="trip-strip__label">价格</span><span class="trip-strip__val trip-strip__val--price">{trip.priceDisplayZh}</span></div>
         <div class="trip-strip__fact">
           <span class="trip-strip__label">人数</span>
           <span class="trip-strip__val">
@@ -95,50 +93,26 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
       <!-- 第一行 → 向左（图1–9）-->
       <div class="highlights-strip__row highlights-strip__row--1">
         <div class="highlights-strip__track">
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-bund.jpg" alt="上海外滩夜景" loading="lazy" /><p class="highlights-strip__caption">改写了天际线的外滩，今日依旧气势不减</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-suzhou-garden.jpg" alt="苏州古典园林" loading="lazy" /><p class="highlights-strip__caption">每一块石、每一方水，都有人用心放置</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-forbidden-city.jpg" alt="北京故宫" loading="lazy" /><p class="highlights-strip__caption">城墙之内的城，为帝王和时间而建</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-pingjiang-canal.jpg" alt="苏州平江路夜晚运河" loading="lazy" /><p class="highlights-strip__caption">时间在这条水街里慢了下来</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-west-lake.jpg" alt="杭州西湖" loading="lazy" /><p class="highlights-strip__caption">湖光、柳影，以及一种先于你落定的宁静</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-lingyin-temple.jpg" alt="杭州灵隐寺" loading="lazy" /><p class="highlights-strip__caption">石刻、香烟与山间空气共同承载的静谧</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-summer-palace.jpg" alt="北京颐和园" loading="lazy" /><p class="highlights-strip__caption">彩绘廊柱，一步接一步延伸得比你想象的更远</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-great-wall.jpg" alt="雾中长城" loading="lazy" /><p class="highlights-strip__caption">山脊、风声，以及一道消失于视野之外的边界</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-shanghai-coffee.jpg" alt="上海咖啡街巷" loading="lazy" /><p class="highlights-strip__caption">城市在这些小巷里放慢脚步，等着你转过下一个弯</p></div>
+          {stripRows[0].map(h => (
+            <div class="highlights-strip__card"><img src={h.src} alt={h.alt} loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
           <!-- 复制（无障碍隐藏）-->
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-bund.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">改写了天际线的外滩，今日依旧气势不减</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-suzhou-garden.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">每一块石、每一方水，都有人用心放置</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-forbidden-city.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">城墙之内的城，为帝王和时间而建</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-pingjiang-canal.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">时间在这条水街里慢了下来</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-west-lake.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">湖光、柳影，以及一种先于你落定的宁静</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-lingyin-temple.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">石刻、香烟与山间空气共同承载的静谧</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-summer-palace.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">彩绘廊柱，一步接一步延伸得比你想象的更远</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-great-wall.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">山脊、风声，以及一道消失于视野之外的边界</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-shanghai-coffee.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">城市在这些小巷里放慢脚步，等着你转过下一个弯</p></div>
+          {stripRows[0].map(h => (
+            <div class="highlights-strip__card" aria-hidden="true"><img src={h.src} alt="" loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
         </div>
       </div>
 
       <!-- 第二行 → 向右（图10–18）-->
       <div class="highlights-strip__row highlights-strip__row--2">
         <div class="highlights-strip__track">
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-shanghai-nightlife.jpg" alt="上海夜生活灯光" loading="lazy" /><p class="highlights-strip__caption">灯光、音乐，以及这座城市只在深夜才展示的那面</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-hanfu.jpg" alt="汉服体验" loading="lazy" /><p class="highlights-strip__caption">布料、动作，以及穿越同一街道的另一种方式</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-tea-plantation.jpg" alt="杭州茶园梯田" loading="lazy" /><p class="highlights-strip__caption">由双手、天气与年复一年的重复塑造出的梯田</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-high-speed-rail.jpg" alt="中国高铁" loading="lazy" /><p class="highlights-strip__caption">距离折叠进一道不断变化的窗外风景</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-night-market.jpg" alt="夜市食摊与灯笼" loading="lazy" /><p class="highlights-strip__caption">热气、炊烟，以及多到让你难以抉择的诱惑</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-guardian-statue.jpg" alt="中国石兽雕像" loading="lazy" /><p class="highlights-strip__caption">守望了数个世纪，沉默至今</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-temple-prayer.jpg" alt="寺庙前祈祷" loading="lazy" /><p class="highlights-strip__caption">烟雾、祈祷，以及人们仍在相信的某种重量</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-museum-space.jpg" alt="博物馆空间" loading="lazy" /><p class="highlights-strip__caption">形式、光线，以及一个无需解释自己的空间</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/ec-soup-dumplings.jpg" alt="上海小笼包" loading="lazy" /><p class="highlights-strip__caption">刚出笼的小笼包</p></div>
+          {stripRows[1].map(h => (
+            <div class="highlights-strip__card"><img src={h.src} alt={h.alt} loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
           <!-- 复制 -->
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-shanghai-nightlife.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">灯光、音乐，以及这座城市只在深夜才展示的那面</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-hanfu.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">布料、动作，以及穿越同一街道的另一种方式</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-tea-plantation.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">由双手、天气与年复一年的重复塑造出的梯田</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-high-speed-rail.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">距离折叠进一道不断变化的窗外风景</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-night-market.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">热气、炊烟，以及多到让你难以抉择的诱惑</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-guardian-statue.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">守望了数个世纪，沉默至今</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-temple-prayer.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">烟雾、祈祷，以及人们仍在相信的某种重量</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-museum-space.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">形式、光线，以及一个无需解释自己的空间</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/ec-soup-dumplings.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">刚出笼的小笼包</p></div>
+          {stripRows[1].map(h => (
+            <div class="highlights-strip__card" aria-hidden="true"><img src={h.src} alt="" loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
         </div>
       </div>
 
@@ -150,57 +124,35 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
     <div class="route-intro__rule"></div>
 
     <p class="route-intro__headline">
-      「这是我们的招牌路线——乍一看可能和所有其他中国行程没什么两样。」
+      {routeIntro.headlineZh}
     </p>
 
     <div class="route-intro__body">
       <p>
-        上海、苏州、杭州、北京。你在无数旅游套餐上都能看到这四个名字。
-        但就像巴黎有一千种游法，只有少数几种会让你真正爱上它——
-        让一段旅程难忘的，从来不是城市本身，而是你怎么走过它、和谁一起走，
-        以及那些任何宣传册都不会提到的瞬间。
+        {routeIntro.bodyZh}
       </p>
-      <span class="route-intro__pivot">这就是那个版本的中国。</span>
+      <span class="route-intro__pivot">{routeIntro.pivotZh}</span>
     </div>
 
     <div class="route-intro__selector">
       <div class="route-intro__city-list">
-        <button class="route-intro__city-item" data-city="0">
-          <span class="route-intro__city-name">上海</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="1">
-          <span class="route-intro__city-name">苏州</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="2">
-          <span class="route-intro__city-name">杭州</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="3">
-          <span class="route-intro__city-name">北京</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
+        {routeIntro.panels.map((p, i) => (
+          <button class="route-intro__city-item" data-city={i}>
+            <span class="route-intro__city-name">{p.cityZh}</span>
+            <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
+          </button>
+        ))}
       </div>
       <div class="route-intro__city-content">
-        <div class="route-intro__city-panel" data-panel="0">
-          <p>上海是一座还没决定自己是否建完的城市。外滩的清晨是石材与江雾；对岸的高楼入夜之后是玻璃与灯光。中间是法租界——梧桐树夹道，石库门弄堂改成了咖啡馆，石板路上有雨水的气息。你会在这里吃到一样无法准确描述的东西，然后在之后很多个星期里还会想起它。</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="1">
-          <p>苏州的古典园林是为了制造一种特定的感受而建造的：让你觉得自己侧身走进了另一种和时间的关系。水在其中流动得很慢。山石与花木透过窗框的取景是刻意为之的——每一个视角都是构图。园林外面，河道边的小巷窄而湿润，还有人在住。老妇人在水面上晾衣服。运河是生活设施，不是景色。</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="2">
-          <p>西湖在清晨最好——游船还没出来，水面还有薄雾，苏堤上安静到可以听见鸟叫。湖上方的茶园是另一种安静：整齐的、绿的、带着新叶气味的。下午湖光是金色的。宋朝的诗人写过这些，并没有夸张。</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="3">
-          <p>北京是一座知道自己是首都的城市。那个规模是刻意的——宽阔的大道、纪念碑式的广场、大到看不到对面的故宫。但你会记住的是胡同：鼓楼后面的那些小巷，北京旧有的生活节奏还在那里，煤烟味混着炒菜声，某个二楼的窗户里有人在听京剧。</p>
-        </div>
+        {routeIntro.panels.map((p, i) => (
+          <div class="route-intro__city-panel" data-panel={i}>
+            <p>{p.proseZh}</p>
+          </div>
+        ))}
       </div>
     </div>
 
-    <p class="route-intro__colophon">
-      十天 &nbsp;·&nbsp; 四座城 &nbsp;·&nbsp; 一群对的人
-    </p>
+    <p class="route-intro__colophon" set:html={routeIntro.colophonHtmlZh}></p>
   </div>
 </section>
 
@@ -244,7 +196,7 @@ const itineraryWithSlides = itinerary.map((d, idx) => {
 
   <TripRundown lang="zh" />
 
-  <TripPriceBreakdown lang="zh" />
+  <TripPriceBreakdown lang="zh" price={trip.priceCad} items={trip.priceBreakdown} />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">十天行程一览</h2>
