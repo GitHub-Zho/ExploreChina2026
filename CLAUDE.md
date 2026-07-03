@@ -3,25 +3,27 @@
 ## What This Is
 Student-led China travel program website for Canadian university students (UofT).
 Live site: `www.explorechina.ca`
-Two routes planned for Summer 2026:
-- 10-day **Shanghai/Suzhou/Hangzhou/Beijing** (live on site)
-- 10-day **Yunnan** (Kunming → Lijiang → Dali → Kunming) — not yet a web page
+Two routes live for Summer 2026, one staged:
+- 10-day **East China** (Shanghai/Suzhou/Hangzhou/Beijing) — open, Jul 8
+- 10-day **South China** (Xiamen/Quanzhou/Chaoshan/Shenzhen) — open, Jul 20
+- 10-day **Yunnan** (Kunming → Lijiang → Dali) — `status: 'coming-soon'` stub in `src/data/trips/yunnan.ts`
 
 **Tone:** Summer camp, not a tour group. Conversational, confident, slightly irreverent. Talk like a friend who organized an amazing trip. No corporate speak.
 **Audience:** Canadian university students 18–25, many first-timers to China.
-**Price:** ~CAD $3,000 / 10 days (covers accommodation, in-China transport, selected activities; excludes flights).
+**Business direction:** future consulting services will join trips as a second product family (see Offering seam below).
 
 ---
 
 ## Tech Stack
-- **Framework:** Astro 5.x + Tailwind CSS 3.x
+- **Framework:** Astro 5.x + Tailwind CSS 3.x (+ React for the one ApplyForm island)
 - **Deployment:** Vercel (auto-deploy from GitHub)
   - `main` → production (`www.explorechina.ca`)
   - `test` → preview (`explore-china-site-git-test-yuuchennzzz-2451s-projects.vercel.app`)
-- **Forms:** FormSubmit.co → `hello@explorechina.ca` (**activated**)
+- **Forms:**
+  - Apply form → Google Apps Script → Google Sheet (`GOOGLE_SHEET_URL` in ApplyForm.jsx). NOT FormSubmit.
+  - Homepage contact form → FormSubmit.co → `site.email` (**activation is bound to the exact email string**)
 - **No backend.** Static site only.
-- **Build:** `npm run build` — runs `scripts/quality-gate.mjs` first, then `astro build`
-- **Quality gate checks:** banned URLs (source.unsplash.com), external tool links (figma/notion), unresolved TBD/TODO markers (skips HTML `placeholder=` attributes)
+- **Build:** `npm run build` = quality gate → `astro check` → `astro build`. All three must pass.
 
 ---
 
@@ -31,7 +33,6 @@ Two routes planned for Summer 2026:
 3. Only then merge to `main` for production
 
 ```bash
-# Working flow
 git checkout test
 # ... make changes ...
 git push origin test          # triggers Vercel preview
@@ -50,44 +51,55 @@ git push origin main          # triggers production deploy
 
 ---
 
+## Data Architecture — Single Source of Truth (READ THIS FIRST)
+
+Every trip fact lives in exactly ONE file. Pages are templates and must never
+carry trip facts. The quality gate enforces the price rule at build time.
+
+```
+src/data/
+├── types.ts          # All interfaces; Trip has kind:'trip'; Offering union
+│                     # is the seam for future product families (services)
+├── constants.ts      # Prices + POLICY + combo fee. Leaf module.
+│                     # THE ONLY FILE WHERE PRICE DIGITS ARE ALLOWED.
+├── site.ts           # Site-wide: email, Instagram×2 (official
+│                     # @explorechina.travel — currently empty; legacy
+│                     # camcapysoc — where CTAs point until content moves),
+│                     # WeChat, aboutContent. Nothing trip-specific.
+├── registry.ts       # TRIPS assembly + getTripById/getOpenTrips/getTripByUrl
+│                     # + derived tripsMeta card projection (never hand-edit)
+└── trips/*.ts        # ONE complete typed Trip per file: meta, dates,
+                      # includes/excludes, FAQ, videos, itinerary, cityGuides,
+                      # highlightStrip, routeIntro prose, priceBreakdown,
+                      # card, form, seo
+```
+
+Rules:
+1. **Change a price** → `constants.ts` only. Pages/cards/FAQ/SEO/form all derive. The gate fails the build if a price literal appears in pages/components.
+2. **Change dates/route/copy** → the trip's file in `src/data/trips/`. Cards, sitemap, and ApplyForm options derive from it.
+3. **ApplyForm island imports `constants.ts`, never the registry** — the registry drags every trip's prose into client JS (38KB→167KB when tried). Trip schedule reaches the form as props computed in `apply.astro`/`zh/apply.astro`.
+4. **`form.scheduleId` is written to the Google Sheet** — never change it for an existing trip.
+5. **Adding a trip / product family** → follow the README playbooks ("How to add a new trip", "How to add a new product family"). Yunnan launch = fill its stub + copy the SC page pair.
+
 ## Key Files
 
 ```
 src/
-├── components/v1/            # Active components (v1 = current)
+├── components/v1/            # Active components (all take lang/isZh props)
 │   ├── Navbar.astro          # Fixed nav — minimal/hero/darkNav modes
 │   ├── Footer.astro
 │   ├── HeroSection.astro     # Full-width hero image (homepage)
 │   ├── HomeDifference.astro  # "Fruit" interactive section (homepage)
 │   ├── DestinationGrid.astro # Horizontal scroll gallery (wheel → horizontal JS)
 │   ├── Faq.astro             # Homepage FAQ (emotional tone)
-│   ├── TripWhyUs.astro       # NOT JUST/BUT rotator — used on south-china pages only
-│   ├── TripRundown.astro     # "The experience" section — NOT JUST/BUT + Eat/See/Try/Go out
-│   │                           Used on east-china pages. TripWhyUs + Eat columns combined.
-│   └── TripPriceBreakdown.astro  # Price breakdown with bar chart — used on all trip pages
-├── data/
-│   ├── site.ts               # Trip FAQ, included/notIncluded, itinerary, city guides, videos
-│   ├── registry.ts           # Trip registry (getTripById)
-│   ├── trips/east-china.ts   # East China itinerary with landmarks
-│   ├── trips/south-china.ts  # South China itinerary (has placeholder images/videos)
-│   └── trips-meta.ts         # All trip metadata inc. Yunnan (status: soon, fields TBD)
-├── layouts/
-│   └── Layout.astro          # Base layout, SEO meta, structured data
-├── pages/
-│   ├── index.astro           # Homepage — story animation + HomeDifference + DestinationGrid
-│   ├── about.astro
-│   ├── handbook.astro
-│   ├── apply.astro           # Apply form (FormSubmit.co)
-│   ├── trips/
-│   │   ├── east-china-2026-summer.astro   # EN trip page
-│   │   └── south-china-2026-summer.astro  # EN trip page (placeholder images)
-│   └── zh/                   # Chinese mirrors of all pages
-├── styles/
-│   └── global.css            # Global styles (~1650 lines)
-scripts/
-└── quality-gate.mjs          # Pre-build checks
-public/
-└── images/highlights/        # All local images (optimized)
+│   ├── TripRundown.astro     # "The experience" section (has own route prop data)
+│   └── TripPriceBreakdown.astro  # Bar chart; requires price+items props from trip
+├── components/ApplyForm.jsx  # React island; schedule via props; Google Sheet post
+├── data/                     # See Data Architecture above
+├── layouts/Layout.astro      # SEO meta, hreflang, structured data (email from site.ts)
+├── pages/                    # EN tree + zh/ mirror tree (gate enforces parity)
+└── styles/global.css         # ~2,950 lines global styles
+scripts/quality-gate.mjs      # 7 checks — see README
 ```
 
 ---
@@ -102,6 +114,7 @@ public/
 - Breathing dot pulses while user reads; text fades only after dot finishes
 - Background warms progressively: `#fdfcfb` → `#f5f1e9`
 - **Always test on both desktop (mouse) and mobile (touch) after any change here.**
+- Frontmatter imports may be edited; the story markup/JS/CSS may not.
 
 ### 2. Astro Scoped Styles
 Astro scopes `<style>` by component. Modal/toast CSS must use `<style is:global>` or `:global()`, otherwise styles won't apply to dynamically shown elements.
@@ -113,20 +126,23 @@ Astro scopes `<style>` by component. Modal/toast CSS must use `<style is:global>
 Unreliable for elements already in viewport on page load (especially post-Vercel deploy). Don't depend on it for initial visibility states.
 
 ### 5. Quality Gate
-Runs before every build. Catches `placeholder` as a keyword — patched to skip HTML `placeholder=` attributes. Run `npm run quality` to test gate independently.
+Runs before every build — 7 checks (banned image endpoints, external tool links, TBD/TODO in pages, image refs exist, internal links resolve, **no price literals outside src/data**, EN↔ZH route parity). `npm run quality` runs it alone; `GATE_LIST_UNREFERENCED=1` also lists orphan images. It skips HTML `placeholder=` attributes.
 
 ### 6. Images
-- All images in `public/images/highlights/` — local and optimized
-- One remaining Unsplash image: Bund at Night in DestinationGrid
-- Never use `/736x/` Pinterest thumbnails — always use `/originals/` resolution
+- All local images in `public/images/` (~34MB), compressed to ≤2000px
+- The ZH south-china highlight strip uses 4 remote `images.unsplash.com` URLs (allowed; only `source.unsplash.com` is banned)
+- 10 unreferenced `hk-*`/`hongkong-*` images are intentional spares for future HK content
+- Never use `/736x/` Pinterest thumbnails — always `/originals/` resolution
 
 ### 7. FAQ — Two Separate Sets, No Overlap
 - **Homepage** (`Faq.astro`): Emotional — "不会中文能来吗?", "安全吗?", etc.
-- **Trip page** (`site.ts`): Practical — pricing, cancellation, dietary, group size
+- **Trip pages** (`trip.faq`/`trip.faqZh` in the trip data files): Practical — pricing, cancellation, dietary, group size
 
-### 8. East China vs South China Accordion
-- **Both** accordions now use `.stop-list` (text only) — landmark-carousel JS removed from both pages
-- The `.landmark-carousel` CSS still exists in global.css but is no longer used on trip pages
+### 8. Trip-Page Accordions & Marquees
+- All four trip pages use the `.stop-list` text accordion (the old landmark-carousel was fully removed — markup, JS, and CSS)
+- EN highlight marquees animate via rAF JS; **ZH marquees are static by design** (no `hs-cycle3` CSS exists)
+- South China EN and ZH highlight strips intentionally show **different card sets** — do not "sync" them without a content decision
+- Marquee clone cards are rendered by mapping the same data array again with `aria-hidden="true"` — never duplicate the data
 
 ### 9. Font Sizes — Always Responsive
 All font sizes must use `clamp()` or `vw` units. Never fixed `px` values. This caused a recurring layout bug in the past.
@@ -134,28 +150,11 @@ All font sizes must use `clamp()` or `vw` units. Never fixed `px` values. This c
 ### 10. Pip Width (HomeDifference)
 Fruit pips use `position: absolute` + `white-space: pre-line` + `width: max-content`. Never remove `width: max-content` or text collapses to one word per line.
 
-### 11. Data Architecture — Single Source of Truth
-**Before writing any value inline, ask: does this belong in a data file?**
+### 11. Tailwind Does NOT Scan .ts Files
+`tailwind.config.mjs` content glob deliberately excludes `.ts` so strings in data files can't churn the generated CSS. If you ever put markup with Tailwind classes into a data file (don't), it won't get styles.
 
-Any value that appears in more than one place, or that could change, lives in a data file — not hardcoded in a component or page.
-
-**Data hierarchy:**
-- `src/data/registry.ts` — canonical trip data: title, price constants (`EAST_CHINA_PRICE_CAD`, `SOUTH_CHINA_PRICE_CAD`), route names, dates, summaries. Import these everywhere — apply form, trip pages, metadata.
-- `src/data/trips-meta.ts` — card-facing data for listing pages and homepage: description snippets, seal characters, arc titles, cultural focus lines. References registry constants for price.
-- `src/data/trips/*.ts` — detailed itinerary, city guides, FAQ, included/not-included per route.
-- `src/components/` — components import from data files; never hardcode trip-specific strings, prices, dates, or route names.
-
-**Checklist before hardcoding a value:**
-1. Does this value appear on more than one page or component? → data file
-2. Could it change (price, date, city name, route)? → data file
-3. Is it part of a trip's identity? → registry or trips-meta
-4. Is it a constant used in calculations (price math, combo pricing)? → named export in registry.ts
-
-**Common violations to avoid:**
-- Hardcoded prices in forms — use `EAST_CHINA_PRICE_CAD` / `SOUTH_CHINA_PRICE_CAD`
-- Hardcoded route city strings — use `trip.routeName` from registry
-- Hardcoded departure dates — use `trip.departureWindow` or `trip.dates[]`
-- Page-level descriptions duplicated across EN and ZH pages — share from trips-meta or registry
+### 12. `astro check` Runs In The Build
+Page `<script>` blocks are type-checked. Use type annotations and non-null assertions (`!`) to satisfy it — never change runtime logic just for types. `<script is:inline>` blocks are not checked.
 
 ---
 
@@ -163,22 +162,22 @@ Any value that appears in more than one place, or that could change, lives in a 
 
 | Priority | Task | Notes |
 |----------|------|-------|
-| High | Yunnan route page | No page yet; `trips-meta.ts` has entry with `status: 'soon'` and TBD fields |
+| High | Yunnan route launch | Stub exists (`trips/yunnan.ts`, status coming-soon); follow README "How to add a new trip" |
+| Medium | ApplyForm Chinese translation | ~900 strings; form is EN even at `/zh/apply` |
 | Medium | About page team photos | Currently uses initial avatars — needs real photos |
-| Medium | South China placeholder content | `src/data/trips/south-china.ts` has placeholder images and one placeholder YouTube URL |
-| Done | ~~English trip description copy~~ | ✅ Route intro section added to east-china page with city prose |
-| Done | ~~Handbook content review~~ | ✅ Comprehensive content in place |
-| Done | ~~FormSubmit.co activation~~ | ✅ Activated |
+| Medium | South China Xiamen video | Placeholder card was removed; add one real `Video` entry in `trips/south-china.ts` when a URL exists |
+| Low | Handbook EN/ZH structural reconciliation | Content divergence documented, not a bug |
+| Low | Instagram CTA switch | When @explorechina.travel has content: point homepage CTA at `site.instagramUrl` (one line) |
 
 ---
 
 ## Brand / Design
 - **Colors:** Warm earth tones. Red accent `#c8102e`. Stone/neutral for body text. Near-black for dark sections (`#141210`, `#1e1a17`).
-- **Typography:** Playfair Display (display/headings) + Inter (body). Story section and all font sizes use `clamp()` for responsive sizing.
+- **Typography:** Playfair Display (display/headings) + Inter (body). All font sizes use `clamp()` for responsive sizing.
 - **Language:** EN primary, ZH mirror. Jo writes ZH content direction.
 - **Nav:** About page is in all nav locations (desktop, mobile, hero minimal nav, footer). Watch for duplicate links — this was a recurring bug.
 
 ---
 
 ## Handoff Note
-Previously developed using OpenClaw (Claude-based tool). Now continuing in Claude Code. Same codebase, same workflow.
+The data layer was rebuilt in July 2026 (typed single-source architecture, quality gates, derived projections). If something in this file contradicts the code, trust the code and fix this file in the same commit.
