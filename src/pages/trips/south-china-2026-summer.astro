@@ -3,50 +3,29 @@ import Layout from '../../layouts/Layout.astro';
 import { getTripById } from '../../data/registry';
 import TripRundown from '../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../components/v1/TripPriceBreakdown.astro';
-import { SOUTH_CHINA_PRICE_CAD } from '../../data/registry';
-import {
-  southChinaItinerary,
-  southChinaCityGuides,
-  southChinaFaq,
-  southChinaIncluded,
-  southChinaNotIncluded,
-  southChinaVideos,
-} from '../../data/south-china.ts';
+import type { CityGuide, Landmark } from '../../data/types';
 
-const trip            = getTripById('south-china-2026-summer')!;
-const itinerary       = southChinaItinerary;
-const cityGuides      = southChinaCityGuides;
-const faq             = southChinaFaq;
-const included        = southChinaIncluded;
-const notIncluded     = southChinaNotIncluded;
-const recommendedVideos = southChinaVideos;
+const trip = getTripById('south-china-2026-summer')!;
+const { itinerary, cityGuides } = trip;
+const faq = trip.faq;
+const included = trip.includes;
+const notIncluded = trip.excludes;
+const recommendedVideos = trip.videos;
+const routeIntro = trip.routeIntro!;
+const scHighlights = trip.highlightStrip!.en[0];
+const scHighlightsRev = trip.highlightStrip!.en[1];
 
-// Pre-compute slides for each day in the frontmatter (TypeScript safe)
-type LandmarkItem = { name: string; nameZh: string; image: string; background: string; backgroundZh: string };
-type CitySlide = { type: 'city'; guide: typeof cityGuides[0] };
-type LandmarkSlide = { type: 'landmark'; lm: LandmarkItem };
+// Pre-compute slides for each day in the frontmatter
+type CitySlide = { type: 'city'; guide: CityGuide };
+type LandmarkSlide = { type: 'landmark'; lm: Landmark };
 type DaySlide = CitySlide | LandmarkSlide;
-
-const scHighlights = [
-  { src: '/images/places/south-china-tower-forest.jpg',      alt: 'Quanzhou East Pagoda rising above city trees',           caption: 'A Song Dynasty pagoda that outlasted every empire that built around it' },
-  { src: '/images/places/south-china-aerial-clock-tower.jpg',alt: 'Xiamen Zhongshan Road clock tower at dusk',              caption: 'Zhongshan Road at dusk — colonial grid still running on foot traffic' },
-  { src: '/images/highlights/xiamen-shacha-noodles-top.jpg', alt: 'Xiamen shacha noodles',                                  caption: 'A bowl of peanut broth that Xiamen calls its own' },
-  { src: '/images/places/south-china-building-red.jpg',      alt: 'Southern Fujian temple with curved red-tile roof',       caption: 'The oldest temples in southern Fujian still draw worshippers every morning' },
-  { src: '/images/places/south-china-city-hilltop.jpg',      alt: 'Xiamen coastal skyline panorama from the hills',         caption: 'The city that kept facing the sea it sent its emigrants across' },
-  { src: '/images/places/south-china-temple-statue.jpg',     alt: 'Mazu goddess statue above colourful temple rooftops',    caption: 'Mazu watches over the coast she has protected for a thousand years' },
-  { src: '/images/places/south-china-shenzhen-night.jpg',    alt: 'Tencent headquarters towers lit up at night in Shenzhen',caption: 'Shenzhen after midnight — a city that built itself in forty years on this shoreline' },
-  { src: '/images/places/south-china-food-dimsum.jpg',       alt: 'Rows of bamboo steamers filled with Cantonese dim sum',  caption: 'Cantonese dim sum — a table of steamers that keeps arriving until you say stop' },
-  { src: '/images/places/south-china-food-bowls.jpg',        alt: 'Oysters, clams and abalone on a coastal seafood table',  caption: 'Oysters, clams, abalone — pulled from water you can still see from the table' },
-];
-const scHighlightsRev = [...scHighlights].reverse();
 
 const itineraryWithSlides = itinerary.map((d, idx) => {
   const isFirstCityDay = idx === 0 || itinerary[idx - 1].city !== d.city;
   const cityGuide = cityGuides.find(g => g.city === d.city);
-  const landmarks: LandmarkItem[] = (d as any).landmarks ?? [];
   const slides: DaySlide[] = [
     ...(isFirstCityDay && cityGuide ? [{ type: 'city' as const, guide: cityGuide }] : []),
-    ...landmarks.map(lm => ({ type: 'landmark' as const, lm })),
+    ...d.landmarks.map(lm => ({ type: 'landmark' as const, lm })),
   ];
   return { ...d, isFirstCityDay, slides };
 });
@@ -73,7 +52,7 @@ const tripStructuredData = [
 ---
 <Layout
   title={`${trip.title} · Explore China 2026`}
-  description="A 10-day student travel route through Xiamen, Quanzhou, Chaoshan and Shenzhen — diaspora coast, Mazu maritime faith, Gongfu tea, and China's fastest-built city."
+  description={trip.seo.description}
   lang="en"
   alternateHref="/zh/trips/south-china-2026-summer"
   alternateLabel="中文"
@@ -84,8 +63,8 @@ const tripStructuredData = [
 
   <div class="trip-hero">
     <img
-      src="/images/places/south-china-tower-forest.jpg"
-      alt="Quanzhou East Pagoda above city trees"
+      src={trip.heroImage}
+      alt={trip.heroImageAlt}
       class="trip-hero__img"
     />
     <div class="trip-hero__overlay">
@@ -164,57 +143,34 @@ const tripStructuredData = [
     <div class="route-intro__rule"></div>
 
     <p class="route-intro__headline">
-      Four cities. Four different Chinas.
+      {routeIntro.headline}
     </p>
 
     <div class="route-intro__body">
       <p>
-        The South China Route moves through the coast that the world's Chinatowns came from.
-        Xiamen's sea-worn lanes and diaspora nostalgia, Quanzhou — once the world's busiest
-        port — where Mazu temples and stone mosques stand on the same street, Chaoshan's
-        ancient Teochew civilization still running on tea and beef and thousand-year-old rituals,
-        and Shenzhen: forty years old, seventeen million people, still figuring out what it is.
+        {routeIntro.body}
       </p>
     </div>
 
     <div class="route-intro__selector">
       <div class="route-intro__city-list">
-        <button class="route-intro__city-item" data-city="0">
-          <span class="route-intro__city-name">Xiamen</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="1">
-          <span class="route-intro__city-name">Quanzhou</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="2">
-          <span class="route-intro__city-name">Chaoshan</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="3">
-          <span class="route-intro__city-name">Shenzhen</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
+        {routeIntro.panels.map((p, i) => (
+          <button class="route-intro__city-item" data-city={i}>
+            <span class="route-intro__city-name">{p.city}</span>
+            <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
+          </button>
+        ))}
       </div>
       <div class="route-intro__city-content">
-        <div class="route-intro__city-panel" data-panel="0">
-          <p>The sea arrives before the city does. You smell it first — salt and rain and something faintly sweet that turns out to be incense from the temple at the end of the lane. On Gulangyu the streets are too narrow for cars, which means you hear everything: piano scales from a second-floor window, the clatter of a bicycle, someone's grandmother arguing with a fruit seller. The pace is different here. You will notice it by the end of the first afternoon.</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="1">
-          <p>Marco Polo called this harbour the finest he had ever seen. That was the thirteenth century. The Tang dynasty mosque still stands. The Song dynasty temple still holds its incense smoke. In the side streets you find stone carvings in Arabic and Tamil alongside Chinese characters — because this was the port the whole world passed through, and it kept the marks. The diaspora that built Chinatowns from Vancouver to Singapore started leaving from docks like these.</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="2">
-          <p>Chaoshan moves at the speed of tea. A session here is not a tourist activity — it's how people talk. Your host will fill the tiny cup before it empties; refusing means you want to leave. Sit long enough and the conversation finds its own rhythm. The beef at dinner was in a paddock this morning. The noodles were made by hand two hours ago. Everything is closer to its source than you expect.</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="3">
-          <p>Shenzhen announces itself through scale. The buildings are enormous and new and completely unapologetic about it. There is no nostalgia here — the city is 45 years old and knows it. What you find instead is energy: the electronics market where engineers source components at 8am, the art district that appeared in a former factory compound, the young residents who came from everywhere else and are still figuring out what kind of place this is.</p>
-        </div>
+        {routeIntro.panels.map((p, i) => (
+          <div class="route-intro__city-panel" data-panel={i}>
+            <p>{p.prose}</p>
+          </div>
+        ))}
       </div>
     </div>
 
-    <p class="route-intro__colophon">
-      10 days &nbsp;·&nbsp; Xiamen · Quanzhou · Chaoshan · Shenzhen
-    </p>
+    <p class="route-intro__colophon" set:html={routeIntro.colophonHtml}></p>
   </div>
 </section>
 
@@ -261,7 +217,7 @@ const tripStructuredData = [
 
   <TripRundown lang="en" route="south" />
 
-  <TripPriceBreakdown lang="en" route="south" price={SOUTH_CHINA_PRICE_CAD} />
+  <TripPriceBreakdown lang="en" price={trip.priceCad} items={trip.priceBreakdown} />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">10-day route at a glance</h2>

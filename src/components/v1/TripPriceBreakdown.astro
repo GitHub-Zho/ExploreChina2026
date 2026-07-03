@@ -1,20 +1,14 @@
 ---
-import { EAST_CHINA_PRICE_CAD, getTripById } from '../../data/registry';
 import type { PriceBreakdownItem } from '../../data/types';
 
 interface Props {
   lang?: 'en' | 'zh';
-  /** TRANSITIONAL: south-china pages still pass route instead of items (removed in Phase 3). */
-  route?: 'east' | 'south';
-  price?: number;
-  items?: PriceBreakdownItem[];
+  price: number;
+  items: PriceBreakdownItem[];
 }
 
-const { lang = 'en', route = 'east', price = EAST_CHINA_PRICE_CAD, items } = Astro.props as Props;
+const { lang = 'en', price, items: resolvedItems } = Astro.props as Props;
 const zh = lang === 'zh';
-
-const resolvedItems: PriceBreakdownItem[] =
-  items ?? getTripById(route === 'south' ? 'south-china-2026-summer' : 'east-china-2026-summer')!.priceBreakdown!;
 ---
 
 <section class="price-breakdown">

@@ -1,6 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ApplyForm from '../components/ApplyForm.jsx';
+import { getOpenTrips } from '../data/registry';
+import type { TripDate } from '../data/types';
+
+// Derive the form's trip schedule server-side from the registry so the
+// client island stays small (importing the registry in ApplyForm.jsx
+// would bundle every trip's full content into the form JS).
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const short = (iso: string) => {
+  const [, m, d] = iso.split('-').map(Number);
+  return `${MONTHS[m - 1]} ${d}`;
+};
+const shortRange = (d: TripDate) => `${short(d.start)} – ${short(d.end)}`;
+const monthName = (iso: string) => {
+  const m = Number(iso.split('-')[1]);
+  return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][m - 1];
+};
+
+const tripSchedule = getOpenTrips()
+  .filter(t => t.form && t.dates.length && t.priceCad != null)
+  .map(t => ({
+    id: t.form!.scheduleId,
+    route: t.form!.formLabel,
+    cities: t.routeName,
+    dates: shortRange(t.dates[0]),
+    start: t.dates[0].start,
+    end: t.dates[0].end,
+    arrive: t.form!.arrive,
+    depart: t.form!.depart,
+    price: `$${t.priceCad!.toLocaleString()}`,
+    priceCad: t.priceCad!,
+    color: t.form!.color,
+    month: monthName(t.dates[0].start),
+  }));
 ---
 <Layout
   title="Apply — Explore China 2026"
@@ -10,7 +43,7 @@ import ApplyForm from '../components/ApplyForm.jsx';
 >
   <section style="padding: clamp(3rem, 8vw, 5rem) 0; background: var(--color-bg, #f9f6f0); min-height: 80vh;">
     <div class="container">
-      <ApplyForm client:load />
+      <ApplyForm client:load tripSchedule={tripSchedule} />
     </div>
   </section>
 </Layout>

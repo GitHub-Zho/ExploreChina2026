@@ -3,37 +3,28 @@ import Layout from '../../../layouts/Layout.astro';
 import { getTripById } from '../../../data/registry';
 import TripRundown from '../../../components/v1/TripRundown.astro';
 import TripPriceBreakdown from '../../../components/v1/TripPriceBreakdown.astro';
-import { SOUTH_CHINA_PRICE_CAD } from '../../../data/registry';
-import {
-  southChinaItinerary,
-  southChinaCityGuides,
-  southChinaFaqZh,
-  southChinaIncludedZh,
-  southChinaNotIncludedZh,
-  southChinaVideos,
-} from '../../../data/south-china.ts';
+import type { CityGuide, Landmark } from '../../../data/types';
 
-const trip            = getTripById('south-china-2026-summer')!;
-const itinerary       = southChinaItinerary;
-const cityGuides      = southChinaCityGuides;
-const faq             = southChinaFaqZh;
-const included        = southChinaIncludedZh;
-const notIncluded     = southChinaNotIncludedZh;
-const recommendedVideos = southChinaVideos;
+const trip = getTripById('south-china-2026-summer')!;
+const { itinerary, cityGuides } = trip;
+const faq = trip.faqZh;
+const included = trip.includesZh;
+const notIncluded = trip.excludesZh;
+const recommendedVideos = trip.videos;
+const routeIntro = trip.routeIntro!;
+const stripRows = trip.highlightStrip!.zh;
 
 // Pre-compute slides for each day in the frontmatter
-type LandmarkItemZh = { name: string; nameZh: string; image: string; background: string; backgroundZh: string };
-type CitySlideZh = { type: 'city'; guide: typeof cityGuides[0] };
-type LandmarkSlideZh = { type: 'landmark'; lm: LandmarkItemZh };
+type CitySlideZh = { type: 'city'; guide: CityGuide };
+type LandmarkSlideZh = { type: 'landmark'; lm: Landmark };
 type DaySlideZh = CitySlideZh | LandmarkSlideZh;
 
 const itineraryWithSlides = itinerary.map((d, idx) => {
   const isFirstCityDay = idx === 0 || itinerary[idx - 1].city !== d.city;
   const cityGuide = cityGuides.find(g => g.city === d.city);
-  const landmarks: LandmarkItemZh[] = (d as any).landmarks ?? [];
   const slides: DaySlideZh[] = [
     ...(isFirstCityDay && cityGuide ? [{ type: 'city' as const, guide: cityGuide }] : []),
-    ...landmarks.map(lm => ({ type: 'landmark' as const, lm })),
+    ...d.landmarks.map(lm => ({ type: 'landmark' as const, lm })),
   ];
   return { ...d, isFirstCityDay, slides };
 });
@@ -60,7 +51,7 @@ const tripStructuredData = [
 ---
 <Layout
   title={`${trip.titleZh} · 探索中国 2026`}
-  description="探索中国华南线路——10天走访厦门、泉州、潮汕与深圳，海上丝路、妈祖信仰、功夫茶文化与中国速度最快的新兴城市。"
+  description={trip.seo.descriptionZh}
   lang="zh"
   alternateHref="/trips/south-china-2026-summer"
   alternateLabel="English"
@@ -71,8 +62,8 @@ const tripStructuredData = [
 
   <div class="trip-hero">
     <img
-      src="/images/places/south-china-tower-forest.jpg"
-      alt="泉州东塔俯瞰城市"
+      src={trip.heroImage}
+      alt={trip.heroImageAltZh}
       class="trip-hero__img"
     />
     <div class="trip-hero__overlay">
@@ -122,50 +113,26 @@ const tripStructuredData = [
       <!-- 第一行 → 向左（6张 × 3份）-->
       <div class="highlights-strip__row highlights-strip__row--1 hs-cycle3">
         <div class="highlights-strip__track">
-          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="鼓浪屿殖民建筑" loading="lazy" /><p class="highlights-strip__caption">十三国领事馆驻扎过的海岛，岛上没有汽车</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="厦门沙茶面" loading="lazy" /><p class="highlights-strip__caption">厦门人的一碗沙茶面——花生与香料的秘方</p></div>
-          <div class="highlights-strip__card"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="潮州牌坊街古石牌楼" loading="lazy" /><p class="highlights-strip__caption">潮汕从未让现代化改变的那条牌坊街</p></div>
-          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="潮汕牛肉火锅" loading="lazy" /><p class="highlights-strip__caption">刚从市场送来的鲜牛肉，涮进清汤里</p></div>
-          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="深圳现代天际线" loading="lazy" /><p class="highlights-strip__caption">三十年前的渔村，如今住着一千七百万人</p></div>
-          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="香港维多利亚港天星小轮" loading="lazy" /><p class="highlights-strip__caption">十一分钟的渡轮，两座截然不同的城市</p></div>
+          {stripRows[0].map(h => (
+            <div class="highlights-strip__card"><img src={h.src} alt={h.alt} loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
           <!-- 复制 ×2 -->
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">十三国领事馆驻扎过的海岛，岛上没有汽车</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">厦门人的一碗沙茶面——花生与香料的秘方</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">潮汕从未让现代化改变的那条牌坊街</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">刚从市场送来的鲜牛肉，涮进清汤里</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">三十年前的渔村，如今住着一千七百万人</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">十一分钟的渡轮，两座截然不同的城市</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">十三国领事馆驻扎过的海岛，岛上没有汽车</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">厦门人的一碗沙茶面——花生与香料的秘方</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">潮汕从未让现代化改变的那条牌坊街</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">刚从市场送来的鲜牛肉，涮进清汤里</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">三十年前的渔村，如今住着一千七百万人</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">十一分钟的渡轮，两座截然不同的城市</p></div>
+          {[...stripRows[0], ...stripRows[0]].map(h => (
+            <div class="highlights-strip__card" aria-hidden="true"><img src={h.src} alt="" loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
         </div>
       </div>
 
       <!-- 第二行 → 向右（倒序 × 3）-->
       <div class="highlights-strip__row highlights-strip__row--2 hs-cycle3">
         <div class="highlights-strip__track">
-          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="香港维多利亚港天星小轮" loading="lazy" /><p class="highlights-strip__caption">十一分钟的渡轮，两座截然不同的城市</p></div>
-          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="深圳现代天际线" loading="lazy" /><p class="highlights-strip__caption">三十年前的渔村，如今住着一千七百万人</p></div>
-          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="潮汕牛肉火锅" loading="lazy" /><p class="highlights-strip__caption">刚从市场送来的鲜牛肉，涮进清汤里</p></div>
-          <div class="highlights-strip__card"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="潮州牌坊街古石牌楼" loading="lazy" /><p class="highlights-strip__caption">潮汕从未让现代化改变的那条牌坊街</p></div>
-          <div class="highlights-strip__card"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="厦门沙茶面" loading="lazy" /><p class="highlights-strip__caption">厦门人的一碗沙茶面——花生与香料的秘方</p></div>
-          <div class="highlights-strip__card"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="鼓浪屿殖民建筑" loading="lazy" /><p class="highlights-strip__caption">十三国领事馆驻扎过的海岛，岛上没有汽车</p></div>
+          {stripRows[1].map(h => (
+            <div class="highlights-strip__card"><img src={h.src} alt={h.alt} loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
           <!-- 复制 ×2 -->
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">十一分钟的渡轮，两座截然不同的城市</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">三十年前的渔村，如今住着一千七百万人</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">刚从市场送来的鲜牛肉，涮进清汤里</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">潮汕从未让现代化改变的那条牌坊街</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">厦门人的一碗沙茶面——花生与香料的秘方</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">十三国领事馆驻扎过的海岛，岛上没有汽车</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1536240478700-b869ad10e128?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">十一分钟的渡轮，两座截然不同的城市</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">三十年前的渔村，如今住着一千七百万人</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">刚从市场送来的鲜牛肉，涮进清汤里</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/places/chaoshan-paifang-street-1.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">潮汕从未让现代化改变的那条牌坊街</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="/images/highlights/xiamen-shacha-noodles-top.jpg" alt="" loading="lazy" /><p class="highlights-strip__caption">厦门人的一碗沙茶面——花生与香料的秘方</p></div>
-          <div class="highlights-strip__card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1574285013029-29296a71930e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" /><p class="highlights-strip__caption">十三国领事馆驻扎过的海岛，岛上没有汽车</p></div>
+          {[...stripRows[1], ...stripRows[1]].map(h => (
+            <div class="highlights-strip__card" aria-hidden="true"><img src={h.src} alt="" loading="lazy" /><p class="highlights-strip__caption">{h.caption}</p></div>
+          ))}
         </div>
       </div>
 
@@ -177,53 +144,34 @@ const tripStructuredData = [
     <div class="route-intro__rule"></div>
 
     <p class="route-intro__headline">
-      四座城市。四种截然不同的中国。
+      {routeIntro.headlineZh}
     </p>
 
     <div class="route-intro__body">
       <p>
-        华南线路穿越的，是世界各地唐人街的出发地：厦门的海风与闽南离散情结、泉州——曾经的全球第一大港——妈祖庙与古清真寺并肩而立的地方、潮汕沉积千年的潮州文明，以及深圳，四十年在同一片海岸线上建起了一座一千七百万人的城市。
+        {routeIntro.bodyZh}
       </p>
     </div>
 
     <div class="route-intro__selector">
       <div class="route-intro__city-list">
-        <button class="route-intro__city-item" data-city="0">
-          <span class="route-intro__city-name">厦门</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="1">
-          <span class="route-intro__city-name">泉州</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="2">
-          <span class="route-intro__city-name">潮汕</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
-        <button class="route-intro__city-item" data-city="3">
-          <span class="route-intro__city-name">深圳</span>
-          <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
-        </button>
+        {routeIntro.panels.map((p, i) => (
+          <button class="route-intro__city-item" data-city={i}>
+            <span class="route-intro__city-name">{p.cityZh}</span>
+            <div class="route-intro__dots"><span class="route-intro__dot"></span><span class="route-intro__dot"></span><span class="route-intro__dot"></span></div>
+          </button>
+        ))}
       </div>
       <div class="route-intro__city-content">
-        <div class="route-intro__city-panel" data-panel="0">
-          <p>海比城市先到。你先闻到它——盐味、雨气，还有一丝来自巷子尽头庙宇的香烟。鼓浪屿的路窄得不够车过，于是你听见了一切：二楼窗户里的钢琴音阶，自行车经过的声音，有人的阿嬷在和水果摊吵架。节奏在这里不一样，你第一个下午就能感觉到。</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="1">
-          <p>马可·波罗说这里是他见过最好的港口，那是十三世纪。唐代清真寺还在。宋代寺庙的香火还在续。街边的石刻上有阿拉伯文、泰米尔文和汉字并排——因为这曾是全世界都要经过的港口，它留下了所有人的痕迹。从温哥华到新加坡，建起唐人街的那批离乡者，就是从这样的码头出发的。</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="2">
-          <p>潮汕按功夫茶的速度运转。在这里，喝茶不是旅游项目，是人们说话的方式。主人会在杯子见底前续满；拒绝意味着你要走了。坐够久，对话会找到自己的节奏。晚饭桌上的牛肉今天早上还在田里，面条两个小时前刚手工做好。一切都比你以为的更靠近它的来处。</p>
-        </div>
-        <div class="route-intro__city-panel" data-panel="3">
-          <p>深圳用体量宣告自己。楼很高，很新，毫不道歉。这座城市45岁，它知道。没有怀旧，只有能量：电子市场里清晨八点就来取货的工程师，旧厂房里长出来的艺术区，从四面八方来的年轻人，还在摸索这地方究竟是什么。</p>
-        </div>
+        {routeIntro.panels.map((p, i) => (
+          <div class="route-intro__city-panel" data-panel={i}>
+            <p>{p.proseZh}</p>
+          </div>
+        ))}
       </div>
     </div>
 
-    <p class="route-intro__colophon">
-      10天 &nbsp;·&nbsp; 厦门 · 泉州 · 潮汕 · 深圳
-    </p>
+    <p class="route-intro__colophon" set:html={routeIntro.colophonHtmlZh}></p>
   </div>
 </section>
 
@@ -267,7 +215,7 @@ const tripStructuredData = [
 
   <TripRundown lang="zh" route="south" />
 
-  <TripPriceBreakdown lang="zh" route="south" price={SOUTH_CHINA_PRICE_CAD} />
+  <TripPriceBreakdown lang="zh" price={trip.priceCad} items={trip.priceBreakdown} />
 
   <section id="itinerary" class="section card tone-sand">
     <h2 class="section-title">十天行程一览</h2>

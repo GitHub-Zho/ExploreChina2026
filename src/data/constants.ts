@@ -18,6 +18,10 @@ export const SOUTH_CHINA_PRICE_CAD = 1688;
  *  (covers the Beijing → Xiamen transition flight + gap-day logistics). */
 export const COMBO_TRANSITION_FEE_CAD = 400;
 
+/** Prose estimate shown in the apply form for international flights
+ *  (not included in trip price). */
+export const FLIGHT_ESTIMATE_RANGE = '$1,600–$2,000';
+
 export const POLICY = {
   depositPct: 30,
   balanceDueNote: '1 month before departure',
