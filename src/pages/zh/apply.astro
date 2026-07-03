@@ -1,12 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ApplyForm from '../components/ApplyForm.jsx';
-import { getOpenTrips } from '../data/registry';
-import type { TripDate } from '../data/types';
+import Layout from '../../layouts/Layout.astro';
+import ApplyForm from '../../components/ApplyForm.jsx';
+import { getOpenTrips } from '../../data/registry';
+import type { TripDate } from '../../data/types';
 
-// Derive the form's trip schedule server-side from the registry so the
-// client island stays small (importing the registry in ApplyForm.jsx
-// would bundle every trip's full content into the form JS).
+// Same server-side schedule derivation as /apply — see that file.
+// NOTE: the form itself is currently English-only (translating its
+// ~900 strings is tracked as a follow-up task); this route exists so
+// ZH visitors have an apply destination and hreflang stays valid.
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const short = (iso: string) => {
   const [, m, d] = iso.split('-').map(Number);
@@ -36,12 +37,12 @@ const tripSchedule = getOpenTrips()
   }));
 ---
 <Layout
-  title="Apply — Explore China 2026"
-  description="Apply for the Explore China 2026 student travel program."
-  lang="en"
-  alternateHref="/zh/apply"
-  alternateLabel="中文"
-  canonical="/apply"
+  title="报名 — 探索中国 2026"
+  description="报名参加 Explore China 2026 学生旅行项目。"
+  lang="zh"
+  alternateHref="/apply"
+  alternateLabel="EN"
+  canonical="/zh/apply"
 >
   <section style="padding: clamp(3rem, 8vw, 5rem) 0; background: var(--color-bg, #f9f6f0); min-height: 80vh;">
     <div class="container">

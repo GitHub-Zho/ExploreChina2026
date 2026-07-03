@@ -4,6 +4,7 @@ import HeroSection from '../../components/v1/HeroSection.astro';
 import DestinationGrid from '../../components/v1/DestinationGrid.astro';
 import Faq from '../../components/v1/Faq.astro';
 import { tripsMeta } from '../../data/registry';
+import { site } from '../../data/site';
 ---
 <Layout
   title="探索中国｜加拿大学生项目"
@@ -60,7 +61,7 @@ import { tripsMeta } from '../../data/registry';
     <div class="container">
       <p class="section-eyebrow">申请</p>
       <h2 class="section-title">提交你的申请</h2>
-      <form id="apply-form" class="grid md:grid-cols-2 gap-4 mt-8" action="https://formsubmit.co/hello@explorechina.ca" method="POST">
+      <form id="apply-form" class="grid md:grid-cols-2 gap-4 mt-8" action={`https://formsubmit.co/${site.email}`} method="POST">
         <input type="hidden" name="_subject" value="新申请 — Explore China" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />

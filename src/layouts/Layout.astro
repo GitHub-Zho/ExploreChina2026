@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/v1/Navbar.astro';
 import Footer from '../components/v1/Footer.astro';
+import { site } from '../data/site';
 
 const {
   title = 'Explore China',
@@ -51,9 +52,9 @@ const baseStructuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Explore China',
+    name: site.name,
     url: 'https://www.explorechina.ca/',
-    email: 'hello@explorechina.ca',
+    email: site.email,
   },
   {
     '@context': 'https://schema.org',

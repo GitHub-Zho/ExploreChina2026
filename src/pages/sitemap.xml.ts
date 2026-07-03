@@ -1,19 +1,26 @@
 import type { APIRoute } from 'astro';
+import { getOpenTrips } from '../data/registry';
 
-const routes = [
+// Static routes (both language trees). Trip detail routes are derived
+// from the registry below — adding a trip updates the sitemap automatically.
+const staticRoutes = [
   '',
   '/about',
   '/handbook',
   '/privacy',
-  '/trips/east-china-2026-summer',
-  '/trips/south-china-2026-summer',
+  '/apply',
+  '/trips',
   '/zh',
   '/zh/about',
   '/zh/handbook',
   '/zh/privacy',
-  '/zh/trips/east-china-2026-summer',
-  '/zh/trips/south-china-2026-summer',
+  '/zh/apply',
+  '/zh/trips',
 ];
+
+const tripRoutes = getOpenTrips().flatMap(t => [t.url, t.urlZh]);
+
+const routes = [...staticRoutes, ...tripRoutes];
 
 export const GET: APIRoute = ({ site }) => {
   const baseUrl = site ?? new URL('https://www.explorechina.ca');

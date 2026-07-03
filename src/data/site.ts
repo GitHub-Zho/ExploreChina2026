@@ -27,6 +27,12 @@ export const site = {
 export const aboutContent = {
   heroTitle: 'About Explore China',
   heroTitleZh: '关于 Explore China',
+  // Hero subtitle rendered under the about-page title.
+  // (heroSub intentionally differs from heroText — it is the shorter line.)
+  heroSub:
+    'A travel project shaped by people who wanted China to feel exciting, social, and real — not rushed, awkward, or overly packaged.',
+  heroSubZh:
+    'Explore China 是一个由学生发起的旅行项目。我们想做的是：让一次去中国的旅行既令人兴奋，又有人情味和安全感，而不是赶场、尴尬或过度包装。',
   heroText:
     'A student-led travel project shaped by people who wanted China travel to feel exciting, social, and emotionally manageable — not rushed, awkward, or overly packaged.',
   heroTextZh:
