@@ -4,7 +4,8 @@ import HeroSection from '../components/v1/HeroSection.astro';
 import HomeDifference from '../components/v1/HomeDifference.astro';
 import DestinationGrid from '../components/v1/DestinationGrid.astro';
 import Faq from '../components/v1/Faq.astro';
-import { tripsMeta } from '../data/trips-meta.ts';
+import { tripsMeta } from '../data/registry';
+import { site } from '../data/site';
 
 const homeStructuredData = {
   '@context': 'https://schema.org',
@@ -44,7 +45,7 @@ const homeStructuredData = {
 >
   <HeroSection />
 
-  <HomeDifference cta={{ href: "https://www.instagram.com/camcapysoc", text: "See what's the trip like ↗" }} />
+  <HomeDifference cta={{ href: site.instagramLegacyUrl, text: "See what's the trip like ↗" }} />
 
   <!-- ═══════════════════════════════════════════════════════════
        STORY SECTION — Version C look + Curtain + Version B Typewriter
@@ -157,7 +158,7 @@ const homeStructuredData = {
       <p class="section-eyebrow">Contact</p>
       <h2 class="section-title" style="text-align:left;">Contact Us</h2>
       <p class="section-sub" style="max-width:none; margin:0 0 2rem;">ExploreChina is a student-run program — trips are organized in partnership with university clubs and student organizations. If you're interested in joining a trip, connect with a partner club at your school first. Use this form for general inquiries and we'll get back to you within 5 business days.</p>
-      <form id="apply-form" class="grid md:grid-cols-2 gap-4" action="https://formsubmit.co/hello@explorechina.ca" method="POST">
+      <form id="apply-form" class="grid md:grid-cols-2 gap-4" action={`https://formsubmit.co/${site.email}`} method="POST">
         <input type="hidden" name="_subject" value="New Inquiry — Explore China" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />

@@ -1,30 +1,9 @@
 import { useState, useEffect } from "react";
-import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD, POLICY } from "../data/registry";
-
-const TRIP_SCHEDULE = [
-  {
-    id: "classic-jul",
-    route: "Classic Route",
-    cities: "Shanghai → Suzhou → Hangzhou → Beijing",
-    dates: "Jul 8 – Jul 17",
-    arrive: "Shanghai",
-    depart: "Beijing → Toronto",
-    price: `$${EAST_CHINA_PRICE_CAD.toLocaleString()}`,
-    color: "#C47A32",
-    month: "July",
-  },
-  {
-    id: "south-jul",
-    route: "South China Route",
-    cities: "Xiamen → Quanzhou → Chaoshan → Shenzhen",
-    dates: "Jul 20 – Jul 29",
-    arrive: "Xiamen",
-    depart: "Shenzhen / Hong Kong",
-    price: `$${SOUTH_CHINA_PRICE_CAD.toLocaleString()}`,
-    color: "#2E8B57",
-    month: "July",
-  },
-];
+// Import from the constants leaf module, NOT the registry: the registry pulls
+// in every trip's full content, which would bloat this client island's bundle.
+// The trip schedule arrives via the `tripSchedule` prop, derived server-side
+// in apply.astro from the registry — this island never hardcodes trip data.
+import { EAST_CHINA_PRICE_CAD, SOUTH_CHINA_PRICE_CAD, COMBO_TRANSITION_FEE_CAD, FLIGHT_ESTIMATE_RANGE, POLICY } from "../data/constants";
 
 const DIETARY = ["Omnivore", "Vegetarian", "Vegan", "Halal", "Gluten-free", "Other"];
 
@@ -146,7 +125,22 @@ const radioLabel = {
 
 const required = { color: "#c0392b", marginLeft: 2 };
 
-export default function ExplorechinaForm() {
+export default function ExplorechinaForm({ tripSchedule, fallbackEmail }) {
+  // Schedule derived from the trip registry, passed in by apply.astro.
+  const TRIP_SCHEDULE = tripSchedule ?? [];
+
+  // Section header, e.g. "July 2026" — derived from trip dates.
+  const scheduleMonthsLabel = [...new Set(TRIP_SCHEDULE.map(t => t.month))].join(" & ") + " 2026";
+
+  // Combo (back-to-back trips) facts, derived from the two schedules.
+  const comboEast = TRIP_SCHEDULE.find(s => s.id === "classic-jul");
+  const comboSouth = TRIP_SCHEDULE.find(s => s.id === "south-jul");
+  const comboStart = comboEast?.dates.split(" – ")[0];
+  const comboEnd = comboSouth?.dates.split(" – ")[1];
+  const comboDays = comboEast && comboSouth
+    ? Math.round((new Date(comboSouth.end) - new Date(comboEast.start)) / 86400000) + 1
+    : null;
+
   const [form, setForm] = useState({
     fullName: "", preferredName: "", email: "", phone: "",
     university: "", program: "", yearOfStudy: "",
@@ -193,6 +187,11 @@ export default function ExplorechinaForm() {
     }
     setSubmitting(true);
     try {
+      // Ad attribution captured on landing (see Layout.astro) rides along
+      // into the Google Sheet / backup email.
+      let utm = {};
+      try { utm = JSON.parse(sessionStorage.getItem("ec_utm") || "{}"); } catch (e) { /* ignore */ }
+
       const payload = {
         ...form,
         trips: form.unsureTiming
@@ -203,18 +202,53 @@ export default function ExplorechinaForm() {
             }).join("; "),
         interests: form.interests.join("; "),
         submittedAt: new Date().toISOString(),
+        ...utm,
       };
 
-      if (GOOGLE_SHEET_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
-        await fetch(GOOGLE_SHEET_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
+      // Dual-write. The Sheet POST is mode:no-cors, so its response is
+      // opaque — a broken Apps Script would look like success. The backup
+      // FormSubmit AJAX call has a readable response and doubles as the
+      // observable delivery channel: the lead reaches the inbox even if
+      // the Sheet write silently failed.
+      const sheetWrite =
+        GOOGLE_SHEET_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE"
+          ? fetch(GOOGLE_SHEET_URL, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            })
+          : Promise.reject(new Error("sheet not configured"));
+
+      const backupWrite = fallbackEmail
+        ? fetch(`https://formsubmit.co/ajax/${fallbackEmail}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({
+              _subject: `New trip application — ${form.fullName || "unknown"}`,
+              _template: "table",
+              ...payload,
+            }),
+          }).then(r => {
+            if (!r.ok) throw new Error(`backup delivery failed (${r.status})`);
+            return r.json();
+          })
+        : Promise.reject(new Error("no fallback email configured"));
+
+      const [sheetResult, backupResult] = await Promise.allSettled([sheetWrite, backupWrite]);
+
+      if (sheetResult.status === "fulfilled" || backupResult.status === "fulfilled") {
+        setSubmitted(true);
+        if (window.ecTrack) window.ecTrack("apply_submitted", { trips: payload.trips });
+      } else {
+        if (window.ecTrack) window.ecTrack("apply_submit_failed");
+        alert(
+          "Something went wrong sending your application. Please try again — " +
+          (fallbackEmail ? `or email us directly at ${fallbackEmail}.` : "or contact us on Instagram.")
+        );
       }
-      setSubmitted(true);
     } catch (e) {
+      if (window.ecTrack) window.ecTrack("apply_submit_failed");
       alert("Something went wrong. Please try again.");
     }
     setSubmitting(false);
@@ -344,7 +378,7 @@ export default function ExplorechinaForm() {
         <div style={sectionSub}>Select all that you'd like to join — you can pick more than one</div>
 
         <div style={{ marginBottom: 16 }}>
-          <div style={{ fontSize: 12, fontWeight: 600, color: "var(--color-text-secondary, #666)", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>July 2026</div>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "var(--color-text-secondary, #666)", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>{scheduleMonthsLabel}</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {TRIP_SCHEDULE.map(trip => {
                 const selected = form.trips.includes(trip.id);
@@ -386,15 +420,15 @@ export default function ExplorechinaForm() {
           if (hasJulCombo) {
             return (
               <div style={{ padding: "14px 16px", background: "rgba(123,198,126,0.08)", border: "1px solid rgba(123,198,126,0.25)", borderRadius: 10, marginBottom: 14 }}>
-                <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary, #1a1a1a)", marginBottom: 6 }}>Combo selected — Jul 8 to Jul 30 (~22 days)</p>
+                <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary, #1a1a1a)", marginBottom: 6 }}>Combo selected — {comboStart} to {comboEnd} (~{comboDays} days)</p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
-                  <strong>Combo price: ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 400).toLocaleString()} CAD</strong> (vs ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD).toLocaleString()} separately — the $400 difference covers your transition logistics between trips).
+                  <strong>Combo price: ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + COMBO_TRANSITION_FEE_CAD).toLocaleString()} CAD</strong> (vs ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD).toLocaleString()} separately — the ${COMBO_TRANSITION_FEE_CAD} difference covers your transition logistics between trips).
                 </p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
-                  <strong>We'll book your Beijing → Xiamen transition flight</strong> (~$400 CAD, included in the combo price). Hotel and transport during the 2-day gap between trips are also covered — you just enjoy the ride.
+                  <strong>We'll book your Beijing → Xiamen transition flight</strong> (~${COMBO_TRANSITION_FEE_CAD} CAD, included in the combo price). Hotel and transport during the 2-day gap between trips are also covered — you just enjoy the ride.
                 </p>
                 <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6 }}>
-                  <strong>One round-trip flight from Toronto, 22 days in China.</strong> Way better value than two separate trips.
+                  <strong>One round-trip flight from Toronto, {comboDays} days in China.</strong> Way better value than two separate trips.
                 </p>
               </div>
             );
@@ -408,7 +442,7 @@ export default function ExplorechinaForm() {
             Each month's Classic Route (ends ~18th) connects seamlessly with the South China Route (starts ~20th). If you'd rather make one flight count and stay longer, we'll arrange the transition — flight, hotel, transport, everything in between.
           </p>
           <p style={{ fontSize: 12, color: "var(--color-text-primary, #1a1a1a)", lineHeight: 1.6, marginBottom: 8 }}>
-            <strong>About international flights (not included in trip price):</strong> A Toronto ↔ China round-trip is typically $1,600–$2,000 CAD, though this may be higher depending on fuel surcharges and booking timing. We recommend booking early.
+            <strong>About international flights (not included in trip price):</strong> A Toronto ↔ China round-trip is typically {FLIGHT_ESTIMATE_RANGE} CAD, though this may be higher depending on fuel surcharges and booking timing. We recommend booking early.
           </p>
           <p style={{ fontSize: 11, color: "var(--color-text-tertiary, #999)", lineHeight: 1.5 }}>
             Classic Route: ${EAST_CHINA_PRICE_CAD.toLocaleString()} &nbsp;·&nbsp; South China Route: ${SOUTH_CHINA_PRICE_CAD.toLocaleString()} &nbsp;·&nbsp; Combo (same month): ${(EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD).toLocaleString()}
@@ -758,7 +792,7 @@ export default function ExplorechinaForm() {
         let total = 0;
 
         if (hasJulCombo) {
-          const comboPrice = EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + 400;
+          const comboPrice = EAST_CHINA_PRICE_CAD + SOUTH_CHINA_PRICE_CAD + COMBO_TRANSITION_FEE_CAD;
           items.push({ label: "Combo — Classic + South China (July)", price: comboPrice });
           total += comboPrice;
         } else {

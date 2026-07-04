@@ -1,25 +1,14 @@
 ---
-import { EAST_CHINA_PRICE_CAD } from '../../data/registry';
-const { lang = 'en', route = 'east', price = EAST_CHINA_PRICE_CAD } = Astro.props;
+import type { PriceBreakdownItem } from '../../data/types';
+
+interface Props {
+  lang?: 'en' | 'zh';
+  price: number;
+  items: PriceBreakdownItem[];
+}
+
+const { lang = 'en', price, items: resolvedItems } = Astro.props as Props;
 const zh = lang === 'zh';
-
-const eastItems = [
-  { labelEn: 'Accommodation',          labelZh: '住宿',           noteEn: '<strong>4–5★ hotel</strong>, shared double room',      noteZh: '<strong>4–5星酒店</strong>，双人间',      pct: 32 },
-  { labelEn: 'Food & dining',           labelZh: '餐饮',           noteEn: 'Local specialty restaurants daily',                   noteZh: '每日特色餐厅',                           pct: 26 },
-  { labelEn: 'Activities & tickets',    labelZh: '活动与门票',     noteEn: 'Entrance fees + special programming',                 noteZh: '景点门票及特色活动',                     pct: 16 },
-  { labelEn: 'Guide & local transport', labelZh: '导游及市内交通', noteEn: 'Professional guide + daily in-city',                  noteZh: '专业导游及每日市内交通',                 pct: 8  },
-  { labelEn: 'City-to-city transfers',  labelZh: '城市间交通',     noteEn: 'High-speed rail & domestic flights',                  noteZh: '高铁及国内航班',                         pct: 14 },
-];
-
-const southItems = [
-  { labelEn: 'Accommodation',          labelZh: '住宿',           noteEn: '<strong>4–5★ hotel</strong>, shared double room',      noteZh: '<strong>4–5星酒店</strong>，双人间',      pct: 37 },
-  { labelEn: 'Food & dining',           labelZh: '餐饮',           noteEn: 'Local specialty restaurants daily',                   noteZh: '每日特色餐厅',                           pct: 31 },
-  { labelEn: 'Activities & tickets',    labelZh: '活动与门票',     noteEn: 'Entrance fees + special programming',                 noteZh: '景点门票及特色活动',                     pct: 13 },
-  { labelEn: 'Guide & local transport', labelZh: '导游及市内交通', noteEn: 'Professional guide + daily in-city',                  noteZh: '专业导游及每日市内交通',                 pct: 9  },
-  { labelEn: 'City-to-city transfers',  labelZh: '城市间交通',     noteEn: 'High-speed rail & coastal trains',                    noteZh: '高铁及沿海列车',                         pct: 9  },
-];
-
-const items = route === 'south' ? southItems : eastItems;
 ---
 
 <section class="price-breakdown">
@@ -60,12 +49,12 @@ const items = route === 'south' ? southItems : eastItems;
     </div>
 
     <div class="price-breakdown__bars">
-      {items.map(item => (
+      {resolvedItems.map(item => (
         <div class="price-bar">
           <div class="price-bar__labels">
-            <span class="price-bar__name">{zh ? item.labelZh : item.labelEn}</span>
+            <span class="price-bar__name">{zh ? item.labelZh : item.label}</span>
           </div>
-          <p class="price-bar__note"><Fragment set:html={zh ? item.noteZh : item.noteEn} /></p>
+          <p class="price-bar__note"><Fragment set:html={zh ? item.noteHtmlZh : item.noteHtml} /></p>
           <div class="price-bar__track">
             <div class="price-bar__fill" style={`width: ${item.pct}%`}></div>
           </div>

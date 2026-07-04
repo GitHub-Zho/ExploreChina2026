@@ -103,7 +103,7 @@ const fruits = [
 
   if (!isMobile) {
     // Desktop: click to pin fruit on top; click again or outside to unpin
-    var pinned = null;
+    var pinned: Element | null = null;
 
     document.querySelectorAll('.hdiff__fruit').forEach(function (fruit) {
       fruit.addEventListener('click', function (e) {
@@ -147,8 +147,8 @@ const fruits = [
       var pipEls  = fruit.querySelectorAll('.hdiff__pip');
       if (!labelEl) return;
 
-      title.textContent = labelEl.textContent || '';
-      pipsWrap.innerHTML = '';
+      title!.textContent = labelEl.textContent || '';
+      pipsWrap!.innerHTML = '';
 
       pipEls.forEach(function (pip, i) {
         var el = document.createElement('div');
@@ -156,18 +156,18 @@ const fruits = [
         el.textContent = pip.textContent || '';
         var pos = positions[i] || { top: (15 + i * 22) + '%', left: '8%', rotate: '0deg' };
         el.style.cssText = 'top:' + pos.top + ';left:' + pos.left + ';transform:rotate(' + pos.rotate + ')';
-        pipsWrap.appendChild(el);
+        pipsWrap!.appendChild(el);
       });
 
-      overlay.classList.add('is-open');
-      overlay.setAttribute('aria-hidden', 'false');
+      overlay!.classList.add('is-open');
+      overlay!.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
     });
   });
 
   function closeOverlay() {
-    overlay.classList.remove('is-open');
-    overlay.setAttribute('aria-hidden', 'true');
+    overlay!.classList.remove('is-open');
+    overlay!.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 
