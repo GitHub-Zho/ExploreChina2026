@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/v1/Navbar.astro';
 import Footer from '../components/v1/Footer.astro';
-import { site } from '../data/site';
+import { site, analytics } from '../data/site';
 
 const {
   title = 'Explore China',
@@ -101,6 +101,56 @@ const jsonLd = JSON.stringify(
     <meta name="twitter:image" content={socialImageUrl} />
     <script type="application/ld+json" set:html={jsonLd}></script>
     <title>{title}</title>
+
+    <!-- ── Tracking helper + UTM capture (always present; providers optional) ── -->
+    <script is:inline>
+      // ecTrack(event, params): safe fan-out to whichever providers are loaded.
+      // 'apply_submitted' maps to Meta's standard Lead event (ad optimization).
+      window.ecTrack = function (event, params) {
+        try {
+          if (window.gtag) window.gtag('event', event, params || {});
+          if (window.fbq) {
+            if (event === 'apply_submitted') window.fbq('track', 'Lead', params || {});
+            else window.fbq('trackCustom', event, params || {});
+          }
+        } catch (e) { /* tracking must never break the page */ }
+      };
+      // Capture ad UTM parameters on landing; the apply form attaches them
+      // to the submission payload so the Google Sheet gets attribution.
+      (function () {
+        try {
+          var q = new URLSearchParams(location.search);
+          var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+          var got = {}; var any = false;
+          keys.forEach(function (k) { var v = q.get(k); if (v) { got[k] = v; any = true; } });
+          if (any) sessionStorage.setItem('ec_utm', JSON.stringify(got));
+        } catch (e) { /* ignore */ }
+      })();
+    </script>
+
+    {analytics.ga4MeasurementId && (
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${analytics.ga4MeasurementId}`}></script>
+    )}
+    {analytics.ga4MeasurementId && (
+      <script is:inline define:vars={{ gaId: analytics.ga4MeasurementId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    )}
+    {analytics.metaPixelId && (
+      <script is:inline define:vars={{ pixelId: analytics.metaPixelId }}>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', pixelId);
+        fbq('track', 'PageView');
+      </script>
+    )}
   </head>
   <body {...(darkNav ? { 'data-navbar-dark': '' } : {})}>
     <Navbar

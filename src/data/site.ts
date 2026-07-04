@@ -24,6 +24,18 @@ export const site = {
   wechat: 'ExploreChinaTrip',
 };
 
+// ─────────────────────────────────────────────────────────────
+// Analytics & ad tracking — leave an ID empty and that provider's
+// script is NOT loaded at all (zero third-party requests).
+// Activation steps + event reference: docs/ANALYTICS-AND-TRACKING.md
+// ─────────────────────────────────────────────────────────────
+export const analytics = {
+  /** GA4 measurement ID, e.g. 'G-XXXXXXXXXX' (free — analytics.google.com) */
+  ga4MeasurementId: '',
+  /** Meta Pixel ID, e.g. '1234567890' (free — business.facebook.com → Events Manager) */
+  metaPixelId: '',
+};
+
 export const aboutContent = {
   heroTitle: 'About Explore China',
   heroTitleZh: '关于 Explore China',

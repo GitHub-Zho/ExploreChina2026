@@ -125,7 +125,7 @@ const radioLabel = {
 
 const required = { color: "#c0392b", marginLeft: 2 };
 
-export default function ExplorechinaForm({ tripSchedule }) {
+export default function ExplorechinaForm({ tripSchedule, fallbackEmail }) {
   // Schedule derived from the trip registry, passed in by apply.astro.
   const TRIP_SCHEDULE = tripSchedule ?? [];
 
@@ -187,6 +187,11 @@ export default function ExplorechinaForm({ tripSchedule }) {
     }
     setSubmitting(true);
     try {
+      // Ad attribution captured on landing (see Layout.astro) rides along
+      // into the Google Sheet / backup email.
+      let utm = {};
+      try { utm = JSON.parse(sessionStorage.getItem("ec_utm") || "{}"); } catch (e) { /* ignore */ }
+
       const payload = {
         ...form,
         trips: form.unsureTiming
@@ -197,18 +202,53 @@ export default function ExplorechinaForm({ tripSchedule }) {
             }).join("; "),
         interests: form.interests.join("; "),
         submittedAt: new Date().toISOString(),
+        ...utm,
       };
 
-      if (GOOGLE_SHEET_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
-        await fetch(GOOGLE_SHEET_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
+      // Dual-write. The Sheet POST is mode:no-cors, so its response is
+      // opaque — a broken Apps Script would look like success. The backup
+      // FormSubmit AJAX call has a readable response and doubles as the
+      // observable delivery channel: the lead reaches the inbox even if
+      // the Sheet write silently failed.
+      const sheetWrite =
+        GOOGLE_SHEET_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE"
+          ? fetch(GOOGLE_SHEET_URL, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            })
+          : Promise.reject(new Error("sheet not configured"));
+
+      const backupWrite = fallbackEmail
+        ? fetch(`https://formsubmit.co/ajax/${fallbackEmail}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({
+              _subject: `New trip application — ${form.fullName || "unknown"}`,
+              _template: "table",
+              ...payload,
+            }),
+          }).then(r => {
+            if (!r.ok) throw new Error(`backup delivery failed (${r.status})`);
+            return r.json();
+          })
+        : Promise.reject(new Error("no fallback email configured"));
+
+      const [sheetResult, backupResult] = await Promise.allSettled([sheetWrite, backupWrite]);
+
+      if (sheetResult.status === "fulfilled" || backupResult.status === "fulfilled") {
+        setSubmitted(true);
+        if (window.ecTrack) window.ecTrack("apply_submitted", { trips: payload.trips });
+      } else {
+        if (window.ecTrack) window.ecTrack("apply_submit_failed");
+        alert(
+          "Something went wrong sending your application. Please try again — " +
+          (fallbackEmail ? `or email us directly at ${fallbackEmail}.` : "or contact us on Instagram.")
+        );
       }
-      setSubmitted(true);
     } catch (e) {
+      if (window.ecTrack) window.ecTrack("apply_submit_failed");
       alert("Something went wrong. Please try again.");
     }
     setSubmitting(false);

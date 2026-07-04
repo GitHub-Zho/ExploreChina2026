@@ -167,6 +167,7 @@ Page `<script>` blocks are type-checked. Use type annotations and non-null asser
 
 | Priority | Task | Notes |
 |----------|------|-------|
+| High | Activate analytics before running ads | Scaffold is wired; paste GA4 + Meta Pixel IDs into `site.ts` `analytics` — steps in docs/ANALYTICS-AND-TRACKING.md |
 | High | Yunnan route launch | Stub exists (`trips/yunnan.ts`, status coming-soon); follow README "How to add a new trip" |
 | Medium | ApplyForm Chinese translation | ~900 strings; form is EN even at `/zh/apply` |
 | Medium | About page team photos | Currently uses initial avatars — needs real photos |
