@@ -31,7 +31,7 @@ export const site = {
 // ─────────────────────────────────────────────────────────────
 export const analytics = {
   /** GA4 measurement ID, e.g. 'G-XXXXXXXXXX' (free — analytics.google.com) */
-  ga4MeasurementId: '',
+  ga4MeasurementId: 'G-9WZC8NF7GV',
   /** Meta Pixel ID, e.g. '1234567890' (free — business.facebook.com → Events Manager) */
   metaPixelId: '',
 };
