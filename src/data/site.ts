@@ -36,6 +36,50 @@ export const analytics = {
   metaPixelId: '',
 };
 
+// ─────────────────────────────────────────────────────────────
+// "What happens after you apply" — shown on the apply pages and
+// the submission-success pages (component: v1/ApplyNextSteps.astro).
+// Keep in sync with the actual operations flow.
+// ─────────────────────────────────────────────────────────────
+export const applicationProcess = {
+  title: 'What happens after you apply',
+  titleZh: '报名之后会发生什么',
+  intro: 'No commitments are locked in by applying — here is the actual path from application to takeoff.',
+  introZh: '提交报名并不等于立刻承诺什么——从报名到出发，真实的流程是这样的：',
+  steps: [
+    {
+      title: 'We reply within 5 business days',
+      titleZh: '5 个工作日内收到回复',
+      text: 'A real organizer reads every application and gets back to you by email.',
+      textZh: '每份申请都由组织者本人查看，并通过邮件回复你。',
+    },
+    {
+      title: 'A short, relaxed chat',
+      titleZh: '一次轻松的简短沟通',
+      text: 'Around 3–6 months before departure we schedule a casual call — a few simple questions about the kind of trip you are looking for, so the group and itinerary fit everyone. Want to chat earlier? Always welcome.',
+      textZh: '出发前约 3–6 个月安排一次简短聊天：聊聊你期待的行程风格，让团队和路线更合拍。想更早聊也随时欢迎。',
+    },
+    {
+      title: 'Final list & group flights',
+      titleZh: '确认名单，统一订机票',
+      text: 'We confirm the final participant list about 3–6 months out, then coordinate flight booking together.',
+      textZh: '出发前 3–6 个月确认最终名单，然后统一协调机票预订。',
+    },
+    {
+      title: 'Pre-departure briefing',
+      titleZh: '行前说明会',
+      text: 'One session covering the visa process step by step, the detailed itinerary, SIM/payments/VPN setup, safety guidelines, and insurance.',
+      textZh: '一次讲清：签证流程、详细行程安排、SIM卡/支付/VPN 设置、安全须知与保险信息。',
+    },
+    {
+      title: 'Paperwork done, then takeoff',
+      titleZh: '手续落定，出发',
+      text: 'Once visas and insurance are set, agreements are signed with the licensed local travel agency — everything in writing before we fly.',
+      textZh: '签证与保险落定后，与国内持牌旅行社正式签约——一切白纸黑字，然后出发。',
+    },
+  ],
+};
+
 export const aboutContent = {
   heroTitle: 'About Explore China',
   heroTitleZh: '关于 Explore China',

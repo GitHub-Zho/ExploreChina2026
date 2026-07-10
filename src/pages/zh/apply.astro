@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ApplyForm from '../../components/ApplyForm.jsx';
+import ApplyNextSteps from '../../components/v1/ApplyNextSteps.astro';
 import { getOpenTrips } from '../../data/registry';
 import { site } from '../../data/site';
 import type { TripDate } from '../../data/types';
@@ -49,5 +50,6 @@ const tripSchedule = getOpenTrips()
     <div class="container">
       <ApplyForm client:load tripSchedule={tripSchedule} fallbackEmail={site.email} />
     </div>
+    <ApplyNextSteps lang="zh" />
   </section>
 </Layout>
