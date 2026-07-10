@@ -917,7 +917,7 @@ export default function ExplorechinaForm({ tripSchedule, fallbackEmail }) {
             <span style={{ fontSize: 12, color: "#C47A32", fontWeight: 600 }}>Instagram →</span>
           </a>
 
-          <a href="https://www.instagram.com/utetc" target="_blank" rel="noopener noreferrer" style={{
+          <a href="https://www.instagram.com/uoft_travelclub/" target="_blank" rel="noopener noreferrer" style={{
             display: "flex", alignItems: "center", justifyContent: "space-between",
             padding: "12px 14px", borderRadius: 10,
             border: "1px solid rgba(0,0,0,0.08)", background: "var(--color-background-primary, #fff)",
