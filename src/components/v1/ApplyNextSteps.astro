@@ -1,0 +1,92 @@
+---
+// "What happens after you apply" timeline.
+// Content lives in src/data/site.ts (applicationProcess).
+import { applicationProcess as p } from '../../data/site';
+
+const { lang = 'en' } = Astro.props as { lang?: 'en' | 'zh' };
+const zh = lang === 'zh';
+---
+<section class="next-steps">
+  <div class="next-steps__inner">
+    <h2 class="next-steps__title">{zh ? p.titleZh : p.title}</h2>
+    <p class="next-steps__intro">{zh ? p.introZh : p.intro}</p>
+    <ol class="next-steps__list">
+      {p.steps.map((s, i) => (
+        <li class="next-steps__item">
+          <span class="next-steps__num">{i + 1}</span>
+          <div>
+            <h3 class="next-steps__step-title">{zh ? s.titleZh : s.title}</h3>
+            <p class="next-steps__step-text">{zh ? s.textZh : s.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+.next-steps {
+  padding: clamp(2.5rem, 6vw, 4rem) 1.2rem;
+}
+.next-steps__inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.next-steps__title {
+  font-family: var(--font-display, serif);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  color: var(--color-ink, #1e1a17);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.next-steps__intro {
+  color: #8a8580;
+  font-size: clamp(0.88rem, 1.8vw, 0.95rem);
+  line-height: 1.7;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.next-steps__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.next-steps__item {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid #e8e5e0;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+}
+.next-steps__num {
+  flex: 0 0 auto;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--color-red, #c8102e);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+}
+.next-steps__step-title {
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  font-weight: 650;
+  color: var(--color-ink, #1e1a17);
+  margin-bottom: 0.25rem;
+}
+.next-steps__step-text {
+  font-size: clamp(0.85rem, 1.7vw, 0.92rem);
+  line-height: 1.7;
+  color: #57534e;
+  margin: 0;
+}
+</style>
