@@ -1,0 +1,215 @@
+---
+// ─────────────────────────────────────────────────────────────
+// Internal applications dashboard — INTENTIONALLY UNLISTED.
+// No nav links, not in sitemap, noindex. The URL path is the
+// first factor; the password (checked server-side by the Apps
+// Script ADMIN_TOKEN) is the second. Rotate either by changing
+// this filename / the token in the Apps Script editor.
+// ─────────────────────────────────────────────────────────────
+const SHEET_API = 'https://script.google.com/macros/s/AKfycbxYWq3BSE7VNXmqdzoEDh_pKj8rcbYmV_WDrtxIDz9cEICevUKH7qLI-8X5H7iMrK9b_w/exec';
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>报名管理 · Explore China</title>
+  <style>
+    :root { --red: #c8102e; --bg: #f9f6f0; --ink: #1e1a17; --muted: #8a8580; --line: #e8e5e0; }
+    * { box-sizing: border-box; margin: 0; }
+    body { font: 14px/1.6 -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--ink); padding: 2rem 1.2rem 4rem; }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    h1 { font-size: 1.3rem; margin-bottom: .2rem; }
+    .sub { color: var(--muted); font-size: .85rem; margin-bottom: 1.5rem; }
+    /* login */
+    .gate { max-width: 340px; margin: 15vh auto; text-align: center; }
+    .gate input { width: 100%; padding: .7rem .9rem; border: 1px solid var(--line); border-radius: 8px; font-size: 1rem; margin: .8rem 0; }
+    .gate button, .toolbar button { background: var(--red); color: #fff; border: 0; padding: .6rem 1.4rem; border-radius: 8px; font-size: .9rem; cursor: pointer; }
+    .gate .err { color: var(--red); font-size: .85rem; min-height: 1.2em; }
+    /* stats + toolbar */
+    .stats { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .chip { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: .25rem .8rem; font-size: .82rem; }
+    .chip b { margin-left: .3rem; }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: .8rem; gap: 1rem; }
+    .toolbar .hint { color: var(--muted); font-size: .8rem; }
+    /* table */
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+    th, td { padding: .55rem .7rem; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: #f3efe7; font-size: .78rem; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
+    tr.row { cursor: pointer; }
+    tr.row:hover { background: #fdfbf7; }
+    td .name { font-weight: 600; }
+    td .mail { color: var(--muted); font-size: .8rem; }
+    select.status { padding: .3rem .4rem; border-radius: 6px; border: 1px solid var(--line); font-size: .82rem; background: #fff; }
+    select.s-new { border-color: #d97706; color: #b45309; }
+    select.s-replied { border-color: #2563eb; color: #1d4ed8; }
+    select.s-deposit { border-color: #ca8a04; color: #a16207; }
+    select.s-confirmed { border-color: #16a34a; color: #15803d; }
+    select.s-closed { border-color: #9ca3af; color: #6b7280; }
+    .saving { font-size: .75rem; color: var(--muted); }
+    /* detail row */
+    tr.detail td { background: #fbf9f4; font-size: .82rem; }
+    .kv { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .4rem .9rem; }
+    .kv div b { color: var(--muted); font-weight: 500; margin-right: .4rem; }
+    textarea.notes { width: 100%; min-height: 56px; margin-top: .6rem; padding: .5rem .6rem; border: 1px solid var(--line); border-radius: 8px; font: inherit; }
+    .notes-save { margin-top: .4rem; font-size: .8rem; background: var(--ink); color: #fff; border: 0; border-radius: 6px; padding: .35rem .9rem; cursor: pointer; }
+    .hidden { display: none; }
+    @media (max-width: 720px) { .hide-sm { display: none; } body { padding: 1rem .5rem 3rem; } }
+  </style>
+</head>
+<body>
+  <!-- login gate -->
+  <div class="gate" id="gate">
+    <h1>报名管理</h1>
+    <p class="sub">Explore China · 内部页面</p>
+    <input type="password" id="pw" placeholder="访问密码" autocomplete="current-password" />
+    <div class="err" id="gate-err"></div>
+    <button id="enter">进入</button>
+  </div>
+
+  <!-- dashboard -->
+  <div class="wrap hidden" id="app">
+    <h1>报名管理</h1>
+    <p class="sub">数据实时来自 Google Sheet · 修改状态即时写回 · <a href="#" id="logout" style="color:var(--muted)">退出</a></p>
+    <div class="stats" id="stats"></div>
+    <div class="toolbar">
+      <span class="hint">点击任意一行展开完整申请内容</span>
+      <span><span class="saving" id="saving"></span> <button id="refresh">刷新</button></span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>申请人</th><th class="hide-sm">线路</th><th class="hide-sm">提交时间</th><th class="hide-sm">来源</th><th>状态</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <script is:inline define:vars={{ SHEET_API }}>
+    const STATUSES = [
+      ['new', '🆕 新申请'],
+      ['replied', '✉️ 已回复'],
+      ['deposit', '💰 已交定金'],
+      ['confirmed', '✅ 已确认'],
+      ['closed', '❌ 已关闭'],
+    ];
+    const $ = (id) => document.getElementById(id);
+    let TOKEN = localStorage.getItem('ec_dash_token') || '';
+    let DATA = [];
+
+    const api = (body) => fetch(SHEET_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ token: TOKEN, ...body }),
+    }).then(r => r.json());
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const fmtDate = (v) => {
+      const d = new Date(v);
+      return isNaN(d) ? esc(v) : d.toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    };
+
+    async function load() {
+      $('saving').textContent = '加载中…';
+      const res = await api({ action: 'list' });
+      $('saving').textContent = '';
+      if (res.result !== 'success') { logout('密码错误或已失效'); return; }
+      DATA = res.rows;
+      render();
+    }
+
+    function render() {
+      // stats
+      const counts = {};
+      DATA.forEach(r => { const s = r.status || 'new'; counts[s] = (counts[s] || 0) + 1; });
+      $('stats').innerHTML =
+        `<span class="chip">总计<b>${DATA.length}</b></span>` +
+        STATUSES.map(([k, label]) => `<span class="chip">${label}<b>${counts[k] || 0}</b></span>`).join('');
+
+      // rows (newest first)
+      const sorted = [...DATA].sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)));
+      $('rows').innerHTML = sorted.map(r => {
+        const status = r.status || 'new';
+        const opts = STATUSES.map(([k, label]) => `<option value="${k}" ${k === status ? 'selected' : ''}>${label}</option>`).join('');
+        const source = r.utm_source ? `${esc(r.utm_source)}${r.utm_campaign ? ' / ' + esc(r.utm_campaign) : ''}` : '自然流量';
+        const detail = Object.entries(r)
+          .filter(([k, v]) => !['_row', 'status', 'notes'].includes(k) && String(v).trim() !== '')
+          .map(([k, v]) => `<div><b>${esc(k)}</b>${esc(v)}</div>`).join('');
+        return `
+        <tr class="row" data-row="${r._row}">
+          <td><div class="name">${esc(r.preferredName || r.fullName)}</div><div class="mail">${esc(r.email)}</div></td>
+          <td class="hide-sm">${esc(String(r.trips).slice(0, 46))}</td>
+          <td class="hide-sm">${fmtDate(r.submittedAt)}</td>
+          <td class="hide-sm">${source}</td>
+          <td><select class="status s-${status}" data-row="${r._row}">${opts}</select></td>
+        </tr>
+        <tr class="detail hidden" data-detail="${r._row}">
+          <td colspan="5">
+            <div class="kv">${detail}</div>
+            <textarea class="notes" data-row="${r._row}" placeholder="内部备注（比如：7/11 已回信）">${esc(r.notes || '')}</textarea>
+            <button class="notes-save" data-row="${r._row}">保存备注</button>
+          </td>
+        </tr>`;
+      }).join('');
+
+      // wire events
+      document.querySelectorAll('tr.row').forEach(tr => tr.addEventListener('click', (e) => {
+        if (e.target.closest('select')) return;
+        const d = document.querySelector(`tr[data-detail="${tr.dataset.row}"]`);
+        d.classList.toggle('hidden');
+      }));
+      document.querySelectorAll('select.status').forEach(sel => sel.addEventListener('change', async () => {
+        sel.className = 'status s-' + sel.value;
+        await save(sel.dataset.row, { status: sel.value });
+      }));
+      document.querySelectorAll('.notes-save').forEach(btn => btn.addEventListener('click', async () => {
+        const ta = document.querySelector(`textarea.notes[data-row="${btn.dataset.row}"]`);
+        const row = DATA.find(r => String(r._row) === btn.dataset.row);
+        await save(btn.dataset.row, { status: (row && row.status) || 'new', notes: ta.value });
+      }));
+    }
+
+    async function save(row, fields) {
+      $('saving').textContent = '保存中…';
+      const res = await api({ action: 'setStatus', row: Number(row), ...fields });
+      $('saving').textContent = res.result === 'success' ? '已保存 ✓' : '保存失败，请刷新重试';
+      const r = DATA.find(x => String(x._row) === String(row));
+      if (r && res.result === 'success') Object.assign(r, fields);
+      setTimeout(() => { $('saving').textContent = ''; }, 2000);
+    }
+
+    function logout(msg) {
+      localStorage.removeItem('ec_dash_token');
+      TOKEN = '';
+      $('app').classList.add('hidden');
+      $('gate').classList.remove('hidden');
+      $('gate-err').textContent = msg || '';
+    }
+
+    async function enter() {
+      TOKEN = $('pw').value.trim();
+      if (!TOKEN) return;
+      $('gate-err').textContent = '验证中…';
+      const res = await api({ action: 'list' });
+      if (res.result === 'success') {
+        localStorage.setItem('ec_dash_token', TOKEN);
+        DATA = res.rows;
+        $('gate').classList.add('hidden');
+        $('app').classList.remove('hidden');
+        render();
+      } else {
+        $('gate-err').textContent = '密码不对，再试试';
+      }
+    }
+
+    $('enter').addEventListener('click', enter);
+    $('pw').addEventListener('keydown', (e) => { if (e.key === 'Enter') enter(); });
+    $('refresh').addEventListener('click', load);
+    $('logout').addEventListener('click', (e) => { e.preventDefault(); logout(); });
+
+    if (TOKEN) { $('gate').classList.add('hidden'); $('app').classList.remove('hidden'); load(); }
+  </script>
+</body>
+</html>

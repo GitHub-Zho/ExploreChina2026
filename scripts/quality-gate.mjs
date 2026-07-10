@@ -129,8 +129,9 @@ for (const f of files.filter(f => !f.includes(`${sep}data${sep}`) && /\.(astro|j
 // ── Check 7: EN ↔ ZH route parity ────────────────────────────
 // Every src/pages/X.astro must have src/pages/zh/X.astro.
 const PARITY_EXCEPTIONS = new Set([
-  'sitemap.xml.ts', // language-neutral
-  'llms.txt.ts',    // language-neutral (links both language trees)
+  'sitemap.xml.ts',    // language-neutral
+  'llms.txt.ts',       // language-neutral (links both language trees)
+  'dash-8bc20e.astro', // internal unlisted dashboard (ZH UI, single page)
 ]);
 const enPages = walk(PAGES, /\.(astro|ts)$/).filter(
   p => !relative(PAGES, p).startsWith('zh' + sep)

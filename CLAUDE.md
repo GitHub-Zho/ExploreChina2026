@@ -86,6 +86,17 @@ Rules:
 4. **`form.scheduleId` is written to the Google Sheet** — never change it for an existing trip.
 5. **Adding a trip / product family** → follow the README playbooks ("How to add a new trip", "How to add a new product family"). Yunnan launch = fill its stub + copy the SC page pair.
 
+## Applications Dashboard (internal)
+`src/pages/dash-8bc20e.astro` is an UNLISTED admin page for managing
+applications (status/notes per applicant, live from the Google Sheet).
+- Not linked anywhere, noindex, excluded from sitemap and the parity check
+- Auth: password checked SERVER-SIDE by the Apps Script (`ADMIN_TOKEN` in
+  the "Explore China 2026 signup" project). **Never commit the password.**
+- Rotate access: change `ADMIN_TOKEN` in the Apps Script editor (redeploy
+  new version, same URL) and/or rename this page file
+- The Apps Script doPost routes: no `action` field = form intake;
+  `action: list|setStatus` + token = dashboard API
+
 ## Key Files
 
 ```
